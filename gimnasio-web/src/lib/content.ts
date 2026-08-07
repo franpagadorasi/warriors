@@ -59,17 +59,17 @@ const apiVersion = '2026-03-01';
 const fallbackContent: HomeContent = {
 	settings: {
 		businessName: 'Club Taekwondo Warriors',
-		tagline: 'Taekwondo olímpico',
+		tagline: 'Taekwondo olimpico',
 		eyebrow: 'Club de taekwondo para todas las edades',
-		heroTitle: 'Taekwondo olímpico para competir, crecer y superarte.',
+		heroTitle: 'Taekwondo olimpico para competir, crecer y superarte.',
 		heroDescription:
-			'Formamos campeones en el tatami y grandes personas en la vida con clases infantiles, juveniles y de adultos enfocadas en técnica, disciplina y valores.',
+			'Formamos campeones en el tatami y grandes personas en la vida con clases infantiles, juveniles y de adultos enfocadas en tecnica, disciplina y valores.',
 		primaryCtaLabel: 'Prueba gratis',
 		primaryCtaUrl: '#prueba',
-		secondaryCtaLabel: 'Conócenos',
+		secondaryCtaLabel: 'Conocenos',
 		secondaryCtaUrl: '#club',
 		launchLabel: 'Ven a entrenar',
-		launchTitle: 'Rápido, fuerte, inteligente e inquebrantable',
+		launchTitle: 'Rapido, fuerte, inteligente e inquebrantable',
 		launchDescription:
 			'Una propuesta moderna para captar alumnos desde el primer vistazo, con una imagen potente y una llamada clara a reservar la primera clase.',
 		phone: '+34 600 123 456',
@@ -80,66 +80,66 @@ const fallbackContent: HomeContent = {
 	},
 	features: [
 		{
-			title: 'Taekwondo olímpico',
-			description: 'Entrenamos bajo los estándares de World Taekwondo.'
+			title: 'Taekwondo olimpico',
+			description: 'Entrenamos bajo los estandares de World Taekwondo.'
 		},
 		{
 			title: 'Para todas las edades',
-			description: 'Desde los 4 años hasta adultos con grupos adaptados.'
+			description: 'Desde los 4 anos hasta adultos con grupos adaptados.'
 		},
 		{
-			title: 'Competición y valores',
-			description: 'Técnica, disciplina, perseverancia y mentalidad de equipo.'
+			title: 'Competicion y valores',
+			description: 'Tecnica, disciplina, perseverancia y mentalidad de equipo.'
 		}
 	],
 	classes: [
 		{
 			title: 'Infantil',
 			description:
-				'Clases dinámicas para niños y niñas desde los 4 años, enfocadas en disciplina, confianza y diversión.',
-			audience: 'Desde 4 años',
+				'Clases dinamicas para ninos y ninas desde los 4 anos, enfocadas en disciplina, confianza y diversion.',
+			audience: 'Desde 4 anos',
 			order: 1
 		},
 		{
 			title: 'Juvenil',
 			description:
-				'Entrenamiento técnico y físico para jóvenes que quieren progresar, competir o ganar seguridad.',
+				'Entrenamiento tecnico y fisico para jovenes que quieren progresar, competir o ganar seguridad.',
 			audience: 'Adolescentes',
 			order: 2
 		},
 		{
 			title: 'Adultos',
 			description:
-				'Sesiones adaptadas a todos los niveles para ponerse en forma, aprender técnica y desconectar mientras mejoras tu seguridad y coordinación.',
+				'Sesiones adaptadas a todos los niveles para ponerse en forma, aprender tecnica y desconectar mientras mejoras tu seguridad y coordinacion.',
 			audience: 'Todos los niveles',
 			order: 3
 		},
 		{
 			title: 'Defensa personal',
 			description:
-				'Trabajo práctico para mejorar reflejos, seguridad y control corporal en situaciones reales.',
-			audience: 'Práctico',
+				'Trabajo practico para mejorar reflejos, seguridad y control corporal en situaciones reales.',
+			audience: 'Practico',
 			order: 4
 		}
 	],
 	schedule: [
-		{ group: 'Infantil', days: 'Lunes y miércoles', time: '17:30 - 18:30', order: 1 },
+		{ group: 'Infantil', days: 'Lunes y miercoles', time: '17:30 - 18:30', order: 1 },
 		{ group: 'Cadete / junior', days: 'Lunes y jueves', time: '18:30 - 19:30', order: 2 },
-		{ group: 'Adultos', days: 'Lunes, miércoles y viernes', time: '19:30 - 20:30', order: 3 },
-		{ group: 'Competición', days: 'Martes y jueves', time: '20:30 - 22:00', order: 4 }
+		{ group: 'Adultos', days: 'Lunes, miercoles y viernes', time: '19:30 - 20:30', order: 3 },
+		{ group: 'Competicion', days: 'Martes y jueves', time: '20:30 - 22:00', order: 4 }
 	],
 	aboutPoints: [
 		{
 			title: 'Valores claros',
-			description: 'Respeto, disciplina, autoestima y progresión real.'
+			description: 'Respeto, disciplina, autoestima y progresion real.'
 		},
 		{
 			title: 'Instalaciones y ambiente',
 			description: 'Tatami, grupos reducidos y ambiente cercano para progresar con seguridad.'
 		},
 		{
-			title: 'Ambición deportiva',
-			description: 'Preparamos a cada alumno para crecer en técnica, confianza y competición.'
+			title: 'Ambicion deportiva',
+			description: 'Preparamos a cada alumno para crecer en tecnica, confianza y competicion.'
 		}
 	]
 };
