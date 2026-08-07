@@ -1,0 +1,84 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'Escuela de Taekwondo',
+	description = 'Web informativa para una escuela de taekwondo con inscripcion a clase de prueba y contacto directo.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--bg: #05070d;
+		--text: #f5f7fb;
+		--muted: #aab3c5;
+		--primary: #e31d1c;
+		--secondary: #1762ff;
+		--accent: #ffd24a;
+		--max-width: 1520px;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		margin: 0;
+		min-width: 320px;
+		font-family: Arial, Helvetica, sans-serif;
+		color: var(--text);
+		background: var(--bg);
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	img {
+		max-width: 100%;
+		display: block;
+	}
+
+	.container {
+		width: min(var(--max-width), calc(100% - 1rem));
+		margin: 0 auto;
+	}
+
+	.section-title {
+		margin: 0 0 0.8rem;
+		font-size: clamp(2rem, 4vw, 3.35rem);
+		line-height: 0.95;
+		text-transform: uppercase;
+	}
+
+	.section-copy {
+		margin: 0;
+		font-size: 1.02rem;
+		line-height: 1.7;
+		color: #4f596d;
+	}
+</style>

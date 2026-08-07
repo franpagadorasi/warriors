@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { isSanityConfigured } from '../lib/content';
+
+const configured = isSanityConfigured();
+---
+
+<Layout
+	title="Panel de administracion | Escuela de Taekwondo"
+	description="Instrucciones para activar el panel de edicion con Sanity."
+>
+	<main class="container admin-page">
+		<p class="eyebrow">Panel de edicion</p>
+		<h1 class="section-title">Sanity sera el panel de administracion de la web</h1>
+		<p class="section-copy">
+			La integracion base ya esta preparada. En cuanto anadas las variables del proyecto,
+			el panel quedara disponible en <strong>/admin</strong>.
+		</p>
+
+		<div class="admin-card">
+			{configured ? (
+				<>
+					<h2>Configuracion detectada</h2>
+					<p>
+						La web ya tiene variables de Sanity disponibles. Abre <a href="/admin">/admin</a>
+						para entrar al panel.
+					</p>
+				</>
+			) : (
+				<>
+					<h2>Faltan 3 pasos</h2>
+					<ol>
+						<li>Crear una cuenta y un proyecto gratis en Sanity.</li>
+						<li>Copiar `.env.example` a `.env` y rellenar el `projectId` y el dataset.</li>
+						<li>Reiniciar `npm run dev` para que Astro cargue la integracion.</li>
+					</ol>
+				</>
+			)}
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.admin-page {
+		padding: 5rem 0;
+	}
+
+	.admin-card {
+		margin-top: 2rem;
+		padding: 2rem;
+		border: 1px solid var(--line);
+		border-radius: 1.5rem;
+		background: linear-gradient(180deg, rgba(18, 27, 45, 0.95), rgba(10, 14, 24, 0.95));
+		box-shadow: var(--shadow);
+	}
+
+	ol {
+		margin: 1rem 0 0;
+		padding-left: 1.25rem;
+		color: var(--muted);
+		line-height: 1.8;
+	}
+
+	a {
+		color: var(--accent);
+	}
+</style>

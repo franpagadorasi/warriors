@@ -1,0 +1,12 @@
+.DS_Store
+.env
+.env.production
+
+**/node_modules/
+**/.astro/
+**/dist/
+**/.sanity/
+**/.playwright-cli/
+**/*.log
+
+.idea/
