@@ -172,11 +172,16 @@ const valuePillars = [
 		</section>
 
 		<section class="about-section" id="club">
+			<div class="container">
+				<div class="section-title-line about-title-line">
+					<span></span>
+					<h2 class="section-title center-title unified-title">{content.settings.aboutKicker}</h2>
+					<span></span>
+				</div>
+			</div>
 			<div class="container about-shell">
 				<div class="about-copy">
-					<p class="section-kicker">{content.settings.aboutKicker}</p>
-					<div class="section-underline"></div>
-					<h2 class="section-title">{content.settings.aboutTitle}</h2>
+					<h3 class="about-lead">{content.settings.aboutTitle}</h3>
 					<p class="section-copy">{content.settings.aboutDescription}</p>
 					<a class="button button-blue" href={content.settings.aboutCtaUrl || '#contacto'}>
 						{content.settings.aboutCtaLabel || 'Conoce nuestra historia'}
@@ -1112,29 +1117,40 @@ const valuePillars = [
 		padding: 2.8rem 0;
 	}
 
+	.about-title-line {
+		margin-bottom: 2rem;
+	}
+
 	.about-shell {
 		display: grid;
-		grid-template-columns: 0.8fr 1.2fr;
-		gap: 1.5rem;
-		align-items: start;
+		grid-template-columns: minmax(18rem, 0.78fr) minmax(0, 1.22fr);
+		gap: 2.6rem;
+		align-items: center;
 	}
 
 	.about-copy {
-		padding: 0.6rem 0 0;
+		padding: 0.2rem 0 0;
+		max-width: 32rem;
+		margin: 0 auto;
+		text-align: left;
 	}
 
-	.about-copy .section-title {
-		max-width: 8ch;
-		margin-bottom: 1.1rem;
-		font-size: clamp(3rem, 5vw, 5rem);
-		line-height: 0.92;
+	.about-lead {
+		margin: 0 0 1rem;
+		max-width: 8.5ch;
+		font-size: clamp(2.3rem, 3.4vw, 3.25rem);
+		line-height: 0.98;
+		text-transform: uppercase;
+		color: #151d31;
 	}
 
-	.section-underline {
-		width: 2.1rem;
-		height: 0.22rem;
-		margin-bottom: 1.25rem;
-		background: #e31d1c;
+	.about-copy .section-copy {
+		max-width: 29rem;
+		text-align: left;
+	}
+
+	.about-copy .button {
+		margin-top: 1.2rem;
 	}
 
 	.about-gallery {
@@ -1142,6 +1158,8 @@ const valuePillars = [
 		grid-template-columns: 1.15fr 0.85fr 0.85fr;
 		grid-template-rows: 12rem 12rem;
 		gap: 0.9rem;
+		margin-top: 0;
+		align-self: center;
 	}
 
 	.about-gallery img {
@@ -2392,7 +2410,7 @@ const valuePillars = [
 		gap: 2.2rem;
 		padding-top: 1.7rem;
 		border-top: 1px solid rgba(255, 255, 255, 0.08);
-		align-items: start;
+		align-items: stretch;
 	}
 
 	.footer-brand p,
@@ -2405,6 +2423,7 @@ const valuePillars = [
 	.footer-feed,
 	.footer-map-panel {
 		position: relative;
+		height: 100%;
 	}
 
 	.footer-contact,
