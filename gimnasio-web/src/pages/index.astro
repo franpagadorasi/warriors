@@ -64,6 +64,32 @@ const clubReasons = [
 	'Equipo de competicion',
 	'Ambiente familiar y educativo'
 ];
+
+const weeklySchedule = [
+	{
+		time: '17:30 - 18:30',
+		tone: 'gold',
+		classes: ['Warriors Kids', 'Warriors Kids', 'Warriors Kids', 'Warriors Kids']
+	},
+	{
+		time: '18:30 - 19:30',
+		tone: 'blue',
+		classes: ['Warriors Junior', 'Warriors Junior', 'Warriors Junior', 'Warriors Junior']
+	},
+	{
+		time: '19:30 - 20:30',
+		tone: 'red',
+		classes: ['Warriors Elite', '', 'Warriors Elite', 'Warriors Elite']
+	}
+];
+
+const ageGroups = [
+	{ tone: 'gold', label: 'Warriors Kids', range: 'de 3 a 9 anos' },
+	{ tone: 'blue', label: 'Warriors Junior', range: 'de 10 a 15 anos' },
+	{ tone: 'red', label: 'Warriors Elite', range: 'mas de 16 anos' }
+];
+
+const valuePillars = ['Cortesia', 'Perseverancia', 'Autocontrol', 'Humildad'];
 ---
 
 <Layout title={`${content.settings.businessName} | Taekwondo olimpico`} description={content.settings.heroDescription}>
@@ -211,6 +237,51 @@ const clubReasons = [
 					<p class="reasons-title">Por que entrenar en Warriors?</p>
 					<div class="reasons-grid">
 						{clubReasons.map((reason) => <span>{reason}</span>)}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="schedule-showcase" id="horarios">
+			<div class="container">
+				<p class="section-kicker center">Horario de clases</p>
+				<h2 class="section-title center-title">Horario semanal Warriors</h2>
+
+				<div class="schedule-board">
+					<div class="schedule-header">Horario</div>
+					<div class="schedule-header">Lunes</div>
+					<div class="schedule-header">Martes</div>
+					<div class="schedule-header">Miercoles</div>
+					<div class="schedule-header">Jueves</div>
+
+					{weeklySchedule.map((row) => (
+						<>
+							<div class={`schedule-time ${row.tone}`}>{row.time}</div>
+							{row.classes.map((item) => (
+								<div class={`schedule-cell ${row.tone} ${!item ? 'empty' : ''}`}>
+									{item && <span>{item}</span>}
+								</div>
+							))}
+						</>
+					))}
+				</div>
+
+				<div class="schedule-notes">
+					<div class="age-box">
+						{ageGroups.map((group) => (
+							<p class={`age-line ${group.tone}`}>
+								<strong>{group.label}</strong>
+								<span>{group.range}</span>
+							</p>
+						))}
+					</div>
+
+					<div class="values-box">
+						{valuePillars.map((item, index) => (
+							<div class={`value-pill ${index % 2 === 0 ? 'blue' : 'red'}`}>
+								<span>{item}</span>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>
@@ -699,6 +770,183 @@ const clubReasons = [
 		padding: 0 0 3rem;
 		background: #f5f5f5;
 		color: #111827;
+	}
+
+	.schedule-showcase {
+		padding: 0 0 3rem;
+		background: #f5f5f5;
+		color: #111827;
+	}
+
+	.schedule-board {
+		display: grid;
+		grid-template-columns: 1.05fr repeat(4, 1fr);
+		border-radius: 1.4rem;
+		overflow: hidden;
+		border: 2px solid rgba(19, 34, 87, 0.12);
+		box-shadow: 0 20px 40px rgba(15, 18, 28, 0.08);
+	}
+
+	.schedule-header {
+		padding: 1.15rem 0.75rem;
+		background: #10245f;
+		color: #fff;
+		text-align: center;
+		font-size: 1.02rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		border-right: 1px solid rgba(255, 255, 255, 0.18);
+	}
+
+	.schedule-header:last-child {
+		border-right: 0;
+	}
+
+	.schedule-time,
+	.schedule-cell {
+		min-height: 8.4rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+		border-right: 1px solid rgba(17, 23, 35, 0.08);
+		border-top: 1px solid rgba(17, 23, 35, 0.08);
+		text-align: center;
+	}
+
+	.schedule-time {
+		background: #fff;
+		font-size: 1.55rem;
+		font-weight: 900;
+		color: #10245f;
+	}
+
+	.schedule-time.gold {
+		color: #d89200;
+	}
+
+	.schedule-time.blue {
+		color: #174eff;
+	}
+
+	.schedule-time.red {
+		color: #e31d1c;
+	}
+
+	.schedule-cell {
+		color: #fff;
+		font-size: 1.9rem;
+		font-weight: 900;
+		line-height: 0.95;
+		text-transform: uppercase;
+	}
+
+	.schedule-cell span {
+		max-width: 7ch;
+	}
+
+	.schedule-cell.gold {
+		background: linear-gradient(135deg, #f3b10d, #ffcb38);
+		color: #fff;
+		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+	}
+
+	.schedule-cell.blue {
+		background: linear-gradient(135deg, #0f329d, #174eff);
+		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+	}
+
+	.schedule-cell.red {
+		background: linear-gradient(135deg, #c91117, #ef2b22);
+		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+	}
+
+	.schedule-cell.empty {
+		background: #fff;
+	}
+
+	.schedule-notes {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+
+	.age-box,
+	.values-box {
+		background: #fff;
+		border-radius: 1.2rem;
+		padding: 1.1rem 1.2rem;
+		border: 1px solid rgba(17, 23, 35, 0.08);
+		box-shadow: 0 14px 28px rgba(15, 18, 28, 0.06);
+	}
+
+	.age-line {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		margin: 0;
+		padding: 0.75rem 0;
+		border-bottom: 1px solid rgba(17, 23, 35, 0.08);
+	}
+
+	.age-line:last-child {
+		border-bottom: 0;
+	}
+
+	.age-line::before {
+		content: '';
+		width: 2.4rem;
+		height: 0.6rem;
+		border-radius: 999px;
+		flex: 0 0 auto;
+	}
+
+	.age-line.gold::before {
+		background: #f3b10d;
+	}
+
+	.age-line.blue::before {
+		background: #174eff;
+	}
+
+	.age-line.red::before {
+		background: #e31d1c;
+	}
+
+	.age-line strong {
+		font-size: 1.2rem;
+		text-transform: uppercase;
+	}
+
+	.age-line span {
+		color: #40506b;
+		font-weight: 700;
+	}
+
+	.values-box {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.value-pill {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 3rem;
+		border-radius: 999px;
+		color: #fff;
+		font-size: 1rem;
+		font-weight: 900;
+		text-transform: uppercase;
+	}
+
+	.value-pill.blue {
+		background: linear-gradient(135deg, #10308d, #174eff);
+	}
+
+	.value-pill.red {
+		background: linear-gradient(135deg, #c91117, #ef2b22);
 	}
 
 	.pricing-title {
@@ -1231,6 +1479,11 @@ const clubReasons = [
 			grid-template-columns: 1fr 1fr;
 		}
 
+		.schedule-board,
+		.schedule-notes {
+			grid-template-columns: 1fr;
+		}
+
 		.about-gallery {
 			grid-template-columns: 1fr 1fr;
 			grid-template-rows: 12rem 12rem 12rem;
@@ -1261,6 +1514,21 @@ const clubReasons = [
 
 		.reasons-grid {
 			grid-template-columns: 1fr 1fr;
+		}
+
+		.schedule-board {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.schedule-header {
+			font-size: 0.86rem;
+			padding: 0.85rem 0.4rem;
+		}
+
+		.schedule-time,
+		.schedule-cell {
+			min-height: 5.5rem;
+			font-size: 1rem;
 		}
 
 		.hero-copy {
