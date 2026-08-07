@@ -7,6 +7,18 @@ export const featureItemType = defineType({
 	fields: [
 		defineField({ name: 'title', title: 'Titulo', type: 'string', validation: (rule) => rule.required() }),
 		defineField({ name: 'description', title: 'Descripcion', type: 'text', rows: 3 }),
+		defineField({
+			name: 'tone',
+			title: 'Color del icono',
+			type: 'string',
+			options: {
+				list: [
+					{ title: 'Rojo', value: 'red' },
+					{ title: 'Azul', value: 'blue' }
+				]
+			},
+			initialValue: 'red'
+		}),
 		defineField({ name: 'order', title: 'Orden', type: 'number' })
 	],
 	preview: {

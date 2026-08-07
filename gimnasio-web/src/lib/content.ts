@@ -6,23 +6,46 @@ export interface SiteSettings {
 	eyebrow: string;
 	heroTitle: string;
 	heroDescription: string;
-	primaryCtaLabel: string;
-	primaryCtaUrl: string;
 	secondaryCtaLabel: string;
 	secondaryCtaUrl: string;
-	launchLabel: string;
-	launchTitle: string;
-	launchDescription: string;
+	heroImageUrl?: string;
+	aboutKicker: string;
+	aboutTitle: string;
+	aboutDescription: string;
+	aboutCtaLabel: string;
+	aboutCtaUrl: string;
+	aboutImageMainUrl?: string;
+	aboutImageSecondaryOneUrl?: string;
+	aboutImageSecondaryTwoUrl?: string;
+	aboutImageSecondaryThreeUrl?: string;
+	classesKicker: string;
+	classesTitle: string;
+	classesButtonLabel: string;
+	newsTitle: string;
+	newsLinkLabel: string;
+	galleryTitle: string;
+	galleryLinkLabel: string;
+	ctaTitle: string;
+	ctaDescription: string;
+	ctaButtonLabel: string;
+	ctaImageUrl?: string;
+	footerDescription: string;
 	phone: string;
 	email: string;
 	address: string;
 	instagram: string;
+	instagramUrl: string;
+	facebookUrl: string;
+	tiktokUrl: string;
 	whatsappUrl: string;
+	mapButtonLabel: string;
 }
 
 export interface FeatureItem {
 	title: string;
 	description: string;
+	tone?: 'red' | 'blue';
+	order?: number;
 }
 
 export interface ClassOffer {
@@ -30,6 +53,7 @@ export interface ClassOffer {
 	description: string;
 	audience?: string;
 	order?: number;
+	imageUrl?: string;
 }
 
 export interface ScheduleEntry {
@@ -42,6 +66,30 @@ export interface ScheduleEntry {
 export interface AboutPoint {
 	title: string;
 	description: string;
+	order?: number;
+}
+
+export interface StatItem {
+	value: string;
+	label: string;
+	tone?: 'red' | 'blue';
+	order?: number;
+}
+
+export interface NewsItem {
+	title: string;
+	date: string;
+	excerpt?: string;
+	imageUrl?: string;
+	ctaLabel?: string;
+	order?: number;
+}
+
+export interface GalleryItem {
+	title: string;
+	imageUrl?: string;
+	featured?: boolean;
+	order?: number;
 }
 
 export interface HomeContent {
@@ -50,6 +98,9 @@ export interface HomeContent {
 	classes: ClassOffer[];
 	schedule: ScheduleEntry[];
 	aboutPoints: AboutPoint[];
+	stats: StatItem[];
+	news: NewsItem[];
+	gallery: GalleryItem[];
 }
 
 const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
@@ -60,36 +111,70 @@ const fallbackContent: HomeContent = {
 	settings: {
 		businessName: 'Club Taekwondo Warriors',
 		tagline: 'Taekwondo olimpico',
-		eyebrow: 'Club de taekwondo para todas las edades',
-		heroTitle: 'Taekwondo olimpico para competir, crecer y superarte.',
+		eyebrow: "Escuela d'arts marcials",
+		heroTitle: 'Mas que un deporte. Una forma de vida.',
 		heroDescription:
-			'Formamos campeones en el tatami y grandes personas en la vida con clases infantiles, juveniles y de adultos enfocadas en tecnica, disciplina y valores.',
-		primaryCtaLabel: 'Prueba gratis',
-		primaryCtaUrl: '#prueba',
+			'Formamos personas dentro y fuera del tatami. Disciplina, respeto, superacion y pasion en cada entrenamiento.',
 		secondaryCtaLabel: 'Conocenos',
 		secondaryCtaUrl: '#club',
-		launchLabel: 'Ven a entrenar',
-		launchTitle: 'Rapido, fuerte, inteligente e inquebrantable',
-		launchDescription:
-			'Una propuesta moderna para captar alumnos desde el primer vistazo, con una imagen potente y una llamada clara a reservar la primera clase.',
+		heroImageUrl: '/images/hero-taekwondo.png',
+		aboutKicker: 'Sobre nosotros',
+		aboutTitle: 'Formamos guerreros dentro y fuera del tatami.',
+		aboutDescription:
+			'En Club Taekwondo Warriors ayudamos a crecer a cada alumno a traves del taekwondo olimpico, con una metodologia cercana, tecnica y exigente.',
+		aboutCtaLabel: 'Conoce nuestra historia',
+		aboutCtaUrl: '#contacto',
+		aboutImageMainUrl: '/images/dojo-interior.png',
+		aboutImageSecondaryOneUrl: '/images/kids-taekwondo.png',
+		aboutImageSecondaryTwoUrl: '/images/modalidad-exhibicion.png',
+		aboutImageSecondaryThreeUrl: '/images/modalidad-combate.png',
+		classesKicker: 'Nuestras modalidades',
+		classesTitle: 'Nuestras modalidades',
+		classesButtonLabel: 'Ver todas las modalidades',
+		newsTitle: 'Ultimas noticias',
+		newsLinkLabel: 'Ver todas',
+		galleryTitle: 'Galeria',
+		galleryLinkLabel: 'Ver galeria completa',
+		ctaTitle: 'Listo para empezar tu camino?',
+		ctaDescription: 'Descubre el club, conoce el ambiente y reserva una primera toma de contacto.',
+		ctaButtonLabel: 'Reserva tu plaza',
+		ctaImageUrl: '/images/modalidad-poomsae.png',
+		footerDescription:
+			'Mas que un club, una familia. Formando guerreros desde el respeto, la disciplina y la constancia.',
 		phone: '+34 600 123 456',
 		email: 'hola@clubtaekwndowarriors.com',
 		address: 'Calle Warriors 1, tu ciudad',
 		instagram: '@clubtaekwndowarriors',
-		whatsappUrl: 'https://wa.me/34123456789'
+		instagramUrl: '#',
+		facebookUrl: '#',
+		tiktokUrl: '#',
+		whatsappUrl: 'https://wa.me/34123456789',
+		mapButtonLabel: 'Como llegar'
 	},
 	features: [
 		{
 			title: 'Taekwondo olimpico',
-			description: 'Entrenamos bajo los estandares de World Taekwondo.'
+			description: 'Entrenamiento de alto nivel para todas las edades.',
+			tone: 'red',
+			order: 1
 		},
 		{
-			title: 'Para todas las edades',
-			description: 'Desde los 4 anos hasta adultos con grupos adaptados.'
+			title: 'Escuela infantil',
+			description: 'Desarrollamos habilidades, valores y confianza.',
+			tone: 'blue',
+			order: 2
 		},
 		{
-			title: 'Competicion y valores',
-			description: 'Tecnica, disciplina, perseverancia y mentalidad de equipo.'
+			title: 'Club de competicion',
+			description: 'Competimos, aprendemos y alcanzamos metas.',
+			tone: 'red',
+			order: 3
+		},
+		{
+			title: 'Todos los niveles',
+			description: 'Desde principiantes hasta atletas avanzados.',
+			tone: 'blue',
+			order: 4
 		}
 	],
 	classes: [
@@ -98,28 +183,32 @@ const fallbackContent: HomeContent = {
 			description:
 				'Clases dinamicas para ninos y ninas desde los 4 anos, enfocadas en disciplina, confianza y diversion.',
 			audience: 'Desde 4 anos',
-			order: 1
+			order: 1,
+			imageUrl: '/images/modalidad-combate.png'
 		},
 		{
 			title: 'Juvenil',
 			description:
 				'Entrenamiento tecnico y fisico para jovenes que quieren progresar, competir o ganar seguridad.',
 			audience: 'Adolescentes',
-			order: 2
+			order: 2,
+			imageUrl: '/images/modalidad-poomsae.png'
 		},
 		{
 			title: 'Adultos',
 			description:
 				'Sesiones adaptadas a todos los niveles para ponerse en forma, aprender tecnica y desconectar mientras mejoras tu seguridad y coordinacion.',
 			audience: 'Todos los niveles',
-			order: 3
+			order: 3,
+			imageUrl: '/images/modalidad-exhibicion.png'
 		},
 		{
 			title: 'Defensa personal',
 			description:
 				'Trabajo practico para mejorar reflejos, seguridad y control corporal en situaciones reales.',
 			audience: 'Practico',
-			order: 4
+			order: 4,
+			imageUrl: '/images/modalidad-defensa.png'
 		}
 	],
 	schedule: [
@@ -131,16 +220,43 @@ const fallbackContent: HomeContent = {
 	aboutPoints: [
 		{
 			title: 'Valores claros',
-			description: 'Respeto, disciplina, autoestima y progresion real.'
-		},
-		{
-			title: 'Instalaciones y ambiente',
-			description: 'Tatami, grupos reducidos y ambiente cercano para progresar con seguridad.'
-		},
-		{
-			title: 'Ambicion deportiva',
-			description: 'Preparamos a cada alumno para crecer en tecnica, confianza y competicion.'
+			description: 'Respeto, disciplina, autoestima y progresion real.',
+			order: 1
 		}
+	],
+	stats: [
+		{ value: '+350', label: 'Alumnos activos', tone: 'red', order: 1 },
+		{ value: '+120', label: 'Medallas obtenidas', tone: 'blue', order: 2 },
+		{ value: '+25', label: 'Anos de experiencia', tone: 'red', order: 3 },
+		{ value: '+15', label: 'Cinturones negros', tone: 'blue', order: 4 }
+	],
+	news: [
+		{
+			title: 'Gran actuacion en el campeonato de primavera',
+			date: '2026-05-10',
+			imageUrl: '/images/modalidad-combate.png',
+			ctaLabel: 'Leer mas',
+			order: 1
+		},
+		{
+			title: 'Examen de cinturones con nuevos aprobados',
+			date: '2026-05-02',
+			imageUrl: '/images/kids-taekwondo.png',
+			ctaLabel: 'Leer mas',
+			order: 2
+		},
+		{
+			title: 'Campus intensivo y jornadas especiales de tecnica',
+			date: '2026-04-18',
+			imageUrl: '/images/dojo-interior.png',
+			ctaLabel: 'Leer mas',
+			order: 3
+		}
+	],
+	gallery: [
+		{ title: 'Galeria 1', imageUrl: '/images/kids-taekwondo.png', featured: true, order: 1 },
+		{ title: 'Galeria 2', imageUrl: '/images/modalidad-combate.png', featured: false, order: 2 },
+		{ title: 'Galeria 3', imageUrl: '/images/dojo-interior.png', featured: false, order: 3 }
 	]
 };
 
@@ -162,28 +278,52 @@ const homeQuery = `
     eyebrow,
     heroTitle,
     heroDescription,
-    primaryCtaLabel,
-    primaryCtaUrl,
     secondaryCtaLabel,
     secondaryCtaUrl,
-    launchLabel,
-    launchTitle,
-    launchDescription,
+    "heroImageUrl": heroImage.asset->url,
+    aboutKicker,
+    aboutTitle,
+    aboutDescription,
+    aboutCtaLabel,
+    aboutCtaUrl,
+    "aboutImageMainUrl": aboutImageMain.asset->url,
+    "aboutImageSecondaryOneUrl": aboutImageSecondaryOne.asset->url,
+    "aboutImageSecondaryTwoUrl": aboutImageSecondaryTwo.asset->url,
+    "aboutImageSecondaryThreeUrl": aboutImageSecondaryThree.asset->url,
+    classesKicker,
+    classesTitle,
+    classesButtonLabel,
+    newsTitle,
+    newsLinkLabel,
+    galleryTitle,
+    galleryLinkLabel,
+    ctaTitle,
+    ctaDescription,
+    ctaButtonLabel,
+    "ctaImageUrl": ctaImage.asset->url,
+    footerDescription,
     phone,
     email,
     address,
     instagram,
-    whatsappUrl
+    instagramUrl,
+    facebookUrl,
+    tiktokUrl,
+    whatsappUrl,
+    mapButtonLabel
   },
   "features": *[_type == "featureItem"] | order(order asc){
     title,
-    description
+    description,
+    tone,
+    order
   },
   "classes": *[_type == "classOffer"] | order(order asc){
     title,
     description,
     audience,
-    order
+    order,
+    "imageUrl": image.asset->url
   },
   "schedule": *[_type == "scheduleEntry"] | order(order asc){
     group,
@@ -193,7 +333,28 @@ const homeQuery = `
   },
   "aboutPoints": *[_type == "aboutPoint"] | order(order asc){
     title,
-    description
+    description,
+    order
+  },
+  "stats": *[_type == "statItem"] | order(order asc){
+    value,
+    label,
+    tone,
+    order
+  },
+  "news": *[_type == "newsItem"] | order(order asc){
+    title,
+    date,
+    excerpt,
+    ctaLabel,
+    order,
+    "imageUrl": image.asset->url
+  },
+  "gallery": *[_type == "galleryItem"] | order(order asc){
+    title,
+    featured,
+    order,
+    "imageUrl": image.asset->url
   }
 }
 `;
@@ -223,7 +384,10 @@ export async function getHomeContent(): Promise<HomeContent> {
 			aboutPoints:
 				content.aboutPoints && content.aboutPoints.length > 0
 					? content.aboutPoints
-					: fallbackContent.aboutPoints
+					: fallbackContent.aboutPoints,
+			stats: content.stats && content.stats.length > 0 ? content.stats : fallbackContent.stats,
+			news: content.news && content.news.length > 0 ? content.news : fallbackContent.news,
+			gallery: content.gallery && content.gallery.length > 0 ? content.gallery : fallbackContent.gallery
 		};
 	} catch (error) {
 		console.error('No se pudo cargar el contenido desde Sanity.', error);

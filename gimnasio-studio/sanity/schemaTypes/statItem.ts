@@ -1,15 +1,15 @@
 import { defineField, defineType } from 'sanity';
 
-export const featureItemType = defineType({
-	name: 'featureItem',
-	title: 'Ventajas destacadas',
+export const statItemType = defineType({
+	name: 'statItem',
+	title: 'Estadisticas',
 	type: 'document',
 	fields: [
-		defineField({ name: 'title', title: 'Titulo', type: 'string', validation: (rule) => rule.required() }),
-		defineField({ name: 'description', title: 'Descripcion', type: 'text', rows: 3 }),
+		defineField({ name: 'value', title: 'Valor', type: 'string', validation: (rule) => rule.required() }),
+		defineField({ name: 'label', title: 'Etiqueta', type: 'string', validation: (rule) => rule.required() }),
 		defineField({
 			name: 'tone',
-			title: 'Color del icono',
+			title: 'Color',
 			type: 'string',
 			options: {
 				list: [
@@ -23,8 +23,8 @@ export const featureItemType = defineType({
 	],
 	preview: {
 		select: {
-			title: 'title',
-			subtitle: 'description'
+			title: 'value',
+			subtitle: 'label'
 		}
 	}
 });

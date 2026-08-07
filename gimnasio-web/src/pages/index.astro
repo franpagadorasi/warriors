@@ -4,66 +4,14 @@ import { getHomeContent } from '../lib/content';
 
 const content = await getHomeContent();
 
-const heroFeatures = [
-	{
-		title: 'Taekwondo olimpico',
-		description: 'Entrenamiento de alto nivel para todas las edades.',
-		tone: 'red'
-	},
-	{
-		title: 'Escuela infantil',
-		description: 'Desarrollamos habilidades, valores y confianza.',
-		tone: 'blue'
-	},
-	{
-		title: 'Club de competicion',
-		description: 'Competimos, aprendemos y alcanzamos metas.',
-		tone: 'red'
-	},
-	{
-		title: 'Todos los niveles',
-		description: 'Desde principiantes hasta atletas avanzados.',
-		tone: 'blue'
-	}
-];
+const formatNewsDate = (date: string) => {
+	const parsed = new Date(date);
+	if (Number.isNaN(parsed.getTime())) return date;
+	const months = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+	return `${String(parsed.getUTCDate()).padStart(2, '0')} ${months[parsed.getUTCMonth()]} ${parsed.getUTCFullYear()}`;
+};
 
-const stats = [
-	{ value: '+350', label: 'Alumnos activos', tone: 'red' },
-	{ value: '+120', label: 'Medallas obtenidas', tone: 'blue' },
-	{ value: '+25', label: 'Anos de experiencia', tone: 'red' },
-	{ value: '+15', label: 'Cinturones negros', tone: 'blue' }
-];
-
-const classImages = [
-	'/images/modalidad-combate.png',
-	'/images/modalidad-poomsae.png',
-	'/images/modalidad-exhibicion.png',
-	'/images/modalidad-defensa.png'
-];
-
-const galleryImages = [
-	'/images/kids-taekwondo.png',
-	'/images/modalidad-combate.png',
-	'/images/dojo-interior.png'
-];
-
-const news = [
-	{
-		date: '10 MAY 2026',
-		title: 'Gran actuacion en el campeonato de primavera',
-		image: '/images/modalidad-combate.png'
-	},
-	{
-		date: '02 MAY 2026',
-		title: 'Examen de cinturones con nuevos aprobados',
-		image: '/images/kids-taekwondo.png'
-	},
-	{
-		date: '18 ABR 2026',
-		title: 'Campus intensivo y jornadas especiales de tecnica',
-		image: '/images/dojo-interior.png'
-	}
-];
+const galleryItems = [...content.gallery].sort((a, b) => Number(b.featured) - Number(a.featured) || (a.order ?? 99) - (b.order ?? 99));
 ---
 
 <Layout title={`${content.settings.businessName} | Taekwondo olimpico`} description={content.settings.heroDescription}>
@@ -75,8 +23,8 @@ const news = [
 				</div>
 
 				<div class="brand-copy">
-					<strong>Club Taekwondo Warriors</strong>
-					<span>Taekwondo olimpico</span>
+					<strong>{content.settings.businessName}</strong>
+					<span>{content.settings.tagline}</span>
 				</div>
 			</a>
 
@@ -97,29 +45,28 @@ const news = [
 		<section class="hero" id="inicio">
 			<div class="container hero-shell">
 				<div class="hero-copy">
-					<p class="hero-kicker">Escuela d'arts marcials</p>
+					<p class="hero-kicker">{content.settings.eyebrow}</p>
 					<h1>
-						Mas que un deporte.
-						<span>Una forma de vida.</span>
+						{content.settings.heroTitle.split('. ')[0] + '.'}
+						<span>{content.settings.heroTitle.split('. ').slice(1).join('. ') || content.settings.tagline}</span>
 					</h1>
-					<p class="hero-text">
-						Formamos personas dentro y fuera del tatami. Disciplina, respeto,
-						superacion y pasion en cada entrenamiento.
-					</p>
+					<p class="hero-text">{content.settings.heroDescription}</p>
 
 					<div class="hero-actions">
-						<a class="button button-secondary" href="#club">Conocenos</a>
+						<a class="button button-secondary" href={content.settings.secondaryCtaUrl || '#club'}>
+							{content.settings.secondaryCtaLabel || 'Conocenos'}
+						</a>
 					</div>
 				</div>
 
 				<div class="hero-media">
-					<img src="/images/hero-taekwondo.png" alt="Combate de taekwondo olimpico" />
+					<img src={content.settings.heroImageUrl || '/images/hero-taekwondo.png'} alt="Combate de taekwondo olimpico" />
 				</div>
 			</div>
 
 			<div class="container feature-band">
-				{heroFeatures.map((item) => (
-					<article class={`feature-card ${item.tone}`}>
+				{content.features.map((item) => (
+					<article class={`feature-card ${item.tone ?? 'red'}`}>
 						<div class="feature-icon"></div>
 						<div>
 							<h2>{item.title}</h2>
@@ -133,35 +80,34 @@ const news = [
 		<section class="about-section" id="club">
 			<div class="container about-shell">
 				<div class="about-copy">
-					<p class="section-kicker">Sobre nosotros</p>
+					<p class="section-kicker">{content.settings.aboutKicker}</p>
 					<div class="section-underline"></div>
-					<h2 class="section-title">Formamos guerreros dentro y fuera del tatami.</h2>
-					<p class="section-copy">
-						En Club Taekwondo Warriors ayudamos a crecer a cada alumno a traves del
-						taekwondo olimpico, con una metodologia cercana, tecnica y exigente.
-					</p>
-					<a class="button button-blue" href="#contacto">Conoce nuestra historia</a>
+					<h2 class="section-title">{content.settings.aboutTitle}</h2>
+					<p class="section-copy">{content.settings.aboutDescription}</p>
+					<a class="button button-blue" href={content.settings.aboutCtaUrl || '#contacto'}>
+						{content.settings.aboutCtaLabel || 'Conoce nuestra historia'}
+					</a>
 				</div>
 
 				<div class="about-gallery" id="galeria">
-					<img class="about-main" src="/images/dojo-interior.png" alt="Instalaciones del club" />
-					<img src="/images/kids-taekwondo.png" alt="Clase infantil" />
-					<img src="/images/modalidad-exhibicion.png" alt="Exhibicion de taekwondo" />
-					<img src="/images/modalidad-combate.png" alt="Entrenamiento de combate" />
+					<img class="about-main" src={content.settings.aboutImageMainUrl || '/images/dojo-interior.png'} alt="Instalaciones del club" />
+					<img src={content.settings.aboutImageSecondaryOneUrl || '/images/kids-taekwondo.png'} alt="Clase infantil" />
+					<img src={content.settings.aboutImageSecondaryTwoUrl || '/images/modalidad-exhibicion.png'} alt="Exhibicion de taekwondo" />
+					<img src={content.settings.aboutImageSecondaryThreeUrl || '/images/modalidad-combate.png'} alt="Entrenamiento de combate" />
 				</div>
 			</div>
 		</section>
 
 		<section class="classes-section" id="clases">
 			<div class="container">
-				<p class="section-kicker center">Nuestras modalidades</p>
-				<h2 class="section-title center-title">Nuestras modalidades</h2>
+				<p class="section-kicker center">{content.settings.classesKicker}</p>
+				<h2 class="section-title center-title">{content.settings.classesTitle}</h2>
 
 				<div class="class-grid">
-					{content.classes.map((item, index) => (
+					{content.classes.map((item) => (
 						<article class="class-card">
 							<div class="class-thumb">
-								<img src={classImages[index] ?? classImages[0]} alt={item.title} />
+								<img src={item.imageUrl || '/images/modalidad-combate.png'} alt={item.title} />
 							</div>
 
 							<div class="class-copy">
@@ -178,15 +124,15 @@ const news = [
 				</div>
 
 				<div class="section-actions">
-					<a class="button button-outline-dark" href="#contacto">Ver todas las modalidades</a>
+					<a class="button button-outline-dark" href="#contacto">{content.settings.classesButtonLabel}</a>
 				</div>
 			</div>
 		</section>
 
 		<section class="stats-band">
 			<div class="container stats-grid">
-				{stats.map((item) => (
-					<div class={`stat-card ${item.tone}`}>
+				{content.stats.map((item) => (
+					<div class={`stat-card ${item.tone ?? 'red'}`}>
 						<strong>{item.value}</strong>
 						<span>{item.label}</span>
 					</div>
@@ -198,18 +144,18 @@ const news = [
 			<div class="container updates-grid">
 				<div class="news-panel" id="noticias">
 					<div class="section-head">
-						<h2>Ultimas noticias</h2>
-						<a href="#contacto">Ver todas</a>
+						<h2>{content.settings.newsTitle}</h2>
+						<a href="#contacto">{content.settings.newsLinkLabel}</a>
 					</div>
 
 					<div class="news-grid">
-						{news.map((item) => (
+						{content.news.map((item) => (
 							<article class="news-card">
-								<img src={item.image} alt={item.title} />
+								<img src={item.imageUrl || '/images/modalidad-combate.png'} alt={item.title} />
 								<div class="news-copy">
-									<span>{item.date}</span>
+									<span>{formatNewsDate(item.date)}</span>
 									<h3>{item.title}</h3>
-									<a href="#contacto">Leer mas</a>
+									<a href="#contacto">{item.ctaLabel || 'Leer mas'}</a>
 								</div>
 							</article>
 						))}
@@ -218,14 +164,14 @@ const news = [
 
 				<div class="gallery-panel">
 					<div class="section-head">
-						<h2>Galeria</h2>
-						<a href="#contacto">Ver galeria completa</a>
+						<h2>{content.settings.galleryTitle}</h2>
+						<a href="#contacto">{content.settings.galleryLinkLabel}</a>
 					</div>
 
 					<div class="gallery-grid">
-						{galleryImages.map((image, index) => (
+						{galleryItems.map((item, index) => (
 							<div class={`gallery-card gallery-${index + 1}`}>
-								<img src={image} alt="Galeria del club" />
+								<img src={item.imageUrl || '/images/dojo-interior.png'} alt={item.title} />
 							</div>
 						))}
 					</div>
@@ -236,16 +182,16 @@ const news = [
 		<section class="cta-banner">
 			<div class="container cta-shell">
 				<div class="cta-image">
-					<img src="/images/modalidad-poomsae.png" alt="Practica de taekwondo" />
+					<img src={content.settings.ctaImageUrl || '/images/modalidad-poomsae.png'} alt="Practica de taekwondo" />
 				</div>
 
 				<div class="cta-copy">
-					<h2>Listo para empezar tu camino?</h2>
-					<p>Descubre el club, conoce el ambiente y reserva una primera toma de contacto.</p>
+					<h2>{content.settings.ctaTitle}</h2>
+					<p>{content.settings.ctaDescription}</p>
 				</div>
 
 				<a class="button button-primary cta-button" href={content.settings.whatsappUrl} target="_blank" rel="noreferrer">
-					Reserva tu plaza
+					{content.settings.ctaButtonLabel}
 				</a>
 			</div>
 		</section>
@@ -258,29 +204,26 @@ const news = [
 							<span>CT</span>
 						</div>
 						<div class="brand-copy">
-							<strong>Club Taekwondo Warriors</strong>
-							<span>Escola d'arts marcials</span>
+							<strong>{content.settings.businessName}</strong>
+							<span>{content.settings.tagline}</span>
 						</div>
 					</div>
 
-					<p>
-						Mas que un club, una familia. Formando guerreros desde el respeto, la
-						disciplina y la constancia.
-					</p>
+					<p>{content.settings.footerDescription}</p>
 					<div class="footer-social">
-						<a href="#" aria-label="Instagram" class="social-icon">
+						<a href={content.settings.instagramUrl || '#'} aria-label="Instagram" class="social-icon">
 							<svg viewBox="0 0 24 24" aria-hidden="true">
 								<rect x="4" y="4" width="16" height="16" rx="4"></rect>
 								<circle cx="12" cy="12" r="3.5"></circle>
 								<circle cx="17.2" cy="6.8" r="1"></circle>
 							</svg>
 						</a>
-						<a href="#" aria-label="Facebook" class="social-icon">
+						<a href={content.settings.facebookUrl || '#'} aria-label="Facebook" class="social-icon">
 							<svg viewBox="0 0 24 24" aria-hidden="true">
 								<path d="M13.5 20v-6h2.5l.4-3h-2.9V9.2c0-.9.3-1.5 1.6-1.5H16.5V5.1c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.7V11H8.5v3h2.4v6z"></path>
 							</svg>
 						</a>
-						<a href="#" aria-label="TikTok" class="social-icon">
+						<a href={content.settings.tiktokUrl || '#'} aria-label="TikTok" class="social-icon">
 							<svg viewBox="0 0 24 24" aria-hidden="true">
 								<path d="M14.6 4c.4 1.1 1.3 2 2.4 2.5.8.4 1.7.6 2.5.6v2.7c-1 0-2-.2-2.9-.6v5.2c0 2.7-2.2 4.8-4.8 4.8S7 17.1 7 14.4s2.2-4.8 4.8-4.8c.3 0 .6 0 .9.1v2.8a2.2 2.2 0 0 0-.9-.2 2.1 2.1 0 1 0 2.1 2.1V4z"></path>
 							</svg>
@@ -311,7 +254,7 @@ const news = [
 					<p>{content.settings.email}</p>
 					<div class="footer-map"></div>
 					<a class="button button-primary full" href={content.settings.whatsappUrl} target="_blank" rel="noreferrer">
-						Como llegar
+						{content.settings.mapButtonLabel}
 					</a>
 				</div>
 			</div>
