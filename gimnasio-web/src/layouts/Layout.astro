@@ -15,6 +15,12 @@ const {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
@@ -48,9 +54,24 @@ const {
 	body {
 		margin: 0;
 		min-width: 320px;
-		font-family: Arial, Helvetica, sans-serif;
+		font-family: 'Oswald', Arial, Helvetica, sans-serif;
 		color: var(--text);
 		background: var(--bg);
+		letter-spacing: 0.01em;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	.nav a,
+	.button,
+	.section-kicker,
+	.section-head a {
+		font-family: 'Oswald', Arial, sans-serif;
+		letter-spacing: 0.02em;
 	}
 
 	a {
@@ -71,14 +92,15 @@ const {
 	.section-title {
 		margin: 0 0 0.8rem;
 		font-size: clamp(2rem, 4vw, 3.35rem);
-		line-height: 0.95;
+		line-height: 0.92;
 		text-transform: uppercase;
+		letter-spacing: 0.02em;
 	}
 
 	.section-copy {
 		margin: 0;
 		font-size: 1.02rem;
-		line-height: 1.7;
+		line-height: 1.55;
 		color: #4f596d;
 	}
 </style>

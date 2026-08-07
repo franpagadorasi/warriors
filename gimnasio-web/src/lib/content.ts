@@ -110,18 +110,18 @@ const apiVersion = '2026-03-01';
 const fallbackContent: HomeContent = {
 	settings: {
 		businessName: 'Club Taekwondo Warriors',
-		tagline: 'Taekwondo olimpico',
+		tagline: 'Taekwondo olímpico',
 		eyebrow: "Escuela d'arts marcials",
-		heroTitle: 'Mas que un deporte. Una forma de vida.',
+		heroTitle: 'Más que un deporte. Una forma de vida.',
 		heroDescription:
-			'Formamos personas dentro y fuera del tatami. Disciplina, respeto, superacion y pasion en cada entrenamiento.',
-		secondaryCtaLabel: 'Conocenos',
+			'Formamos personas dentro y fuera del tatami. Disciplina, respeto, superación y pasión en cada entrenamiento.',
+		secondaryCtaLabel: 'Conócenos',
 		secondaryCtaUrl: '#club',
 		heroImageUrl: '/images/hero-taekwondo.png',
 		aboutKicker: 'Sobre nosotros',
 		aboutTitle: 'Formamos guerreros dentro y fuera del tatami.',
 		aboutDescription:
-			'En Club Taekwondo Warriors ayudamos a crecer a cada alumno a traves del taekwondo olimpico, con una metodologia cercana, tecnica y exigente.',
+			'En Club Taekwondo Warriors ayudamos a crecer a cada alumno a través del taekwondo olímpico, con una metodología cercana, técnica y exigente.',
 		aboutCtaLabel: 'Conoce nuestra historia',
 		aboutCtaUrl: '#contacto',
 		aboutImageMainUrl: '/images/dojo-interior.png',
@@ -131,16 +131,16 @@ const fallbackContent: HomeContent = {
 		classesKicker: 'Nuestras modalidades',
 		classesTitle: 'Nuestras modalidades',
 		classesButtonLabel: 'Ver todas las modalidades',
-		newsTitle: 'Ultimas noticias',
+		newsTitle: 'Últimas noticias',
 		newsLinkLabel: 'Ver todas',
-		galleryTitle: 'Galeria',
-		galleryLinkLabel: 'Ver galeria completa',
-		ctaTitle: 'Listo para empezar tu camino?',
+		galleryTitle: 'Galería',
+		galleryLinkLabel: 'Ver galería completa',
+		ctaTitle: '¿Listo para empezar tu camino?',
 		ctaDescription: 'Descubre el club, conoce el ambiente y reserva una primera toma de contacto.',
 		ctaButtonLabel: 'Reserva tu plaza',
 		ctaImageUrl: '/images/modalidad-poomsae.png',
 		footerDescription:
-			'Mas que un club, una familia. Formando guerreros desde el respeto, la disciplina y la constancia.',
+			'Más que un club, una familia. Formando guerreros desde el respeto, la disciplina y la constancia.',
 		phone: '644 193 620',
 		email: 'clubtaekwondowarriors@gmail.com',
 		address: 'Calle Warriors 1, tu ciudad',
@@ -149,11 +149,11 @@ const fallbackContent: HomeContent = {
 		facebookUrl: '#',
 		tiktokUrl: '#',
 		whatsappUrl: 'https://wa.me/34644193620',
-		mapButtonLabel: 'Como llegar'
+		mapButtonLabel: 'Cómo llegar'
 	},
 	features: [
 		{
-			title: 'Taekwondo olimpico',
+			title: 'Taekwondo olímpico',
 			description: 'Entrenamiento de alto nivel para todas las edades.',
 			tone: 'red',
 			order: 1
@@ -165,7 +165,7 @@ const fallbackContent: HomeContent = {
 			order: 2
 		},
 		{
-			title: 'Club de competicion',
+			title: 'Club de competición',
 			description: 'Competimos, aprendemos y alcanzamos metas.',
 			tone: 'red',
 			order: 3
@@ -181,15 +181,15 @@ const fallbackContent: HomeContent = {
 		{
 			title: 'Infantil',
 			description:
-				'Clases dinamicas para ninos y ninas desde los 4 anos, enfocadas en disciplina, confianza y diversion.',
-			audience: 'Desde 4 anos',
+				'Clases dinámicas para niños y niñas desde los 4 años, enfocadas en disciplina, confianza y diversión.',
+			audience: 'Desde 4 años',
 			order: 1,
 			imageUrl: '/images/modalidad-combate.png'
 		},
 		{
 			title: 'Juvenil',
 			description:
-				'Entrenamiento tecnico y fisico para jovenes que quieren progresar, competir o ganar seguridad.',
+				'Entrenamiento técnico y físico para jóvenes que quieren progresar, competir o ganar seguridad.',
 			audience: 'Adolescentes',
 			order: 2,
 			imageUrl: '/images/modalidad-poomsae.png'
@@ -197,7 +197,7 @@ const fallbackContent: HomeContent = {
 		{
 			title: 'Adultos',
 			description:
-				'Sesiones adaptadas a todos los niveles para ponerse en forma, aprender tecnica y desconectar mientras mejoras tu seguridad y coordinacion.',
+				'Sesiones adaptadas a todos los niveles para ponerse en forma, aprender técnica y desconectar mientras mejoras tu seguridad y coordinación.',
 			audience: 'Todos los niveles',
 			order: 3,
 			imageUrl: '/images/modalidad-exhibicion.png'
@@ -205,58 +205,58 @@ const fallbackContent: HomeContent = {
 		{
 			title: 'Defensa personal',
 			description:
-				'Trabajo practico para mejorar reflejos, seguridad y control corporal en situaciones reales.',
-			audience: 'Practico',
+				'Trabajo práctico para mejorar reflejos, seguridad y control corporal en situaciones reales.',
+			audience: 'Práctico',
 			order: 4,
 			imageUrl: '/images/modalidad-defensa.png'
 		}
 	],
 	schedule: [
-		{ group: 'Infantil', days: 'Lunes y miercoles', time: '17:30 - 18:30', order: 1 },
+		{ group: 'Infantil', days: 'Lunes y miércoles', time: '17:30 - 18:30', order: 1 },
 		{ group: 'Cadete / junior', days: 'Lunes y jueves', time: '18:30 - 19:30', order: 2 },
-		{ group: 'Adultos', days: 'Lunes, miercoles y viernes', time: '19:30 - 20:30', order: 3 },
-		{ group: 'Competicion', days: 'Martes y jueves', time: '20:30 - 22:00', order: 4 }
+		{ group: 'Adultos', days: 'Lunes, miércoles y viernes', time: '19:30 - 20:30', order: 3 },
+		{ group: 'Competición', days: 'Martes y jueves', time: '20:30 - 22:00', order: 4 }
 	],
 	aboutPoints: [
 		{
 			title: 'Valores claros',
-			description: 'Respeto, disciplina, autoestima y progresion real.',
+			description: 'Respeto, disciplina, autoestima y progresión real.',
 			order: 1
 		}
 	],
 	stats: [
 		{ value: '+350', label: 'Alumnos activos', tone: 'red', order: 1 },
 		{ value: '+120', label: 'Medallas obtenidas', tone: 'blue', order: 2 },
-		{ value: '+25', label: 'Anos de experiencia', tone: 'red', order: 3 },
+		{ value: '+25', label: 'Años de experiencia', tone: 'red', order: 3 },
 		{ value: '+15', label: 'Cinturones negros', tone: 'blue', order: 4 }
 	],
 	news: [
 		{
-			title: 'Gran actuacion en el campeonato de primavera',
+			title: 'Gran actuación en el campeonato de primavera',
 			date: '2026-05-10',
 			imageUrl: '/images/modalidad-combate.png',
-			ctaLabel: 'Leer mas',
+			ctaLabel: 'Leer más',
 			order: 1
 		},
 		{
 			title: 'Examen de cinturones con nuevos aprobados',
 			date: '2026-05-02',
 			imageUrl: '/images/kids-taekwondo.png',
-			ctaLabel: 'Leer mas',
+			ctaLabel: 'Leer más',
 			order: 2
 		},
 		{
-			title: 'Campus intensivo y jornadas especiales de tecnica',
+			title: 'Campus intensivo y jornadas especiales de técnica',
 			date: '2026-04-18',
 			imageUrl: '/images/dojo-interior.png',
-			ctaLabel: 'Leer mas',
+			ctaLabel: 'Leer más',
 			order: 3
 		}
 	],
 	gallery: [
-		{ title: 'Galeria 1', imageUrl: '/images/kids-taekwondo.png', featured: true, order: 1 },
-		{ title: 'Galeria 2', imageUrl: '/images/modalidad-combate.png', featured: false, order: 2 },
-		{ title: 'Galeria 3', imageUrl: '/images/dojo-interior.png', featured: false, order: 3 }
+		{ title: 'Galería 1', imageUrl: '/images/kids-taekwondo.png', featured: true, order: 1 },
+		{ title: 'Galería 2', imageUrl: '/images/modalidad-combate.png', featured: false, order: 2 },
+		{ title: 'Galería 3', imageUrl: '/images/dojo-interior.png', featured: false, order: 3 }
 	]
 };
 
