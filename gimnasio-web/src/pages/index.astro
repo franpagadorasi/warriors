@@ -12,6 +12,58 @@ const formatNewsDate = (date: string) => {
 };
 
 const galleryItems = [...content.gallery].sort((a, b) => Number(b.featured) - Number(a.featured) || (a.order ?? 99) - (b.order ?? 99));
+
+const pricingPlans = [
+	{
+		tone: 'gold',
+		name: 'Cuota amarilla',
+		subtitle: 'Iniciacion',
+		price: '25EUR',
+		frequency: '/mes',
+		items: [
+			'1 dia por semana',
+			'Ideal para empezar y descubrir el taekwondo',
+			'Aprendizaje de tecnicas basicas',
+			'Desarrollo de coordinacion, disciplina y valores'
+		]
+	},
+	{
+		tone: 'blue',
+		name: 'Cuota azul elite',
+		subtitle: 'Progresion',
+		price: '45EUR',
+		frequency: '/mes',
+		badge: 'Recomendada',
+		items: [
+			'2 dias por semana',
+			'Mayor continuidad y evolucion tecnica',
+			'Preparacion para examenes de grado',
+			'Mejora fisica y deportiva'
+		]
+	},
+	{
+		tone: 'red',
+		name: 'Cuota roja elite',
+		subtitle: 'Competicion',
+		price: '55EUR',
+		frequency: '/mes',
+		items: [
+			'3 dias por semana',
+			'Para ninos que se inician en la competicion',
+			'Perfeccionamiento tecnico y tactico',
+			'Mejora fisica y rendimiento'
+		]
+	}
+];
+
+const clubReasons = [
+	'Taekwondo olimpico',
+	'Profesores titulados',
+	'Examenes de grado',
+	'Participacion en exhibiciones',
+	'Equipo de competicion',
+	'Ambiente familiar y educativo'
+];
 ---
 
 <Layout title={`${content.settings.businessName} | Taekwondo olimpico`} description={content.settings.heroDescription}>
@@ -125,6 +177,41 @@ const galleryItems = [...content.gallery].sort((a, b) => Number(b.featured) - Nu
 
 				<div class="section-actions">
 					<a class="button button-outline-dark" href="#contacto">{content.settings.classesButtonLabel}</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="pricing-section" id="cuotas">
+			<div class="container">
+				<p class="section-kicker center">Cuotas de entrenamiento</p>
+				<h2 class="section-title center-title pricing-title">Planes y progresion</h2>
+
+				<div class="pricing-grid">
+					{pricingPlans.map((plan) => (
+						<article class={`pricing-card ${plan.tone}`}>
+							{plan.badge && <span class="pricing-badge">{plan.badge}</span>}
+							<div class="pricing-head">
+								<h3>{plan.name}</h3>
+								<p>{plan.subtitle}</p>
+							</div>
+
+							<ul class="pricing-list">
+								{plan.items.map((item) => <li>{item}</li>)}
+							</ul>
+
+							<div class="pricing-price">
+								<strong>{plan.price}</strong>
+								<span>{plan.frequency}</span>
+							</div>
+						</article>
+					))}
+				</div>
+
+				<div class="reasons-row">
+					<p class="reasons-title">Por que entrenar en Warriors?</p>
+					<div class="reasons-grid">
+						{clubReasons.map((reason) => <span>{reason}</span>)}
+					</div>
 				</div>
 			</div>
 		</section>
@@ -608,6 +695,165 @@ const galleryItems = [...content.gallery].sort((a, b) => Number(b.featured) - Nu
 		box-shadow: 0 22px 42px rgba(15, 18, 28, 0.12);
 	}
 
+	.pricing-section {
+		padding: 0 0 3rem;
+		background: #f5f5f5;
+		color: #111827;
+	}
+
+	.pricing-title {
+		margin-bottom: 1.8rem;
+	}
+
+	.pricing-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+
+	.pricing-card {
+		position: relative;
+		background: #fff;
+		border-radius: 1.6rem;
+		padding: 1.4rem 1.25rem 1.25rem;
+		border: 2px solid rgba(17, 23, 35, 0.08);
+		box-shadow: 0 20px 40px rgba(15, 18, 28, 0.08);
+		overflow: hidden;
+	}
+
+	.pricing-card.gold {
+		border-color: rgba(227, 173, 18, 0.55);
+	}
+
+	.pricing-card.blue {
+		border-color: rgba(23, 98, 255, 0.5);
+	}
+
+	.pricing-card.red {
+		border-color: rgba(227, 29, 28, 0.45);
+	}
+
+	.pricing-badge {
+		position: absolute;
+		top: 0.9rem;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 0.35rem 0.8rem;
+		border-radius: 999px;
+		background: #1756ef;
+		color: #fff;
+		font-size: 0.8rem;
+		font-weight: 900;
+		text-transform: uppercase;
+	}
+
+	.pricing-head {
+		padding-top: 0.8rem;
+		text-align: center;
+	}
+
+	.pricing-head h3 {
+		margin: 0;
+		font-size: 1.2rem;
+		text-transform: uppercase;
+	}
+
+	.pricing-head p {
+		margin: 0.35rem 0 0;
+		font-size: 0.95rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.pricing-card.gold .pricing-head {
+		color: #d89200;
+	}
+
+	.pricing-card.blue .pricing-head {
+		color: #174eff;
+	}
+
+	.pricing-card.red .pricing-head {
+		color: #e31d1c;
+	}
+
+	.pricing-list {
+		margin: 1.25rem 0 1.4rem;
+		padding-left: 1.1rem;
+		display: grid;
+		gap: 0.85rem;
+		color: #374155;
+		line-height: 1.45;
+	}
+
+	.pricing-price {
+		margin-top: auto;
+		padding-top: 1rem;
+		text-align: center;
+		border-top: 1px solid rgba(17, 23, 35, 0.08);
+	}
+
+	.pricing-price strong {
+		display: block;
+		font-size: 3rem;
+		line-height: 1;
+		font-weight: 900;
+	}
+
+	.pricing-price span {
+		display: block;
+		margin-top: 0.15rem;
+		font-size: 1.15rem;
+		font-weight: 800;
+	}
+
+	.pricing-card.gold .pricing-price {
+		color: #d89200;
+	}
+
+	.pricing-card.blue .pricing-price {
+		color: #174eff;
+	}
+
+	.pricing-card.red .pricing-price {
+		color: #e31d1c;
+	}
+
+	.reasons-row {
+		margin-top: 2rem;
+		padding-top: 1.8rem;
+		border-top: 1px solid rgba(17, 23, 35, 0.08);
+	}
+
+	.reasons-title {
+		margin: 0 0 1rem;
+		text-align: center;
+		font-size: 1.6rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		color: #172444;
+	}
+
+	.reasons-grid {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 0.8rem;
+	}
+
+	.reasons-grid span {
+		padding: 1rem 0.75rem;
+		text-align: center;
+		font-size: 0.88rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		color: #21304d;
+		border-left: 1px solid rgba(227, 173, 18, 0.45);
+	}
+
+	.reasons-grid span:first-child {
+		border-left: 0;
+	}
+
 	.class-thumb {
 		height: 11rem;
 		overflow: hidden;
@@ -979,6 +1225,7 @@ const galleryItems = [...content.gallery].sort((a, b) => Number(b.featured) - Nu
 
 		.feature-band,
 		.class-grid,
+		.pricing-grid,
 		.news-grid,
 		.stats-grid {
 			grid-template-columns: 1fr 1fr;
@@ -1006,9 +1253,14 @@ const galleryItems = [...content.gallery].sort((a, b) => Number(b.featured) - Nu
 	@media (max-width: 760px) {
 		.feature-band,
 		.class-grid,
+		.pricing-grid,
 		.news-grid,
 		.stats-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.reasons-grid {
+			grid-template-columns: 1fr 1fr;
 		}
 
 		.hero-copy {

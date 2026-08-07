@@ -141,14 +141,14 @@ const fallbackContent: HomeContent = {
 		ctaImageUrl: '/images/modalidad-poomsae.png',
 		footerDescription:
 			'Mas que un club, una familia. Formando guerreros desde el respeto, la disciplina y la constancia.',
-		phone: '+34 600 123 456',
-		email: 'hola@clubtaekwndowarriors.com',
+		phone: '644 193 620',
+		email: 'clubtaekwondowarriors@gmail.com',
 		address: 'Calle Warriors 1, tu ciudad',
-		instagram: '@clubtaekwndowarriors',
-		instagramUrl: '#',
+		instagram: '@club_taekwondo_warriors',
+		instagramUrl: 'https://www.instagram.com/club_taekwondo_warriors',
 		facebookUrl: '#',
 		tiktokUrl: '#',
-		whatsappUrl: 'https://wa.me/34123456789',
+		whatsappUrl: 'https://wa.me/34644193620',
 		mapButtonLabel: 'Como llegar'
 	},
 	features: [
