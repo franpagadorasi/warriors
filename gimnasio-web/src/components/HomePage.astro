@@ -51,7 +51,13 @@ const closeModalLabel: Record<Locale, string> = {
 				<img src="/images/logo-warriors-horizontal.png" alt="Club Taekwondo Warriors" class="brand-logo-full" />
 			</a>
 
-			<nav class="nav">
+			<button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-menu-toggle>
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+
+			<nav class="nav" data-mobile-nav>
 				<a class="active" href="#inicio">{copy.nav.home}</a>
 				<a href="#club">{copy.nav.about}</a>
 				<a href="#clases">{copy.nav.classes}</a>
@@ -377,11 +383,12 @@ const closeModalLabel: Record<Locale, string> = {
 					<span></span>
 				</div>
 
-				<div class="schedule-board">
+				<div class="schedule-board-wrap">
+					<div class="schedule-board">
 					<div class="schedule-header">{copy.schedule.headerTime}</div>
 					{copy.schedule.days.map((day) => <div class="schedule-header">{day}</div>)}
 
-					{weeklySchedule.map((row) => (
+						{weeklySchedule.map((row) => (
 						<>
 							<div class={`schedule-time ${row.tone}`}>
 								<span class="schedule-time-icon" aria-hidden="true"></span>
@@ -400,7 +407,8 @@ const closeModalLabel: Record<Locale, string> = {
 								</div>
 							))}
 						</>
-					))}
+						))}
+					</div>
 				</div>
 
 				<div class="schedule-notes">
@@ -636,6 +644,44 @@ const closeModalLabel: Record<Locale, string> = {
 
 	<script is:inline>
 		(() => {
+			const initMobileMenu = () => {
+				const header = document.querySelector('.site-header');
+				const toggle = document.querySelector('[data-menu-toggle]');
+				const nav = document.querySelector('[data-mobile-nav]');
+
+				if (!(header instanceof HTMLElement) || !(toggle instanceof HTMLButtonElement) || !(nav instanceof HTMLElement)) return;
+
+				const closeMenu = () => {
+					header.classList.remove('menu-open');
+					toggle.setAttribute('aria-expanded', 'false');
+					document.body.style.overflow = '';
+				};
+
+				const openMenu = () => {
+					header.classList.add('menu-open');
+					toggle.setAttribute('aria-expanded', 'true');
+					document.body.style.overflow = 'hidden';
+				};
+
+				toggle.addEventListener('click', () => {
+					if (header.classList.contains('menu-open')) {
+						closeMenu();
+					} else {
+						openMenu();
+					}
+				});
+
+				nav.querySelectorAll('a').forEach((link) => {
+					link.addEventListener('click', closeMenu);
+				});
+
+				window.addEventListener('resize', () => {
+					if (window.innerWidth > 760) {
+						closeMenu();
+					}
+				});
+			};
+
 			const initReservaModal = () => {
 				const overlay = document.querySelector('[data-reserva-overlay]');
 				const openButtons = document.querySelectorAll('[data-open-reserva-modal]');
@@ -672,8 +718,16 @@ const closeModalLabel: Record<Locale, string> = {
 			};
 
 			if (document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', initReservaModal, { once: true });
+				document.addEventListener(
+					'DOMContentLoaded',
+					() => {
+						initMobileMenu();
+						initReservaModal();
+					},
+					{ once: true }
+				);
 			} else {
+				initMobileMenu();
 				initReservaModal();
 			}
 		})();
@@ -681,6 +735,10 @@ const closeModalLabel: Record<Locale, string> = {
 </Layout>
 
 <style>
+	body {
+		overflow-x: hidden;
+	}
+
 	.site-header {
 		position: sticky;
 		top: 0;
@@ -696,6 +754,30 @@ const closeModalLabel: Record<Locale, string> = {
 		align-items: center;
 		gap: 2.2rem;
 		min-height: 6.4rem;
+	}
+
+	.menu-toggle {
+		display: none;
+		width: 3rem;
+		height: 3rem;
+		padding: 0;
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		border-radius: 0.85rem;
+		background: rgba(255, 255, 255, 0.04);
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 0.28rem;
+		cursor: pointer;
+	}
+
+	.menu-toggle span {
+		display: block;
+		width: 1.2rem;
+		height: 2px;
+		border-radius: 999px;
+		background: #ffffff;
+		transition: transform 180ms ease, opacity 180ms ease;
 	}
 
 	.brand,
@@ -1185,6 +1267,12 @@ const closeModalLabel: Record<Locale, string> = {
 		border: 2px solid rgba(19, 34, 87, 0.1);
 		box-shadow: 0 18px 42px rgba(15, 18, 28, 0.1);
 		background: #f5f5f5;
+	}
+
+	.schedule-board-wrap {
+		overflow-x: auto;
+		overflow-y: hidden;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.schedule-header {
@@ -2616,28 +2704,78 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	@media (max-width: 760px) {
-		.header {
-			padding-top: 0.2rem;
+		.header-row {
+			grid-template-columns: 1fr auto auto;
+			gap: 0.75rem;
+			padding: 0.8rem 0;
+			min-height: auto;
+			position: relative;
 		}
 
-		.header-row {
-			gap: 0.85rem;
-			padding: 0.8rem 0 1rem;
+		.brand {
+			justify-self: start;
 		}
 
 		.brand-logo-full {
-			width: min(100%, 15rem);
+			width: min(100%, 11.5rem);
+		}
+
+		.menu-toggle {
+			display: inline-flex;
+		}
+
+		.site-header.menu-open .menu-toggle span:nth-child(1) {
+			transform: translateY(0.4rem) rotate(45deg);
+		}
+
+		.site-header.menu-open .menu-toggle span:nth-child(2) {
+			opacity: 0;
+		}
+
+		.site-header.menu-open .menu-toggle span:nth-child(3) {
+			transform: translateY(-0.4rem) rotate(-45deg);
 		}
 
 		.nav {
-			width: 100%;
-			gap: 0.7rem 1rem;
-			font-size: 0.84rem;
-			line-height: 1.2;
+			position: absolute;
+			top: calc(100% + 0.35rem);
+			left: 0;
+			right: 0;
+			display: none;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0;
+			padding: 0.55rem;
+			font-size: 0.98rem;
+			line-height: 1.15;
+			border-radius: 1rem;
+			background: rgba(10, 12, 18, 0.98);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.32);
+			z-index: 30;
+		}
+
+		.site-header.menu-open .nav {
+			display: flex;
+		}
+
+		.nav a {
+			padding: 0.95rem 0.75rem;
+			text-align: left;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+		}
+
+		.nav a:last-child {
+			border-bottom: 0;
+		}
+
+		.nav a::after {
+			display: none;
 		}
 
 		.header-languages {
-			gap: 0.5rem;
+			gap: 0.35rem;
+			justify-self: end;
 		}
 
 		.feature-band,
@@ -2652,10 +2790,8 @@ const closeModalLabel: Record<Locale, string> = {
 		}
 
 		.schedule-board {
-			grid-template-columns: minmax(7.75rem, 8.5rem) repeat(4, minmax(8.75rem, 1fr));
-			overflow-x: auto;
-			overflow-y: hidden;
-			-webkit-overflow-scrolling: touch;
+			grid-template-columns: minmax(7.75rem, 8.5rem) repeat(4, minmax(8.5rem, 1fr));
+			min-width: 42rem;
 		}
 
 		.schedule-header {
