@@ -2,16 +2,18 @@
 interface Props {
 	title?: string;
 	description?: string;
+	lang?: string;
 }
 
 const {
 	title = 'Escuela de Taekwondo',
-	description = 'Web informativa para una escuela de taekwondo con inscripcion a clase de prueba y contacto directo.'
+	description = 'Web informativa para una escuela de taekwondo con inscripcion a clase de prueba y contacto directo.',
+	lang = 'ca'
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
