@@ -33,6 +33,11 @@ const ageGroups = copy.schedule.ages;
 const valuePillars = copy.schedule.values;
 const localePaths: Record<Locale, string> = { ca: '/', es: '/es/', en: '/en/' };
 const localeLabels: Record<Locale, string> = { ca: 'Català', es: 'Español', en: 'English' };
+const scheduleDayShortLabels: Record<Locale, string[]> = {
+	ca: ['Dl', 'Dm', 'Dx', 'Dj'],
+	es: ['L', 'M', 'X', 'J'],
+	en: ['M', 'T', 'W', 'T']
+};
 const languageAria: Record<Locale, string> = {
 	ca: 'Idiomes disponibles',
 	es: 'Idiomas disponibles',
@@ -425,7 +430,7 @@ const closeModalLabel: Record<Locale, string> = {
 				<div class="schedule-board-wrap">
 					<div class="schedule-board">
 					<div class="schedule-header">{copy.schedule.headerTime}</div>
-					{copy.schedule.days.map((day) => <div class="schedule-header">{day}</div>)}
+					{copy.schedule.days.map((day, index) => <div class="schedule-header schedule-day-header" data-short={scheduleDayShortLabels[locale][index]}>{day}</div>)}
 
 						{weeklySchedule.map((row) => (
 						<>
@@ -434,7 +439,7 @@ const closeModalLabel: Record<Locale, string> = {
 								<strong>{row.time}</strong>
 							</div>
 							{row.classes.map((item) => (
-								<div class={`schedule-cell ${row.tone} ${!item ? 'empty' : ''}`}>
+								<div class={`schedule-cell ${row.tone} ${!item ? 'empty' : ''}`} aria-label={item || 'Sense classe'}>
 									{
 										item && (
 											<span>
@@ -3321,20 +3326,218 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	@media (max-width: 760px) {
+		.classes-section,
+		.pricing-section,
+		.schedule-showcase,
+		.updates-section {
+			position: relative;
+			border-top: 0;
+			box-shadow: none;
+			background-image: none;
+		}
+
+		.classes-section::before,
+		.pricing-section::before,
+		.schedule-showcase::before,
+		.updates-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 2px;
+			background: #f5f5f5;
+			z-index: 1;
+			pointer-events: none;
+		}
+
+		.pricing-section {
+			margin-top: -1px;
+			padding-top: 1px;
+			overflow: hidden;
+		}
+
+		.pricing-section > .container {
+			border-top: 0 !important;
+			box-shadow: none !important;
+			outline: 0 !important;
+			background: transparent;
+		}
+
 		.section-title-line {
-			grid-template-columns: 1fr;
-			gap: 0.5rem;
+			position: relative;
+			display: grid;
+			grid-template-columns: minmax(2.4rem, 1fr) minmax(0, 12.5rem) minmax(2.4rem, 1fr);
+			gap: 0.7rem;
 			margin-bottom: 1.1rem;
+			margin-top: 0;
+			padding-top: 0;
+			align-items: center;
+			border-top: 0;
+			box-shadow: none;
+			background: transparent;
+			z-index: 2;
 		}
 
 		.section-title-line span {
+			display: block;
+			align-self: center;
+			width: 100%;
+		}
+
+		.section-title-line > .unified-title,
+		.section-title-line > .section-title.center-title.unified-title,
+		.section-title-line > .center-title.unified-title {
+			min-width: 0;
+			width: 100%;
+			max-width: 12.5rem;
+			margin: 0;
+			white-space: normal;
+			text-wrap: balance;
+			overflow-wrap: anywhere;
+			text-align: center;
+			font-size: clamp(1.2rem, 5vw, 1.55rem);
+			line-height: 1.02;
+			justify-self: center;
+		}
+
+		.pricing-header {
+			margin-bottom: 1.25rem;
+			padding-top: 0;
+			border-top: 0;
+			box-shadow: none;
+			background: transparent;
+		}
+
+		.pricing-heading-line {
+			position: relative;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 0.7rem;
+			margin-top: 0;
+			padding-top: 0;
+			width: 100%;
+			max-width: none;
+			align-items: center;
+			border-top: 0;
+			box-shadow: none;
+			background: transparent;
+			z-index: 2;
+		}
+
+		.pricing-header::before,
+		.pricing-header::after,
+		.pricing-heading-line::marker {
+			content: none;
 			display: none;
 		}
 
-		.section-title-line .unified-title {
+		.pricing-header,
+		.pricing-header * {
+			outline: 0 !important;
+		}
+
+		.pricing-heading-line::before,
+		.pricing-heading-line::after {
+			content: '';
+			flex: 1 1 3rem;
+			max-width: 4rem;
+			height: 2px;
+			background: linear-gradient(90deg, rgba(227, 173, 18, 0.15), #e3ad12, rgba(227, 173, 18, 0.15));
+		}
+
+		.pricing-heading-line span {
+			display: none;
+		}
+
+		.pricing-heading-line p {
+			min-width: 0;
+			flex: 0 1 13rem;
+			max-width: 13rem;
+			margin: 0;
 			white-space: normal;
+			text-wrap: balance;
+			overflow-wrap: anywhere;
 			text-align: center;
-			font-size: clamp(2rem, 8vw, 2.75rem);
+			font-size: clamp(1.2rem, 5vw, 1.55rem);
+			line-height: 1.02;
+			justify-self: center;
+		}
+
+		.schedule-board-wrap {
+			overflow: visible;
+		}
+
+		.schedule-board {
+			grid-template-columns: 7.2rem repeat(4, minmax(0, 1fr));
+			min-width: 0;
+			width: 100%;
+			border-radius: 1.25rem;
+		}
+
+		.schedule-header {
+			min-width: 0;
+			font-size: 0.74rem;
+			padding: 0.85rem 0.25rem;
+			letter-spacing: 0.02em;
+		}
+
+		.schedule-day-header {
+			font-size: 0;
+		}
+
+		.schedule-day-header::before {
+			content: attr(data-short);
+			font-size: 0.95rem;
+		}
+
+		.schedule-time,
+		.schedule-cell {
+			min-width: 0;
+			min-height: 4.9rem;
+			padding: 0.55rem 0.35rem;
+		}
+
+		.schedule-time {
+			gap: 0.35rem;
+		}
+
+		.schedule-time strong {
+			font-size: 0.95rem;
+			line-height: 1.05;
+		}
+
+		.schedule-time-icon {
+			width: 1.45rem;
+			height: 1.45rem;
+			border-width: 2px;
+		}
+
+		.schedule-cell span {
+			display: none;
+		}
+
+		.schedule-cell::after {
+			left: 24%;
+			right: 24%;
+			bottom: 20%;
+			height: 0.7rem;
+		}
+
+		.schedule-cell.empty {
+			background: #ffffff;
+		}
+
+		.schedule-notes {
+			grid-template-columns: 1fr;
+			gap: 0.9rem;
+		}
+
+		.age-box,
+		.values-box {
+			padding: 1rem 0.9rem;
+			border-radius: 1.2rem;
 		}
 	}
 </style>
