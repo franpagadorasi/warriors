@@ -32,6 +32,7 @@ const weeklySchedule = copy.schedule.rows;
 const ageGroups = copy.schedule.ages;
 const valuePillars = copy.schedule.values;
 const localePaths: Record<Locale, string> = { ca: '/', es: '/es/', en: '/en/' };
+const localeLabels: Record<Locale, string> = { ca: 'Català', es: 'Español', en: 'English' };
 const languageAria: Record<Locale, string> = {
 	ca: 'Idiomes disponibles',
 	es: 'Idiomas disponibles',
@@ -71,6 +72,44 @@ const closeModalLabel: Record<Locale, string> = {
 				<a class={`language-flag ${locale === 'ca' ? 'active' : ''}`} href={localePaths.ca} aria-label="Català" title="Català"></a>
 				<a class={`language-flag ${locale === 'es' ? 'active' : ''}`} href={localePaths.es} aria-label="Español" title="Español"></a>
 				<a class={`language-flag ${locale === 'en' ? 'active' : ''}`} href={localePaths.en} aria-label="English" title="English"></a>
+			</div>
+
+			<div class="header-language-select">
+				<label class="sr-only" for="mobile-language-select">{languageAria[locale]}</label>
+				<select
+					id="mobile-language-select"
+					class="language-select"
+					aria-label={languageAria[locale]}
+					onchange="window.location.href=this.value"
+				>
+					<option value={localePaths.ca} selected={locale === 'ca'}>Català</option>
+					<option value={localePaths.es} selected={locale === 'es'}>Español</option>
+					<option value={localePaths.en} selected={locale === 'en'}>English</option>
+				</select>
+			</div>
+
+			<div class="mobile-language-menu" data-language-menu>
+				<button
+					class={`mobile-language-trigger flag-${locale}`}
+					type="button"
+					aria-label={languageAria[locale]}
+					aria-expanded="false"
+					data-language-toggle
+				>
+					<span class="mobile-language-flag" aria-hidden="true"></span>
+					<span class="mobile-language-caret" aria-hidden="true"></span>
+				</button>
+				<div class="mobile-language-options" data-language-options>
+					<a class={`mobile-language-option flag-ca ${locale === 'ca' ? 'active' : ''}`} href={localePaths.ca} aria-label={localeLabels.ca} title={localeLabels.ca}>
+						<span class="mobile-language-flag" aria-hidden="true"></span>
+					</a>
+					<a class={`mobile-language-option flag-es ${locale === 'es' ? 'active' : ''}`} href={localePaths.es} aria-label={localeLabels.es} title={localeLabels.es}>
+						<span class="mobile-language-flag" aria-hidden="true"></span>
+					</a>
+					<a class={`mobile-language-option flag-en ${locale === 'en' ? 'active' : ''}`} href={localePaths.en} aria-label={localeLabels.en} title={localeLabels.en}>
+						<span class="mobile-language-flag" aria-hidden="true"></span>
+					</a>
+				</div>
 			</div>
 		</div>
 	</header>
@@ -653,6 +692,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 				const closeMenu = () => {
 					header.classList.remove('menu-open');
+					header.classList.remove('language-open');
 					toggle.setAttribute('aria-expanded', 'false');
 					document.body.style.overflow = '';
 				};
@@ -680,6 +720,42 @@ const closeModalLabel: Record<Locale, string> = {
 						closeMenu();
 					}
 				});
+
+				const languageToggle = document.querySelector('[data-language-toggle]');
+				const languageOptions = document.querySelector('[data-language-options]');
+
+				if (languageToggle instanceof HTMLButtonElement && languageOptions instanceof HTMLElement) {
+					const closeLanguageMenu = () => {
+						header.classList.remove('language-open');
+						languageToggle.setAttribute('aria-expanded', 'false');
+					};
+
+					const openLanguageMenu = () => {
+						header.classList.add('language-open');
+						languageToggle.setAttribute('aria-expanded', 'true');
+					};
+
+					languageToggle.addEventListener('click', (event) => {
+						event.stopPropagation();
+						if (header.classList.contains('language-open')) {
+							closeLanguageMenu();
+						} else {
+							openLanguageMenu();
+						}
+					});
+
+					languageOptions.querySelectorAll('a').forEach((link) => {
+						link.addEventListener('click', closeLanguageMenu);
+					});
+
+					document.addEventListener('click', (event) => {
+						const target = event.target;
+						if (!(target instanceof Node)) return;
+						if (!languageOptions.contains(target) && !languageToggle.contains(target)) {
+							closeLanguageMenu();
+						}
+					});
+				}
 			};
 
 			const initReservaModal = () => {
@@ -845,6 +921,27 @@ const closeModalLabel: Record<Locale, string> = {
 		gap: 0.55rem;
 	}
 
+	.header-language-select {
+		display: none;
+	}
+
+	.mobile-language-menu {
+		display: none;
+		position: relative;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
 	.language-flag {
 		width: 1.75em;
 		height: 1.75em;
@@ -880,6 +977,112 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.language-flag:nth-child(3) {
+		background:
+			linear-gradient(90deg, transparent 0 34%, #f3f6fb 34% 48%, transparent 48% 100%),
+			linear-gradient(180deg, transparent 0 34%, #f3f6fb 34% 48%, transparent 48% 100%),
+			#153f94;
+	}
+
+	.language-select {
+		min-width: 6.9rem;
+		padding: 0.7rem 2.2rem 0.7rem 0.85rem;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 0.9rem;
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
+			#0c1019;
+		color: #f5f7fb;
+		font: inherit;
+		font-size: 0.82rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		appearance: none;
+		background-image:
+			linear-gradient(45deg, transparent 50%, #f5f7fb 50%),
+			linear-gradient(135deg, #f5f7fb 50%, transparent 50%);
+		background-position:
+			calc(100% - 1rem) 48%,
+			calc(100% - 0.7rem) 48%;
+		background-size: 0.35rem 0.35rem, 0.35rem 0.35rem;
+		background-repeat: no-repeat;
+		box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+	}
+
+	.language-select:focus {
+		outline: 2px solid rgba(36, 87, 255, 0.55);
+		outline-offset: 2px;
+	}
+
+	.mobile-language-trigger,
+	.mobile-language-option {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.7rem;
+		height: 2.2rem;
+		border-radius: 0.8rem;
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		background: rgba(12, 16, 25, 0.96);
+		box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+		overflow: hidden;
+	}
+
+	.mobile-language-trigger {
+		gap: 0.18rem;
+		padding: 0 0.25rem 0 0.12rem;
+		cursor: pointer;
+	}
+
+	.mobile-language-flag {
+		width: 1.45rem;
+		height: 1.45rem;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		flex: 0 0 auto;
+	}
+
+	.mobile-language-caret {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-right: 2px solid #f5f7fb;
+		border-bottom: 2px solid #f5f7fb;
+		transform: rotate(45deg) translateY(-0.08rem);
+		flex: 0 0 auto;
+	}
+
+	.mobile-language-options {
+		position: absolute;
+		top: calc(100% + 0.45rem);
+		right: 0;
+		display: none;
+		flex-direction: row;
+		gap: 0.45rem;
+		padding: 0.5rem;
+		border-radius: 1rem;
+		background: rgba(10, 12, 18, 0.98);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.32);
+		z-index: 35;
+	}
+
+	.site-header.language-open .mobile-language-options {
+		display: flex;
+	}
+
+	.mobile-language-option.active {
+		outline: 2px solid rgba(255, 255, 255, 0.18);
+		outline-offset: 2px;
+	}
+
+	.flag-ca .mobile-language-flag {
+		background: repeating-linear-gradient(180deg, #f3d15d 0 14%, #c61d23 14% 28%);
+	}
+
+	.flag-es .mobile-language-flag {
+		background: linear-gradient(180deg, #c61d23 0 24%, #f4cf4d 24% 76%, #c61d23 76% 100%);
+	}
+
+	.flag-en .mobile-language-flag {
 		background:
 			linear-gradient(90deg, transparent 0 34%, #f3f6fb 34% 48%, transparent 48% 100%),
 			linear-gradient(180deg, transparent 0 34%, #f3f6fb 34% 48%, transparent 48% 100%),
@@ -2606,33 +2809,6 @@ const closeModalLabel: Record<Locale, string> = {
 			grid-template-columns: 1fr;
 		}
 
-		.header-row {
-			grid-template-columns: 1fr;
-			justify-items: center;
-			gap: 1rem;
-			padding: 1rem 0;
-			min-height: auto;
-		}
-
-		.brand {
-			justify-content: center;
-		}
-
-		.brand-logo-full {
-			width: min(100%, 18rem);
-		}
-
-		.nav {
-			justify-content: center;
-			flex-wrap: wrap;
-			gap: 1.1rem;
-			overflow: visible;
-		}
-
-		.header-languages {
-			justify-content: center;
-		}
-
 		.feature-band,
 		.class-grid,
 		.pricing-grid,
@@ -2705,23 +2881,30 @@ const closeModalLabel: Record<Locale, string> = {
 
 	@media (max-width: 760px) {
 		.header-row {
-			grid-template-columns: 1fr auto auto;
-			gap: 0.75rem;
-			padding: 0.8rem 0;
+			grid-template-columns: auto minmax(0, 1fr) auto;
+			grid-template-areas: 'menu brand lang';
+			align-items: center;
+			justify-items: stretch;
+			gap: 0.65rem;
+			padding: 0.7rem 0;
 			min-height: auto;
 			position: relative;
 		}
 
 		.brand {
+			grid-area: brand;
 			justify-self: start;
+			min-width: 0;
 		}
 
 		.brand-logo-full {
-			width: min(100%, 11.5rem);
+			width: min(100%, 13.6rem);
 		}
 
 		.menu-toggle {
 			display: inline-flex;
+			grid-area: menu;
+			justify-self: start;
 		}
 
 		.site-header.menu-open .menu-toggle span:nth-child(1) {
@@ -2774,8 +2957,28 @@ const closeModalLabel: Record<Locale, string> = {
 		}
 
 		.header-languages {
-			gap: 0.35rem;
+			display: none;
+		}
+
+		.header-language-select {
+			display: none;
+		}
+
+		.mobile-language-menu {
+			grid-area: lang;
+			display: block;
 			justify-self: end;
+		}
+
+		.mobile-language-trigger,
+		.mobile-language-option {
+			width: 2.55rem;
+			height: 2.1rem;
+		}
+
+		.mobile-language-flag {
+			width: 1.38rem;
+			height: 1.38rem;
 		}
 
 		.feature-band,
@@ -2875,11 +3078,6 @@ const closeModalLabel: Record<Locale, string> = {
 			grid-row: auto;
 		}
 
-		.hero-copy {
-			padding: 1.5rem 1.1rem 1.35rem;
-			text-align: left;
-		}
-
 		.cta-image {
 			min-height: 13.5rem;
 		}
@@ -2910,37 +3108,69 @@ const closeModalLabel: Record<Locale, string> = {
 		}
 
 		.hero-shell {
+			grid-template-columns: 1fr;
+			min-height: auto;
 			background:
-				linear-gradient(180deg, #05070d 0%, #05070d 57%, rgba(5, 7, 13, 0.96) 72%, rgba(5, 7, 13, 0.82) 100%);
+				linear-gradient(180deg, #05070d 0%, #05070d 52%, rgba(5, 7, 13, 0.96) 76%, rgba(5, 7, 13, 0.9) 100%);
 		}
 
-		.hero-copy h1 {
-			font-size: 2.55rem;
+		.hero-copy {
+			padding: 1.65rem 1.2rem 1.2rem;
+			text-align: left;
+		}
+
+		.hero-title-main {
+			font-size: clamp(3rem, 14vw, 4.45rem);
+			line-height: 0.9;
+		}
+
+		.hero-title-accent {
+			font-size: clamp(2.75rem, 13vw, 4rem);
+			line-height: 0.92;
+		}
+
+		.hero-values {
+			font-size: 0.9rem;
+			line-height: 1.35;
+		}
+
+		.hero-chant {
+			font-size: clamp(1.45rem, 9vw, 2rem);
+		}
+
+		.hero-text {
+			max-width: none;
+			font-size: 0.98rem;
 		}
 
 		.hero-media {
-			min-height: 18rem;
+			min-height: 18.5rem;
 		}
 
 		.hero-media img {
-			object-position: 58% top;
+			height: 100%;
+			object-position: center top;
 			transform: none;
 		}
 
 		.hero-ring {
-			width: 18rem;
-			height: 18rem;
-			left: 50%;
-			top: -1.8rem;
-			transform: translateX(-50%);
-			opacity: 0.7;
+			left: -3.2rem;
+			top: 1rem;
+			width: 17rem;
+			height: 17rem;
+			border-width: 0.48rem;
+			transform: none;
+			opacity: 0.74;
 		}
 
 		.hero-side-copy {
-			right: 1rem;
-			bottom: 1rem;
-			font-size: 1.2rem;
-			line-height: 0.95;
+			right: 0.75rem;
+			top: auto;
+			bottom: 0.95rem;
+			transform: rotate(-5deg);
+			max-width: 7rem;
+			font-size: 0.86rem;
+			line-height: 0.9;
 		}
 
 		.section-head,
@@ -2951,6 +3181,28 @@ const closeModalLabel: Record<Locale, string> = {
 
 		.gallery-link-row {
 			justify-content: flex-start;
+		}
+
+		.footer-grid {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				'contact'
+				'social'
+				'map';
+			gap: 0.9rem;
+		}
+
+		.footer-feed {
+			display: none;
+		}
+
+		.footer-contact,
+		.footer-brand,
+		.footer-map-panel {
+			padding-left: 0;
+			border-left: 0;
+			padding-top: 0;
+			border-top: 0;
 		}
 
 		.section-title-line {
@@ -3004,42 +3256,55 @@ const closeModalLabel: Record<Locale, string> = {
 		}
 
 		.footer-grid {
-			gap: 1.4rem;
+			gap: 1rem;
 		}
 
-		.footer-brand,
-		.footer-contact,
-		.footer-feed,
-		.footer-map-panel {
-			padding-top: 1rem;
+		.footer-contact {
+			grid-area: contact;
+			text-align: left;
 		}
 
-		.footer-brand {
-			padding-top: 0;
-		}
-
-		.footer-logo,
-		.footer-social {
-			justify-content: center;
-		}
-
-		.footer-brand,
-		.footer-contact,
-		.footer-feed,
-		.footer-map-panel {
-			text-align: center;
-		}
-
-		.footer-brand p,
-		.footer-feed p {
-			max-width: none;
+		.footer-contact h3 {
+			margin-bottom: 0.65rem;
 		}
 
 		.contact-line {
-			grid-template-columns: 1fr;
-			justify-items: center;
-			gap: 0.35rem;
-			text-align: center;
+			grid-template-columns: 1.1rem 1fr;
+			justify-items: start;
+			gap: 0.7rem;
+			text-align: left;
+		}
+
+		.footer-brand {
+			grid-area: social;
+			display: grid;
+			text-align: left;
+		}
+
+		.footer-logo,
+		.footer-brand p {
+			display: none;
+		}
+
+		.footer-social {
+			justify-content: flex-start;
+			margin-top: 0;
+			gap: 0.95rem;
+		}
+
+		.social-icon {
+			width: 2.35rem;
+			height: 2.35rem;
+		}
+
+		.social-icon svg {
+			width: 1.95rem;
+			height: 1.95rem;
+		}
+
+		.footer-map-panel {
+			grid-area: map;
+			text-align: left;
 		}
 
 		.footer-feed-grid {
