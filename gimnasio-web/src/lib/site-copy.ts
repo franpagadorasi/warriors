@@ -340,7 +340,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			contact: 'Contacto'
 		},
 		hero: {
-			eyebrow: "Escuela d'arts marcials",
+			eyebrow: 'Escuela de artes marciales',
 			titleMain: 'Taekwondo',
 			titleAccent: 'Ol\u00edmpico',
 			values: 'Disciplina. Respeto. Superaci\u00f3n.',
