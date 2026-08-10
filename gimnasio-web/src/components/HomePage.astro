@@ -22,9 +22,11 @@ const formatNewsDate = (date: string) => {
 };
 
 const galleryItems = [...copy.gallery.items].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+const newsItems = copy.news.items;
 const clubAddress = copy.footer.address;
 const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(clubAddress)}&output=embed`;
 const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clubAddress)}`;
+const trialWhatsappUrl = `${copy.footer.whatsappUrl}?text=${copy.hero.trialWhatsappMessage}`;
 
 const pricingPlans = copy.pricing.plans;
 const clubReasons = copy.pricing.reasons;
@@ -69,6 +71,7 @@ const closeModalLabel: Record<Locale, string> = {
 				<a href="#clases">{copy.nav.classes}</a>
 				<a href="#cuotas">{copy.nav.pricing}</a>
 				<a href="#horarios">{copy.nav.schedule}</a>
+				<a href="#noticias">{copy.nav.news}</a>
 				<a href="#galeria-destacada">{copy.nav.gallery}</a>
 				<a href="#contacto">{copy.nav.contact}</a>
 			</nav>
@@ -133,7 +136,7 @@ const closeModalLabel: Record<Locale, string> = {
 					<p class="hero-text">{copy.hero.description}</p>
 
 					<div class="hero-actions">
-						<a class="button button-primary" href="#contacto">{copy.hero.primaryCta}</a>
+						<a class="button button-primary" href={trialWhatsappUrl} target="_blank" rel="noreferrer">{copy.hero.primaryCta}</a>
 						<a class="button button-secondary" href="#club">{copy.hero.secondaryCta}</a>
 					</div>
 				</div>
@@ -529,6 +532,34 @@ const closeModalLabel: Record<Locale, string> = {
 
 		<section class="updates-section">
 			<div class="container updates-grid">
+				<div class="news-panel" id="noticias">
+					<div class="section-head news-head">
+						<div class="section-title-line">
+							<span></span>
+							<h2 class="unified-title">{copy.news.title}</h2>
+							<span></span>
+						</div>
+					</div>
+
+					<div class="news-grid">
+						{newsItems.map((item) => (
+							<article class="news-card">
+								<div class="news-media">
+									<img src={item.imageUrl || '/images/dojo-interior.png'} alt={item.title} />
+								</div>
+								<div class="news-copy">
+									<p class="news-date">{formatNewsDate(item.date)}</p>
+									<h3>{item.title}</h3>
+									<p>{item.excerpt}</p>
+									<a href={copy.footer.instagramUrl || '#'} target="_blank" rel="noreferrer">
+										{copy.news.readMore}
+									</a>
+								</div>
+							</article>
+						))}
+					</div>
+				</div>
+
 				<div class="gallery-panel" id="galeria-destacada">
 					<div class="section-head gallery-head">
 						<div class="section-title-line">
@@ -2335,6 +2366,11 @@ const closeModalLabel: Record<Locale, string> = {
 		align-items: start;
 	}
 
+	.news-panel,
+	.gallery-panel {
+		min-width: 0;
+	}
+
 	.section-head {
 		display: flex;
 		align-items: baseline;
@@ -2363,8 +2399,72 @@ const closeModalLabel: Record<Locale, string> = {
 		justify-content: center;
 	}
 
+	.news-head {
+		justify-content: center;
+	}
+
+	.news-head .section-title-line,
 	.gallery-head .section-title-line {
 		width: 100%;
+	}
+
+	.news-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.7rem;
+	}
+
+	.news-card {
+		background: #fff;
+		border: 1px solid rgba(17, 23, 35, 0.08);
+		box-shadow: 0 14px 30px rgba(15, 18, 28, 0.08);
+		display: grid;
+		grid-template-rows: 8.5rem auto;
+		overflow: hidden;
+	}
+
+	.news-media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.news-copy {
+		padding: 0.9rem 0.9rem 1rem;
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.news-date {
+		margin: 0;
+		font-size: 0.82rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #5f6c88;
+	}
+
+	.news-copy h3 {
+		margin: 0;
+		font-size: 1.05rem;
+		line-height: 1.15;
+		text-transform: uppercase;
+	}
+
+	.news-copy p {
+		margin: 0;
+		color: #334155;
+		font-size: 0.95rem;
+		line-height: 1.4;
+	}
+
+	.news-copy a {
+		margin-top: 0.2rem;
+		font-size: 0.82rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		color: #e31d1c;
 	}
 
 	.gallery-link-row {
@@ -2874,6 +2974,10 @@ const closeModalLabel: Record<Locale, string> = {
 			grid-template-rows: 9rem 9rem;
 		}
 
+		.news-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
 		.footer-contact,
 		.footer-feed,
 		.footer-map-panel {
@@ -2885,6 +2989,14 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	@media (max-width: 760px) {
+		.news-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.news-card {
+			grid-template-rows: 10rem auto;
+		}
+
 		.header-row {
 			grid-template-columns: auto minmax(0, 1fr) auto;
 			grid-template-areas: 'menu brand lang';

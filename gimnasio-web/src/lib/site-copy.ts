@@ -12,6 +12,7 @@ export interface SiteCopy {
 		classes: string;
 		pricing: string;
 		schedule: string;
+		news: string;
 		gallery: string;
 		contact: string;
 	};
@@ -24,6 +25,7 @@ export interface SiteCopy {
 		description: string;
 		primaryCta: string;
 		secondaryCta: string;
+		trialWhatsappMessage: string;
 		sideWords: string[];
 		imageAlt: string;
 	};
@@ -66,6 +68,12 @@ export interface SiteCopy {
 		values: Array<{ label: string; tone: Tone; icon: string }>;
 	};
 	stats: Array<{ value: string; label: string; tone: 'red' | 'blue' }>;
+	news: {
+		title: string;
+		linkLabel: string;
+		readMore: string;
+		items: Array<{ title: string; date: string; excerpt: string; imageUrl: string }>;
+	};
 	gallery: {
 		title: string;
 		linkLabel: string;
@@ -137,6 +145,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			classes: 'Modalitats',
 			pricing: 'Quotes',
 			schedule: 'Horaris',
+			news: 'Notícies',
 			gallery: 'Galeria',
 			contact: 'Contacte'
 		},
@@ -150,14 +159,16 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				'Formem persones dins i fora del tatami. Disciplina, respecte, superaci\u00f3 i passi\u00f3 a cada entrenament.',
 			primaryCta: 'Prova gratis',
 			secondaryCta: "Coneix-nos",
-			sideWords: ['R\u00e0pid', 'Fort', 'Intel\u00b7ligent', 'Inquebrantable'],
+			trialWhatsappMessage:
+				"Hola! M'agradaria demanar informació sobre una classe de prova a Club Taekwondo Warriors.%0A%0ANom:%0AEdat:%0AModalitat d'interès:",
+			sideWords: ['\u00c0gil', 'Fort', 'Prec\u00eds', 'Inquebrantable'],
 			imageAlt: 'Combat de taekwondo ol\u00edmpic'
 		},
 		features: [
-			{ title: 'Taekwondo ol\u00edmpic', description: "Entrenament d'alt nivell per a totes les edats.", tone: 'red' },
-			{ title: 'Escola infantil', description: 'Desenvolupem habilitats, valors i confian\u00e7a.', tone: 'blue' },
-			{ title: 'Club de competici\u00f3', description: 'Competim, aprenem i assolim metes.', tone: 'red' },
-			{ title: 'Tots els nivells', description: 'Des de principiants fins a atletes avan\u00e7ats.', tone: 'blue' }
+			{ title: 'Taekwondo ol?mpic', description: 'Art marcial i esport de combat reglamentat.', tone: 'red' },
+			{ title: 'Formaci?', description: 'Des de la iniciaci? fins a la competici?.', tone: 'blue' },
+			{ title: 'Totes les edats', description: 'Nens, joves i adults. Per a tots els nivells.', tone: 'blue' },
+			{ title: 'Equip de competici?', description: 'Entrenament per a alt rendiment.', tone: 'red' }
 		],
 		about: {
 			kicker: 'Sobre nosaltres',
@@ -270,10 +281,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				{ tone: 'red', label: 'Warriors Elite', range: 'm\u00e9s de 16 anys' }
 			],
 			values: [
-				{ label: 'Cortesia', tone: 'blue', icon: 'handshake' },
-				{ label: 'Perseveran\u00e7a', tone: 'red', icon: 'flag' },
-				{ label: 'Autocontrol', tone: 'gold', icon: 'lotus' },
-				{ label: 'Humilitat', tone: 'blue', icon: 'dobok' }
+				{ label: 'CORTESIA', tone: 'blue', icon: 'handshake' },
+				{ label: 'PERSEVERAN\u00c7A', tone: 'red', icon: 'flag' },
+				{ label: 'AUTOCONTROL', tone: 'gold', icon: 'lotus' },
+				{ label: 'HUMILITAT', tone: 'blue', icon: 'dobok' }
 			]
 		},
 		stats: [
@@ -282,6 +293,31 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			{ ...shared.stats[2], label: "Anys d'experi\u00e8ncia" },
 			{ ...shared.stats[3], label: 'Cinturons negres' }
 		],
+		news: {
+			title: 'Notícies',
+			linkLabel: 'Veure totes',
+			readMore: 'Llegir més',
+			items: [
+				{
+					title: 'Matrícula oberta per al nou curs',
+					date: '2026-09-01',
+					excerpt: 'Obrim inscripcions amb grups infantils, juvenils i adults per començar la temporada amb energia.',
+					imageUrl: shared.images.kids
+				},
+				{
+					title: 'Jornada tècnica i preparació de grau',
+					date: '2026-10-18',
+					excerpt: 'Sessió especial per reforçar poomsae, tècnica i continguts previs als pròxims exàmens de cinturó.',
+					imageUrl: shared.images.poomsae
+				},
+				{
+					title: 'Exhibicions i moments del club',
+					date: '2026-11-07',
+					excerpt: "Compartim activitats, exhibicions i el dia a dia de Warriors perquè les famílies segueixin l'evolució dels alumnes.",
+					imageUrl: shared.images.exhibition
+				}
+			]
+		},
 		gallery: {
 			title: 'Galeria',
 			linkLabel: 'Veure galeria completa',
@@ -336,6 +372,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			classes: 'Modalidades',
 			pricing: 'Cuotas',
 			schedule: 'Horarios',
+			news: 'Noticias',
 			gallery: 'Galer\u00eda',
 			contact: 'Contacto'
 		},
@@ -349,14 +386,16 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				'Formamos personas dentro y fuera del tatami. Disciplina, respeto, superaci\u00f3n y pasi\u00f3n en cada entrenamiento.',
 			primaryCta: 'Prueba gratis',
 			secondaryCta: 'Con\u00f3cenos',
-			sideWords: ['R\u00e1pido', 'Fuerte', 'Inteligente', 'Inquebrantable'],
+			trialWhatsappMessage:
+				'Hola, me gustaría pedir información sobre una clase de prueba en Club Taekwondo Warriors.%0A%0ANombre:%0AEdad:%0AModalidad de interés:',
+			sideWords: ['\u00c1gil', 'Fuerte', 'Preciso', 'Inquebrantable'],
 			imageAlt: 'Combate de taekwondo ol\u00edmpico'
 		},
 		features: [
-			{ title: 'Taekwondo ol\u00edmpico', description: 'Entrenamiento de alto nivel para todas las edades.', tone: 'red' },
-			{ title: 'Escuela infantil', description: 'Desarrollamos habilidades, valores y confianza.', tone: 'blue' },
-			{ title: 'Club de competici\u00f3n', description: 'Competimos, aprendemos y alcanzamos metas.', tone: 'red' },
-			{ title: 'Todos los niveles', description: 'Desde principiantes hasta atletas avanzados.', tone: 'blue' }
+			{ title: 'Taekwondo ol?mpico', description: 'Arte marcial y deporte de combate reglado.', tone: 'red' },
+			{ title: 'Formaci?n', description: 'Desde iniciaci?n hasta competici?n.', tone: 'blue' },
+			{ title: 'Todas las edades', description: 'Ni?os, j?venes y adultos. Para todos los niveles.', tone: 'blue' },
+			{ title: 'Equipo de competici?n', description: 'Entrenamiento para alto rendimiento.', tone: 'red' }
 		],
 		about: {
 			kicker: 'Sobre nosotros',
@@ -469,10 +508,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				{ tone: 'red', label: 'Warriors Elite', range: 'm\u00e1s de 16 a\u00f1os' }
 			],
 			values: [
-				{ label: 'Cortes\u00eda', tone: 'blue', icon: 'handshake' },
-				{ label: 'Perseverancia', tone: 'red', icon: 'flag' },
-				{ label: 'Autocontrol', tone: 'gold', icon: 'lotus' },
-				{ label: 'Humildad', tone: 'blue', icon: 'dobok' }
+				{ label: 'CORTES\u00cdA', tone: 'blue', icon: 'handshake' },
+				{ label: 'PERSEVERANCIA', tone: 'red', icon: 'flag' },
+				{ label: 'AUTOCONTROL', tone: 'gold', icon: 'lotus' },
+				{ label: 'HUMILDAD', tone: 'blue', icon: 'dobok' }
 			]
 		},
 		stats: [
@@ -481,6 +520,31 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			{ ...shared.stats[2], label: 'A\u00f1os de experiencia' },
 			{ ...shared.stats[3], label: 'Cinturones negros' }
 		],
+		news: {
+			title: 'Noticias',
+			linkLabel: 'Ver todas',
+			readMore: 'Leer m\u00e1s',
+			items: [
+				{
+					title: 'Matr\u00edcula abierta para el nuevo curso',
+					date: '2026-09-01',
+					excerpt: 'Abrimos inscripciones con grupos infantiles, juveniles y adultos para arrancar la temporada con fuerza.',
+					imageUrl: shared.images.kids
+				},
+				{
+					title: 'Jornada t\u00e9cnica y preparaci\u00f3n de grado',
+					date: '2026-10-18',
+					excerpt: 'Sesión especial para reforzar poomsae, técnica y contenidos previos a los próximos exámenes de cinturón.',
+					imageUrl: shared.images.poomsae
+				},
+				{
+					title: 'Exhibiciones y vida del club',
+					date: '2026-11-07',
+					excerpt: 'Compartimos actividades, exhibiciones y el día a día de Warriors para que las familias sigan la evolución del club.',
+					imageUrl: shared.images.exhibition
+				}
+			]
+		},
 		gallery: {
 			title: 'Galer\u00eda',
 			linkLabel: 'Ver galer\u00eda completa',
@@ -535,6 +599,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			classes: 'Programs',
 			pricing: 'Fees',
 			schedule: 'Schedule',
+			news: 'News',
 			gallery: 'Gallery',
 			contact: 'Contact'
 		},
@@ -548,14 +613,16 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				'We shape people on and off the mat. Discipline, respect, improvement, and passion in every training session.',
 			primaryCta: 'Free trial',
 			secondaryCta: 'Meet us',
-			sideWords: ['Fast', 'Strong', 'Smart', 'Unbreakable'],
+			trialWhatsappMessage:
+				"Hi! I'd like to get information about a trial class at Club Taekwondo Warriors.%0A%0AName:%0AAge:%0AProgram of interest:",
+			sideWords: ['Agile', 'Strong', 'Precise', 'Unbreakable'],
 			imageAlt: 'Olympic taekwondo sparring'
 		},
 		features: [
-			{ title: 'Olympic taekwondo', description: 'High-level training for all ages.', tone: 'red' },
-			{ title: 'Kids academy', description: 'We develop skills, values, and confidence.', tone: 'blue' },
-			{ title: 'Competition team', description: 'We compete, learn, and reach new goals.', tone: 'red' },
-			{ title: 'All levels', description: 'From beginners to advanced athletes.', tone: 'blue' }
+			{ title: 'Olympic taekwondo', description: 'Martial art and regulated combat sport.', tone: 'red' },
+			{ title: 'Training', description: 'From beginner level to competition.', tone: 'blue' },
+			{ title: 'All ages', description: 'Children, teens, and adults. For all levels.', tone: 'blue' },
+			{ title: 'Competition team', description: 'Training for high performance.', tone: 'red' }
 		],
 		about: {
 			kicker: 'About us',
@@ -668,10 +735,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				{ tone: 'red', label: 'Warriors Elite', range: '16+' }
 			],
 			values: [
-				{ label: 'Courtesy', tone: 'blue', icon: 'handshake' },
-				{ label: 'Perseverance', tone: 'red', icon: 'flag' },
-				{ label: 'Self-control', tone: 'gold', icon: 'lotus' },
-				{ label: 'Humility', tone: 'blue', icon: 'dobok' }
+				{ label: 'COURTESY', tone: 'blue', icon: 'handshake' },
+				{ label: 'PERSEVERANCE', tone: 'red', icon: 'flag' },
+				{ label: 'SELF-CONTROL', tone: 'gold', icon: 'lotus' },
+				{ label: 'HUMILITY', tone: 'blue', icon: 'dobok' }
 			]
 		},
 		stats: [
@@ -680,6 +747,31 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			{ ...shared.stats[2], label: 'Years of experience' },
 			{ ...shared.stats[3], label: 'Black belts' }
 		],
+		news: {
+			title: 'News',
+			linkLabel: 'View all',
+			readMore: 'Read more',
+			items: [
+				{
+					title: 'Registration open for the new season',
+					date: '2026-09-01',
+					excerpt: 'We are opening registration for kids, teens, and adults to kick off the new season with energy.',
+					imageUrl: shared.images.kids
+				},
+				{
+					title: 'Technical day and belt exam preparation',
+					date: '2026-10-18',
+					excerpt: 'A special session focused on poomsae, technique, and preparation for upcoming belt exams.',
+					imageUrl: shared.images.poomsae
+				},
+				{
+					title: 'Exhibitions and club highlights',
+					date: '2026-11-07',
+					excerpt: 'We share activities, exhibitions, and day-to-day highlights so families can follow the Warriors journey.',
+					imageUrl: shared.images.exhibition
+				}
+			]
+		},
 		gallery: {
 			title: 'Gallery',
 			linkLabel: 'View full gallery',
