@@ -33,6 +33,11 @@ const clubReasons = copy.pricing.reasons;
 const weeklySchedule = copy.schedule.rows;
 const ageGroups = copy.schedule.ages;
 const valuePillars = copy.schedule.values;
+const scheduleGroupLogoByTone: Record<string, string> = {
+	gold: '/images/warriors-kids.png',
+	blue: '/images/warriors-junior.png',
+	red: '/images/warriors-elite.png'
+};
 const localePaths: Record<Locale, string> = { ca: '/', es: '/es/', en: '/en/' };
 const localeLabels: Record<Locale, string> = { ca: 'Català', es: 'Español', en: 'English' };
 const scheduleDayShortLabels: Record<Locale, string[]> = {
@@ -157,6 +162,7 @@ const closeModalLabel: Record<Locale, string> = {
 						<div>
 							<h2>{item.title}</h2>
 							<p>{item.description}</p>
+							{item.highlight && <p class="feature-highlight">{item.highlight}</p>}
 						</div>
 					</article>
 				))}
@@ -462,10 +468,12 @@ const closeModalLabel: Record<Locale, string> = {
 					<div class="age-box">
 						{ageGroups.map((group) => (
 							<div class={`age-line ${group.tone}`}>
-								<div class="age-swatch" aria-hidden="true"></div>
+								<div class="age-logo-wrap">
+									<img class="age-logo" src={scheduleGroupLogoByTone[group.tone]} alt={group.label} />
+								</div>
 								<div class="age-copy">
-									<strong>{group.label}</strong>
-									<span>{group.range}</span>
+									<span class="age-range">{group.range}</span>
+									<p>{group.description}</p>
 								</div>
 							</div>
 						))}
@@ -615,11 +623,6 @@ const closeModalLabel: Record<Locale, string> = {
 								<path d="M7.8 3h8.4A4.8 4.8 0 0 1 21 7.8v8.4a4.8 4.8 0 0 1-4.8 4.8H7.8A4.8 4.8 0 0 1 3 16.2V7.8A4.8 4.8 0 0 1 7.8 3zm8 1.8H8.2a3.4 3.4 0 0 0-3.4 3.4v7.6a3.4 3.4 0 0 0 3.4 3.4h7.6a3.4 3.4 0 0 0 3.4-3.4V8.2a3.4 3.4 0 0 0-3.4-3.4zM12 7.2A4.8 4.8 0 1 1 7.2 12 4.8 4.8 0 0 1 12 7.2zm0 1.7A3.1 3.1 0 1 0 15.1 12 3.1 3.1 0 0 0 12 8.9zm4.95-2.25a1.15 1.15 0 1 1-1.15 1.15 1.15 1.15 0 0 1 1.15-1.15z"></path>
 							</svg>
 						</a>
-						<a href={copy.footer.facebookUrl || '#'} aria-label="Facebook" class="social-icon">
-							<svg viewBox="0 0 24 24" aria-hidden="true">
-								<path d="M13.6 21v-7h2.35l.35-2.82H13.6V9.39c0-.82.22-1.38 1.4-1.38h1.49V5.48c-.71-.08-1.42-.12-2.13-.11-2.1 0-3.54 1.28-3.54 3.63v2.18H8.5V14h2.28v7z"></path>
-							</svg>
-						</a>
 						<a href={copy.footer.whatsappUrl || '#'} aria-label="WhatsApp" class="social-icon">
 							<svg viewBox="0 0 24 24" aria-hidden="true">
 								<path d="M12 2C6.48 2 2 6.35 2 11.72c0 1.9.57 3.67 1.54 5.16L2.5 22l5.34-1.4a10.2 10.2 0 0 0 4.16.88c5.52 0 10-4.35 10-9.72S17.52 2 12 2zm0 17.84a8.3 8.3 0 0 1-4.02-1.03l-.29-.16-3.17.83.84-3.06-.18-.31a8.02 8.02 0 0 1-1.15-4.09c0-4.46 3.62-8.08 8.07-8.08 2.15 0 4.17.83 5.69 2.34a8 8 0 0 1 2.36 5.74c0 4.46-3.62 8.08-8.08 8.08zm4.43-5.98c-.24-.12-1.42-.69-1.64-.76-.22-.08-.38-.12-.54.12-.16.23-.61.76-.75.92-.14.15-.28.17-.52.06-.24-.12-1.01-.37-1.92-1.18-.7-.63-1.18-1.42-1.31-1.66-.13-.23-.01-.36.1-.48.1-.1.24-.27.35-.4.12-.13.16-.23.24-.39.08-.16.04-.3-.02-.42-.06-.12-.54-1.28-.74-1.76-.2-.46-.4-.4-.54-.4h-.47c-.16 0-.42.06-.64.3-.22.23-.85.82-.85 2s.87 2.34.98 2.5c.12.15 1.7 2.56 4.12 3.6.58.25 1.03.4 1.38.51.58.18 1.1.16 1.51.09.46-.07 1.42-.58 1.62-1.12.2-.55.2-1.01.14-1.12-.06-.09-.21-.15-.45-.27z"></path>
@@ -672,28 +675,46 @@ const closeModalLabel: Record<Locale, string> = {
 					</div>
 				</div>
 
-				<div class="footer-feed">
-					<h3>{copy.footer.socialTitle}</h3>
-					<p>{copy.footer.socialSubtitle}</p>
-					<div class="footer-feed-grid">
-						{galleryItems.slice(0, 4).map((item, index) => (
-							<img src={item.imageUrl || '/images/dojo-interior.png'} alt={copy.footer.galleryAlts[index] || item.title} />
-						))}
+				<div class="footer-feed footer-reviews">
+					<h3>{copy.footer.reviewsTitle}</h3>
+					<p>{copy.footer.reviewsSubtitle}</p>
+					<div class="reviews-card">
+						<div class="reviews-card-top">
+							<div class="reviews-google-mark" aria-hidden="true">G</div>
+							<div class="reviews-rating-copy">
+								<strong>{copy.footer.reviewsRatingLabel}</strong>
+								<span>{copy.footer.reviewsCountLabel}</span>
+							</div>
+						</div>
+						<div class="reviews-stars" aria-label={copy.footer.reviewsRatingLabel}>
+							<span>★</span>
+							<span>★</span>
+							<span>★</span>
+							<span>★</span>
+							<span>★</span>
+						</div>
+						<a class="reviews-button" href={mapDirectionsUrl} target="_blank" rel="noreferrer">
+							{copy.footer.reviewsButton}
+						</a>
 					</div>
 				</div>
 
 				<div class="footer-map-panel">
-					<div class="footer-map">
-						<iframe
-							src={mapEmbedUrl}
-							title={`Mapa de ${clubAddress}`}
-							loading="lazy"
-							referrerpolicy="no-referrer-when-downgrade"
-						></iframe>
+					<h3>{copy.footer.mapTitle}</h3>
+					<p class="footer-map-copy">{copy.footer.mapSubtitle}</p>
+					<div class="map-card">
+						<div class="footer-map">
+							<iframe
+								src={mapEmbedUrl}
+								title={`Mapa de ${clubAddress}`}
+								loading="lazy"
+								referrerpolicy="no-referrer-when-downgrade"
+							></iframe>
+						</div>
+						<a class="button button-primary full" href={mapDirectionsUrl} target="_blank" rel="noreferrer">
+							{copy.footer.mapButton}
+						</a>
 					</div>
-					<a class="button button-primary full" href={mapDirectionsUrl} target="_blank" rel="noreferrer">
-						{copy.footer.mapButton}
-					</a>
 				</div>
 			</div>
 		</section>
@@ -709,8 +730,11 @@ const closeModalLabel: Record<Locale, string> = {
 			<div class="reserva-options">
 				{copy.modal.options.map((option) => (
 					<a class={`reserva-option ${option.tone}`} href={option.url} target="_blank" rel="noreferrer">
-						<strong>{option.title}</strong>
-						<span>{option.subtitle}</span>
+						<img class="reserva-option-logo" src={scheduleGroupLogoByTone[option.tone === 'kids' ? 'gold' : option.tone === 'junior' ? 'blue' : 'red']} alt={option.title} />
+						<div class="reserva-option-copy">
+							<strong>{option.title}</strong>
+							<span>{option.subtitle}</span>
+						</div>
 					</a>
 				))}
 			</div>
@@ -1360,6 +1384,16 @@ const closeModalLabel: Record<Locale, string> = {
 		color: #d0d8e7;
 	}
 
+	.feature-card .feature-highlight {
+		margin-top: 0.3rem;
+		font-size: 0.9rem;
+		font-weight: 900;
+		line-height: 1.25;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		color: #f6c21c;
+	}
+
 	.about-section {
 		background: #f5f5f5;
 		color: #101522;
@@ -1698,91 +1732,53 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.age-line {
 		display: grid;
-		grid-template-columns: 4rem 1fr;
+		grid-template-columns: 14rem minmax(0, 1fr);
 		align-items: center;
-		gap: 1rem;
+		gap: 1.2rem;
 		margin: 0;
-		padding: 0.95rem 0.95rem 0.95rem 0.7rem;
+		padding: 1rem 1rem 1rem 1rem;
 		border-bottom: 1px solid rgba(17, 23, 35, 0.08);
-		border-radius: 1rem;
-		background: #f5f5f5;
+		border-radius: 1.1rem;
+		background: linear-gradient(180deg, #ffffff, #fbfbfb);
+		box-shadow: 0 10px 24px rgba(15, 18, 28, 0.05);
 	}
 
 	.age-line:last-child {
 		border-bottom: 0;
 	}
 
-	.age-swatch {
-		width: 3rem;
-		height: 0.9rem;
-		border-radius: 999px;
-		position: relative;
-		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+	.age-logo-wrap {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 0;
 	}
 
-	.age-swatch::before {
-		content: '';
-		position: absolute;
-		inset: -0.22rem -0.15rem;
-		border-radius: 999px;
-		opacity: 0.2;
-		filter: blur(6px);
-	}
-
-	.age-line.gold .age-swatch {
-		background: linear-gradient(90deg, #e7a708, #ffc928);
-	}
-
-	.age-line.gold .age-swatch::before {
-		background: #f0b411;
-	}
-
-	.age-line.blue .age-swatch {
-		background: linear-gradient(90deg, #1736a8, #2a58ff);
-	}
-
-	.age-line.blue .age-swatch::before {
-		background: #214fff;
-	}
-
-	.age-line.red .age-swatch {
-		background: linear-gradient(90deg, #d5141a, #ff2b27);
-	}
-
-	.age-line.red .age-swatch::before {
-		background: #eb241f;
+	.age-logo {
+		width: 100%;
+		max-width: 13rem;
+		height: auto;
+		display: block;
+		object-fit: contain;
 	}
 
 	.age-copy {
-		display: flex;
-		align-items: baseline;
-		flex-wrap: wrap;
-		gap: 0.55rem 0.9rem;
+		display: grid;
+		gap: 0.35rem;
+		min-width: 0;
 	}
 
-	.age-line strong {
-		font-size: 1.3rem;
-		text-transform: uppercase;
-		letter-spacing: -0.02em;
-		color: #0f1d39;
-	}
-
-	.age-line span {
+	.age-range {
 		color: #3f5478;
 		font-weight: 800;
-		font-size: 1.03rem;
+		font-size: 1rem;
 	}
 
-	.age-line.gold strong {
-		color: #cf8c00;
-	}
-
-	.age-line.blue strong {
-		color: #1736a8;
-	}
-
-	.age-line.red strong {
-		color: #d5141a;
+	.age-copy p {
+		margin: 0;
+		font-size: 0.92rem;
+		line-height: 1.35;
+		color: #20314f;
 	}
 
 	.values-box {
@@ -2679,9 +2675,10 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.reserva-option {
-		display: flex;
-		flex-direction: column;
-		gap: 0.18rem;
+		display: grid;
+		grid-template-columns: 8.5rem minmax(0, 1fr);
+		align-items: center;
+		gap: 0.85rem;
 		padding: 1rem 1.05rem;
 		border-radius: 1rem;
 		color: #ffffff;
@@ -2698,6 +2695,19 @@ const closeModalLabel: Record<Locale, string> = {
 	.reserva-option strong {
 		font-size: 1.45rem;
 		text-transform: uppercase;
+	}
+
+	.reserva-option-logo {
+		width: 100%;
+		max-width: 7.25rem;
+		height: auto;
+		display: block;
+		object-fit: contain;
+	}
+
+	.reserva-option-copy {
+		display: grid;
+		gap: 0.18rem;
 	}
 
 	.reserva-option span {
@@ -2841,7 +2851,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.footer-map {
 		position: relative;
-		min-height: 7.1rem;
+		min-height: 5.45rem;
 		margin-top: 0.15rem;
 		border-radius: 0.55rem;
 		border: 1px solid rgba(255, 255, 255, 0.08);
@@ -2852,7 +2862,7 @@ const closeModalLabel: Record<Locale, string> = {
 	.footer-map iframe {
 		width: 100%;
 		height: 100%;
-		min-height: 7.1rem;
+		min-height: 5.45rem;
 		border: 0;
 		display: block;
 		filter: grayscale(0.08) contrast(1.02) saturate(0.95);
@@ -2881,22 +2891,117 @@ const closeModalLabel: Record<Locale, string> = {
 		color: #d1d7e5;
 	}
 
-	.footer-feed-grid {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 0.35rem;
-		align-items: stretch;
+	.footer-map-panel h3 {
+		margin: 0 0 0.8rem;
+		font-size: 1.15rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		color: #ffffff;
 	}
 
-	.footer-feed-grid img {
-		width: 100%;
-		height: 4.8rem;
-		object-fit: cover;
-		object-position: center;
-		display: block;
-		border-radius: 0.2rem;
+	.footer-map-copy {
+		margin: -0.3rem 0 0.2rem;
+		font-size: 0.94rem;
+		color: #d1d7e5;
+	}
+
+	.footer-map-panel .button {
+		min-height: 2.85rem;
+		padding-block: 0.75rem;
+		margin-top: auto;
+	}
+
+	.map-card {
+		display: grid;
+		gap: 0.85rem;
+		padding: 1rem 1rem 1.1rem;
+		min-height: 100%;
+		align-content: start;
+		border-radius: 0.9rem;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
 		border: 1px solid rgba(255, 255, 255, 0.08);
-		overflow: hidden;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+	}
+
+	.reviews-card {
+		display: grid;
+		gap: 0.85rem;
+		padding: 1rem 1rem 1.1rem;
+		min-height: 100%;
+		align-content: start;
+		border-radius: 0.9rem;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+	}
+
+	.reviews-card-top {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.8rem;
+		align-items: center;
+	}
+
+	.reviews-google-mark {
+		width: 2.55rem;
+		height: 2.55rem;
+		border-radius: 999px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.35rem;
+		font-weight: 900;
+		color: #ffffff;
+		background: conic-gradient(from 210deg, #34a853, #4285f4, #ea4335, #fbbc05, #34a853);
+		box-shadow: 0 10px 18px rgba(0, 0, 0, 0.18);
+	}
+
+	.reviews-rating-copy {
+		display: grid;
+		gap: 0.08rem;
+	}
+
+	.reviews-rating-copy strong {
+		font-size: 1.15rem;
+		line-height: 1.1;
+		color: #ffffff;
+	}
+
+	.reviews-rating-copy span {
+		font-size: 0.9rem;
+		color: #d1d7e5;
+	}
+
+	.reviews-stars {
+		display: flex;
+		gap: 0.2rem;
+		font-size: 1.12rem;
+		line-height: 1;
+		color: #f6c21c;
+	}
+
+	.reviews-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.85rem;
+		padding: 0.75rem 1rem;
+		margin-top: auto;
+		border-radius: 0.85rem;
+		background: linear-gradient(135deg, #e31d1c, #ff2d26);
+		color: #ffffff;
+		font-size: 0.9rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		box-shadow: 0 10px 22px rgba(227, 29, 28, 0.24);
+		transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+	}
+
+	.reviews-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 14px 26px rgba(227, 29, 28, 0.3);
+		background: linear-gradient(135deg, #ff2d26, #ff4a34);
 	}
 
 	.footer-contact .button {
@@ -3156,26 +3261,35 @@ const closeModalLabel: Record<Locale, string> = {
 		}
 
 		.age-line {
-			grid-template-columns: 3.2rem 1fr;
-			padding: 0.85rem 0.8rem 0.85rem 0.55rem;
-		}
-
-		.age-swatch {
-			width: 2.45rem;
+			grid-template-columns: 10rem 1fr;
+			padding: 0.85rem 0.8rem 0.85rem 0.8rem;
 		}
 
 		.age-copy {
 			gap: 0.3rem 0.6rem;
 		}
 
-		.age-line strong {
-			font-size: 1.05rem;
+		.age-logo {
+			max-width: 9.4rem;
 		}
 
-		.age-line span {
+		.age-range {
 			font-size: 0.9rem;
 		}
 
+		.age-copy p {
+			font-size: 0.82rem;
+		}
+
+		.reserva-option {
+			grid-template-columns: 6.4rem 1fr;
+			padding: 0.95rem;
+		}
+
+		.reserva-option-logo {
+			max-width: 5.5rem;
+		}
+		
 		.value-pill-icon {
 			width: 2.55rem;
 			height: 2.55rem;
@@ -3424,10 +3538,6 @@ const closeModalLabel: Record<Locale, string> = {
 			text-align: left;
 		}
 
-		.footer-feed-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-
 		.footer-map {
 			min-height: 10rem;
 		}
@@ -3650,6 +3760,28 @@ const closeModalLabel: Record<Locale, string> = {
 		.values-box {
 			padding: 1rem 0.9rem;
 			border-radius: 1.2rem;
+		}
+
+		.age-line {
+			grid-template-columns: 1fr;
+			gap: 0.75rem;
+		}
+
+		.age-logo-wrap {
+			justify-content: flex-start;
+		}
+
+		.age-logo {
+			max-width: 9rem;
+		}
+
+		.reserva-option {
+			grid-template-columns: 1fr;
+			gap: 0.65rem;
+		}
+
+		.reserva-option-logo {
+			max-width: 7rem;
 		}
 	}
 </style>

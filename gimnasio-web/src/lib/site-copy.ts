@@ -29,7 +29,7 @@ export interface SiteCopy {
 		sideWords: string[];
 		imageAlt: string;
 	};
-	features: Array<{ title: string; description: string; tone: 'red' | 'blue' }>;
+	features: Array<{ title: string; description: string; highlight?: string; tone: 'red' | 'blue' }>;
 	about: {
 		kicker: string;
 		title: string;
@@ -64,7 +64,7 @@ export interface SiteCopy {
 		headerTime: string;
 		days: string[];
 		rows: Array<{ time: string; tone: Tone; classes: string[] }>;
-		ages: Array<{ tone: Tone; label: string; range: string }>;
+		ages: Array<{ tone: Tone; label: string; range: string; description: string }>;
 		values: Array<{ label: string; tone: Tone; icon: string }>;
 	};
 	stats: Array<{ value: string; label: string; tone: 'red' | 'blue' }>;
@@ -95,8 +95,13 @@ export interface SiteCopy {
 	footer: {
 		description: string;
 		contactTitle: string;
-		socialTitle: string;
-		socialSubtitle: string;
+		reviewsTitle: string;
+		reviewsSubtitle: string;
+		reviewsRatingLabel: string;
+		reviewsCountLabel: string;
+		reviewsButton: string;
+		mapTitle: string;
+		mapSubtitle: string;
 		hours: string;
 		mapButton: string;
 		address: string;
@@ -126,10 +131,10 @@ const shared = {
 		poomsae: '/images/modalidad-poomsae.png'
 	},
 	stats: [
-		{ value: '+350', tone: 'red' as const },
-		{ value: '+120', tone: 'blue' as const },
-		{ value: '+25', tone: 'red' as const },
-		{ value: '+15', tone: 'blue' as const }
+		{ value: '+89', tone: 'red' as const },
+		{ value: '+108', tone: 'blue' as const },
+		{ value: '+20', tone: 'red' as const },
+		{ value: '+5', tone: 'blue' as const }
 	]
 };
 
@@ -167,7 +172,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		features: [
 			{ title: 'Taekwondo ol?mpic', description: 'Art marcial i esport de combat reglamentat.', tone: 'red' },
 			{ title: 'Formaci?', description: 'Des de la iniciaci? fins a la competici?.', tone: 'blue' },
-			{ title: 'Totes les edats', description: 'Nens, joves i adults. Per a tots els nivells.', tone: 'blue' },
+			{ title: 'Totes les edats', description: 'Nens, joves i adults.', highlight: 'Per a tots els nivells.', tone: 'blue' },
 			{ title: 'Equip de competici?', description: 'Entrenament per a alt rendiment.', tone: 'red' }
 		],
 		about: {
@@ -179,33 +184,33 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			imagesAlt: ['Instal\u00b7lacions del club', 'Classe infantil', 'Exhibici\u00f3 de taekwondo', 'Entrenament de combat']
 		},
 		classes: {
-			title: 'Les nostres modalitats',
+			title: 'Modalitats que treballem',
 			button: 'Veure totes les modalitats',
 			moreInfo: 'M\u00e9s informaci\u00f3',
 			items: [
 				{
-					title: 'Infantil',
-					description: 'Classes din\u00e0miques per a nens i nenes a partir de 4 anys, enfocades en disciplina, confian\u00e7a i diversi\u00f3.',
-					audience: 'Des de 4 anys',
-					imageUrl: shared.images.combat
-				},
-				{
-					title: 'Juvenil',
-					description: 'Entrenament t\u00e8cnic i f\u00edsic per a joves que volen progressar, competir o guanyar seguretat.',
-					audience: 'Adolescents',
+					title: 'T\u00e8cnica i poomsae',
+					description: 'Seq\u00fc\u00e8ncies de moviments t\u00e8cnics executats de manera ordenada per perfeccionar la t\u00e8cnica, l\u2019equilibri i la concentraci\u00f3.',
+					audience: 'Precisió i control',
 					imageUrl: shared.images.poomsae
 				},
 				{
-					title: 'Adults',
+					title: 'Combat',
+					description: 'Una disciplina que combina superaci\u00f3, confian\u00e7a i esperit de lluita, ajudant els nostres alumnes a cr\u00e9ixer, respectar i superar-se en cada repte.',
+					audience: 'Esperit de lluita',
+					imageUrl: shared.images.combat
+				},
+				{
+					title: 'Exhibici\u00f3',
 					description:
-						'Sessions adaptades a tots els nivells per posar-se en forma, aprendre t\u00e8cnica i desconnectar mentre millores la coordinaci\u00f3.',
-					audience: 'Tots els nivells',
+						'Un moment per compartir, gaudir i demostrar tot el que els nostres alumnes han aconseguit amb esfor\u00e7, const\u00e0ncia i passi\u00f3.',
+					audience: 'Expressi\u00f3 i passi\u00f3',
 					imageUrl: shared.images.exhibition
 				},
 				{
 					title: 'Defensa personal',
-					description: 'Treball pr\u00e0ctic per millorar reflexos, seguretat i control corporal en situacions reals.',
-					audience: 'Pr\u00e0ctic',
+					description: 'Una formaci\u00f3 que ajuda els nostres alumnes a afrontar situacions de risc amb seguretat, confian\u00e7a i capacitat de reacci\u00f3.',
+					audience: 'Seguretat real',
 					imageUrl: shared.images.defense
 				}
 			]
@@ -276,9 +281,24 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', '', 'Warriors Elite', 'Warriors Elite'] }
 			],
 			ages: [
-				{ tone: 'gold', label: 'Warriors Kids', range: 'de 3 a 9 anys' },
-				{ tone: 'blue', label: 'Warriors Junior', range: 'de 10 a 15 anys' },
-				{ tone: 'red', label: 'Warriors Elite', range: 'm\u00e9s de 16 anys' }
+				{
+					tone: 'gold',
+					label: 'Warriors Kids',
+					range: 'de 3 a 9 anys',
+					description: "Per a nens i nenes que s'inicien en el taekwondo. Diversi\u00f3, aprenentatge i valors."
+				},
+				{
+					tone: 'blue',
+					label: 'Warriors Junior',
+					range: 'de 10 a 15 anys',
+					description: 'Per a nens i joves que volen continuar creixent, millorar i superar-se cada dia.'
+				},
+				{
+					tone: 'red',
+					label: 'Warriors Elite',
+					range: 'm\u00e9s de 16 anys',
+					description: "Per a qui busca el m\u00e0xim rendiment i la competici\u00f3. Comprom\u00eds, esfor\u00e7 i excel\u00b7l\u00e8ncia."
+				}
 			],
 			values: [
 				{ label: 'CORTESIA', tone: 'blue', icon: 'handshake' },
@@ -347,8 +367,13 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		footer: {
 			description: 'M\u00e9s que un club, una fam\u00edlia. Formant guerrers des del respecte, la disciplina i la const\u00e0ncia.',
 			contactTitle: 'Contacte',
-			socialTitle: 'Segueix-nos a les xarxes',
-			socialSubtitle: 'No et perdis el nostre dia a dia',
+			reviewsTitle: 'Ressenyes de Google',
+			reviewsSubtitle: "El que diuen les fam\u00edlies del club",
+			reviewsRatingLabel: '5,0 a Google',
+			reviewsCountLabel: '55 ressenyes',
+			reviewsButton: 'Veure a Google',
+			mapTitle: 'Com arribar',
+			mapSubtitle: 'Troba el club i vine a con\u00e8ixer-nos',
 			hours: 'Dl-V: 17:30 - 20:30',
 			mapButton: 'Com arribar',
 			address: 'Calle Moss\u00e8n Jacint Verdaguer 274',
@@ -387,15 +412,15 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			primaryCta: 'Prueba gratis',
 			secondaryCta: 'Con\u00f3cenos',
 			trialWhatsappMessage:
-				'Hola, me gustaría pedir información sobre una clase de prueba en Club Taekwondo Warriors.%0A%0ANombre:%0AEdad:%0AModalidad de interés:',
+				'Hola, me gustar\u00eda pedir informaci\u00f3n sobre una clase de prueba en Club Taekwondo Warriors.%0A%0ANombre:%0AEdad:%0AModalidad de inter\u00e9s:',
 			sideWords: ['\u00c1gil', 'Fuerte', 'Preciso', 'Inquebrantable'],
 			imageAlt: 'Combate de taekwondo ol\u00edmpico'
 		},
 		features: [
-			{ title: 'Taekwondo ol?mpico', description: 'Arte marcial y deporte de combate reglado.', tone: 'red' },
-			{ title: 'Formaci?n', description: 'Desde iniciaci?n hasta competici?n.', tone: 'blue' },
-			{ title: 'Todas las edades', description: 'Ni?os, j?venes y adultos. Para todos los niveles.', tone: 'blue' },
-			{ title: 'Equipo de competici?n', description: 'Entrenamiento para alto rendimiento.', tone: 'red' }
+			{ title: 'Taekwondo ol\u00edmpico', description: 'Arte marcial y deporte de combate reglado.', tone: 'red' },
+			{ title: 'Formaci\u00f3n', description: 'Desde iniciaci\u00f3n hasta competici\u00f3n.', tone: 'blue' },
+			{ title: 'Todas las edades', description: 'Ni\u00f1os, j\u00f3venes y adultos.', highlight: 'Para todos los niveles.', tone: 'blue' },
+			{ title: 'Equipo de competici\u00f3n', description: 'Entrenamiento para alto rendimiento.', tone: 'red' }
 		],
 		about: {
 			kicker: 'Sobre nosotros',
@@ -406,33 +431,33 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			imagesAlt: ['Instalaciones del club', 'Clase infantil', 'Exhibici\u00f3n de taekwondo', 'Entrenamiento de combate']
 		},
 		classes: {
-			title: 'Nuestras modalidades',
+			title: 'Modalidades que trabajamos',
 			button: 'Ver todas las modalidades',
 			moreInfo: 'M\u00e1s informaci\u00f3n',
 			items: [
 				{
-					title: 'Infantil',
-					description: 'Clases din\u00e1micas para ni\u00f1os y ni\u00f1as desde los 4 a\u00f1os, enfocadas en disciplina, confianza y diversi\u00f3n.',
-					audience: 'Desde 4 a\u00f1os',
-					imageUrl: shared.images.combat
-				},
-				{
-					title: 'Juvenil',
-					description: 'Entrenamiento t\u00e9cnico y f\u00edsico para j\u00f3venes que quieren progresar, competir o ganar seguridad.',
-					audience: 'Adolescentes',
+					title: 'T\u00e9cnica y poomsae',
+					description: 'Secuencias de movimientos t\u00e9cnicos ejecutados de forma ordenada para perfeccionar la t\u00e9cnica, el equilibrio y la concentraci\u00f3n.',
+					audience: 'Precisi\u00f3n y control',
 					imageUrl: shared.images.poomsae
 				},
 				{
-					title: 'Adultos',
+					title: 'Combate',
+					description: 'Una disciplina que combina superaci\u00f3n, confianza y esp\u00edritu de lucha, ayudando a nuestros alumnos a crecer, respetar y superarse en cada reto.',
+					audience: 'Esp\u00edritu de lucha',
+					imageUrl: shared.images.combat
+				},
+				{
+					title: 'Exhibici\u00f3n',
 					description:
-						'Sesiones adaptadas a todos los niveles para ponerse en forma, aprender t\u00e9cnica y desconectar mientras mejoras tu coordinaci\u00f3n.',
-					audience: 'Todos los niveles',
+						'Un momento para compartir, disfrutar y demostrar todo lo que nuestros alumnos han conseguido con esfuerzo, constancia y pasi\u00f3n.',
+					audience: 'Expresi\u00f3n y pasi\u00f3n',
 					imageUrl: shared.images.exhibition
 				},
 				{
 					title: 'Defensa personal',
-					description: 'Trabajo pr\u00e1ctico para mejorar reflejos, seguridad y control corporal en situaciones reales.',
-					audience: 'Pr\u00e1ctico',
+					description: 'Una formaci\u00f3n que ayuda a nuestros alumnos a afrontar situaciones de riesgo con seguridad, confianza y capacidad de reacci\u00f3n.',
+					audience: 'Seguridad real',
 					imageUrl: shared.images.defense
 				}
 			]
@@ -503,9 +528,24 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', '', 'Warriors Elite', 'Warriors Elite'] }
 			],
 			ages: [
-				{ tone: 'gold', label: 'Warriors Kids', range: 'de 3 a 9 a\u00f1os' },
-				{ tone: 'blue', label: 'Warriors Junior', range: 'de 10 a 15 a\u00f1os' },
-				{ tone: 'red', label: 'Warriors Elite', range: 'm\u00e1s de 16 a\u00f1os' }
+				{
+					tone: 'gold',
+					label: 'Warriors Kids',
+					range: 'de 3 a 9 a\u00f1os',
+					description: 'Para ni\u00f1os y ni\u00f1as que se inician en el taekwondo. Diversi\u00f3n, aprendizaje y valores.'
+				},
+				{
+					tone: 'blue',
+					label: 'Warriors Junior',
+					range: 'de 10 a 15 a\u00f1os',
+					description: 'Para ni\u00f1os y j\u00f3venes que quieren seguir creciendo, mejorar y superarse cada d\u00eda.'
+				},
+				{
+					tone: 'red',
+					label: 'Warriors Elite',
+					range: 'm\u00e1s de 16 a\u00f1os',
+					description: 'Para quienes buscan el m\u00e1ximo rendimiento y competici\u00f3n. Compromiso, esfuerzo y excelencia.'
+				}
 			],
 			values: [
 				{ label: 'CORTES\u00cdA', tone: 'blue', icon: 'handshake' },
@@ -574,8 +614,13 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		footer: {
 			description: 'M\u00e1s que un club, una familia. Formando guerreros desde el respeto, la disciplina y la constancia.',
 			contactTitle: 'Contacto',
-			socialTitle: 'S\u00edguenos en redes',
-			socialSubtitle: 'No te pierdas nuestro d\u00eda a d\u00eda',
+			reviewsTitle: 'Rese\u00f1as de Google',
+			reviewsSubtitle: 'Lo que dicen las familias del club',
+			reviewsRatingLabel: '5,0 en Google',
+			reviewsCountLabel: '55 rese\u00f1as',
+			reviewsButton: 'Ver en Google',
+			mapTitle: 'C\u00f3mo llegar',
+			mapSubtitle: 'Encuentra el club y ven a conocernos',
 			hours: 'L-V: 17:30 - 20:30',
 			mapButton: 'C\u00f3mo llegar',
 			address: 'Calle Moss\u00e8n Jacint Verdaguer 274',
@@ -621,7 +666,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		features: [
 			{ title: 'Olympic taekwondo', description: 'Martial art and regulated combat sport.', tone: 'red' },
 			{ title: 'Training', description: 'From beginner level to competition.', tone: 'blue' },
-			{ title: 'All ages', description: 'Children, teens, and adults. For all levels.', tone: 'blue' },
+			{ title: 'All ages', description: 'Children, teens, and adults.', highlight: 'For all levels.', tone: 'blue' },
 			{ title: 'Competition team', description: 'Training for high performance.', tone: 'red' }
 		],
 		about: {
@@ -633,33 +678,33 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			imagesAlt: ['Club facilities', 'Kids class', 'Taekwondo exhibition', 'Sparring practice']
 		},
 		classes: {
-			title: 'Our programs',
+			title: 'Programs we work on',
 			button: 'View all programs',
 			moreInfo: 'More info',
 			items: [
 				{
-					title: 'Kids',
-					description: 'Dynamic classes for boys and girls from age 4, focused on discipline, confidence, and fun.',
-					audience: 'From age 4',
-					imageUrl: shared.images.combat
-				},
-				{
-					title: 'Teens',
-					description: 'Technical and physical training for young students who want to progress, compete, or gain confidence.',
-					audience: 'Teenagers',
+					title: 'Technique and poomsae',
+					description: 'Sequences of technical movements performed in an organized way to improve technique, balance, and concentration.',
+					audience: 'Precision and control',
 					imageUrl: shared.images.poomsae
 				},
 				{
-					title: 'Adults',
+					title: 'Sparring',
+					description: 'A discipline that combines self-improvement, confidence, and fighting spirit, helping our students grow, respect others, and push themselves in every challenge.',
+					audience: 'Fighting spirit',
+					imageUrl: shared.images.combat
+				},
+				{
+					title: 'Exhibition',
 					description:
-						'Sessions adapted to all levels to get fit, learn technique, and disconnect while improving coordination.',
-					audience: 'All levels',
+						'A moment to share, enjoy, and show everything our students have achieved through effort, consistency, and passion.',
+					audience: 'Expression and passion',
 					imageUrl: shared.images.exhibition
 				},
 				{
 					title: 'Self-defense',
-					description: 'Practical work to improve reflexes, safety, and body control in real-life situations.',
-					audience: 'Practical',
+					description: 'Training that helps our students face risky situations with safety, confidence, and the ability to react.',
+					audience: 'Real-world safety',
 					imageUrl: shared.images.defense
 				}
 			]
@@ -730,9 +775,24 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', '', 'Warriors Elite', 'Warriors Elite'] }
 			],
 			ages: [
-				{ tone: 'gold', label: 'Warriors Kids', range: 'Ages 3 to 9' },
-				{ tone: 'blue', label: 'Warriors Junior', range: 'Ages 10 to 15' },
-				{ tone: 'red', label: 'Warriors Elite', range: '16+' }
+				{
+					tone: 'gold',
+					label: 'Warriors Kids',
+					range: 'Ages 3 to 9',
+					description: 'For boys and girls starting in taekwondo. Fun, learning, and values.'
+				},
+				{
+					tone: 'blue',
+					label: 'Warriors Junior',
+					range: 'Ages 10 to 15',
+					description: 'For kids and teens who want to keep growing, improving, and pushing themselves every day.'
+				},
+				{
+					tone: 'red',
+					label: 'Warriors Elite',
+					range: '16+',
+					description: 'For those seeking top performance and competition. Commitment, effort, and excellence.'
+				}
 			],
 			values: [
 				{ label: 'COURTESY', tone: 'blue', icon: 'handshake' },
@@ -801,8 +861,13 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		footer: {
 			description: 'More than a club, a family. Building warriors through respect, discipline, and consistency.',
 			contactTitle: 'Contact',
-			socialTitle: 'Follow us',
-			socialSubtitle: 'Stay up to date with our daily life',
+			reviewsTitle: 'Google Reviews',
+			reviewsSubtitle: 'What club families are saying',
+			reviewsRatingLabel: '5.0 on Google',
+			reviewsCountLabel: '55 reviews',
+			reviewsButton: 'View on Google',
+			mapTitle: 'How to get here',
+			mapSubtitle: 'Find the club and come meet us',
 			hours: 'Mon-Fri: 17:30 - 20:30',
 			mapButton: 'Get directions',
 			address: 'Calle Moss\u00e8n Jacint Verdaguer 274',
