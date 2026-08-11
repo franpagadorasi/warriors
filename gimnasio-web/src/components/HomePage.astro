@@ -732,7 +732,6 @@ const closeModalLabel: Record<Locale, string> = {
 					<a class={`reserva-option ${option.tone}`} href={option.url} target="_blank" rel="noreferrer">
 						<img class="reserva-option-logo" src={scheduleGroupLogoByTone[option.tone === 'kids' ? 'gold' : option.tone === 'junior' ? 'blue' : 'red']} alt={option.title} />
 						<div class="reserva-option-copy">
-							<strong>{option.title}</strong>
 							<span>{option.subtitle}</span>
 						</div>
 					</a>
@@ -2676,9 +2675,9 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.reserva-option {
 		display: grid;
-		grid-template-columns: 8.5rem minmax(0, 1fr);
+		grid-template-columns: 10rem minmax(0, 1fr);
 		align-items: center;
-		gap: 0.85rem;
+		gap: 1rem;
 		padding: 1rem 1.05rem;
 		border-radius: 1rem;
 		color: #ffffff;
@@ -2692,26 +2691,24 @@ const closeModalLabel: Record<Locale, string> = {
 		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 	}
 
-	.reserva-option strong {
-		font-size: 1.45rem;
-		text-transform: uppercase;
-	}
-
 	.reserva-option-logo {
 		width: 100%;
-		max-width: 7.25rem;
+		max-width: 8.9rem;
 		height: auto;
 		display: block;
 		object-fit: contain;
 	}
 
 	.reserva-option-copy {
-		display: grid;
-		gap: 0.18rem;
+		display: flex;
+		align-items: center;
+		min-height: 100%;
 	}
 
 	.reserva-option span {
-		font-size: 0.98rem;
+		font-size: 1.18rem;
+		font-weight: 800;
+		line-height: 1.2;
 		color: rgba(255, 255, 255, 0.88);
 	}
 
@@ -2851,18 +2848,20 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.footer-map {
 		position: relative;
-		min-height: 5.45rem;
-		margin-top: 0.15rem;
+		height: 100%;
+		min-height: 0;
+		margin-top: 0;
 		border-radius: 0.55rem;
 		border: 1px solid rgba(255, 255, 255, 0.08);
 		overflow: hidden;
 		background: #121722;
+		flex: 1 1 auto;
 	}
 
 	.footer-map iframe {
 		width: 100%;
 		height: 100%;
-		min-height: 5.45rem;
+		min-height: 0;
 		border: 0;
 		display: block;
 		filter: grayscale(0.08) contrast(1.02) saturate(0.95);
@@ -2912,11 +2911,11 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.map-card {
-		display: grid;
+		display: flex;
+		flex-direction: column;
 		gap: 0.85rem;
 		padding: 1rem 1rem 1.1rem;
-		min-height: 100%;
-		align-content: start;
+		height: 13.8rem;
 		border-radius: 0.9rem;
 		background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
 		border: 1px solid rgba(255, 255, 255, 0.08);
@@ -2924,11 +2923,11 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.reviews-card {
-		display: grid;
+		display: flex;
+		flex-direction: column;
 		gap: 0.85rem;
 		padding: 1rem 1rem 1.1rem;
-		min-height: 100%;
-		align-content: start;
+		height: 13.8rem;
 		border-radius: 0.9rem;
 		background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
 		border: 1px solid rgba(255, 255, 255, 0.08);
@@ -3282,12 +3281,12 @@ const closeModalLabel: Record<Locale, string> = {
 		}
 
 		.reserva-option {
-			grid-template-columns: 6.4rem 1fr;
+			grid-template-columns: 8rem 1fr;
 			padding: 0.95rem;
 		}
 
 		.reserva-option-logo {
-			max-width: 5.5rem;
+			max-width: 7rem;
 		}
 		
 		.value-pill-icon {
@@ -3778,10 +3777,16 @@ const closeModalLabel: Record<Locale, string> = {
 		.reserva-option {
 			grid-template-columns: 1fr;
 			gap: 0.65rem;
+			justify-items: center;
+			text-align: center;
 		}
 
 		.reserva-option-logo {
-			max-width: 7rem;
+			max-width: 8rem;
+		}
+
+		.reserva-option-copy {
+			justify-content: center;
 		}
 	}
 </style>
