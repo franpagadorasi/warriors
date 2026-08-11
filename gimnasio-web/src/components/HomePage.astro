@@ -26,6 +26,8 @@ const newsItems = copy.news.items;
 const clubAddress = copy.footer.address;
 const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(clubAddress)}&output=embed`;
 const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clubAddress)}`;
+const googleReviewsUrl =
+	'https://www.google.com/search?sa=X&sca_esv=72d5cd2ff8b49349&hl=es-ES&sxsrf=APpeQnteq4VAaMWerGiHchsD0iSncs0cfA:1786449416188&q=Club+Taekwondo+Warriors+Rese%C3%B1as&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDMzMjA2NjSxMLUwMTayNDEwMdjAyPiKUcE5pzRJISQxNbs8Py8lXyE8sagoM7-oWCEotTj18MbE4kWsBJUAAHwBsRVhAAAA&rldimm=16620331485843294040&tbm=lcl&ved=2ahUKEwjSg_HWwpiWAxXtSfEDHV_pK2QQ9fQKegQIVRAG&biw=1920&bih=911&dpr=1#lkt=LocalPoiReviews';
 const trialWhatsappUrl = `${copy.footer.whatsappUrl}?text=${copy.hero.trialWhatsappMessage}`;
 
 const pricingPlans = copy.pricing.plans;
@@ -693,7 +695,7 @@ const closeModalLabel: Record<Locale, string> = {
 							<span>★</span>
 							<span>★</span>
 						</div>
-						<a class="reviews-button" href={mapDirectionsUrl} target="_blank" rel="noreferrer">
+						<a class="reviews-button" href={googleReviewsUrl} target="_blank" rel="noreferrer">
 							{copy.footer.reviewsButton}
 						</a>
 					</div>
