@@ -1,0 +1,2043 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import { getSiteCopy, type Locale } from '../lib/site-copy';
+import { aboutPaths, getAboutPageCopy } from '../lib/about-copy';
+
+interface Props {
+	locale?: Locale;
+}
+
+const { locale = 'ca' } = Astro.props;
+const copy = getSiteCopy(locale);
+const aboutCopy = getAboutPageCopy(locale);
+
+const homePaths: Record<Locale, string> = { ca: '/', es: '/es/', en: '/en/' };
+const localeLabels: Record<Locale, string> = { ca: 'Català', es: 'Español', en: 'English' };
+const languageAria: Record<Locale, string> = {
+	ca: 'Idiomes disponibles',
+	es: 'Idiomas disponibles',
+	en: 'Available languages'
+};
+const closeModalLabel: Record<Locale, string> = {
+	ca: 'Tancar',
+	es: 'Cerrar',
+	en: 'Close'
+};
+
+const navLinks = {
+	home: homePaths[locale],
+	about: aboutPaths[locale],
+	classes: `${homePaths[locale]}#clases`,
+	pricing: `${homePaths[locale]}#cuotas`,
+	schedule: `${homePaths[locale]}#horarios`,
+	news: `${homePaths[locale]}#noticias`,
+	gallery: `${homePaths[locale]}#galeria-destacada`,
+	contact: '#contacto'
+};
+
+const localeSwitchPaths = {
+	ca: aboutPaths.ca,
+	es: aboutPaths.es,
+	en: aboutPaths.en
+};
+
+const clubAddress = copy.footer.address;
+const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(clubAddress)}&output=embed`;
+const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clubAddress)}`;
+const googleReviewsUrl =
+	'https://www.google.com/search?sa=X&sca_esv=72d5cd2ff8b49349&hl=es-ES&sxsrf=APpeQnteq4VAaMWerGiHchsD0iSncs0cfA:1786449416188&q=Club+Taekwondo+Warriors+Rese%C3%B1as&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDMzMjA2NjSxMLUwMTayNDEwMdjAyPiKUcE5pzRJISQxNbs8Py8lXyE8sagoM7-oWCEotTj18MbE4kWsBJUAAHwBsRVhAAAA&rldimm=16620331485843294040&tbm=lcl&ved=2ahUKEwjSg_HWwpiWAxXtSfEDHV_pK2QQ9fQKegQIVRAG&biw=1920&bih=911&dpr=1#lkt=LocalPoiReviews';
+const trialWhatsappUrl = `${copy.footer.whatsappUrl}?text=${copy.hero.trialWhatsappMessage}`;
+const scheduleGroupLogoByTone: Record<string, string> = {
+	gold: '/images/warriors-kids.png',
+	blue: '/images/warriors-junior.png',
+	red: '/images/warriors-elite.png'
+};
+---
+
+<Layout title={aboutCopy.seoTitle} description={aboutCopy.seoDescription} lang={copy.lang}>
+	<header class="site-header">
+		<div class="container header-row">
+			<a class="brand" href={navLinks.home}>
+				<img src="/images/logo-warriors-horizontal.png" alt="Club Taekwondo Warriors" class="brand-logo-full" />
+			</a>
+
+			<button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" data-menu-toggle>
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+
+			<nav class="nav" data-mobile-nav>
+				<a href={navLinks.home}>{copy.nav.home}</a>
+				<a class="active" href={navLinks.about}>{copy.nav.about}</a>
+				<a href={navLinks.classes}>{copy.nav.classes}</a>
+				<a href={navLinks.pricing}>{copy.nav.pricing}</a>
+				<a href={navLinks.schedule}>{copy.nav.schedule}</a>
+				<a href={navLinks.news}>{copy.nav.news}</a>
+				<a href={navLinks.gallery}>{copy.nav.gallery}</a>
+				<a href={navLinks.contact}>{copy.nav.contact}</a>
+			</nav>
+
+			<div class="header-languages" aria-label={languageAria[locale]}>
+				<a class={`language-flag ${locale === 'ca' ? 'active' : ''}`} href={localeSwitchPaths.ca} aria-label="Català" title="Català"></a>
+				<a class={`language-flag ${locale === 'es' ? 'active' : ''}`} href={localeSwitchPaths.es} aria-label="Español" title="Español"></a>
+				<a class={`language-flag ${locale === 'en' ? 'active' : ''}`} href={localeSwitchPaths.en} aria-label="English" title="English"></a>
+			</div>
+
+			<div class="header-language-select">
+				<label class="sr-only" for="mobile-language-select">{languageAria[locale]}</label>
+				<select
+					id="mobile-language-select"
+					class="language-select"
+					aria-label={languageAria[locale]}
+					onchange="window.location.href=this.value"
+				>
+					<option value={localeSwitchPaths.ca} selected={locale === 'ca'}>Català</option>
+					<option value={localeSwitchPaths.es} selected={locale === 'es'}>Español</option>
+					<option value={localeSwitchPaths.en} selected={locale === 'en'}>English</option>
+				</select>
+			</div>
+
+			<div class="mobile-language-menu" data-language-menu>
+				<button
+					class={`mobile-language-trigger flag-${locale}`}
+					type="button"
+					aria-label={languageAria[locale]}
+					aria-expanded="false"
+					data-language-toggle
+				>
+					<span class="mobile-language-flag" aria-hidden="true"></span>
+					<span class="mobile-language-caret" aria-hidden="true"></span>
+				</button>
+				<div class="mobile-language-options" data-language-options>
+					<a class={`mobile-language-option flag-ca ${locale === 'ca' ? 'active' : ''}`} href={localeSwitchPaths.ca} aria-label={localeLabels.ca} title={localeLabels.ca}>
+						<span class="mobile-language-flag" aria-hidden="true"></span>
+					</a>
+					<a class={`mobile-language-option flag-es ${locale === 'es' ? 'active' : ''}`} href={localeSwitchPaths.es} aria-label={localeLabels.es} title={localeLabels.es}>
+						<span class="mobile-language-flag" aria-hidden="true"></span>
+					</a>
+					<a class={`mobile-language-option flag-en ${locale === 'en' ? 'active' : ''}`} href={localeSwitchPaths.en} aria-label={localeLabels.en} title={localeLabels.en}>
+						<span class="mobile-language-flag" aria-hidden="true"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="about-page-main">
+		<section class="about-hero-page">
+			<div class="container">
+				<div class="section-title-line about-hero-title-line">
+					<span></span>
+					<h2 class="section-title center-title unified-title">{aboutCopy.hero.eyebrow}</h2>
+					<span></span>
+				</div>
+			</div>
+			<div class="container about-hero-shell">
+				<div class="about-hero-copy">
+					<h1>{aboutCopy.hero.title}</h1>
+					{aboutCopy.hero.description.map((paragraph) => <p>{paragraph}</p>)}
+					<div class="hero-page-actions">
+						<button class="button button-primary" type="button" data-open-reserva-modal>
+							{aboutCopy.hero.primaryCta}
+						</button>
+						<a class="button button-secondary" href="#contacto">{aboutCopy.hero.secondaryCta}</a>
+					</div>
+				</div>
+
+				<div class="about-hero-media">
+					<div class="about-hero-card logo-card">
+						<img src="/images/about-logo-warriors.png" alt="Logo Club Taekwondo Warriors" />
+					</div>
+					<div class="about-hero-grid">
+						<img src="/images/about-diana.jpeg" alt="Diana Vázquez Vallés" />
+						<img src="/images/about-laia.jpeg" alt="Laia Marín" />
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="about-story-section">
+			<div class="container">
+				<div class="section-title-line">
+					<span></span>
+					<h2 class="section-title center-title unified-title">{aboutCopy.story.title}</h2>
+					<span></span>
+				</div>
+				<p class="section-intro">{aboutCopy.story.intro}</p>
+
+				<div class="timeline-grid">
+					{aboutCopy.story.timeline.map((item) => (
+						<article class="timeline-card">
+							<p class="timeline-year">{item.year}</p>
+							<h3>{item.title}</h3>
+							<p>{item.text}</p>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="logo-section">
+			<div class="container">
+				<div class="section-title-line">
+					<span></span>
+					<h2 class="section-title center-title unified-title">{aboutCopy.logo.title}</h2>
+					<span></span>
+				</div>
+				<div class="logo-shell">
+					<div class="logo-visual">
+						<img src="/images/about-logo-warriors.png" alt="Símbolo Warriors" />
+					</div>
+					<div class="logo-copy">
+						<p class="section-intro section-intro-left">{aboutCopy.logo.intro}</p>
+						<ul class="logo-points">
+							{aboutCopy.logo.points.map((point) => <li>{point}</li>)}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="team-section">
+			<div class="container">
+				<div class="section-title-line">
+					<span></span>
+					<h2 class="section-title center-title unified-title">{aboutCopy.team.title}</h2>
+					<span></span>
+				</div>
+				<p class="section-intro">{aboutCopy.team.intro}</p>
+
+				<div class="team-grid">
+					{aboutCopy.team.members.map((member) => (
+						<article class="team-card">
+							<div class="team-image-wrap">
+								<img src={member.image} alt={member.name} />
+							</div>
+							<div class="team-copy">
+								<p class="team-role">{member.role}</p>
+								<h3>{member.name}</h3>
+								<p class="team-summary">{member.summary}</p>
+
+								<div class="team-detail-block">
+									<h4>{member.achievementsTitle}</h4>
+									<ul>
+										{member.achievements.map((item) => <li>{item}</li>)}
+									</ul>
+								</div>
+
+								<div class="team-detail-block">
+									<h4>{member.trainingTitle}</h4>
+									<ul>
+										{member.training.map((item) => <li>{item}</li>)}
+									</ul>
+								</div>
+
+								<div class="team-detail-block">
+									<h4>{member.philosophyTitle}</h4>
+									<p>{member.philosophy}</p>
+								</div>
+							</div>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="essence-section">
+			<div class="container">
+				<div class="section-title-line">
+					<span></span>
+					<h2 class="section-title center-title unified-title">{aboutCopy.clubEssence.title}</h2>
+					<span></span>
+				</div>
+
+				<div class="essence-grid">
+					<article class="essence-card">
+						<h3>{aboutCopy.clubEssence.missionTitle}</h3>
+						<p>{aboutCopy.clubEssence.mission}</p>
+					</article>
+					<article class="essence-card">
+						<h3>{aboutCopy.clubEssence.visionTitle}</h3>
+						<p>{aboutCopy.clubEssence.vision}</p>
+					</article>
+				</div>
+
+				<div class="values-card">
+					<h3>{aboutCopy.clubEssence.valuesTitle}</h3>
+					<div class="values-list">
+						{aboutCopy.clubEssence.values.map((value) => <span>{value}</span>)}
+					</div>
+					<p class="values-closing">{aboutCopy.clubEssence.closing}</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="schedule-contact-section" id="contacto">
+			<div class="container footer-grid">
+				<div class="footer-brand">
+					<div class="footer-logo">
+						<img src="/images/logo-warriors-horizontal.png" alt="Club Taekwondo Warriors" class="footer-logo-image" />
+					</div>
+
+					<p>{copy.footer.description}</p>
+					<div class="footer-social">
+						<a href={copy.footer.instagramUrl || '#'} aria-label="Instagram" class="social-icon">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M7.8 3h8.4A4.8 4.8 0 0 1 21 7.8v8.4a4.8 4.8 0 0 1-4.8 4.8H7.8A4.8 4.8 0 0 1 3 16.2V7.8A4.8 4.8 0 0 1 7.8 3zm8 1.8H8.2a3.4 3.4 0 0 0-3.4 3.4v7.6a3.4 3.4 0 0 0 3.4 3.4h7.6a3.4 3.4 0 0 0 3.4-3.4V8.2a3.4 3.4 0 0 0-3.4-3.4zM12 7.2A4.8 4.8 0 1 1 7.2 12 4.8 4.8 0 0 1 12 7.2zm0 1.7A3.1 3.1 0 1 0 15.1 12 3.1 3.1 0 0 0 12 8.9zm4.95-2.25a1.15 1.15 0 1 1-1.15 1.15 1.15 1.15 0 0 1 1.15-1.15z"></path>
+							</svg>
+						</a>
+						<a href={copy.footer.whatsappUrl || '#'} aria-label="WhatsApp" class="social-icon">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M12 2C6.48 2 2 6.35 2 11.72c0 1.9.57 3.67 1.54 5.16L2.5 22l5.34-1.4a10.2 10.2 0 0 0 4.16.88c5.52 0 10-4.35 10-9.72S17.52 2 12 2zm0 17.84a8.3 8.3 0 0 1-4.02-1.03l-.29-.16-3.17.83.84-3.06-.18-.31a8.02 8.02 0 0 1-1.15-4.09c0-4.46 3.62-8.08 8.07-8.08 2.15 0 4.17.83 5.69 2.34a8 8 0 0 1 2.36 5.74c0 4.46-3.62 8.08-8.08 8.08zm4.43-5.98c-.24-.12-1.42-.69-1.64-.76-.22-.08-.38-.12-.54.12-.16.23-.61.76-.75.92-.14.15-.28.17-.52.06-.24-.12-1.01-.37-1.92-1.18-.7-.63-1.18-1.42-1.31-1.66-.13-.23-.01-.36.1-.48.1-.1.24-.27.35-.4.12-.13.16-.23.24-.39.08-.16.04-.3-.02-.42-.06-.12-.54-1.28-.74-1.76-.2-.46-.4-.4-.54-.4h-.47c-.16 0-.42.06-.64.3-.22.23-.85.82-.85 2s.87 2.34.98 2.5c.12.15 1.7 2.56 4.12 3.6.58.25 1.03.4 1.38.51.58.18 1.1.16 1.51.09.46-.07 1.42-.58 1.62-1.12.2-.55.2-1.01.14-1.12-.06-.09-.21-.15-.45-.27z"></path>
+							</svg>
+						</a>
+						<a href={`mailto:${copy.footer.email}`} aria-label="Email" class="social-icon">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M2.5 6.75A2.25 2.25 0 0 1 4.75 4.5h14.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25H4.75A2.25 2.25 0 0 1 2.5 17.25V6.75zm2.03-.75L12 11.32 19.47 6H4.53zm15.47 1.22-7.42 5.28a1 1 0 0 1-1.16 0L4 7.22v10.03c0 .41.34.75.75.75h14.5c.41 0 .75-.34.75-.75V7.22z"></path>
+							</svg>
+						</a>
+					</div>
+				</div>
+
+				<div class="footer-contact">
+					<h3>{copy.footer.contactTitle}</h3>
+					<div class="contact-line">
+						<span class="contact-icon">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M12 21s-6-5.6-6-11a6 6 0 1 1 12 0c0 5.4-6 11-6 11z"></path>
+								<circle cx="12" cy="10" r="2.4"></circle>
+							</svg>
+						</span>
+						<p>{clubAddress}</p>
+					</div>
+					<div class="contact-line">
+						<span class="contact-icon">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M5 4h3l1.2 4.2-1.6 1.6a15.4 15.4 0 0 0 6.6 6.6l1.6-1.6L20 16v3a2 2 0 0 1-2.2 2A17 17 0 0 1 3 5.2 2 2 0 0 1 5 4z"></path>
+							</svg>
+						</span>
+						<p>{copy.footer.phone}</p>
+					</div>
+					<div class="contact-line">
+						<span class="contact-icon">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<rect x="3" y="5" width="18" height="14" rx="2"></rect>
+								<path d="M4 7l8 6 8-6"></path>
+							</svg>
+						</span>
+						<p>{copy.footer.email}</p>
+					</div>
+					<div class="contact-line">
+						<span class="contact-icon">
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<circle cx="12" cy="12" r="8"></circle>
+								<path d="M12 7v5l3 2"></path>
+							</svg>
+						</span>
+						<p>{copy.footer.hours}</p>
+					</div>
+				</div>
+
+				<div class="footer-feed footer-reviews">
+					<h3>{copy.footer.reviewsTitle}</h3>
+					<p>{copy.footer.reviewsSubtitle}</p>
+					<div class="reviews-card">
+						<div class="reviews-card-top">
+							<div class="reviews-google-mark" aria-hidden="true">G</div>
+							<div class="reviews-rating-copy">
+								<strong>{copy.footer.reviewsRatingLabel}</strong>
+								<span>{copy.footer.reviewsCountLabel}</span>
+							</div>
+						</div>
+						<div class="reviews-stars" aria-label={copy.footer.reviewsRatingLabel}>
+							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+						</div>
+						<a class="reviews-button" href={googleReviewsUrl} target="_blank" rel="noreferrer">
+							{copy.footer.reviewsButton}
+						</a>
+					</div>
+				</div>
+
+				<div class="footer-map-panel">
+					<h3>{copy.footer.mapTitle}</h3>
+					<p class="footer-map-copy">{copy.footer.mapSubtitle}</p>
+					<div class="map-card">
+						<div class="footer-map">
+							<iframe
+								src={mapEmbedUrl}
+								title={`Mapa de ${clubAddress}`}
+								loading="lazy"
+								referrerpolicy="no-referrer-when-downgrade"
+							></iframe>
+						</div>
+						<a class="button button-primary full" href={mapDirectionsUrl} target="_blank" rel="noreferrer">
+							{copy.footer.mapButton}
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<div class="reserva-overlay" data-reserva-overlay hidden>
+		<div class="modal-backdrop" data-close-reserva-modal></div>
+		<div class="reserva-modal" role="dialog" aria-modal="true" aria-labelledby="reserva-modal-title">
+			<button class="reserva-modal-close" type="button" aria-label={closeModalLabel[locale]} data-close-reserva-modal>&times;</button>
+			<p class="reserva-modal-kicker">{copy.modal.kicker}</p>
+			<h2 id="reserva-modal-title">{copy.modal.title}</h2>
+			<p class="reserva-modal-copy">{copy.modal.description}</p>
+			<div class="reserva-options">
+				{copy.modal.options.map((option) => (
+					<a class={`reserva-option ${option.tone}`} href={option.url} target="_blank" rel="noreferrer">
+						<img class="reserva-option-logo" src={scheduleGroupLogoByTone[option.tone === 'kids' ? 'gold' : option.tone === 'junior' ? 'blue' : 'red']} alt={option.title} />
+						<div class="reserva-option-copy">
+							<span>{option.subtitle}</span>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</div>
+
+	<script is:inline>
+		(() => {
+			const initMobileMenu = () => {
+				const header = document.querySelector('.site-header');
+				const toggle = document.querySelector('[data-menu-toggle]');
+				const nav = document.querySelector('[data-mobile-nav]');
+				if (!(header instanceof HTMLElement) || !(toggle instanceof HTMLButtonElement) || !(nav instanceof HTMLElement)) return;
+
+				const closeMenu = () => {
+					header.classList.remove('menu-open');
+					header.classList.remove('language-open');
+					toggle.setAttribute('aria-expanded', 'false');
+					document.body.style.overflow = '';
+				};
+
+				toggle.addEventListener('click', () => {
+					const open = header.classList.toggle('menu-open');
+					toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+					document.body.style.overflow = open ? 'hidden' : '';
+				});
+
+				nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+				window.addEventListener('resize', () => {
+					if (window.innerWidth > 760) closeMenu();
+				});
+
+				const languageToggle = document.querySelector('[data-language-toggle]');
+				const languageOptions = document.querySelector('[data-language-options]');
+				if (languageToggle instanceof HTMLButtonElement && languageOptions instanceof HTMLElement) {
+					const closeLanguageMenu = () => {
+						header.classList.remove('language-open');
+						languageToggle.setAttribute('aria-expanded', 'false');
+					};
+
+					languageToggle.addEventListener('click', (event) => {
+						event.stopPropagation();
+						const open = header.classList.toggle('language-open');
+						languageToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+					});
+
+					document.addEventListener('click', (event) => {
+						const target = event.target;
+						if (!(target instanceof Node)) return;
+						if (!languageOptions.contains(target) && !languageToggle.contains(target)) closeLanguageMenu();
+					});
+				}
+			};
+
+			const initReservaModal = () => {
+				const overlay = document.querySelector('[data-reserva-overlay]');
+				const openButtons = document.querySelectorAll('[data-open-reserva-modal]');
+				const closeButtons = document.querySelectorAll('[data-close-reserva-modal]');
+				if (!(overlay instanceof HTMLElement)) return;
+
+				const openModal = () => {
+					overlay.hidden = false;
+					document.body.style.overflow = 'hidden';
+				};
+				const closeModal = () => {
+					overlay.hidden = true;
+					document.body.style.overflow = '';
+				};
+
+				openButtons.forEach((button) => button.addEventListener('click', openModal));
+				closeButtons.forEach((button) => button.addEventListener('click', closeModal));
+				document.addEventListener('keydown', (event) => {
+					if (event.key === 'Escape' && !overlay.hidden) closeModal();
+				});
+			};
+
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', () => {
+					initMobileMenu();
+					initReservaModal();
+				}, { once: true });
+			} else {
+				initMobileMenu();
+				initReservaModal();
+			}
+		})();
+	</script>
+</Layout>
+
+<style>
+	.about-page-main {
+		background: #f5f5f5;
+		color: #10131e;
+	}
+
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		background: rgba(3, 4, 9, 0.96);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+		backdrop-filter: blur(16px);
+	}
+
+	.header-row {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 2.2rem;
+		min-height: 6.4rem;
+	}
+
+	.brand-logo-full {
+		display: block;
+		width: 20.75rem;
+		height: auto;
+	}
+
+	.nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1.45rem;
+		font-size: 1.1rem;
+		text-transform: uppercase;
+	}
+
+	.nav a {
+		position: relative;
+		padding: 0.4rem 0;
+		color: #f4f6fb;
+	}
+
+	.nav a.active::after,
+	.nav a:hover::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -0.45rem;
+		height: 3px;
+		background: #ff2a24;
+	}
+
+	.header-languages,
+	.mobile-language-options {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.language-flag,
+	.mobile-language-trigger,
+	.mobile-language-option {
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: 999px;
+		border: 2px solid rgba(255, 255, 255, 0.16);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	.language-flag.active,
+	.mobile-language-option.active,
+	.mobile-language-trigger {
+		box-shadow: 0 0 0 2px rgba(255, 210, 74, 0.18);
+	}
+
+	.language-flag:nth-child(1),
+	.mobile-language-trigger.flag-ca .mobile-language-flag,
+	.mobile-language-option.flag-ca .mobile-language-flag {
+		background-image: linear-gradient(180deg, #ffd45b 0 16%, #d22d2d 16% 32%, #ffd45b 32% 48%, #d22d2d 48% 64%, #ffd45b 64% 80%, #d22d2d 80% 100%);
+	}
+
+	.language-flag:nth-child(2),
+	.mobile-language-trigger.flag-es .mobile-language-flag,
+	.mobile-language-option.flag-es .mobile-language-flag {
+		background-image: linear-gradient(180deg, #c92828 0 24%, #f9d258 24% 76%, #c92828 76% 100%);
+	}
+
+	.language-flag:nth-child(3),
+	.mobile-language-trigger.flag-en .mobile-language-flag,
+	.mobile-language-option.flag-en .mobile-language-flag {
+		background-image: linear-gradient(90deg, #2744aa 0 35%, #ffffff 35% 50%, #2744aa 50% 100%);
+	}
+
+	.mobile-language-menu,
+	.menu-toggle {
+		display: none;
+	}
+
+	.about-hero-page {
+		padding: 3rem 0 2.5rem;
+	}
+
+	.about-hero-title-line {
+		margin-bottom: 1.9rem;
+	}
+
+	.about-hero-shell {
+		display: grid;
+		grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+		gap: 2rem;
+		align-items: center;
+	}
+
+	.about-hero-copy {
+		max-width: 42rem;
+	}
+
+	.about-hero-copy h1 {
+		margin: 0 0 1rem;
+		font-size: clamp(3rem, 6vw, 5.4rem);
+		line-height: 0.94;
+		text-transform: uppercase;
+		color: #162d7a;
+	}
+
+	.about-hero-copy p {
+		margin: 0 0 1rem;
+		font-size: 1.1rem;
+		line-height: 1.7;
+		color: #293145;
+	}
+
+	.hero-page-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 1.8rem;
+	}
+
+	.button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 3.5rem;
+		padding: 0.9rem 1.35rem;
+		border-radius: 1rem;
+		font-size: 1rem;
+		text-transform: uppercase;
+		cursor: pointer;
+		border: 0;
+	}
+
+	.button-primary {
+		background: #ff2a24;
+		color: #fff;
+		box-shadow: 0 10px 26px rgba(255, 42, 36, 0.24);
+	}
+
+	.button-secondary {
+		background: #10131e;
+		color: #fff;
+		border: 1px solid rgba(16, 19, 30, 0.18);
+	}
+
+	.about-hero-media {
+		display: grid;
+		gap: 1rem;
+		max-width: 32rem;
+		width: 100%;
+		margin: 0 auto;
+		align-self: start;
+	}
+
+	.about-hero-card,
+	.team-card,
+	.timeline-card,
+	.essence-card,
+	.values-card {
+		border-radius: 1.8rem;
+		background: #fff;
+		box-shadow: 0 12px 34px rgba(19, 30, 59, 0.08);
+	}
+
+	.logo-card {
+		padding: 1rem;
+	}
+
+	.logo-card img {
+		width: 100%;
+		max-width: 19rem;
+		height: auto;
+		margin: 0 auto;
+	}
+
+	.about-hero-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	.about-hero-grid img,
+	.team-image-wrap img,
+	.logo-visual img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 1.5rem;
+	}
+
+	.about-hero-grid > * {
+		aspect-ratio: 1 / 1;
+	}
+
+	.about-story-section,
+	.logo-section,
+	.team-section,
+	.essence-section {
+		padding: 1.4rem 0 3.4rem;
+	}
+
+	.section-title-line {
+		display: grid;
+		grid-template-columns: minmax(5rem, 10rem) auto minmax(5rem, 10rem);
+		align-items: center;
+		gap: 1rem;
+		width: 100%;
+		max-width: 64rem;
+		margin: 0 auto 2rem;
+	}
+
+	.section-title-line span {
+		height: 2px;
+		background: linear-gradient(90deg, rgba(227, 173, 18, 0.15), #e3ad12, rgba(227, 173, 18, 0.15));
+	}
+
+	.align-start {
+		max-width: none;
+		margin: 0 0 1rem;
+	}
+
+	.unified-title,
+	.section-title {
+		margin: 0;
+		font-size: clamp(1.85rem, 3.5vw, 3rem);
+		font-weight: 900;
+		font-style: italic;
+		text-transform: uppercase;
+		white-space: nowrap;
+		color: #10245f;
+		letter-spacing: 0.02em;
+		line-height: 1;
+		text-align: center;
+		justify-self: center;
+	}
+
+	.section-intro {
+		max-width: 52rem;
+		margin: 0 auto 1.8rem;
+		text-align: center;
+		font-size: 1.05rem;
+		line-height: 1.7;
+		color: #4f596d;
+	}
+
+	.section-intro-left {
+		margin-left: 0;
+		text-align: left;
+	}
+
+	.timeline-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.2rem;
+	}
+
+	.timeline-card {
+		padding: 1.5rem;
+		border-top: 4px solid #ff2a24;
+	}
+
+	.timeline-year {
+		margin: 0 0 0.5rem;
+		font-size: 0.96rem;
+		color: #d6a100;
+		letter-spacing: 0.14em;
+	}
+
+	.timeline-card h3,
+	.team-copy h3,
+	.essence-card h3,
+	.values-card h3 {
+		margin: 0 0 0.6rem;
+		font-size: 1.45rem;
+		color: #111827;
+	}
+
+	.timeline-card p,
+	.team-copy p,
+	.essence-card p,
+	.values-card p {
+		margin: 0;
+		color: #4f596d;
+		line-height: 1.65;
+	}
+
+	.logo-shell {
+		display: grid;
+		grid-template-columns: minmax(21rem, 26rem) minmax(0, 1fr);
+		gap: 2.4rem;
+		align-items: center;
+		max-width: 72rem;
+		margin: 0 auto;
+	}
+
+	.logo-visual {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.logo-visual img {
+		width: 100%;
+		max-width: 24rem;
+		height: auto;
+		object-fit: contain;
+		border-radius: 0;
+	}
+
+	.logo-copy {
+		max-width: 100%;
+	}
+
+	.logo-points {
+		margin: 1rem 0 0;
+		padding-left: 1.2rem;
+		color: #293145;
+		display: grid;
+		gap: 0.85rem;
+		font-size: 1.04rem;
+		line-height: 1.72;
+	}
+
+	.team-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.5rem;
+	}
+
+	.team-card {
+		overflow: hidden;
+	}
+
+	.team-image-wrap {
+		aspect-ratio: 1 / 1;
+		padding: 1rem 1rem 0;
+	}
+
+	.team-copy {
+		padding: 1rem 1.3rem 1.5rem;
+	}
+
+	.team-role {
+		margin-bottom: 0.45rem;
+		color: #d6a100 !important;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.88rem !important;
+	}
+
+	.team-summary {
+		margin-bottom: 1rem !important;
+	}
+
+	.team-detail-block {
+		margin-top: 1rem;
+	}
+
+	.team-detail-block h4 {
+		margin: 0 0 0.45rem;
+		font-size: 1rem;
+		color: #162d7a;
+		text-transform: uppercase;
+	}
+
+	.team-detail-block ul {
+		margin: 0;
+		padding-left: 1.15rem;
+		display: grid;
+		gap: 0.4rem;
+		color: #4f596d;
+	}
+
+	.essence-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.2rem;
+		margin-bottom: 1.2rem;
+	}
+
+	.essence-card,
+	.values-card {
+		padding: 1.6rem;
+	}
+
+	.values-card {
+		text-align: center;
+	}
+
+	.values-card h3 {
+		text-align: center;
+	}
+
+	.values-list {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.7rem;
+		margin: 1rem 0 1.2rem;
+	}
+
+	.values-list span {
+		padding: 0.7rem 1rem;
+		border-radius: 999px;
+		background: #f3c21b;
+		color: #10131e;
+		font-size: 0.95rem;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.values-closing {
+		color: #162d7a !important;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.schedule-contact-section {
+		padding: 2.2rem 0 2.8rem;
+		background: #0b0d14;
+		color: #fff;
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: 1.1fr 1fr 1fr 1fr;
+		gap: 1.5rem;
+	}
+
+	.footer-grid > *:not(:first-child) {
+		padding-left: 1.5rem;
+		border-left: 1px solid rgba(255, 255, 255, 0.12);
+	}
+
+	.footer-logo-image {
+		width: min(100%, 18rem);
+		height: auto;
+	}
+
+	.footer-brand p,
+	.footer-map-copy,
+	.footer-feed p,
+	.contact-line p {
+		color: #f2f4fb;
+		line-height: 1.6;
+	}
+
+	.footer-social {
+		display: flex;
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.social-icon {
+		width: 2.5rem;
+		height: 2.5rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.22);
+	}
+
+	.social-icon svg,
+	.contact-icon svg {
+		width: 1.3rem;
+		height: 1.3rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.8;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.footer-contact h3,
+	.footer-feed h3,
+	.footer-map-panel h3 {
+		margin: 0 0 0.8rem;
+		font-size: 1.7rem;
+		text-transform: uppercase;
+		color: #fff;
+	}
+
+	.footer-feed p {
+		margin: 0 0 1rem;
+	}
+
+	.reviews-card,
+	.map-card {
+		padding: 1rem;
+		border-radius: 1rem;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.reviews-card-top {
+		display: flex;
+		align-items: center;
+		gap: 0.85rem;
+	}
+
+	.reviews-google-mark {
+		width: 2.6rem;
+		height: 2.6rem;
+		border-radius: 999px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background: linear-gradient(135deg, #34a853, #4285f4 42%, #ea4335 72%, #fbbc05);
+		color: #fff;
+		font-weight: 700;
+	}
+
+	.reviews-rating-copy strong,
+	.reviews-rating-copy span {
+		display: block;
+	}
+
+	.reviews-stars {
+		display: flex;
+		gap: 0.12rem;
+		margin: 0.7rem 0 1rem;
+		color: #ffd24a;
+	}
+
+	.reviews-button,
+	.full {
+		width: 100%;
+	}
+
+	.footer-map iframe {
+		width: 100%;
+		height: 11rem;
+		border: 0;
+		border-radius: 0.9rem;
+	}
+
+	.reserva-overlay[hidden] {
+		display: none !important;
+	}
+
+	.reserva-overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 50;
+		display: grid;
+		place-items: center;
+		padding: 1rem;
+	}
+
+	.modal-backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(5, 7, 13, 0.72);
+	}
+
+	.reserva-modal {
+		position: relative;
+		width: min(34rem, calc(100vw - 1.5rem));
+		padding: 1.6rem;
+		border-radius: 1.7rem;
+		background: #1a1c22;
+		color: #fff;
+		box-shadow: 0 22px 70px rgba(0, 0, 0, 0.35);
+	}
+
+	.reserva-modal-close {
+		position: absolute;
+		top: 0.8rem;
+		right: 0.8rem;
+		width: 2.5rem;
+		height: 2.5rem;
+		border: 0;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.08);
+		color: #fff;
+		font-size: 1.6rem;
+		cursor: pointer;
+	}
+
+	.reserva-modal-kicker {
+		margin: 0 0 0.35rem;
+		color: #ffd24a;
+		text-transform: uppercase;
+	}
+
+	.reserva-modal h2 {
+		margin: 0 0 0.65rem;
+		font-size: clamp(2rem, 6vw, 3.3rem);
+		line-height: 0.95;
+		text-transform: uppercase;
+	}
+
+	.reserva-modal-copy {
+		margin: 0 0 1.2rem;
+		color: rgba(255, 255, 255, 0.78);
+	}
+
+	.reserva-options {
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	.reserva-option {
+		display: grid;
+		grid-template-columns: 8rem 1fr;
+		align-items: center;
+		gap: 1rem;
+		padding: 1rem;
+		border-radius: 1.2rem;
+		color: #fff;
+	}
+
+	.reserva-option.kids { background: linear-gradient(135deg, #f0b213, #ffc733); }
+	.reserva-option.junior { background: linear-gradient(135deg, #2145b9, #3558db); }
+	.reserva-option.elite { background: linear-gradient(135deg, #df2121, #ff3232); }
+
+	.reserva-option-logo {
+		width: 100%;
+		max-width: 7rem;
+		height: auto;
+	}
+
+	.reserva-option-copy span {
+		font-size: 1.1rem;
+		font-weight: 600;
+	}
+
+	.menu-toggle {
+		display: none;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	@media (max-width: 1100px) {
+		.about-hero-shell,
+		.logo-shell,
+		.footer-grid,
+		.timeline-grid,
+		.team-grid,
+		.essence-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.footer-grid > *:not(:first-child) {
+			padding-left: 0;
+			border-left: 0;
+			padding-top: 1rem;
+			border-top: 1px solid rgba(255, 255, 255, 0.12);
+		}
+
+		.logo-shell {
+			max-width: 42rem;
+			justify-items: center;
+			gap: 1.5rem;
+		}
+
+		.logo-copy {
+			width: 100%;
+		}
+	}
+
+	@media (max-width: 760px) {
+		.header-row {
+			grid-template-columns: auto 1fr auto;
+			gap: 0.75rem;
+			min-height: 5rem;
+		}
+
+		.brand-logo-full {
+			width: 11.25rem;
+		}
+
+		.menu-toggle {
+			display: inline-flex;
+			width: 3rem;
+			height: 3rem;
+			padding: 0;
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			border-radius: 0.85rem;
+			background: rgba(255, 255, 255, 0.04);
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			gap: 0.28rem;
+			cursor: pointer;
+			order: -1;
+		}
+
+		.menu-toggle span {
+			display: block;
+			width: 1.2rem;
+			height: 2px;
+			border-radius: 999px;
+			background: #ffffff;
+		}
+
+		.nav {
+			position: fixed;
+			top: 5rem;
+			left: 0.75rem;
+			right: 0.75rem;
+			display: none;
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 1rem;
+			border-radius: 1.2rem;
+			background: #0b0d14;
+			box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+		}
+
+		.site-header.menu-open .nav {
+			display: flex;
+		}
+
+		.header-languages {
+			display: none;
+		}
+
+		.mobile-language-menu {
+			position: relative;
+			display: block;
+		}
+
+		.mobile-language-trigger {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255, 255, 255, 0.04);
+		}
+
+		.mobile-language-flag {
+			display: block;
+			width: 100%;
+			height: 100%;
+			border-radius: 999px;
+		}
+
+		.mobile-language-caret {
+			position: absolute;
+			right: -0.5rem;
+			top: 50%;
+			width: 0.55rem;
+			height: 0.55rem;
+			border-right: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+			transform: translateY(-60%) rotate(45deg);
+		}
+
+		.mobile-language-options {
+			position: absolute;
+			top: calc(100% + 0.55rem);
+			right: 0;
+			display: none;
+			padding: 0.55rem;
+			border-radius: 1rem;
+			background: #10131e;
+			box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+		}
+
+		.site-header.language-open .mobile-language-options {
+			display: flex;
+		}
+
+		.section-title-line span {
+			max-width: 3.8rem;
+		}
+
+		.unified-title,
+		.section-title,
+		.about-hero-copy h1 {
+			font-size: clamp(1.9rem, 9vw, 2.7rem);
+		}
+
+		.reserva-option {
+			grid-template-columns: 1fr;
+			text-align: center;
+		}
+	}
+
+	.header-languages {
+		display: inline-flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 0.55rem;
+	}
+
+	.header-language-select {
+		display: none;
+	}
+
+	.mobile-language-menu {
+		display: none;
+		position: relative;
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr 0.9fr 0.86fr;
+		gap: 2.2rem;
+		padding-top: 1.7rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		align-items: stretch;
+	}
+
+	.footer-brand p,
+	.footer-social {
+		max-width: 19rem;
+	}
+
+	.footer-brand,
+	.footer-contact,
+	.footer-feed,
+	.footer-map-panel {
+		position: relative;
+		height: 100%;
+	}
+
+	.footer-contact,
+	.footer-feed,
+	.footer-map-panel {
+		display: grid;
+		align-content: start;
+		gap: 0.6rem;
+		padding-left: 1.5rem;
+		border-left: 1px solid rgba(255, 255, 255, 0.12);
+	}
+
+	.footer-brand {
+		display: grid;
+		align-content: start;
+		gap: 0.75rem;
+	}
+
+	.footer-logo-image {
+		width: min(100%, 17rem);
+	}
+
+	.footer-brand p {
+		margin: 0.15rem 0 0;
+		font-size: 0.9rem;
+		color: #d1d7e5;
+		line-height: 1.5;
+	}
+
+	.footer-social {
+		display: flex;
+		gap: 0.8rem;
+		margin-top: 1.2rem;
+		align-items: center;
+	}
+
+	.social-icon {
+		width: 2.2rem;
+		height: 2.2rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: #ffffff;
+		background: transparent;
+		opacity: 0.96;
+		transition: transform 180ms ease, color 180ms ease, opacity 180ms ease;
+	}
+
+	.social-icon svg {
+		width: 1.9rem;
+		height: 1.9rem;
+		fill: currentColor;
+		stroke: none;
+	}
+
+	.social-icon:hover {
+		color: #ff2d26;
+		opacity: 1;
+		transform: translateY(-2px);
+	}
+
+	.footer-contact h3,
+	.footer-feed h3,
+	.footer-map-panel h3 {
+		margin: 0 0 0.8rem;
+		font-size: 1.15rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		color: #ffffff;
+	}
+
+	.footer-contact p {
+		margin: 0;
+		font-size: 0.97rem;
+		color: #d1d7e5;
+		line-height: 1.6;
+	}
+
+	.contact-line {
+		display: grid;
+		grid-template-columns: 1.1rem 1fr;
+		gap: 0.8rem;
+		align-items: start;
+	}
+
+	.contact-icon {
+		color: #ff2d26;
+		line-height: 0;
+		margin-top: 0.2rem;
+	}
+
+	.contact-icon svg {
+		width: 1.05rem;
+		height: 1.05rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.8;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.footer-feed p {
+		margin: -0.3rem 0 0.2rem;
+		font-size: 0.94rem;
+		color: #d1d7e5;
+	}
+
+	.footer-map-copy {
+		margin: -0.3rem 0 0.2rem;
+		font-size: 0.94rem;
+		color: #d1d7e5;
+	}
+
+	.footer-map-panel .button {
+		min-height: 2.85rem;
+		padding-block: 0.75rem;
+		margin-top: auto;
+	}
+
+	.map-card,
+	.reviews-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		padding: 1rem 1rem 1.1rem;
+		height: 13.8rem;
+		border-radius: 0.9rem;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+	}
+
+	.reviews-card-top {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.8rem;
+		align-items: center;
+	}
+
+	.reviews-google-mark {
+		width: 2.55rem;
+		height: 2.55rem;
+		border-radius: 999px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.35rem;
+		font-weight: 900;
+		color: #ffffff;
+		background: conic-gradient(from 210deg, #34a853, #4285f4, #ea4335, #fbbc05, #34a853);
+		box-shadow: 0 10px 18px rgba(0, 0, 0, 0.18);
+	}
+
+	.reviews-rating-copy {
+		display: grid;
+		gap: 0.08rem;
+	}
+
+	.reviews-rating-copy strong {
+		font-size: 1.15rem;
+		line-height: 1.1;
+		color: #ffffff;
+	}
+
+	.reviews-rating-copy span {
+		font-size: 0.9rem;
+		color: #d1d7e5;
+	}
+
+	.reviews-stars {
+		display: flex;
+		gap: 0.2rem;
+		font-size: 1.12rem;
+		line-height: 1;
+		color: #f6c21c;
+	}
+
+	.reviews-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.85rem;
+		padding: 0.75rem 1rem;
+		margin-top: auto;
+		border-radius: 0.85rem;
+		background: linear-gradient(135deg, #e31d1c, #ff2d26);
+		color: #ffffff;
+		font-size: 0.9rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		box-shadow: 0 10px 22px rgba(227, 29, 28, 0.24);
+		transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+	}
+
+	.reviews-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 14px 26px rgba(227, 29, 28, 0.3);
+		background: linear-gradient(135deg, #ff2d26, #ff4a34);
+	}
+
+	.footer-map {
+		position: relative;
+		height: 100%;
+		min-height: 0;
+		margin-top: 0;
+		border-radius: 0.55rem;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		overflow: hidden;
+		background: #121722;
+		flex: 1 1 auto;
+	}
+
+	.footer-map iframe {
+		width: 100%;
+		height: 100%;
+		min-height: 0;
+		border: 0;
+		display: block;
+		filter: grayscale(0.08) contrast(1.02) saturate(0.95);
+	}
+
+	@media (max-width: 760px) {
+		.header-language-select {
+			display: none;
+		}
+
+		.mobile-language-menu {
+			grid-area: lang;
+			display: block;
+			justify-self: end;
+		}
+
+		.footer-grid {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				'contact'
+				'social'
+				'map';
+			gap: 0.9rem;
+		}
+
+		.footer-feed {
+			display: none;
+		}
+
+		.footer-contact,
+		.footer-brand,
+		.footer-map-panel {
+			padding-left: 0;
+			border-left: 0;
+			padding-top: 0;
+			border-top: 0;
+		}
+
+		.footer-contact {
+			grid-area: contact;
+			text-align: left;
+		}
+
+		.footer-contact h3 {
+			margin-bottom: 0.65rem;
+		}
+
+		.contact-line {
+			grid-template-columns: 1.1rem 1fr;
+			justify-items: start;
+			gap: 0.7rem;
+			text-align: left;
+		}
+
+		.footer-brand {
+			grid-area: social;
+			display: grid;
+			text-align: left;
+		}
+
+		.footer-logo,
+		.footer-brand p {
+			display: none;
+		}
+
+		.footer-social {
+			justify-content: flex-start;
+			margin-top: 0;
+			gap: 0.95rem;
+		}
+
+		.social-icon {
+			width: 2.35rem;
+			height: 2.35rem;
+		}
+
+		.social-icon svg {
+			width: 1.95rem;
+			height: 1.95rem;
+		}
+
+		.footer-map-panel {
+			grid-area: map;
+			text-align: left;
+		}
+
+		.footer-map {
+			min-height: 10rem;
+		}
+	}
+
+	/* Final override: mirror Home header/footer exactly on About */
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		background: rgba(3, 4, 9, 0.96);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+		backdrop-filter: blur(16px);
+	}
+
+	.header-row {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 2.2rem;
+		min-height: 6.4rem;
+	}
+
+	.brand,
+	.footer-logo {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+	}
+
+	.brand-logo-full {
+		display: block;
+		width: 20.75rem;
+		height: auto;
+	}
+
+	.menu-toggle {
+		display: none;
+		width: 3rem;
+		height: 3rem;
+		padding: 0;
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		border-radius: 0.85rem;
+		background: rgba(255, 255, 255, 0.04);
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 0.28rem;
+		cursor: pointer;
+		order: initial;
+	}
+
+	.menu-toggle span {
+		display: block;
+		width: 1.2rem;
+		height: 2px;
+		border-radius: 999px;
+		background: #ffffff;
+		transition: transform 180ms ease, opacity 180ms ease;
+	}
+
+	.nav {
+		display: flex;
+		justify-content: center;
+		gap: 1.8rem;
+		font-size: 0.98rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		white-space: nowrap;
+		letter-spacing: 0.03em;
+		align-items: center;
+	}
+
+	.nav a {
+		position: relative;
+		padding: 2rem 0;
+		line-height: 1;
+		color: #f4f6fb;
+		text-align: initial;
+		border-bottom: 0;
+	}
+
+	.nav a::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0.7rem;
+		height: 0.18rem;
+		background: #ff2a23;
+		transform: scaleX(0);
+		transform-origin: center;
+		transition: transform 160ms ease;
+		display: block;
+	}
+
+	.nav a.active::after,
+	.nav a:hover::after {
+		transform: scaleX(1);
+	}
+
+	.header-languages {
+		display: inline-flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 0.55rem;
+	}
+
+	.header-language-select {
+		display: none;
+	}
+
+	.mobile-language-menu {
+		display: none;
+		position: relative;
+	}
+
+	.language-flag {
+		width: 1.75em;
+		height: 1.75em;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 999px;
+		cursor: pointer;
+		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+		transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.language-flag:hover {
+		transform: translateY(-2px);
+		border-color: rgba(255, 255, 255, 0.24);
+		box-shadow: 0 16px 28px rgba(0, 0, 0, 0.24);
+	}
+
+	.language-flag.active {
+		outline: 2px solid rgba(255, 255, 255, 0.18);
+		outline-offset: 2px;
+		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+	}
+
+	.language-flag:nth-child(1) {
+		background: repeating-linear-gradient(180deg, #f3d15d 0 14%, #c61d23 14% 28%);
+	}
+
+	.language-flag:nth-child(2) {
+		background: linear-gradient(180deg, #c61d23 0 24%, #f4cf4d 24% 76%, #c61d23 76% 100%);
+	}
+
+	.language-flag:nth-child(3) {
+		background:
+			linear-gradient(90deg, transparent 0 34%, #f3f6fb 34% 48%, transparent 48% 100%),
+			linear-gradient(180deg, transparent 0 34%, #f3f6fb 34% 48%, transparent 48% 100%),
+			#153f94;
+	}
+
+	.mobile-language-trigger,
+	.mobile-language-option {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.7rem;
+		height: 2.2rem;
+		border-radius: 0.8rem;
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		background: rgba(12, 16, 25, 0.96);
+		box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+		overflow: hidden;
+	}
+
+	.mobile-language-trigger {
+		gap: 0.18rem;
+		padding: 0 0.25rem 0 0.12rem;
+		cursor: pointer;
+	}
+
+	.mobile-language-flag {
+		width: 1.45rem;
+		height: 1.45rem;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		flex: 0 0 auto;
+	}
+
+	.mobile-language-caret {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-right: 2px solid #f5f7fb;
+		border-bottom: 2px solid #f5f7fb;
+		transform: rotate(45deg) translateY(-0.08rem);
+		flex: 0 0 auto;
+	}
+
+	.mobile-language-options {
+		position: absolute;
+		top: calc(100% + 0.45rem);
+		right: 0;
+		display: none;
+		flex-direction: row;
+		gap: 0.45rem;
+		padding: 0.5rem;
+		border-radius: 1rem;
+		background: rgba(10, 12, 18, 0.98);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.32);
+		z-index: 35;
+	}
+
+	.site-header.language-open .mobile-language-options {
+		display: flex;
+	}
+
+	.flag-ca .mobile-language-flag {
+		background: repeating-linear-gradient(180deg, #f3d15d 0 14%, #c61d23 14% 28%);
+	}
+
+	.flag-es .mobile-language-flag {
+		background: linear-gradient(180deg, #c61d23 0 24%, #f4cf4d 24% 76%, #c61d23 76% 100%);
+	}
+
+	.flag-en .mobile-language-flag {
+		background:
+			linear-gradient(90deg, transparent 0 34%, #f3f6fb 34% 48%, transparent 48% 100%),
+			linear-gradient(180deg, transparent 0 34%, #f3f6fb 34% 48%, transparent 48% 100%),
+			#153f94;
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr 0.9fr 0.86fr;
+		gap: 2.2rem;
+		padding-top: 1.7rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		align-items: stretch;
+	}
+
+	.footer-brand p,
+	.footer-social {
+		max-width: 19rem;
+	}
+
+	.footer-brand,
+	.footer-contact,
+	.footer-feed,
+	.footer-map-panel {
+		position: relative;
+		height: 100%;
+	}
+
+	.footer-contact,
+	.footer-feed,
+	.footer-map-panel {
+		padding-left: 1.5rem;
+		border-left: 1px solid rgba(255, 255, 255, 0.12);
+	}
+
+	.footer-social {
+		display: flex;
+		gap: 0.8rem;
+		margin-top: 1.2rem;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.footer-contact,
+	.footer-feed,
+	.footer-map-panel {
+		display: grid;
+		align-content: start;
+		gap: 0.6rem;
+	}
+
+	.footer-contact h3,
+	.footer-feed h3,
+	.footer-map-panel h3 {
+		margin: 0 0 0.8rem;
+		font-size: 1.15rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		color: #ffffff;
+	}
+
+	.footer-map-copy {
+		margin: -0.3rem 0 0.2rem;
+		font-size: 0.94rem;
+		color: #d1d7e5;
+	}
+
+	@media (max-width: 760px) {
+		.header-row {
+			grid-template-columns: auto minmax(0, 1fr) auto;
+			grid-template-areas: 'menu brand lang';
+			align-items: center;
+			justify-items: stretch;
+			gap: 0.65rem;
+			padding: 0.7rem 0;
+			min-height: auto;
+			position: relative;
+		}
+
+		.brand {
+			grid-area: brand;
+			justify-self: start;
+			min-width: 0;
+		}
+
+		.brand-logo-full {
+			width: min(100%, 13.6rem);
+		}
+
+		.menu-toggle {
+			display: inline-flex;
+			grid-area: menu;
+			justify-self: start;
+		}
+
+		.site-header.menu-open .menu-toggle span:nth-child(1) {
+			transform: translateY(0.4rem) rotate(45deg);
+		}
+
+		.site-header.menu-open .menu-toggle span:nth-child(2) {
+			opacity: 0;
+		}
+
+		.site-header.menu-open .menu-toggle span:nth-child(3) {
+			transform: translateY(-0.4rem) rotate(-45deg);
+		}
+
+		.nav {
+			position: absolute;
+			top: calc(100% + 0.35rem);
+			left: 0;
+			right: 0;
+			display: none;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0;
+			padding: 0.55rem;
+			font-size: 0.98rem;
+			line-height: 1.15;
+			border-radius: 1rem;
+			background: rgba(10, 12, 18, 0.98);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.32);
+			z-index: 30;
+		}
+
+		.site-header.menu-open .nav {
+			display: flex;
+		}
+
+		.nav a {
+			padding: 0.95rem 0.75rem;
+			text-align: left;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+		}
+
+		.nav a:last-child {
+			border-bottom: 0;
+		}
+
+		.nav a::after {
+			display: none;
+		}
+
+		.header-languages,
+		.header-language-select {
+			display: none;
+		}
+
+		.mobile-language-menu {
+			grid-area: lang;
+			display: block;
+			justify-self: end;
+		}
+
+		.mobile-language-trigger,
+		.mobile-language-option {
+			width: 2.55rem;
+			height: 2.1rem;
+		}
+
+		.mobile-language-flag {
+			width: 1.38rem;
+			height: 1.38rem;
+		}
+
+		.footer-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.footer-contact,
+		.footer-feed,
+		.footer-map-panel {
+			padding-left: 0;
+			border-left: 0;
+		}
+	}
+</style>
+

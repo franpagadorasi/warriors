@@ -72,7 +72,7 @@ export interface SiteCopy {
 		title: string;
 		linkLabel: string;
 		readMore: string;
-		items: Array<{ title: string; date: string; excerpt: string; imageUrl: string }>;
+		items: Array<{ title: string; date: string; excerpt: string; imageUrl: string; href?: string }>;
 	};
 	gallery: {
 		title: string;
@@ -122,13 +122,14 @@ const shared = {
 		elite: 'https://forms.gle/tRghWETwyQiUTExY6'
 	},
 	images: {
-		hero: '/images/hero-taekwondo.png',
+		hero: '/images/hero-taekwondo.jpeg',
 		dojo: '/images/dojo-interior.png',
 		kids: '/images/kids-taekwondo.png',
 		exhibition: '/images/modalidad-exhibicion.png',
 		combat: '/images/modalidad-combate.png',
 		defense: '/images/modalidad-defensa.png',
-		poomsae: '/images/modalidad-poomsae.png'
+		poomsae: '/images/modalidad-poomsae.png',
+		ctaDiana: '/images/cta-diana-kick-right.png'
 	},
 	stats: [
 		{ value: '+89', tone: 'red' as const },
@@ -181,7 +182,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			description:
 				'Al Club Taekwondo Warriors ajudem a cr\u00e9ixer cada alumne a trav\u00e9s del taekwondo ol\u00edmpic, amb una metodologia propera, t\u00e8cnica i exigent.',
 			cta: 'Coneix la nostra hist\u00f2ria',
-			imagesAlt: ['Instal\u00b7lacions del club', 'Classe infantil', 'Exhibici\u00f3 de taekwondo', 'Entrenament de combat']
+			imagesAlt: ['Entrenament amb Diana', 'Canvi de cintur\u00f3', 'Treball t\u00e8cnic del grup', 'Treball postural en grup', 'Explicaci\u00f3 amb els alumnes']
 		},
 		classes: {
 			title: 'Modalitats que treballem',
@@ -319,10 +320,12 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			readMore: 'Llegir m\u00e9s',
 			items: [
 				{
-					title: 'Matr\u00edcula oberta per al nou curs',
-					date: '2026-09-01',
-					excerpt: 'Obrim inscripcions amb grups infantils, juvenils i adults per comen\u00e7ar la temporada amb energia.',
-					imageUrl: shared.images.kids
+					title: 'Campionat de Catalunya infantil',
+					date: '2025-11-02',
+					excerpt:
+						"Els tres Warriors que han competit han aconseguit medalla: Daniel Aliaga s'ha tornat a proclamar campi\u00f3, Nara Zald\u00edvar ha quedat tercera i Gerard Moya ha pujat al podi en la seva primera competici\u00f3.",
+					imageUrl: '/images/noticia-catalunya-infantil-1.png',
+					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
 				{
 					title: 'Jornada t\u00e8cnica i preparaci\u00f3 de grau',
@@ -342,9 +345,13 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			title: 'Galeria',
 			linkLabel: 'Veure galeria completa',
 			items: [
-				{ title: 'Galeria 1', imageUrl: shared.images.kids, featured: true },
-				{ title: 'Galeria 2', imageUrl: shared.images.combat },
-				{ title: 'Galeria 3', imageUrl: shared.images.dojo }
+				{ title: 'Entrenament Warriors 1', imageUrl: '/images/sobre-10.jpeg', featured: true },
+				{ title: 'Entrenament Warriors 2', imageUrl: '/images/sobre-11.jpeg' },
+				{ title: 'Entrenament Warriors 3', imageUrl: '/images/sobre-17.jpeg' },
+				{ title: 'Entrenament Warriors 4', imageUrl: '/images/sobre-18.jpeg' },
+				{ title: 'Entrenament Warriors 5', imageUrl: '/images/sobre-22.jpeg' },
+				{ title: 'Mestra Diana', imageUrl: '/images/about-diana.jpeg' },
+				{ title: 'Mestra Laia', imageUrl: '/images/about-laia.jpeg' }
 			]
 		},
 		cta: {
@@ -352,7 +359,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			description: "Descobreix el club, coneix l'ambient i reserva una primera presa de contacte.",
 			button: 'Reserva la teva pla\u00e7a',
 			imageAlt: 'Pr\u00e0ctica de taekwondo',
-			imageUrl: shared.images.poomsae
+			imageUrl: shared.images.ctaDiana
 		},
 		modal: {
 			kicker: 'Reserva la teva pla\u00e7a',
@@ -428,7 +435,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			description:
 				'En Club Taekwondo Warriors ayudamos a crecer a cada alumno a trav\u00e9s del taekwondo ol\u00edmpico, con una metodolog\u00eda cercana, t\u00e9cnica y exigente.',
 			cta: 'Conoce nuestra historia',
-			imagesAlt: ['Instalaciones del club', 'Clase infantil', 'Exhibici\u00f3n de taekwondo', 'Entrenamiento de combate']
+			imagesAlt: ['Entrenamiento con Diana', 'Cambio de cintur\u00f3n', 'Trabajo t\u00e9cnico del grupo', 'Trabajo postural en grupo', 'Explicaci\u00f3n con los alumnos']
 		},
 		classes: {
 			title: 'Modalidades que trabajamos',
@@ -566,10 +573,12 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			readMore: 'Leer m\u00e1s',
 			items: [
 				{
-					title: 'Matr\u00edcula abierta para el nuevo curso',
-					date: '2026-09-01',
-					excerpt: 'Abrimos inscripciones con grupos infantiles, juveniles y adultos para arrancar la temporada con fuerza.',
-					imageUrl: shared.images.kids
+					title: 'Campeonato de Catalu\u00f1a infantil',
+					date: '2025-11-02',
+					excerpt:
+						'Los tres Warriors que compitieron lograron medalla: Daniel Aliaga volvi\u00f3 a proclamarse campe\u00f3n, Nara Zald\u00edvar repiti\u00f3 tercer puesto y Gerard Moya subi\u00f3 al podio en su primera competici\u00f3n.',
+					imageUrl: '/images/noticia-catalunya-infantil-1.png',
+					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
 				{
 					title: 'Jornada t\u00e9cnica y preparaci\u00f3n de grado',
@@ -589,9 +598,13 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			title: 'Galer\u00eda',
 			linkLabel: 'Ver galer\u00eda completa',
 			items: [
-				{ title: 'Galer\u00eda 1', imageUrl: shared.images.kids, featured: true },
-				{ title: 'Galer\u00eda 2', imageUrl: shared.images.combat },
-				{ title: 'Galer\u00eda 3', imageUrl: shared.images.dojo }
+				{ title: 'Entrenamiento Warriors 1', imageUrl: '/images/sobre-10.jpeg', featured: true },
+				{ title: 'Entrenamiento Warriors 2', imageUrl: '/images/sobre-11.jpeg' },
+				{ title: 'Entrenamiento Warriors 3', imageUrl: '/images/sobre-17.jpeg' },
+				{ title: 'Entrenamiento Warriors 4', imageUrl: '/images/sobre-18.jpeg' },
+				{ title: 'Entrenamiento Warriors 5', imageUrl: '/images/sobre-22.jpeg' },
+				{ title: 'Maestra Diana', imageUrl: '/images/about-diana.jpeg' },
+				{ title: 'Maestra Laia', imageUrl: '/images/about-laia.jpeg' }
 			]
 		},
 		cta: {
@@ -599,7 +612,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			description: 'Descubre el club, conoce el ambiente y reserva una primera toma de contacto.',
 			button: 'Reserva tu plaza',
 			imageAlt: 'Pr\u00e1ctica de taekwondo',
-			imageUrl: shared.images.poomsae
+			imageUrl: shared.images.ctaDiana
 		},
 		modal: {
 			kicker: 'Reserva tu plaza',
@@ -675,7 +688,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			description:
 				'At Club Taekwondo Warriors we help every student grow through Olympic taekwondo, with a close, technical, and demanding methodology.',
 			cta: 'Discover our story',
-			imagesAlt: ['Club facilities', 'Kids class', 'Taekwondo exhibition', 'Sparring practice']
+			imagesAlt: ['Training session with Diana', 'Belt ceremony', 'Technical group practice', 'Group posture practice', 'Coach briefing with students']
 		},
 		classes: {
 			title: 'Programs we work on',
@@ -813,10 +826,12 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			readMore: 'Read more',
 			items: [
 				{
-					title: 'Registration open for the new season',
-					date: '2026-09-01',
-					excerpt: 'We are opening registration for kids, teens, and adults to kick off the new season with energy.',
-					imageUrl: shared.images.kids
+					title: "Catalonia children's championship",
+					date: '2025-11-02',
+					excerpt:
+						'All three Warriors who competed won a medal: Daniel Aliaga became champion again, Nara Zald\u00edvar took third place again, and Gerard Moya claimed third in his first competition.',
+					imageUrl: '/images/noticia-catalunya-infantil-1.png',
+					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
 				{
 					title: 'Technical day and belt exam preparation',
@@ -836,9 +851,13 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			title: 'Gallery',
 			linkLabel: 'View full gallery',
 			items: [
-				{ title: 'Gallery 1', imageUrl: shared.images.kids, featured: true },
-				{ title: 'Gallery 2', imageUrl: shared.images.combat },
-				{ title: 'Gallery 3', imageUrl: shared.images.dojo }
+				{ title: 'Warriors Training 1', imageUrl: '/images/sobre-10.jpeg', featured: true },
+				{ title: 'Warriors Training 2', imageUrl: '/images/sobre-11.jpeg' },
+				{ title: 'Warriors Training 3', imageUrl: '/images/sobre-17.jpeg' },
+				{ title: 'Warriors Training 4', imageUrl: '/images/sobre-18.jpeg' },
+				{ title: 'Warriors Training 5', imageUrl: '/images/sobre-22.jpeg' },
+				{ title: 'Coach Diana', imageUrl: '/images/about-diana.jpeg' },
+				{ title: 'Coach Laia', imageUrl: '/images/about-laia.jpeg' }
 			]
 		},
 		cta: {
@@ -846,7 +865,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			description: 'Discover the club, get to know the atmosphere, and book your first contact session.',
 			button: 'Book your spot',
 			imageAlt: 'Taekwondo practice',
-			imageUrl: shared.images.poomsae
+			imageUrl: shared.images.ctaDiana
 		},
 		modal: {
 			kicker: 'Book your spot',

@@ -1,6 +1,7 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
 import { getSiteCopy, type Locale } from '../lib/site-copy';
+import { aboutPaths } from '../lib/about-copy';
 
 interface Props {
 	locale?: Locale;
@@ -52,6 +53,7 @@ const languageAria: Record<Locale, string> = {
 	es: 'Idiomas disponibles',
 	en: 'Available languages'
 };
+const aboutHref = aboutPaths[locale];
 const closeModalLabel: Record<Locale, string> = {
 	ca: 'Tancar',
 	es: 'Cerrar',
@@ -74,7 +76,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 			<nav class="nav" data-mobile-nav>
 				<a class="active" href="#inicio">{copy.nav.home}</a>
-				<a href="#club">{copy.nav.about}</a>
+				<a href={aboutHref}>{copy.nav.about}</a>
 				<a href="#clases">{copy.nav.classes}</a>
 				<a href="#cuotas">{copy.nav.pricing}</a>
 				<a href="#horarios">{copy.nav.schedule}</a>
@@ -150,7 +152,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 				<div class="hero-media">
 					<div class="hero-ring" aria-hidden="true"></div>
-					<img src="/images/hero-taekwondo.png" alt={copy.hero.imageAlt} />
+					<img src="/images/hero-taekwondo.jpeg" alt={copy.hero.imageAlt} />
 					<div class="hero-side-copy">
 						{copy.hero.sideWords.map((word) => <p>{word}</p>)}
 					</div>
@@ -183,14 +185,15 @@ const closeModalLabel: Record<Locale, string> = {
 				<div class="about-copy">
 					<h3 class="about-lead">{copy.about.title}</h3>
 					<p class="section-copy">{copy.about.description}</p>
-					<a class="button button-blue" href="#contacto">{copy.about.cta}</a>
+					<a class="button button-blue" href={aboutHref}>{copy.about.cta}</a>
 				</div>
 
 				<div class="about-gallery" id="galeria">
-					<img class="about-main" src="/images/dojo-interior.png" alt={copy.about.imagesAlt[0]} />
-					<img src="/images/kids-taekwondo.png" alt={copy.about.imagesAlt[1]} />
-					<img src="/images/modalidad-exhibicion.png" alt={copy.about.imagesAlt[2]} />
-					<img src="/images/modalidad-combate.png" alt={copy.about.imagesAlt[3]} />
+					<img class="about-main" src="/images/sobre-11.jpeg" alt={copy.about.imagesAlt[0]} />
+					<img src="/images/sobre-10.jpeg" alt={copy.about.imagesAlt[1]} />
+					<img src="/images/sobre-17.jpeg" alt={copy.about.imagesAlt[2]} />
+					<img src="/images/sobre-18.jpeg" alt={copy.about.imagesAlt[3]} />
+					<img src="/images/sobre-22.jpeg" alt={copy.about.imagesAlt[4]} />
 				</div>
 			</div>
 		</section>
@@ -561,7 +564,7 @@ const closeModalLabel: Record<Locale, string> = {
 									<p class="news-date">{formatNewsDate(item.date)}</p>
 									<h3>{item.title}</h3>
 									<p>{item.excerpt}</p>
-									<a href={copy.footer.instagramUrl || '#'} target="_blank" rel="noreferrer">
+									<a href={item.href || copy.footer.instagramUrl || '#'} target="_blank" rel="noreferrer">
 										{copy.news.readMore}
 									</a>
 								</div>
@@ -579,17 +582,43 @@ const closeModalLabel: Record<Locale, string> = {
 						</div>
 					</div>
 
-					<div class="gallery-grid">
-						{galleryItems.map((item, index) => (
-							<div class={`gallery-card gallery-${index + 1}`}>
-								<img src={item.imageUrl || '/images/dojo-interior.png'} alt={item.title} />
+					<div class="gallery-carousel" data-gallery-carousel>
+						<div class="gallery-viewport">
+							<div class="gallery-track" data-gallery-track>
+								{galleryItems.map((item) => (
+									<div class="gallery-slide">
+										<div class="gallery-card">
+											<img src={item.imageUrl || '/images/dojo-interior.png'} alt={item.title} loading="lazy" />
+										</div>
+									</div>
+								))}
 							</div>
-						))}
+						</div>
+
+						<div class="gallery-controls">
+							<button class="gallery-nav gallery-nav-prev" type="button" data-gallery-prev aria-label="Imagen anterior">
+								<span aria-hidden="true">‹</span>
+							</button>
+
+							<div class="gallery-dots" data-gallery-dots>
+								{galleryItems.map((item, index) => (
+									<button
+										class={`gallery-dot ${index === 0 ? 'is-active' : ''}`}
+										type="button"
+										data-gallery-dot
+										data-index={index}
+										aria-label={`Ir a ${item.title}`}
+										aria-pressed={index === 0 ? 'true' : 'false'}
+									></button>
+								))}
+							</div>
+
+							<button class="gallery-nav gallery-nav-next" type="button" data-gallery-next aria-label="Imagen siguiente">
+								<span aria-hidden="true">›</span>
+							</button>
+						</div>
 					</div>
 
-					<div class="gallery-link-row">
-						<a href="#contacto">{copy.gallery.linkLabel}</a>
-					</div>
 				</div>
 			</div>
 		</section>
@@ -854,18 +883,89 @@ const closeModalLabel: Record<Locale, string> = {
 				});
 			};
 
+			const initGalleryCarousel = () => {
+				const carousel = document.querySelector('[data-gallery-carousel]');
+				if (!(carousel instanceof HTMLElement)) return;
+
+				const track = carousel.querySelector('[data-gallery-track]');
+				const prevButton = carousel.querySelector('[data-gallery-prev]');
+				const nextButton = carousel.querySelector('[data-gallery-next]');
+				const dots = Array.from(carousel.querySelectorAll('[data-gallery-dot]'));
+
+				if (!(track instanceof HTMLElement) || dots.length === 0) return;
+
+				let currentIndex = 0;
+				let autoplayId = 0;
+
+				const updateCarousel = (index) => {
+					const boundedIndex = (index + dots.length) % dots.length;
+					currentIndex = boundedIndex;
+					track.style.transform = `translateX(-${boundedIndex * 100}%)`;
+
+					dots.forEach((dot, dotIndex) => {
+						if (!(dot instanceof HTMLButtonElement)) return;
+						const isActive = dotIndex === boundedIndex;
+						dot.classList.toggle('is-active', isActive);
+						dot.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+					});
+				};
+
+				const startAutoplay = () => {
+					window.clearInterval(autoplayId);
+					autoplayId = window.setInterval(() => {
+						updateCarousel(currentIndex + 1);
+					}, 4200);
+				};
+
+				const stopAutoplay = () => {
+					window.clearInterval(autoplayId);
+				};
+
+				if (prevButton instanceof HTMLButtonElement) {
+					prevButton.addEventListener('click', () => {
+						updateCarousel(currentIndex - 1);
+						startAutoplay();
+					});
+				}
+
+				if (nextButton instanceof HTMLButtonElement) {
+					nextButton.addEventListener('click', () => {
+						updateCarousel(currentIndex + 1);
+						startAutoplay();
+					});
+				}
+
+				dots.forEach((dot, dotIndex) => {
+					if (!(dot instanceof HTMLButtonElement)) return;
+					dot.addEventListener('click', () => {
+						updateCarousel(dotIndex);
+						startAutoplay();
+					});
+				});
+
+				carousel.addEventListener('mouseenter', stopAutoplay);
+				carousel.addEventListener('mouseleave', startAutoplay);
+				carousel.addEventListener('focusin', stopAutoplay);
+				carousel.addEventListener('focusout', startAutoplay);
+
+				updateCarousel(0);
+				startAutoplay();
+			};
+
 			if (document.readyState === 'loading') {
 				document.addEventListener(
 					'DOMContentLoaded',
 					() => {
 						initMobileMenu();
 						initReservaModal();
+						initGalleryCarousel();
 					},
 					{ once: true }
 				);
 			} else {
 				initMobileMenu();
 				initReservaModal();
+				initGalleryCarousel();
 			}
 		})();
 	</script>
@@ -1200,7 +1300,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.hero-shell {
 		display: grid;
-		grid-template-columns: 0.88fr 1.12fr;
+		grid-template-columns: 0.74fr 1.26fr;
 		align-items: stretch;
 		background:
 			linear-gradient(90deg, #05070d 0%, #05070d 43%, rgba(5, 7, 13, 0.84) 57%, rgba(5, 7, 13, 0.28) 70%, rgba(5, 7, 13, 0) 100%);
@@ -1210,7 +1310,7 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.hero-copy {
-		padding: 2.35rem 2rem 2rem;
+		padding: 2rem 1.35rem 1.75rem 1.2rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -1292,29 +1392,22 @@ const closeModalLabel: Record<Locale, string> = {
 		min-height: 100%;
 		overflow: hidden;
 		background: transparent;
+		display: flex;
+		align-items: stretch;
+		justify-content: center;
 	}
 
 	.hero-media img {
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
-		object-position: 54% center;
-		transform: scale(1.03);
+		object-fit: contain;
+		object-position: center center;
+		transform: none;
 		display: block;
 	}
 
 	.hero-ring {
-		position: absolute;
-		left: -1.6rem;
-		top: 1.5rem;
-		width: 29rem;
-		height: 29rem;
-		border: 0.72rem solid rgba(39, 95, 255, 0.94);
-		border-right-color: transparent;
-		border-bottom-color: transparent;
-		border-radius: 50%;
-		opacity: 0.92;
-		z-index: 1;
+		display: none;
 	}
 
 	.hero-side-copy {
@@ -1554,7 +1647,7 @@ const closeModalLabel: Record<Locale, string> = {
 		background: linear-gradient(180deg, #1a2f70 0%, #11245b 100%);
 		color: #fff;
 		text-align: center;
-		font-size: 1.06rem;
+		font-size: 1.4rem;
 		font-weight: 900;
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
@@ -1654,13 +1747,13 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.schedule-cell span small {
-		font-size: 1.45rem;
+		font-size: 2.01rem;
 		font-weight: 900;
 		letter-spacing: 0.04em;
 	}
 
 	.schedule-cell span strong {
-		font-size: 2.1rem;
+		font-size: 2.01rem;
 		font-weight: 900;
 		letter-spacing: -0.03em;
 	}
@@ -1950,26 +2043,26 @@ const closeModalLabel: Record<Locale, string> = {
 		background: #fff;
 		border-radius: 2rem;
 		padding: 3rem 1.35rem 0;
-		border: 2px solid rgba(17, 23, 35, 0.08);
+		border: 8px solid rgba(17, 23, 35, 0.14);
 		box-shadow: 0 24px 40px rgba(15, 18, 28, 0.08);
 		overflow: hidden;
 	}
 
 	.pricing-card.gold {
-		border-color: rgba(227, 173, 18, 0.9);
+		border-color: #e9aa05;
 	}
 
 	.pricing-card.blue {
-		border-color: rgba(23, 98, 255, 0.75);
+		border-color: #174eff;
 	}
 
 	.pricing-card.red {
-		border-color: rgba(227, 29, 28, 0.75);
+		border-color: #e31d1c;
 	}
 
 	.pricing-belt {
-		width: 9.1rem;
-		margin: 0 auto 1rem;
+		width: 15.5rem;
+		margin: 1.2rem auto 1.55rem;
 		position: relative;
 		line-height: 0;
 	}
@@ -1982,39 +2075,49 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.pricing-card.gold .pricing-belt,
 	.pricing-card.gold .pricing-head,
-	.pricing-card.gold .pricing-star {
+	.pricing-card.gold .pricing-star,
+	.pricing-card.gold .pricing-divider {
 		position: relative;
 		color: #d99a00;
 	}
 
 	.pricing-card.blue .pricing-belt,
 	.pricing-card.blue .pricing-head,
-	.pricing-card.blue .pricing-star {
+	.pricing-card.blue .pricing-star,
+	.pricing-card.blue .pricing-divider {
 		position: relative;
 		color: #174eff;
 	}
 
 	.pricing-card.red .pricing-belt,
 	.pricing-card.red .pricing-head,
-	.pricing-card.red .pricing-star {
+	.pricing-card.red .pricing-star,
+	.pricing-card.red .pricing-divider {
 		position: relative;
 		color: #e31d1c;
 	}
 
 	.pricing-badge {
 		position: absolute;
-		top: 0.8rem;
-		left: 50%;
-		transform: translateX(-50%);
-		padding: 0.45rem 1rem;
-		border-radius: 999px;
+		top: 0;
+		left: 0;
+		right: 0;
+		transform: none;
+		width: 100%;
+		max-width: none;
+		padding: 0;
+		border-radius: 0;
 		background: #174eff;
 		color: #fff;
-		font-size: 0.86rem;
+		font-size: 2.08rem;
 		font-weight: 900;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.08em;
+		text-align: center;
+		box-shadow: 0 12px 24px rgba(23, 78, 255, 0.24);
 		z-index: 2;
+		border: 0;
+		box-sizing: border-box;
 	}
 
 	.pricing-head {
@@ -2023,7 +2126,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.pricing-plan-label {
 		margin: 0;
-		font-size: 0.95rem;
+		font-size: 1.92rem;
 		font-weight: 900;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
@@ -2031,15 +2134,16 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.pricing-head h3 {
 		margin: 0.35rem 0 0;
-		font-size: clamp(2rem, 3vw, 3.2rem);
+		font-size: clamp(3.25rem, 4.75vw, 4.8rem);
 		line-height: 0.95;
 		font-weight: 900;
 		text-transform: uppercase;
+		letter-spacing: -0.04em;
 	}
 
 	.pricing-head p:last-child {
-		margin: 0.4rem 0 0;
-		font-size: 1.05rem;
+		margin: 0.3rem 0 0;
+		font-size: 1.92rem;
 		font-weight: 800;
 		text-transform: uppercase;
 	}
@@ -2053,9 +2157,9 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.pricing-divider > span {
-		height: 2px;
+		height: 4px;
 		background: currentColor;
-		opacity: 0.45;
+		opacity: 1;
 	}
 
 	.pricing-star {
@@ -2076,25 +2180,26 @@ const closeModalLabel: Record<Locale, string> = {
 		margin: 0;
 		padding: 1.35rem 0 0;
 		display: grid;
-		gap: 1rem;
+		gap: 1.25rem;
 		list-style: none;
 		color: #16233f;
-		line-height: 1.28;
-		font-size: 1.05rem;
+		line-height: 1.38;
+		font-size: 1.32rem;
 		font-weight: 700;
 	}
 
 	.pricing-list li {
 		display: grid;
-		grid-template-columns: 2.1rem 1fr;
+		grid-template-columns: 3.15rem minmax(0, 1fr);
 		align-items: start;
-		gap: 0.85rem;
+		gap: 1.15rem;
 		padding-left: 0;
+		width: 100%;
 	}
 
 	.feature-icon-svg {
-		width: 1.9rem;
-		height: 1.9rem;
+		width: 2.8rem;
+		height: 2.8rem;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -2125,31 +2230,36 @@ const closeModalLabel: Record<Locale, string> = {
 	.pricing-price {
 		position: relative;
 		margin-top: auto;
-		padding: 2.35rem 1rem 1.1rem;
+		margin-left: -1.35rem;
+		margin-right: -1.35rem;
+		width: calc(100% + 2.7rem);
+		border-top: 1rem solid #fff;
+		padding: 1.6rem 0 1.4rem;
 		text-align: center;
 		min-height: 8.6rem;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
+		display: grid;
+		justify-items: center;
+		align-content: center;
+		gap: 0.45rem;
 	}
 
 	.pricing-brush {
 		position: absolute;
 		inset: auto 0 0;
-		height: 7.2rem;
-		border-radius: 1.6rem 1.6rem 0 0;
+		height: 100%;
+		border-radius: 0;
 	}
 
 	.pricing-card.gold .pricing-brush {
-		background: linear-gradient(180deg, rgba(240, 183, 16, 0.9), #e9aa05);
+		background: #e9aa05;
 	}
 
 	.pricing-card.blue .pricing-brush {
-		background: linear-gradient(180deg, rgba(24, 82, 241, 0.92), #0f46d8);
+		background: #174eff;
 	}
 
 	.pricing-card.red .pricing-brush {
-		background: linear-gradient(180deg, rgba(240, 34, 34, 0.94), #d91515);
+		background: #e31d1c;
 	}
 
 	.pricing-price strong,
@@ -2167,14 +2277,17 @@ const closeModalLabel: Record<Locale, string> = {
 		font-size: clamp(3.2rem, 5vw, 4.3rem);
 		line-height: 0.88;
 		font-weight: 900;
+		text-align: center;
 	}
 
 	.pricing-price span {
 		display: block;
-		margin-top: 0.15rem;
-		font-size: 1.25rem;
+		margin-top: 0;
+		font-size: clamp(2.7rem, 3.2vw, 3.6rem);
 		font-weight: 800;
 		letter-spacing: 0.02em;
+		line-height: 0.88;
+		text-align: center;
 	}
 
 	.pricing-price .pricing-currency {
@@ -2464,38 +2577,97 @@ const closeModalLabel: Record<Locale, string> = {
 		color: #e31d1c;
 	}
 
-	.gallery-link-row {
+	.gallery-carousel {
 		display: flex;
-		justify-content: flex-end;
-		margin-top: 0.9rem;
-	}
-
-	.gallery-link-row a {
-		font-size: 0.82rem;
-		font-weight: 900;
-		text-transform: uppercase;
-		color: #1c57e8;
+		flex-direction: column;
+		gap: 0.9rem;
 	}
 
 	.gallery-card {
 		background: #fff;
 		box-shadow: 0 14px 30px rgba(15, 18, 28, 0.08);
+		border: 1px solid rgba(17, 23, 35, 0.08);
+		border-radius: 0.5rem;
 		overflow: hidden;
 	}
 
-	.gallery-grid {
-		display: grid;
-		grid-template-columns: 1.1fr 0.9fr;
-		grid-template-rows: 10rem 10rem;
-		gap: 0.7rem;
+	.gallery-viewport {
+		overflow: hidden;
+		border-radius: 0.55rem;
 	}
 
-	.gallery-1 {
-		grid-row: span 2;
+	.gallery-track {
+		display: flex;
+		transition: transform 420ms ease;
+		will-change: transform;
 	}
 
-	.gallery-card {
-		border: 1px solid rgba(17, 23, 35, 0.08);
+	.gallery-slide {
+		flex: 0 0 100%;
+		min-width: 100%;
+	}
+
+	.gallery-slide .gallery-card {
+		aspect-ratio: 16 / 9;
+	}
+
+	.gallery-controls {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.9rem;
+	}
+
+	.gallery-nav {
+		width: 2.35rem;
+		height: 2.35rem;
+		border: 1px solid rgba(17, 23, 35, 0.12);
+		border-radius: 999px;
+		background: #fff;
+		color: #10245f;
+		box-shadow: 0 10px 22px rgba(15, 18, 28, 0.08);
+		font-size: 1.45rem;
+		font-weight: 900;
+		line-height: 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition:
+			transform 160ms ease,
+			box-shadow 160ms ease,
+			background 160ms ease;
+	}
+
+	.gallery-nav:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 12px 24px rgba(15, 18, 28, 0.12);
+		background: #fdfdfd;
+	}
+
+	.gallery-dots {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.55rem;
+	}
+
+	.gallery-dot {
+		width: 0.72rem;
+		height: 0.72rem;
+		border: 0;
+		border-radius: 999px;
+		background: rgba(16, 36, 95, 0.22);
+		cursor: pointer;
+		transition:
+			transform 160ms ease,
+			background 160ms ease,
+			width 160ms ease;
+	}
+
+	.gallery-dot.is-active {
+		width: 2rem;
+		background: #1c57e8;
 	}
 
 	.gallery-card img {
@@ -3075,9 +3247,8 @@ const closeModalLabel: Record<Locale, string> = {
 			margin: 0 1.2rem 1.2rem;
 		}
 
-		.gallery-grid {
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: 9rem 9rem;
+		.gallery-slide .gallery-card {
+			aspect-ratio: 16 / 9;
 		}
 
 		.news-grid {
@@ -3301,13 +3472,18 @@ const closeModalLabel: Record<Locale, string> = {
 			height: 1.45rem;
 		}
 
-		.gallery-grid {
-			grid-template-columns: 1fr;
-			grid-template-rows: auto;
+		.gallery-controls {
+			gap: 0.65rem;
 		}
 
-		.gallery-1 {
-			grid-row: auto;
+		.gallery-nav {
+			width: 2.05rem;
+			height: 2.05rem;
+			font-size: 1.2rem;
+		}
+
+		.gallery-dot.is-active {
+			width: 1.6rem;
 		}
 
 		.cta-image {
@@ -3409,10 +3585,6 @@ const closeModalLabel: Record<Locale, string> = {
 		.class-meta {
 			flex-direction: column;
 			align-items: flex-start;
-		}
-
-		.gallery-link-row {
-			justify-content: flex-start;
 		}
 
 		.footer-grid {

@@ -117,7 +117,7 @@ const fallbackContent: HomeContent = {
 			'Formamos personas dentro y fuera del tatami. Disciplina, respeto, superación y pasión en cada entrenamiento.',
 		secondaryCtaLabel: 'Conócenos',
 		secondaryCtaUrl: '#club',
-		heroImageUrl: '/images/hero-taekwondo.png',
+		heroImageUrl: '/images/hero-taekwondo.jpeg',
 		aboutKicker: 'Sobre nosotros',
 		aboutTitle: 'Formamos guerreros dentro y fuera del tatami.',
 		aboutDescription:
