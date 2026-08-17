@@ -1,4 +1,4 @@
-export type Locale = 'ca' | 'es' | 'en';
+﻿export type Locale = 'ca' | 'es' | 'en';
 
 type Tone = 'red' | 'blue' | 'gold';
 
@@ -150,7 +150,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			classes: 'Modalitats',
 			pricing: 'Quotes',
 			schedule: 'Horaris',
-			news: 'Notícies',
+			news: 'Not\u00edcies',
 			gallery: 'Galeria',
 			contact: 'Contacte'
 		},
@@ -165,15 +165,15 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			primaryCta: 'Prova gratis',
 			secondaryCta: "Coneix-nos",
 			trialWhatsappMessage:
-				"Hola! M'agradaria demanar informació sobre una classe de prova a Club Taekwondo Warriors.%0A%0ANom:%0AEdat:%0AModalitat d'interès:",
+				"Hola! M'agradaria demanar informaci\u00f3 sobre una classe de prova a Club Taekwondo Warriors.%0A%0ANom:%0AEdat:%0AModalitat d'inter\u00e8s:",
 			sideWords: ['\u00c0gil', 'Fort', 'Prec\u00eds', 'Inquebrantable'],
 			imageAlt: 'Combat de taekwondo ol\u00edmpic'
 		},
 		features: [
-			{ title: 'Taekwondo ol?mpic', description: 'Art marcial i esport de combat reglamentat.', tone: 'red' },
-			{ title: 'Formaci?', description: 'Des de la iniciaci? fins a la competici?.', tone: 'blue' },
+			{ title: 'Taekwondo ol\u00edmpic', description: 'Art marcial i esport de combat reglamentat.', tone: 'red' },
+			{ title: 'Formaci\u00f3', description: 'Des de la iniciaci\u00f3 fins a la competici\u00f3.', tone: 'blue' },
 			{ title: 'Totes les edats', description: 'Nens, joves i adults.', highlight: 'Per a tots els nivells.', tone: 'blue' },
-			{ title: 'Equip de competici?', description: 'Entrenament per a alt rendiment.', tone: 'red' }
+			{ title: 'Equip de competici\u00f3', description: 'Entrenament per a alt rendiment.', tone: 'red' }
 		],
 		about: {
 			kicker: 'Sobre nosaltres',
@@ -191,7 +191,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				{
 					title: 'T\u00e8cnica i poomsae',
 					description: 'Seq\u00fc\u00e8ncies de moviments t\u00e8cnics executats de manera ordenada per perfeccionar la t\u00e8cnica, l\u2019equilibri i la concentraci\u00f3.',
-					audience: 'Precisió i control',
+					audience: 'Precisi\u00f3 i control',
 					imageUrl: shared.images.poomsae
 				},
 				{
@@ -314,26 +314,26 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			{ ...shared.stats[3], label: 'Cinturons negres' }
 		],
 		news: {
-			title: 'Notícies',
+			title: 'Not\u00edcies',
 			linkLabel: 'Veure totes',
-			readMore: 'Llegir més',
+			readMore: 'Llegir m\u00e9s',
 			items: [
 				{
-					title: 'Matrícula oberta per al nou curs',
+					title: 'Matr\u00edcula oberta per al nou curs',
 					date: '2026-09-01',
-					excerpt: 'Obrim inscripcions amb grups infantils, juvenils i adults per començar la temporada amb energia.',
+					excerpt: 'Obrim inscripcions amb grups infantils, juvenils i adults per comen\u00e7ar la temporada amb energia.',
 					imageUrl: shared.images.kids
 				},
 				{
-					title: 'Jornada tècnica i preparació de grau',
+					title: 'Jornada t\u00e8cnica i preparaci\u00f3 de grau',
 					date: '2026-10-18',
-					excerpt: 'Sessió especial per reforçar poomsae, tècnica i continguts previs als pròxims exàmens de cinturó.',
+					excerpt: 'Sessi\u00f3 especial per refor\u00e7ar poomsae, t\u00e8cnica i continguts previs als pr\u00f2xims ex\u00e0mens de cintur\u00f3.',
 					imageUrl: shared.images.poomsae
 				},
 				{
 					title: 'Exhibicions i moments del club',
 					date: '2026-11-07',
-					excerpt: "Compartim activitats, exhibicions i el dia a dia de Warriors perquè les famílies segueixin l'evolució dels alumnes.",
+					excerpt: "Compartim activitats, exhibicions i el dia a dia de Warriors perqu\u00e8 les fam\u00edlies segueixin l'evoluci\u00f3 dels alumnes.",
 					imageUrl: shared.images.exhibition
 				}
 			]
@@ -574,13 +574,13 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				{
 					title: 'Jornada t\u00e9cnica y preparaci\u00f3n de grado',
 					date: '2026-10-18',
-					excerpt: 'Sesión especial para reforzar poomsae, técnica y contenidos previos a los próximos exámenes de cinturón.',
+					excerpt: 'Sesi\u00f3n especial para reforzar poomsae, t\u00e9cnica y contenidos previos a los pr\u00f3ximos ex\u00e1menes de cintur\u00f3n.',
 					imageUrl: shared.images.poomsae
 				},
 				{
 					title: 'Exhibiciones y vida del club',
 					date: '2026-11-07',
-					excerpt: 'Compartimos actividades, exhibiciones y el día a día de Warriors para que las familias sigan la evolución del club.',
+					excerpt: 'Compartimos actividades, exhibiciones y el d\u00eda a d\u00eda de Warriors para que las familias sigan la evoluci\u00f3n del club.',
 					imageUrl: shared.images.exhibition
 				}
 			]
@@ -618,7 +618,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			reviewsSubtitle: 'Lo que dicen las familias del club',
 			reviewsRatingLabel: '5,0 en Google',
 			reviewsCountLabel: '55 rese\u00f1as',
-			reviewsButton: 'Ver reseñas en Google',
+			reviewsButton: 'Ver rese\u00f1as en Google',
 			mapTitle: 'C\u00f3mo llegar',
 			mapSubtitle: 'Encuentra el club y ven a conocernos',
 			hours: 'L-V: 17:30 - 20:30',
@@ -885,3 +885,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 export function getSiteCopy(locale: Locale): SiteCopy {
 	return siteCopy[locale];
 }
+
+
+
