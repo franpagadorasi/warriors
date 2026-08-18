@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
 import { getSiteCopy, type Locale } from '../lib/site-copy';
 import { aboutPaths } from '../lib/about-copy';
@@ -59,6 +59,7 @@ const closeModalLabel: Record<Locale, string> = {
 	es: 'Cerrar',
 	en: 'Close'
 };
+const currentYear = new Date().getFullYear();
 ---
 
 <Layout title={copy.seoTitle} description={copy.seoDescription} lang={copy.lang}>
@@ -161,7 +162,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 			<div class="container feature-band">
 				{copy.features.map((item) => (
-					<article class={`feature-card ${item.tone ?? 'red'}`}>
+					<article class={`feature-card ${item.tone ? 'red'}`}>
 						<div class="feature-icon"></div>
 						<div>
 							<h2>{item.title}</h2>
@@ -535,7 +536,7 @@ const closeModalLabel: Record<Locale, string> = {
 		<section class="stats-band">
 			<div class="container stats-grid">
 				{copy.stats.map((item) => (
-					<div class={`stat-card ${item.tone ?? 'red'}`}>
+					<div class={`stat-card ${item.tone ? 'red'}`}>
 						<strong>{item.value}</strong>
 						<span>{item.label}</span>
 					</div>
@@ -583,23 +584,29 @@ const closeModalLabel: Record<Locale, string> = {
 					</div>
 
 					<div class="gallery-carousel" data-gallery-carousel>
-						<div class="gallery-viewport">
-							<div class="gallery-track" data-gallery-track>
-								{galleryItems.map((item) => (
-									<div class="gallery-slide">
-										<div class="gallery-card">
-											<img src={item.imageUrl || '/images/dojo-interior.png'} alt={item.title} loading="lazy" />
-										</div>
-									</div>
-								))}
-							</div>
-						</div>
-
-						<div class="gallery-controls">
+						<div class="gallery-stage">
 							<button class="gallery-nav gallery-nav-prev" type="button" data-gallery-prev aria-label="Imagen anterior">
 								<span aria-hidden="true">‹</span>
 							</button>
 
+							<div class="gallery-viewport">
+								<div class="gallery-track" data-gallery-track>
+									{galleryItems.map((item) => (
+										<div class="gallery-slide">
+											<div class="gallery-card">
+												<img src={item.imageUrl || '/images/dojo-interior.png'} alt={item.title} loading="lazy" />
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+
+							<button class="gallery-nav gallery-nav-next" type="button" data-gallery-next aria-label="Imagen siguiente">
+								<span aria-hidden="true">›</span>
+							</button>
+						</div>
+
+						<div class="gallery-controls">
 							<div class="gallery-dots" data-gallery-dots>
 								{galleryItems.map((item, index) => (
 									<button
@@ -612,10 +619,6 @@ const closeModalLabel: Record<Locale, string> = {
 									></button>
 								))}
 							</div>
-
-							<button class="gallery-nav gallery-nav-next" type="button" data-gallery-next aria-label="Imagen siguiente">
-								<span aria-hidden="true">›</span>
-							</button>
 						</div>
 					</div>
 
@@ -630,7 +633,7 @@ const closeModalLabel: Record<Locale, string> = {
 				</div>
 
 				<div class="cta-copy">
-					<h2>{copy.cta.title}</h2>
+					<h2 set:html={copy.cta.title}></h2>
 					<p>{copy.cta.description}</p>
 				</div>
 
@@ -664,6 +667,20 @@ const closeModalLabel: Record<Locale, string> = {
 								<path d="M2.5 6.75A2.25 2.25 0 0 1 4.75 4.5h14.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25H4.75A2.25 2.25 0 0 1 2.5 17.25V6.75zm2.03-.75L12 11.32 19.47 6H4.53zm15.47 1.22-7.42 5.28a1 1 0 0 1-1.16 0L4 7.22v10.03c0 .41.34.75.75.75h14.5c.41 0 .75-.34.75-.75V7.22z"></path>
 							</svg>
 						</a>
+					</div>
+					<div class="footer-sponsors-row">
+						<p class="footer-sponsors-title">PATROCINADORES</p>
+						<div class="footer-sponsors" aria-label="Patrocinadores">
+							<a href="https://www.svh.cat/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Ajuntament de Sant Vicenç dels Horts">
+								<img src="/images/patrocinadores/Ajuntament-de-Sant-Vicenç-dels-Horts-transparent.png" alt="Ajuntament de Sant Vicenç dels Horts" class="sponsor-badge-image sponsor-badge-image-wide" />
+							</a>
+							<a href="https://www.taekwondocatala.com/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Federació Catalana de Taekwondo">
+								<img src="/images/patrocinadores/Federación-Catalana-de-Taekwondo-transparent.png" alt="Federació Catalana de Taekwondo" class="sponsor-badge-image" />
+							</a>
+							<a href="https://fetaekwondo.net/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Federación Española de Taekwondo">
+								<img src="/images/patrocinadores/Federación-Española-de-Taekwondo-transparent.png" alt="Federación Española de Taekwondo" class="sponsor-badge-image" />
+							</a>
+						</div>
 					</div>
 				</div>
 
@@ -746,6 +763,11 @@ const closeModalLabel: Record<Locale, string> = {
 							{copy.footer.mapButton}
 						</a>
 					</div>
+				</div>
+			</div>
+			<div class="footer-legal-bar">
+				<div class="container footer-legal-copy">
+					<p>© {currentYear} Francisco J. Pagador. {copy.footer.legal}</p>
 				</div>
 			</div>
 		</section>
@@ -980,8 +1002,8 @@ const closeModalLabel: Record<Locale, string> = {
 		position: sticky;
 		top: 0;
 		z-index: 20;
-		background: rgba(3, 4, 9, 0.96);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+		background: #000;
+		border-bottom: 0;
 		backdrop-filter: blur(16px);
 	}
 
@@ -1294,7 +1316,7 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.hero {
-		background: #03050b;
+		background: #000;
 		padding-bottom: 0;
 	}
 
@@ -1302,8 +1324,7 @@ const closeModalLabel: Record<Locale, string> = {
 		display: grid;
 		grid-template-columns: 0.74fr 1.26fr;
 		align-items: stretch;
-		background:
-			linear-gradient(90deg, #05070d 0%, #05070d 43%, rgba(5, 7, 13, 0.84) 57%, rgba(5, 7, 13, 0.28) 70%, rgba(5, 7, 13, 0) 100%);
+		background: #000;
 		min-height: 41rem;
 		position: relative;
 		overflow: hidden;
@@ -1332,7 +1353,7 @@ const closeModalLabel: Record<Locale, string> = {
 		margin: 0;
 		max-width: none;
 		font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-		line-height: 0.9;
+		line-height: 1.04;
 		text-transform: uppercase;
 		font-weight: 900;
 	}
@@ -1413,7 +1434,7 @@ const closeModalLabel: Record<Locale, string> = {
 	.hero-side-copy {
 		position: absolute;
 		right: 2rem;
-		top: 45%;
+		top: 43%;
 		transform: translateY(-50%) rotate(-6deg);
 		text-align: right;
 		text-transform: uppercase;
@@ -1567,14 +1588,7 @@ const closeModalLabel: Record<Locale, string> = {
 		font-size: clamp(2.3rem, 4vw, 3.65rem);
 	}
 
-	.section-title-line {
-		display: grid;
-		grid-template-columns: minmax(5rem, 10rem) auto minmax(5rem, 10rem);
-		align-items: center;
-		gap: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto 2rem;
+	$10 auto 2.15rem;
 	}
 
 	.section-title-line span {
@@ -1621,7 +1635,7 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.schedule-showcase {
-		padding: 0 0 3.25rem;
+		padding: 2.35rem 0 3.25rem;
 		background: #f5f5f5;
 		color: #111827;
 	}
@@ -2134,11 +2148,12 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.pricing-head h3 {
 		margin: 0.35rem 0 0;
-		font-size: clamp(3.25rem, 4.75vw, 4.8rem);
+		font-size: clamp(2.9rem, 3.8vw, 4rem);
 		line-height: 0.95;
 		font-weight: 900;
 		text-transform: uppercase;
 		letter-spacing: -0.04em;
+		white-space: nowrap;
 	}
 
 	.pricing-head p:last-child {
@@ -2486,7 +2501,7 @@ const closeModalLabel: Record<Locale, string> = {
 		align-items: baseline;
 		justify-content: space-between;
 		gap: 1rem;
-		margin-bottom: 0.85rem;
+		margin-bottom: 0;
 	}
 
 	.section-head h2 {
@@ -2502,7 +2517,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.section-head .section-title-line {
 		flex: 1 1 auto;
-		margin: 0 auto;
+		margin: 1.2rem auto 2.15rem;
 	}
 
 	.gallery-head {
@@ -2578,9 +2593,17 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.gallery-carousel {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		gap: 0.9rem;
+		max-width: 90rem;
+		margin: 0 auto;
+	}
+
+	.gallery-stage {
+		position: relative;
+		padding-inline: 4.5rem;
 	}
 
 	.gallery-card {
@@ -2593,7 +2616,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.gallery-viewport {
 		overflow: hidden;
-		border-radius: 0.55rem;
+		border-radius: 0.8rem;
 	}
 
 	.gallery-track {
@@ -2608,41 +2631,54 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.gallery-slide .gallery-card {
-		aspect-ratio: 16 / 9;
+		aspect-ratio: 16 / 7.1;
 	}
 
 	.gallery-controls {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 0.9rem;
+		gap: 0.7rem;
 	}
 
 	.gallery-nav {
-		width: 2.35rem;
-		height: 2.35rem;
-		border: 1px solid rgba(17, 23, 35, 0.12);
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 3.55rem;
+		height: 3.55rem;
+		border: 0;
 		border-radius: 999px;
-		background: #fff;
-		color: #10245f;
-		box-shadow: 0 10px 22px rgba(15, 18, 28, 0.08);
-		font-size: 1.45rem;
+		background: linear-gradient(180deg, #ff3d33 0%, #e31d1c 100%);
+		color: #fff;
+		box-shadow: 0 16px 34px rgba(227, 29, 28, 0.32);
+		font-size: 2rem;
 		font-weight: 900;
 		line-height: 1;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
+		z-index: 2;
 		transition:
 			transform 160ms ease,
 			box-shadow 160ms ease,
-			background 160ms ease;
+			background 160ms ease,
+			opacity 160ms ease;
+	}
+
+	.gallery-nav-prev {
+		left: 0.7rem;
+	}
+
+	.gallery-nav-next {
+		right: 0.7rem;
 	}
 
 	.gallery-nav:hover {
-		transform: translateY(-1px);
-		box-shadow: 0 12px 24px rgba(15, 18, 28, 0.12);
-		background: #fdfdfd;
+		transform: translateY(-50%) scale(1.05);
+		box-shadow: 0 18px 36px rgba(227, 29, 28, 0.38);
+		background: linear-gradient(180deg, #ff4a41 0%, #ef221f 100%);
 	}
 
 	.gallery-dots {
@@ -2657,7 +2693,7 @@ const closeModalLabel: Record<Locale, string> = {
 		height: 0.72rem;
 		border: 0;
 		border-radius: 999px;
-		background: rgba(16, 36, 95, 0.22);
+		background: rgba(16, 36, 95, 0.18);
 		cursor: pointer;
 		transition:
 			transform 160ms ease,
@@ -2667,7 +2703,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.gallery-dot.is-active {
 		width: 2rem;
-		background: #1c57e8;
+		background: #e31d1c;
 	}
 
 	.gallery-card img {
@@ -2684,7 +2720,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 	.cta-shell {
 		display: grid;
-		grid-template-columns: 1fr 1.3fr auto;
+		grid-template-columns: 1fr 1.45fr auto;
 		align-items: center;
 		gap: 0;
 		padding: 0;
@@ -2732,36 +2768,36 @@ const closeModalLabel: Record<Locale, string> = {
 	}
 
 	.cta-copy {
-		padding: 2.2rem 2.4rem 2.2rem 2rem;
+		padding: 1.7rem 2.75rem 1.4rem 2.15rem;
 		position: relative;
 		z-index: 1;
 		align-self: stretch;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		justify-content: flex-start;
 	}
 
 	.cta-copy h2 {
 		margin: 0;
-		max-width: 11ch;
+		max-width: 19ch;
 		font-size: clamp(3.2rem, 5.2vw, 5.6rem);
 		text-transform: uppercase;
-		line-height: 0.9;
+		line-height: 1.36;
 		letter-spacing: 0.015em;
 	}
 
 	.cta-copy p {
-		margin: 0.8rem 0 0;
+		margin: auto 0 0;
 		color: #d7ddeb;
-		max-width: 30ch;
-		font-size: 1.2rem;
-		line-height: 1.3;
+		max-width: 34ch;
+		font-size: 1rem;
+		line-height: 1.35;
 	}
 
 	.cta-button {
-		margin: auto 2.2rem 2rem auto;
+		margin: auto 2.2rem 1.5rem auto;
 		padding: 1rem 1.65rem;
-		min-width: 12.5rem;
+		min-width: 11.75rem;
 		border-radius: 1rem;
 		font-size: 1.1rem;
 		box-shadow: 0 12px 26px rgba(227, 29, 28, 0.28);
@@ -2906,7 +2942,7 @@ const closeModalLabel: Record<Locale, string> = {
 	.schedule-contact-section {
 		background: #0b0d12;
 		color: #ffffff;
-		padding: 0 0 1.8rem;
+		padding: 0;
 	}
 
 	.footer-grid {
@@ -3084,6 +3120,25 @@ const closeModalLabel: Record<Locale, string> = {
 		margin-top: auto;
 	}
 
+	.footer-legal-bar {
+		margin-top: 1.6rem;
+		background: #141821;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.footer-legal-copy {
+		padding-top: 0.9rem;
+		padding-bottom: 0.95rem;
+	}
+
+	.footer-legal-copy p {
+		margin: 0;
+		font-size: 0.72rem;
+		line-height: 1.45;
+		text-align: center;
+		color: rgba(255, 255, 255, 0.68);
+	}
+
 	.map-card {
 		display: flex;
 		flex-direction: column;
@@ -3206,8 +3261,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 		.hero-shell {
 			min-height: auto;
-			background:
-				linear-gradient(180deg, #05070d 0%, #05070d 54%, rgba(5, 7, 13, 0.92) 69%, rgba(5, 7, 13, 0.76) 100%);
+			background: #000;
 		}
 
 		.hero-copy {
@@ -3476,10 +3530,22 @@ const closeModalLabel: Record<Locale, string> = {
 			gap: 0.65rem;
 		}
 
+		.gallery-stage {
+			padding-inline: 3.1rem;
+		}
+
 		.gallery-nav {
-			width: 2.05rem;
-			height: 2.05rem;
-			font-size: 1.2rem;
+			width: 2.8rem;
+			height: 2.8rem;
+			font-size: 1.45rem;
+		}
+
+		.gallery-nav-prev {
+			left: 0.2rem;
+		}
+
+		.gallery-nav-next {
+			right: 0.2rem;
 		}
 
 		.gallery-dot.is-active {
@@ -3518,8 +3584,7 @@ const closeModalLabel: Record<Locale, string> = {
 		.hero-shell {
 			grid-template-columns: 1fr;
 			min-height: auto;
-			background:
-				linear-gradient(180deg, #05070d 0%, #05070d 52%, rgba(5, 7, 13, 0.96) 76%, rgba(5, 7, 13, 0.9) 100%);
+			background: #000;
 		}
 
 		.hero-copy {
@@ -3529,12 +3594,12 @@ const closeModalLabel: Record<Locale, string> = {
 
 		.hero-title-main {
 			font-size: clamp(3rem, 14vw, 4.45rem);
-			line-height: 0.9;
+			line-height: 1.03;
 		}
 
 		.hero-title-accent {
 			font-size: clamp(2.75rem, 13vw, 4rem);
-			line-height: 0.92;
+			line-height: 1.02;
 		}
 
 		.hero-values {
@@ -3873,7 +3938,7 @@ const closeModalLabel: Record<Locale, string> = {
 
 		.schedule-header {
 			min-width: 0;
-			font-size: 0.74rem;
+			font-size: 0.72rem;
 			padding: 0.85rem 0.25rem;
 			letter-spacing: 0.02em;
 		}
@@ -3963,6 +4028,98 @@ const closeModalLabel: Record<Locale, string> = {
 			justify-content: center;
 		}
 	}
+
+	.footer-sponsors-row {
+		display: flex;
+		align-items: center;
+		gap: 0.95rem;
+		margin-top: 0.9rem;
+	}
+
+	.footer-sponsors {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 0.85rem;
+		align-items: center;
+	}
+
+	.footer-sponsors-title {
+		margin: 0;
+		font-size: 0.82rem;
+		font-weight: 900;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: #f5c24b !important;
+		flex: 0 0 auto;
+	}
+
+	.sponsor-badge {
+		width: 3.9rem;
+		height: 3.9rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 999px;
+		border: 1px solid rgba(245, 194, 75, 0.38);
+		background: #ffffff;
+		transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+	}
+
+	.sponsor-badge:hover {
+		transform: translateY(-2px);
+		border-color: rgba(245, 194, 75, 0.68);
+		background: #ffffff;
+	}
+
+	.sponsor-badge-image {
+		width: 3rem;
+		height: 3rem;
+		object-fit: contain;
+	}
+
+	.sponsor-badge-image-wide {
+		width: 2.95rem;
+		height: 2.95rem;
+	}
+
+	@media (max-width: 760px) {
+		.footer-sponsors-row {
+			flex-wrap: wrap;
+			align-items: flex-start;
+			gap: 0.7rem;
+		}
+
+		.footer-sponsors {
+			justify-content: flex-start;
+			gap: 0.7rem;
+		}
+
+		.footer-sponsors-title {
+			margin-top: 0;
+		}
+
+		.sponsor-badge {
+			width: 3.35rem;
+			height: 3.35rem;
+		}
+
+		.sponsor-badge-image {
+			width: 2.1rem;
+			height: 2.1rem;
+		}
+
+		.sponsor-badge-image-wide {
+			width: 2.55rem;
+			height: 2.55rem;
+		}
+	}
 </style>
 
 
+
+
+
+
+.schedule-showcase::before {
+	display: none;
+}

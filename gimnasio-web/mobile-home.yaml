@@ -1,0 +1,315 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link [ref=e4] [cursor=pointer]:
+        - /url: "#inicio"
+        - img "Club Taekwondo Warriors" [ref=e5]
+      - navigation [ref=e6]:
+        - link "Inicio" [ref=e7] [cursor=pointer]:
+          - /url: "#inicio"
+        - link "Sobre nosotros" [ref=e8] [cursor=pointer]:
+          - /url: "#club"
+        - link "Modalidades" [ref=e9] [cursor=pointer]:
+          - /url: "#clases"
+        - link "Cuotas" [ref=e10] [cursor=pointer]:
+          - /url: "#cuotas"
+        - link "Horarios" [ref=e11] [cursor=pointer]:
+          - /url: "#horarios"
+        - link "Galería" [ref=e12] [cursor=pointer]:
+          - /url: "#galeria-destacada"
+        - link "Contacto" [ref=e13] [cursor=pointer]:
+          - /url: "#contacto"
+      - generic "Idiomas disponibles" [ref=e14]:
+        - button "Català" [ref=e15] [cursor=pointer]
+        - button "Español" [ref=e16] [cursor=pointer]
+        - button "English" [ref=e17] [cursor=pointer]
+  - main [ref=e18]:
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - paragraph [ref=e22]: Escuela d'arts marcials
+          - heading "TAEKWONDO OLÍMPICO" [level=1] [ref=e23]:
+            - generic [ref=e24]: TAEKWONDO
+            - generic [ref=e25]: OLÍMPICO
+          - paragraph [ref=e26]: Disciplina. Respeto. Superación.
+          - paragraph [ref=e27]: "!Somos Warriors!"
+          - paragraph [ref=e28]: Formamos personas dentro y fuera del tatami. Disciplina, respeto, superación y pasión en cada entrenamiento.
+          - generic [ref=e29]:
+            - link "Prueba gratis" [ref=e30] [cursor=pointer]:
+              - /url: "#contacto"
+            - link "Conócenos" [ref=e31] [cursor=pointer]:
+              - /url: "#club"
+        - generic [ref=e32]:
+          - img "Combate de taekwondo olímpico" [ref=e34]
+          - generic [ref=e35]:
+            - paragraph [ref=e36]: Rapido
+            - paragraph [ref=e37]: Fuerte
+            - paragraph [ref=e38]: Inteligente
+            - paragraph [ref=e39]: Inquebrantable
+      - generic [ref=e40]:
+        - article [ref=e41]:
+          - generic [ref=e43]:
+            - heading "Taekwondo olímpico" [level=2] [ref=e44]
+            - paragraph [ref=e45]: Entrenamiento de alto nivel para todas las edades.
+        - article [ref=e46]:
+          - generic [ref=e48]:
+            - heading "Escuela infantil" [level=2] [ref=e49]
+            - paragraph [ref=e50]: Desarrollamos habilidades, valores y confianza.
+        - article [ref=e51]:
+          - generic [ref=e53]:
+            - heading "Club de competición" [level=2] [ref=e54]
+            - paragraph [ref=e55]: Competimos, aprendemos y alcanzamos metas.
+        - article [ref=e56]:
+          - generic [ref=e58]:
+            - heading "Todos los niveles" [level=2] [ref=e59]
+            - paragraph [ref=e60]: Desde principiantes hasta atletas avanzados.
+    - generic [ref=e61]:
+      - heading "Sobre nosotros" [level=2] [ref=e64]
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - heading "Formamos guerreros dentro y fuera del tatami." [level=3] [ref=e67]
+          - paragraph [ref=e68]: En Club Taekwondo Warriors ayudamos a crecer a cada alumno a través del taekwondo olímpico, con una metodología cercana, técnica y exigente.
+          - link "Conoce nuestra historia" [ref=e69] [cursor=pointer]:
+            - /url: "#contacto"
+        - generic [ref=e70]:
+          - img "Instalaciones del club" [ref=e71]
+          - img "Clase infantil" [ref=e72]
+          - img "Exhibición de taekwondo" [ref=e73]
+          - img "Entrenamiento de combate" [ref=e74]
+    - generic [ref=e76]:
+      - heading "Nuestras modalidades" [level=2] [ref=e78]
+      - generic [ref=e79]:
+        - article [ref=e80]:
+          - img "Infantil" [ref=e82]
+          - generic [ref=e83]:
+            - heading "Infantil" [level=3] [ref=e84]
+            - paragraph [ref=e85]: Clases dinámicas para niños y niñas desde los 4 años, enfocadas en disciplina, confianza y diversión.
+            - generic [ref=e86]:
+              - generic [ref=e87]: Desde 4 años
+              - link "Más información" [ref=e88] [cursor=pointer]:
+                - /url: "#contacto"
+        - article [ref=e89]:
+          - img "Juvenil" [ref=e91]
+          - generic [ref=e92]:
+            - heading "Juvenil" [level=3] [ref=e93]
+            - paragraph [ref=e94]: Entrenamiento técnico y físico para jóvenes que quieren progresar, competir o ganar seguridad.
+            - generic [ref=e95]:
+              - generic [ref=e96]: Adolescentes
+              - link "Más información" [ref=e97] [cursor=pointer]:
+                - /url: "#contacto"
+        - article [ref=e98]:
+          - img "Adultos" [ref=e100]
+          - generic [ref=e101]:
+            - heading "Adultos" [level=3] [ref=e102]
+            - paragraph [ref=e103]: Sesiones adaptadas a todos los niveles para ponerse en forma, aprender técnica y desconectar mientras mejoras tu seguridad y coordinación.
+            - generic [ref=e104]:
+              - generic [ref=e105]: Todos los niveles
+              - link "Más información" [ref=e106] [cursor=pointer]:
+                - /url: "#contacto"
+        - article [ref=e107]:
+          - img "Defensa personal" [ref=e109]
+          - generic [ref=e110]:
+            - heading "Defensa personal" [level=3] [ref=e111]
+            - paragraph [ref=e112]: Trabajo práctico para mejorar reflejos, seguridad y control corporal en situaciones reales.
+            - generic [ref=e113]:
+              - generic [ref=e114]: Práctico
+              - link "Más información" [ref=e115] [cursor=pointer]:
+                - /url: "#contacto"
+      - link "Ver todas las modalidades" [ref=e117] [cursor=pointer]:
+        - /url: "#contacto"
+    - generic [ref=e119]:
+      - paragraph [ref=e123]: Cuotas de entrenamiento
+      - generic [ref=e125]:
+        - article [ref=e126]:
+          - generic [ref=e127]:
+            - paragraph [ref=e128]: Cuota
+            - heading "amarilla" [level=3] [ref=e129]
+            - paragraph [ref=e130]: Iniciación
+          - generic [ref=e131]: ★
+          - list [ref=e135]:
+            - listitem [ref=e136]:
+              - generic [ref=e141]: 1 día por semana
+            - listitem [ref=e142]:
+              - generic [ref=e147]: Ideal para empezar y descubrir el taekwondo
+            - listitem [ref=e148]:
+              - generic [ref=e154]: Aprendizaje de técnicas básicas
+            - listitem [ref=e155]:
+              - generic [ref=e160]: Desarrollo de coordinación, disciplina y valores
+          - generic [ref=e161]:
+            - strong [ref=e163]:
+              - text: "25"
+              - generic [ref=e164]: €
+            - generic [ref=e165]: /mes
+        - article [ref=e166]:
+          - generic [ref=e167]: Recomendada
+          - generic [ref=e168]:
+            - paragraph [ref=e169]: Cuota
+            - heading "azul elite" [level=3] [ref=e170]
+            - paragraph [ref=e171]: Progresión
+          - generic [ref=e172]: ★
+          - list [ref=e176]:
+            - listitem [ref=e177]:
+              - generic [ref=e182]: 2 días por semana
+            - listitem [ref=e183]:
+              - generic [ref=e188]: Mayor continuidad y evolución técnica
+            - listitem [ref=e189]:
+              - generic [ref=e194]: Preparación para exámenes de grado
+            - listitem [ref=e195]:
+              - generic [ref=e200]: Mejora física y deportiva
+          - generic [ref=e201]:
+            - strong [ref=e203]:
+              - text: "45"
+              - generic [ref=e204]: €
+            - generic [ref=e205]: /mes
+        - article [ref=e206]:
+          - generic [ref=e207]:
+            - paragraph [ref=e208]: Cuota
+            - heading "roja elite" [level=3] [ref=e209]
+            - paragraph [ref=e210]: Competición
+          - generic [ref=e211]: ★
+          - list [ref=e215]:
+            - listitem [ref=e216]:
+              - generic [ref=e221]: 3 días por semana
+            - listitem [ref=e222]:
+              - generic [ref=e228]: Para niños que se inician en la competición
+            - listitem [ref=e229]:
+              - generic [ref=e234]: Perfeccionamiento técnico y táctico
+            - listitem [ref=e235]:
+              - generic [ref=e239]: Mejora física y rendimiento
+          - generic [ref=e240]:
+            - strong [ref=e242]:
+              - text: "55"
+              - generic [ref=e243]: €
+            - generic [ref=e244]: /mes
+      - generic [ref=e245]:
+        - paragraph [ref=e246]: Por que entrenar en Warriors?
+        - generic [ref=e247]:
+          - article [ref=e248]:
+            - generic [ref=e256]: Taekwondo olímpico
+          - article [ref=e257]:
+            - generic [ref=e263]: Profesores titulados
+          - article [ref=e264]:
+            - generic [ref=e269]: Exámenes de grado
+          - article [ref=e270]:
+            - generic [ref=e275]: Participación en exhibiciones
+          - article [ref=e276]:
+            - generic [ref=e281]: Equipo de competición
+          - article [ref=e282]:
+            - generic [ref=e289]: Ambiente familiar y educativo
+    - generic [ref=e291]:
+      - heading "Horario semanal" [level=2] [ref=e293]
+      - generic [ref=e294]:
+        - generic [ref=e295]: Horario
+        - generic [ref=e296]: Lunes
+        - generic [ref=e297]: Martes
+        - generic [ref=e298]: Miércoles
+        - generic [ref=e299]: Jueves
+        - strong [ref=e302]: 17:30 - 18:30
+        - generic [ref=e304]:
+          - generic [ref=e305]: Warriors
+          - strong [ref=e306]: Kids
+        - generic [ref=e308]:
+          - generic [ref=e309]: Warriors
+          - strong [ref=e310]: Kids
+        - generic [ref=e312]:
+          - generic [ref=e313]: Warriors
+          - strong [ref=e314]: Kids
+        - generic [ref=e316]:
+          - generic [ref=e317]: Warriors
+          - strong [ref=e318]: Kids
+        - strong [ref=e321]: 18:30 - 19:30
+        - generic [ref=e323]:
+          - generic [ref=e324]: Warriors
+          - strong [ref=e325]: Junior
+        - generic [ref=e327]:
+          - generic [ref=e328]: Warriors
+          - strong [ref=e329]: Junior
+        - generic [ref=e331]:
+          - generic [ref=e332]: Warriors
+          - strong [ref=e333]: Junior
+        - generic [ref=e335]:
+          - generic [ref=e336]: Warriors
+          - strong [ref=e337]: Junior
+        - strong [ref=e340]: 19:30 - 20:30
+        - generic [ref=e342]:
+          - generic [ref=e343]: Warriors
+          - strong [ref=e344]: Elite
+        - generic [ref=e347]:
+          - generic [ref=e348]: Warriors
+          - strong [ref=e349]: Elite
+        - generic [ref=e351]:
+          - generic [ref=e352]: Warriors
+          - strong [ref=e353]: Elite
+      - generic [ref=e354]:
+        - generic [ref=e355]:
+          - generic [ref=e358]:
+            - strong [ref=e359]: Warriors Kids
+            - generic [ref=e360]: de 3 a 9 años
+          - generic [ref=e363]:
+            - strong [ref=e364]: Warriors Junior
+            - generic [ref=e365]: de 10 a 15 años
+          - generic [ref=e368]:
+            - strong [ref=e369]: Warriors Elite
+            - generic [ref=e370]: más de 16 años
+        - generic [ref=e371]:
+          - generic [ref=e372]: Cortesía
+          - generic [ref=e379]: Perseverancia
+          - generic [ref=e384]: Autocontrol
+          - generic [ref=e392]: Humildad
+    - generic [ref=e399]:
+      - generic [ref=e400]:
+        - strong [ref=e401]: "+350"
+        - generic [ref=e402]: Alumnos activos
+      - generic [ref=e403]:
+        - strong [ref=e404]: "+120"
+        - generic [ref=e405]: Medallas obtenidas
+      - generic [ref=e406]:
+        - strong [ref=e407]: "+25"
+        - generic [ref=e408]: Años de experiencia
+      - generic [ref=e409]:
+        - strong [ref=e410]: "+15"
+        - generic [ref=e411]: Cinturones negros
+    - generic [ref=e414]:
+      - heading "Galería" [level=2] [ref=e417]
+      - generic [ref=e418]:
+        - img "Galería 1" [ref=e420]
+        - img "Galería 2" [ref=e422]
+        - img "Galería 3" [ref=e424]
+      - link "Ver galería completa" [ref=e426] [cursor=pointer]:
+        - /url: "#contacto"
+    - generic [ref=e428]:
+      - img "Práctica de taekwondo" [ref=e430]
+      - generic [ref=e431]:
+        - heading "¿Listo para empezar tu camino?" [level=2] [ref=e432]
+        - paragraph [ref=e433]: Descubre el club, conoce el ambiente y reserva una primera toma de contacto.
+      - button "Reserva tu plaza" [ref=e434] [cursor=pointer]
+    - generic [ref=e436]:
+      - generic [ref=e437]:
+        - img "Club Taekwondo Warriors" [ref=e439]
+        - paragraph [ref=e440]: Más que un club, una familia. Formando guerreros desde el respeto, la disciplina y la constancia.
+        - generic [ref=e441]:
+          - link "Instagram" [ref=e442] [cursor=pointer]:
+            - /url: https://www.instagram.com/club_taekwondo_warriors
+          - link "Facebook" [ref=e445] [cursor=pointer]:
+            - /url: "#"
+          - link "WhatsApp" [ref=e448] [cursor=pointer]:
+            - /url: https://wa.me/34644193620
+          - link "Email" [ref=e451] [cursor=pointer]:
+            - /url: mailto:clubtaekwondowarriors@gmail.com
+      - generic [ref=e454]:
+        - heading "Contacto" [level=3] [ref=e455]
+        - paragraph [ref=e461]: Calle Mossèn Jacint Verdaguer 274
+        - paragraph [ref=e466]: 644 193 620
+        - paragraph [ref=e472]: clubtaekwondowarriors@gmail.com
+        - paragraph [ref=e478]: "L-V: 17:30 - 20:30"
+      - generic [ref=e479]:
+        - heading "Síguenos en redes" [level=3] [ref=e480]
+        - paragraph [ref=e481]: No te pierdas nuestro día a día
+        - generic [ref=e482]:
+          - img "Galería 1" [ref=e483]
+          - img "Galería 2" [ref=e484]
+          - img "Galería 3" [ref=e485]
+      - generic [ref=e486]:
+        - iframe [ref=e488]
+        - link "Cómo llegar" [ref=e489] [cursor=pointer]:
+          - /url: https://www.google.com/maps/search/?api=1&query=Calle%20Moss%C3%A8n%20Jacint%20Verdaguer%20274

@@ -111,6 +111,7 @@ export interface SiteCopy {
 		instagramUrl: string;
 		facebookUrl: string;
 		whatsappUrl: string;
+		legal: string;
 		galleryAlts: string[];
 	};
 }
@@ -355,7 +356,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			]
 		},
 		cta: {
-			title: 'Preparat per comen\u00e7ar el teu cam\u00ed?',
+			title: 'Preparat per comen\u00e7ar<br />el teu cam\u00ed?',
 			description: "Descobreix el club, coneix l'ambient i reserva una primera presa de contacte.",
 			button: 'Reserva la teva pla\u00e7a',
 			imageAlt: 'Pr\u00e0ctica de taekwondo',
@@ -390,6 +391,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			instagramUrl: 'https://www.instagram.com/club_taekwondo_warriors',
 			facebookUrl: '#',
 			whatsappUrl: 'https://wa.me/34644193620',
+			legal: 'Tots els drets reservats.',
 			galleryAlts: ['Classe infantil', 'Combat ol\u00edmpic', 'Instal\u00b7lacions del dojo']
 		}
 	},
@@ -608,7 +610,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			]
 		},
 		cta: {
-			title: '\u00bfListo para empezar tu camino?',
+			title: '\u00bfListo para empezar<br />tu camino?',
 			description: 'Descubre el club, conoce el ambiente y reserva una primera toma de contacto.',
 			button: 'Reserva tu plaza',
 			imageAlt: 'Pr\u00e1ctica de taekwondo',
@@ -643,6 +645,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			instagramUrl: 'https://www.instagram.com/club_taekwondo_warriors',
 			facebookUrl: '#',
 			whatsappUrl: 'https://wa.me/34644193620',
+			legal: 'Todos los derechos reservados.',
 			galleryAlts: ['Clase infantil', 'Combate ol\u00edmpico', 'Instalaciones del dojo']
 		}
 	},
@@ -861,7 +864,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			]
 		},
 		cta: {
-			title: 'Ready to start your journey?',
+			title: 'Ready to start<br />your journey?',
 			description: 'Discover the club, get to know the atmosphere, and book your first contact session.',
 			button: 'Book your spot',
 			imageAlt: 'Taekwondo practice',
@@ -896,6 +899,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			instagramUrl: 'https://www.instagram.com/club_taekwondo_warriors',
 			facebookUrl: '#',
 			whatsappUrl: 'https://wa.me/34644193620',
+			legal: 'All rights reserved.',
 			galleryAlts: ['Kids class', 'Olympic sparring', 'Dojo facilities']
 		}
 	}
@@ -904,6 +908,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 export function getSiteCopy(locale: Locale): SiteCopy {
 	return siteCopy[locale];
 }
+
 
 
 

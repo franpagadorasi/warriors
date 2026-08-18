@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
 import { getSiteCopy, type Locale } from '../lib/site-copy';
 import { aboutPaths, getAboutPageCopy } from '../lib/about-copy';
@@ -47,6 +47,7 @@ const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${enco
 const googleReviewsUrl =
 	'https://www.google.com/search?sa=X&sca_esv=72d5cd2ff8b49349&hl=es-ES&sxsrf=APpeQnteq4VAaMWerGiHchsD0iSncs0cfA:1786449416188&q=Club+Taekwondo+Warriors+Rese%C3%B1as&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDMzMjA2NjSxMLUwMTayNDEwMdjAyPiKUcE5pzRJISQxNbs8Py8lXyE8sagoM7-oWCEotTj18MbE4kWsBJUAAHwBsRVhAAAA&rldimm=16620331485843294040&tbm=lcl&ved=2ahUKEwjSg_HWwpiWAxXtSfEDHV_pK2QQ9fQKegQIVRAG&biw=1920&bih=911&dpr=1#lkt=LocalPoiReviews';
 const trialWhatsappUrl = `${copy.footer.whatsappUrl}?text=${copy.hero.trialWhatsappMessage}`;
+const currentYear = new Date().getFullYear();
 const scheduleGroupLogoByTone: Record<string, string> = {
 	gold: '/images/warriors-kids.png',
 	blue: '/images/warriors-junior.png',
@@ -298,6 +299,20 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 							</svg>
 						</a>
 					</div>
+					<div class="footer-sponsors-row">
+						<p class="footer-sponsors-title">PATROCINADORES</p>
+						<div class="footer-sponsors" aria-label="Patrocinadores">
+							<a href="https://www.svh.cat/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Ajuntament de Sant Vicenç dels Horts">
+								<img src="/images/patrocinadores/Ajuntament-de-Sant-Vicenç-dels-Horts-transparent.png" alt="Ajuntament de Sant Vicenç dels Horts" class="sponsor-badge-image sponsor-badge-image-wide" />
+							</a>
+							<a href="https://www.taekwondocatala.com/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Federació Catalana de Taekwondo">
+								<img src="/images/patrocinadores/Federación-Catalana-de-Taekwondo-transparent.png" alt="Federació Catalana de Taekwondo" class="sponsor-badge-image" />
+							</a>
+							<a href="https://fetaekwondo.net/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Federación Española de Taekwondo">
+								<img src="/images/patrocinadores/Federación-Española-de-Taekwondo-transparent.png" alt="Federación Española de Taekwondo" class="sponsor-badge-image" />
+							</a>
+						</div>
+					</div>
 				</div>
 
 				<div class="footer-contact">
@@ -375,6 +390,11 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 							{copy.footer.mapButton}
 						</a>
 					</div>
+				</div>
+			</div>
+			<div class="footer-legal-bar">
+				<div class="container footer-legal-copy">
+					<p>© {currentYear} Francisco J. Pagador. {copy.footer.legal}</p>
 				</div>
 			</div>
 		</section>
@@ -493,8 +513,8 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 		position: sticky;
 		top: 0;
 		z-index: 20;
-		background: rgba(3, 4, 9, 0.96);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+		background: #000;
+		border-bottom: 0;
 		backdrop-filter: blur(16px);
 	}
 
@@ -514,28 +534,38 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 
 	.nav {
 		display: flex;
-		align-items: center;
 		justify-content: center;
-		gap: 1.45rem;
-		font-size: 1.1rem;
+		gap: 1.8rem;
+		font-size: 0.98rem;
+		font-weight: 900;
 		text-transform: uppercase;
+		white-space: nowrap;
+		letter-spacing: 0.03em;
 	}
 
 	.nav a {
 		position: relative;
-		padding: 0.4rem 0;
+		padding: 2rem 0;
+		line-height: 1;
 		color: #f4f6fb;
 	}
 
-	.nav a.active::after,
-	.nav a:hover::after {
+	.nav a::after {
 		content: '';
 		position: absolute;
 		left: 0;
 		right: 0;
-		bottom: -0.45rem;
-		height: 3px;
-		background: #ff2a24;
+		bottom: 0.7rem;
+		height: 0.18rem;
+		background: #ff2a23;
+		transform: scaleX(0);
+		transform-origin: center;
+		transition: transform 160ms ease;
+	}
+
+	.nav a.active::after,
+	.nav a:hover::after {
+		transform: scaleX(1);
 	}
 
 	.header-languages,
@@ -691,11 +721,18 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 	}
 
 	.about-hero-grid img,
-	.team-image-wrap img,
 	.logo-visual img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		border-radius: 1.5rem;
+	}
+
+	.team-image-wrap img {
+		width: 82%;
+		height: 82%;
+		margin: 0 auto;
+		object-fit: contain;
 		border-radius: 1.5rem;
 	}
 
@@ -844,7 +881,10 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 
 	.team-image-wrap {
 		aspect-ratio: 1 / 1;
-		padding: 1rem 1rem 0;
+		padding: 1.5rem 1.25rem 0.35rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.team-copy {
@@ -927,7 +967,7 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 	}
 
 	.schedule-contact-section {
-		padding: 2.2rem 0 2.8rem;
+		padding: 2.2rem 0 0;
 		background: #0b0d14;
 		color: #fff;
 	}
@@ -1284,7 +1324,7 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 		}
 
 		.section-title-line span {
-			max-width: 3.8rem;
+			max-width: none;
 		}
 
 		.unified-title,
@@ -1557,6 +1597,25 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 		filter: grayscale(0.08) contrast(1.02) saturate(0.95);
 	}
 
+	.footer-legal-bar {
+		margin-top: 1.6rem;
+		background: #141821;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.footer-legal-copy {
+		padding-top: 0.9rem;
+		padding-bottom: 0.95rem;
+	}
+
+	.footer-legal-copy p {
+		margin: 0;
+		font-size: 0.72rem;
+		line-height: 1.45;
+		text-align: center;
+		color: rgba(255, 255, 255, 0.68);
+	}
+
 	@media (max-width: 760px) {
 		.header-language-select {
 			display: none;
@@ -1648,8 +1707,8 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 		position: sticky;
 		top: 0;
 		z-index: 20;
-		background: rgba(3, 4, 9, 0.96);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+		background: #000;
+		border-bottom: 0;
 		backdrop-filter: blur(16px);
 	}
 
@@ -2039,5 +2098,94 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 			border-left: 0;
 		}
 	}
+
+	.footer-sponsors-row {
+		display: flex;
+		align-items: center;
+		gap: 0.95rem;
+		margin-top: 0.9rem;
+	}
+
+	.footer-sponsors {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 0.85rem;
+		align-items: center;
+	}
+
+	.footer-sponsors-title {
+		margin: 0;
+		font-size: 0.82rem;
+		font-weight: 900;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: #f5c24b !important;
+		flex: 0 0 auto;
+	}
+
+	.sponsor-badge {
+		width: 3.9rem;
+		height: 3.9rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 999px;
+		border: 1px solid rgba(245, 194, 75, 0.38);
+		background: #ffffff;
+		transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+	}
+
+	.sponsor-badge:hover {
+		transform: translateY(-2px);
+		border-color: rgba(245, 194, 75, 0.68);
+		background: #ffffff;
+	}
+
+	.sponsor-badge-image {
+		width: 3rem;
+		height: 3rem;
+		object-fit: contain;
+	}
+
+	.sponsor-badge-image-wide {
+		width: 2.95rem;
+		height: 2.95rem;
+	}
+
+	@media (max-width: 760px) {
+		.footer-sponsors-row {
+			flex-wrap: wrap;
+			align-items: flex-start;
+			gap: 0.7rem;
+		}
+
+		.footer-sponsors {
+			justify-content: flex-start;
+			gap: 0.7rem;
+		}
+
+		.footer-sponsors-title {
+			margin-top: 0;
+		}
+
+		.sponsor-badge {
+			width: 3.35rem;
+			height: 3.35rem;
+		}
+
+		.sponsor-badge-image {
+			width: 2.1rem;
+			height: 2.1rem;
+		}
+
+		.sponsor-badge-image-wide {
+			width: 2.55rem;
+			height: 2.55rem;
+		}
+	}
 </style>
+
+
+
+
 
