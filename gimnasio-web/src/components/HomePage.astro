@@ -822,6 +822,8 @@ const currentYear = new Date().getFullYear();
 
 	<script is:inline>
 		(() => {
+			document.body.style.overflow = '';
+
 			const initMobileMenu = () => {
 				const header = document.querySelector('.site-header');
 				const toggle = document.querySelector('[data-menu-toggle]');
@@ -3682,16 +3684,14 @@ const currentYear = new Date().getFullYear();
 			grid-template-areas:
 				'contact'
 				'social'
+				'reviews'
 				'map';
 			gap: 0.9rem;
 		}
 
-		.footer-feed {
-			display: none;
-		}
-
 		.footer-contact,
 		.footer-brand,
+		.footer-feed,
 		.footer-map-panel {
 			padding-left: 0;
 			border-left: 0;
@@ -3775,6 +3775,12 @@ const currentYear = new Date().getFullYear();
 			text-align: left;
 		}
 
+		.footer-feed {
+			grid-area: reviews;
+			display: grid;
+			text-align: left;
+		}
+
 		.footer-logo,
 		.footer-brand p {
 			display: none;
@@ -3801,8 +3807,25 @@ const currentYear = new Date().getFullYear();
 			text-align: left;
 		}
 
+		.footer-brand,
+		.footer-contact,
+		.footer-feed,
+		.footer-map-panel,
+		.map-card,
+		.reviews-card,
+		.footer-map {
+			height: auto;
+			min-height: 0;
+		}
+
+		.map-card,
+		.reviews-card {
+			min-height: 13.8rem;
+		}
+
 		.footer-map {
 			min-height: 10rem;
+			flex: none;
 		}
 
 		.container {

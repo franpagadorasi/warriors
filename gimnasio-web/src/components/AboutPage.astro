@@ -437,6 +437,8 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 
 	<script is:inline>
 		(() => {
+			document.body.style.overflow = '';
+
 			const initMobileMenu = () => {
 				const header = document.querySelector('.site-header');
 				const toggle = document.querySelector('[data-menu-toggle]');
@@ -1647,16 +1649,14 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 			grid-template-areas:
 				'contact'
 				'social'
+				'reviews'
 				'map';
 			gap: 0.9rem;
 		}
 
-		.footer-feed {
-			display: none;
-		}
-
 		.footer-contact,
 		.footer-brand,
+		.footer-feed,
 		.footer-map-panel {
 			padding-left: 0;
 			border-left: 0;
@@ -1682,6 +1682,12 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 
 		.footer-brand {
 			grid-area: social;
+			display: grid;
+			text-align: left;
+		}
+
+		.footer-feed {
+			grid-area: reviews;
 			display: grid;
 			text-align: left;
 		}
@@ -1712,8 +1718,25 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 			text-align: left;
 		}
 
+		.footer-brand,
+		.footer-contact,
+		.footer-feed,
+		.footer-map-panel,
+		.map-card,
+		.reviews-card,
+		.footer-map {
+			height: auto;
+			min-height: 0;
+		}
+
+		.map-card,
+		.reviews-card {
+			min-height: 13.8rem;
+		}
+
 		.footer-map {
 			min-height: 10rem;
+			flex: none;
 		}
 	}
 
