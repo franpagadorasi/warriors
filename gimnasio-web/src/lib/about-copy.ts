@@ -384,4 +384,8 @@ export const aboutPageCopy: Record<Locale, AboutPageCopy> = {
 	}
 };
 
+export const getAboutPageCopy = (locale: Locale): AboutPageCopy => {
+	return aboutPageCopy[locale] ?? aboutPageCopy.ca;
+};
+
 

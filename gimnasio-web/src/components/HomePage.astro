@@ -59,6 +59,36 @@ const closeModalLabel: Record<Locale, string> = {
 	es: 'Cerrar',
 	en: 'Close'
 };
+const noClassLabel: Record<Locale, string> = {
+	ca: 'Sense classe',
+	es: 'Sin clase',
+	en: 'No class'
+};
+const galleryPrevLabel: Record<Locale, string> = {
+	ca: 'Imatge anterior',
+	es: 'Imagen anterior',
+	en: 'Previous image'
+};
+const galleryNextLabel: Record<Locale, string> = {
+	ca: 'Imatge següent',
+	es: 'Imagen siguiente',
+	en: 'Next image'
+};
+const sponsorsTitleLabel: Record<Locale, string> = {
+	ca: 'PATROCINADORS',
+	es: 'PATROCINADORES',
+	en: 'SPONSORS'
+};
+const sponsorsAriaLabel: Record<Locale, string> = {
+	ca: 'Patrocinadors',
+	es: 'Patrocinadores',
+	en: 'Sponsors'
+};
+const mapTitlePrefix: Record<Locale, string> = {
+	ca: 'Mapa de',
+	es: 'Mapa de',
+	en: 'Map of'
+};
 const currentYear = new Date().getFullYear();
 ---
 
@@ -162,7 +192,7 @@ const currentYear = new Date().getFullYear();
 
 			<div class="container feature-band">
 				{copy.features.map((item) => (
-					<article class={`feature-card ${item.tone ? 'red'}`}>
+					<article class={`feature-card ${item.tone ?? 'red'}`}>
 						<div class="feature-icon"></div>
 						<div>
 							<h2>{item.title}</h2>
@@ -227,9 +257,6 @@ const currentYear = new Date().getFullYear();
 					))}
 				</div>
 
-				<div class="section-actions">
-					<a class="button button-outline-dark" href="#contacto">{copy.classes.button}</a>
-				</div>
 			</div>
 		</section>
 
@@ -454,7 +481,7 @@ const currentYear = new Date().getFullYear();
 								<strong>{row.time}</strong>
 							</div>
 							{row.classes.map((item) => (
-								<div class={`schedule-cell ${row.tone} ${!item ? 'empty' : ''}`} aria-label={item || 'Sense classe'}>
+								<div class={`schedule-cell ${row.tone} ${!item ? 'empty' : ''}`} aria-label={item || noClassLabel[locale]}>
 									{
 										item && (
 											<span>
@@ -536,7 +563,7 @@ const currentYear = new Date().getFullYear();
 		<section class="stats-band">
 			<div class="container stats-grid">
 				{copy.stats.map((item) => (
-					<div class={`stat-card ${item.tone ? 'red'}`}>
+					<div class={`stat-card ${item.tone ?? 'red'}`}>
 						<strong>{item.value}</strong>
 						<span>{item.label}</span>
 					</div>
@@ -585,7 +612,7 @@ const currentYear = new Date().getFullYear();
 
 					<div class="gallery-carousel" data-gallery-carousel>
 						<div class="gallery-stage">
-							<button class="gallery-nav gallery-nav-prev" type="button" data-gallery-prev aria-label="Imagen anterior">
+							<button class="gallery-nav gallery-nav-prev" type="button" data-gallery-prev aria-label={galleryPrevLabel[locale]}>
 								<span aria-hidden="true">‹</span>
 							</button>
 
@@ -601,7 +628,7 @@ const currentYear = new Date().getFullYear();
 								</div>
 							</div>
 
-							<button class="gallery-nav gallery-nav-next" type="button" data-gallery-next aria-label="Imagen siguiente">
+							<button class="gallery-nav gallery-nav-next" type="button" data-gallery-next aria-label={galleryNextLabel[locale]}>
 								<span aria-hidden="true">›</span>
 							</button>
 						</div>
@@ -669,8 +696,8 @@ const currentYear = new Date().getFullYear();
 						</a>
 					</div>
 					<div class="footer-sponsors-row">
-						<p class="footer-sponsors-title">PATROCINADORES</p>
-						<div class="footer-sponsors" aria-label="Patrocinadores">
+						<p class="footer-sponsors-title">{sponsorsTitleLabel[locale]}</p>
+						<div class="footer-sponsors" aria-label={sponsorsAriaLabel[locale]}>
 							<a href="https://www.svh.cat/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Ajuntament de Sant Vicenç dels Horts">
 								<img src="/images/patrocinadores/Ajuntament-de-Sant-Vicenç-dels-Horts-transparent.png" alt="Ajuntament de Sant Vicenç dels Horts" class="sponsor-badge-image sponsor-badge-image-wide" />
 							</a>
@@ -754,7 +781,7 @@ const currentYear = new Date().getFullYear();
 						<div class="footer-map">
 							<iframe
 								src={mapEmbedUrl}
-								title={`Mapa de ${clubAddress}`}
+								title={`${mapTitlePrefix[locale]} ${clubAddress}`}
 								loading="lazy"
 								referrerpolicy="no-referrer-when-downgrade"
 							></iframe>
@@ -1588,7 +1615,14 @@ const currentYear = new Date().getFullYear();
 		font-size: clamp(2.3rem, 4vw, 3.65rem);
 	}
 
-	$10 auto 2.15rem;
+	.section-title-line {
+		display: grid;
+		grid-template-columns: clamp(4rem, 10vw, 10rem) auto clamp(4rem, 10vw, 10rem);
+		align-items: center;
+		gap: 1rem;
+		margin: 0 auto 2.15rem;
+		width: fit-content;
+		max-width: 100%;
 	}
 
 	.section-title-line span {
@@ -2425,12 +2459,6 @@ const currentYear = new Date().getFullYear();
 		color: #ea211c;
 	}
 
-	.section-actions {
-		display: flex;
-		justify-content: center;
-		margin-top: 2rem;
-	}
-
 	.stats-band {
 		background: #101113;
 	}
@@ -2516,8 +2544,10 @@ const currentYear = new Date().getFullYear();
 	}
 
 	.section-head .section-title-line {
-		flex: 1 1 auto;
+		flex: 0 0 auto;
 		margin: 1.2rem auto 2.15rem;
+		width: fit-content;
+		max-width: 100%;
 	}
 
 	.gallery-head {
@@ -2526,11 +2556,6 @@ const currentYear = new Date().getFullYear();
 
 	.news-head {
 		justify-content: center;
-	}
-
-	.news-head .section-title-line,
-	.gallery-head .section-title-line {
-		width: 100%;
 	}
 
 	.news-grid {
@@ -4114,12 +4139,3 @@ const currentYear = new Date().getFullYear();
 		}
 	}
 </style>
-
-
-
-
-
-
-.schedule-showcase::before {
-	display: none;
-}

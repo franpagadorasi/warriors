@@ -23,6 +23,21 @@ const closeModalLabel: Record<Locale, string> = {
 	es: 'Cerrar',
 	en: 'Close'
 };
+const sponsorsTitleLabel: Record<Locale, string> = {
+	ca: 'PATROCINADORS',
+	es: 'PATROCINADORES',
+	en: 'SPONSORS'
+};
+const sponsorsAriaLabel: Record<Locale, string> = {
+	ca: 'Patrocinadors',
+	es: 'Patrocinadores',
+	en: 'Sponsors'
+};
+const mapTitlePrefix: Record<Locale, string> = {
+	ca: 'Mapa de',
+	es: 'Mapa de',
+	en: 'Map of'
+};
 
 const navLinks = {
 	home: homePaths[locale],
@@ -300,8 +315,8 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 						</a>
 					</div>
 					<div class="footer-sponsors-row">
-						<p class="footer-sponsors-title">PATROCINADORES</p>
-						<div class="footer-sponsors" aria-label="Patrocinadores">
+						<p class="footer-sponsors-title">{sponsorsTitleLabel[locale]}</p>
+						<div class="footer-sponsors" aria-label={sponsorsAriaLabel[locale]}>
 							<a href="https://www.svh.cat/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Ajuntament de Sant Vicenç dels Horts">
 								<img src="/images/patrocinadores/Ajuntament-de-Sant-Vicenç-dels-Horts-transparent.png" alt="Ajuntament de Sant Vicenç dels Horts" class="sponsor-badge-image sponsor-badge-image-wide" />
 							</a>
@@ -381,7 +396,7 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 						<div class="footer-map">
 							<iframe
 								src={mapEmbedUrl}
-								title={`Mapa de ${clubAddress}`}
+								title={`${mapTitlePrefix[locale]} ${clubAddress}`}
 								loading="lazy"
 								referrerpolicy="no-referrer-when-downgrade"
 							></iframe>

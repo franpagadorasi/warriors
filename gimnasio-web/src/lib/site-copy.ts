@@ -39,7 +39,6 @@ export interface SiteCopy {
 	};
 	classes: {
 		title: string;
-		button: string;
 		moreInfo: string;
 		items: Array<{ title: string; description: string; audience: string; imageUrl: string }>;
 	};
@@ -187,7 +186,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		},
 		classes: {
 			title: 'Modalitats que treballem',
-			button: 'Veure totes les modalitats',
 			moreInfo: 'M\u00e9s informaci\u00f3',
 			items: [
 				{
@@ -441,7 +439,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		},
 		classes: {
 			title: 'Modalidades que trabajamos',
-			button: 'Ver todas las modalidades',
 			moreInfo: 'M\u00e1s informaci\u00f3n',
 			items: [
 				{
@@ -695,7 +692,6 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		},
 		classes: {
 			title: 'Programs we work on',
-			button: 'View all programs',
 			moreInfo: 'More info',
 			items: [
 				{
