@@ -20,7 +20,6 @@ export interface SiteSettings {
 	aboutImageSecondaryThreeUrl?: string;
 	classesKicker: string;
 	classesTitle: string;
-	classesButtonLabel: string;
 	newsTitle: string;
 	newsLinkLabel: string;
 	galleryTitle: string;
@@ -130,7 +129,6 @@ const fallbackContent: HomeContent = {
 		aboutImageSecondaryThreeUrl: '/images/modalidad-combate.png',
 		classesKicker: 'Nuestras modalidades',
 		classesTitle: 'Nuestras modalidades',
-		classesButtonLabel: 'Ver todas las modalidades',
 		newsTitle: 'Últimas noticias',
 		newsLinkLabel: 'Ver todas',
 		galleryTitle: 'Galería',
@@ -292,7 +290,6 @@ const homeQuery = `
     "aboutImageSecondaryThreeUrl": aboutImageSecondaryThree.asset->url,
     classesKicker,
     classesTitle,
-    classesButtonLabel,
     newsTitle,
     newsLinkLabel,
     galleryTitle,
