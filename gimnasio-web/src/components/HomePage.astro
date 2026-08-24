@@ -75,14 +75,19 @@ const galleryNextLabel: Record<Locale, string> = {
 	en: 'Next image'
 };
 const sponsorsTitleLabel: Record<Locale, string> = {
-	ca: 'PATROCINADORS',
-	es: 'PATROCINADORES',
-	en: 'SPONSORS'
+	ca: 'FEDERACIÓ I AJUNTAMENT',
+	es: 'FEDERACIÓN Y AYUNTAMIENTO',
+	en: 'FEDERATION AND TOWN COUNCIL'
 };
 const sponsorsAriaLabel: Record<Locale, string> = {
-	ca: 'Patrocinadors',
-	es: 'Patrocinadores',
-	en: 'Sponsors'
+	ca: 'Federació i ajuntament',
+	es: 'Federación y ayuntamiento',
+	en: 'Federation and town council'
+};
+const sponsorsNoteLabel: Record<Locale, string> = {
+	ca: 'La nostra entitat desenvolupa la seva activitat en el marc de la Federació Catalana de Taekwondo i la Real Federación Española de Taekwondo, amb seu d’entrenaments a Sant Vicenç dels Horts.',
+	es: 'Nuestra entidad desarrolla su actividad en el marco de la Federación Catalana de Taekwondo y la Real Federación Española de Taekwondo, con sede de entrenamientos en Sant Vicenç dels Horts.',
+	en: 'Our organization carries out its activity within the framework of the Catalan Taekwondo Federation and the Royal Spanish Taekwondo Federation, with its training base in Sant Vicenç dels Horts.'
 };
 const mapTitlePrefix: Record<Locale, string> = {
 	ca: 'Mapa de',
@@ -250,7 +255,6 @@ const currentYear = new Date().getFullYear();
 
 								<div class="class-meta">
 									<span>{item.audience}</span>
-									<a href="#contacto">{copy.classes.moreInfo}</a>
 								</div>
 							</div>
 						</article>
@@ -708,6 +712,7 @@ const currentYear = new Date().getFullYear();
 								<img src="/images/patrocinadores/Federación-Española-de-Taekwondo-transparent.png" alt="Federación Española de Taekwondo" class="sponsor-badge-image" />
 							</a>
 						</div>
+						<p class="footer-sponsors-note">{sponsorsNoteLabel[locale]}</p>
 					</div>
 				</div>
 
@@ -810,7 +815,7 @@ const currentYear = new Date().getFullYear();
 			<div class="reserva-options">
 				{copy.modal.options.map((option) => (
 					<a class={`reserva-option ${option.tone}`} href={option.url} target="_blank" rel="noreferrer">
-						<img class="reserva-option-logo" src={scheduleGroupLogoByTone[option.tone === 'kids' ? 'gold' : option.tone === 'junior' ? 'blue' : 'red']} alt={option.title} />
+						<img class="reserva-option-logo" src={option.imageUrl} alt={option.title} />
 						<div class="reserva-option-copy">
 							<span>{option.subtitle}</span>
 						</div>
@@ -2966,6 +2971,10 @@ const currentYear = new Date().getFullYear();
 		background: linear-gradient(135deg, #d5141a, #ff2b27);
 	}
 
+	.reserva-option.defense {
+		background: linear-gradient(135deg, #ff008c, #ff5bb6);
+	}
+
 	.schedule-contact-section {
 		background: #0b0d12;
 		color: #ffffff;
@@ -4072,6 +4081,7 @@ const currentYear = new Date().getFullYear();
 
 	.footer-sponsors-row {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.95rem;
 		margin-top: 0.9rem;
@@ -4092,6 +4102,15 @@ const currentYear = new Date().getFullYear();
 		text-transform: uppercase;
 		color: #f5c24b !important;
 		flex: 0 0 auto;
+	}
+
+	.footer-sponsors-row .footer-sponsors-note {
+		margin: 0.2rem 0 0;
+		flex-basis: 100%;
+		font-size: 0.5rem;
+		line-height: 1.45;
+		color: rgba(255, 255, 255, 0.62);
+		max-width: 28rem;
 	}
 
 	.sponsor-badge {
@@ -4137,6 +4156,10 @@ const currentYear = new Date().getFullYear();
 
 		.footer-sponsors-title {
 			margin-top: 0;
+		}
+
+		.footer-sponsors-row .footer-sponsors-note {
+			font-size: 0.5rem;
 		}
 
 		.sponsor-badge {

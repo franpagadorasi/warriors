@@ -24,14 +24,19 @@ const closeModalLabel: Record<Locale, string> = {
 	en: 'Close'
 };
 const sponsorsTitleLabel: Record<Locale, string> = {
-	ca: 'PATROCINADORS',
-	es: 'PATROCINADORES',
-	en: 'SPONSORS'
+	ca: 'FEDERACIÓ I AJUNTAMENT',
+	es: 'FEDERACIÓN Y AYUNTAMIENTO',
+	en: 'FEDERATION AND TOWN COUNCIL'
 };
 const sponsorsAriaLabel: Record<Locale, string> = {
-	ca: 'Patrocinadors',
-	es: 'Patrocinadores',
-	en: 'Sponsors'
+	ca: 'Federació i ajuntament',
+	es: 'Federación y ayuntamiento',
+	en: 'Federation and town council'
+};
+const sponsorsNoteLabel: Record<Locale, string> = {
+	ca: 'La nostra entitat desenvolupa la seva activitat en el marc de la Federació Catalana de Taekwondo i la Real Federación Española de Taekwondo, amb seu d’entrenaments a Sant Vicenç dels Horts.',
+	es: 'Nuestra entidad desarrolla su actividad en el marco de la Federación Catalana de Taekwondo y la Real Federación Española de Taekwondo, con sede de entrenamientos en Sant Vicenç dels Horts.',
+	en: 'Our organization carries out its activity within the framework of the Catalan Taekwondo Federation and the Royal Spanish Taekwondo Federation, with its training base in Sant Vicenç dels Horts.'
 };
 const mapTitlePrefix: Record<Locale, string> = {
 	ca: 'Mapa de',
@@ -327,6 +332,7 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 								<img src="/images/patrocinadores/Federación-Española-de-Taekwondo-transparent.png" alt="Federación Española de Taekwondo" class="sponsor-badge-image" />
 							</a>
 						</div>
+						<p class="footer-sponsors-note">{sponsorsNoteLabel[locale]}</p>
 					</div>
 				</div>
 
@@ -2371,6 +2377,7 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 
 	.footer-sponsors-row {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.95rem;
 		margin-top: 0.9rem;
@@ -2391,6 +2398,15 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 		text-transform: uppercase;
 		color: #f5c24b !important;
 		flex: 0 0 auto;
+	}
+
+	.footer-sponsors-row .footer-sponsors-note {
+		margin: 0.2rem 0 0;
+		flex-basis: 100%;
+		font-size: 0.5rem;
+		line-height: 1.45;
+		color: rgba(255, 255, 255, 0.62);
+		max-width: 28rem;
 	}
 
 	.sponsor-badge {
@@ -2437,6 +2453,10 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 
 		.footer-sponsors-title {
 			margin-top: 0;
+		}
+
+		.footer-sponsors-row .footer-sponsors-note {
+			font-size: 0.5rem;
 		}
 
 		.sponsor-badge {

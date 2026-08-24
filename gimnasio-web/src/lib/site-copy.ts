@@ -89,7 +89,7 @@ export interface SiteCopy {
 		kicker: string;
 		title: string;
 		description: string;
-		options: Array<{ tone: 'kids' | 'junior' | 'elite'; title: string; subtitle: string; url: string }>;
+		options: Array<{ tone: 'kids' | 'junior' | 'elite' | 'defense'; title: string; subtitle: string; url: string; imageUrl: string }>;
 	};
 	footer: {
 		description: string;
@@ -119,7 +119,8 @@ const shared = {
 	modalUrls: {
 		kids: 'https://forms.gle/2wfg4yf1ycwVXgep8',
 		junior: 'https://forms.gle/Z9Z36BKQYSVFNbzJ8',
-		elite: 'https://forms.gle/tRghWETwyQiUTExY6'
+		elite: 'https://forms.gle/tRghWETwyQiUTExY6',
+		defense: 'https://docs.google.com/forms/d/e/1FAIpQLScZjc1icDBDa9QSMtW_7f6s3i0I1fFo-9qnnjFlgKtIr1tWjA/viewform?usp=publish-editor4'
 	},
 	images: {
 		hero: '/images/hero-taekwondo.jpeg',
@@ -365,9 +366,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			title: 'Tria una modalitat',
 			description: 'Selecciona el grup que millor encaixa amb tu i et portem al formulari corresponent.',
 			options: [
-				{ tone: 'kids', title: 'Warriors Kids', subtitle: 'De 3 a 9 anys', url: shared.modalUrls.kids },
-				{ tone: 'junior', title: 'Warriors Junior', subtitle: 'De 10 a 15 anys', url: shared.modalUrls.junior },
-				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'M\u00e9s de 16 anys', url: shared.modalUrls.elite }
+				{ tone: 'kids', title: 'Warriors Kids', subtitle: 'De 3 a 9 anys', url: shared.modalUrls.kids, imageUrl: '/images/warriors-kids.png' },
+				{ tone: 'junior', title: 'Warriors Junior', subtitle: 'De 10 a 15 anys', url: shared.modalUrls.junior, imageUrl: '/images/warriors-junior.png' },
+				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'M\u00e9s de 16 anys', url: shared.modalUrls.elite, imageUrl: '/images/warriors-elite.png' },
+				{ tone: 'defense', title: 'Warriors Defensa Personal', subtitle: 'Defensa personal', url: shared.modalUrls.defense, imageUrl: '/images/defensa_personal.jpeg' }
 			]
 		},
 		footer: {
@@ -618,9 +620,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			title: 'Elige una modalidad',
 			description: 'Selecciona el grupo que mejor encaja contigo y te llevamos al formulario correspondiente.',
 			options: [
-				{ tone: 'kids', title: 'Warriors Kids', subtitle: 'De 3 a 9 a\u00f1os', url: shared.modalUrls.kids },
-				{ tone: 'junior', title: 'Warriors Junior', subtitle: 'De 10 a 15 a\u00f1os', url: shared.modalUrls.junior },
-				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'M\u00e1s de 16 a\u00f1os', url: shared.modalUrls.elite }
+				{ tone: 'kids', title: 'Warriors Kids', subtitle: 'De 3 a 9 a\u00f1os', url: shared.modalUrls.kids, imageUrl: '/images/warriors-kids.png' },
+				{ tone: 'junior', title: 'Warriors Junior', subtitle: 'De 10 a 15 a\u00f1os', url: shared.modalUrls.junior, imageUrl: '/images/warriors-junior.png' },
+				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'M\u00e1s de 16 a\u00f1os', url: shared.modalUrls.elite, imageUrl: '/images/warriors-elite.png' },
+				{ tone: 'defense', title: 'Warriors Defensa Personal', subtitle: 'Defensa personal', url: shared.modalUrls.defense, imageUrl: '/images/defensa_personal.jpeg' }
 			]
 		},
 		footer: {
@@ -871,9 +874,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			title: 'Choose a program',
 			description: 'Select the group that fits you best and we will take you to the right registration form.',
 			options: [
-				{ tone: 'kids', title: 'Warriors Kids', subtitle: 'Ages 3 to 9', url: shared.modalUrls.kids },
-				{ tone: 'junior', title: 'Warriors Junior', subtitle: 'Ages 10 to 15', url: shared.modalUrls.junior },
-				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'Ages 16+', url: shared.modalUrls.elite }
+				{ tone: 'kids', title: 'Warriors Kids', subtitle: 'Ages 3 to 9', url: shared.modalUrls.kids, imageUrl: '/images/warriors-kids.png' },
+				{ tone: 'junior', title: 'Warriors Junior', subtitle: 'Ages 10 to 15', url: shared.modalUrls.junior, imageUrl: '/images/warriors-junior.png' },
+				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'Ages 16+', url: shared.modalUrls.elite, imageUrl: '/images/warriors-elite.png' },
+				{ tone: 'defense', title: 'Warriors Self-Defense', subtitle: 'Self-defense', url: shared.modalUrls.defense, imageUrl: '/images/defensa_personal.jpeg' }
 			]
 		},
 		footer: {
