@@ -279,7 +279,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			rows: [
 				{ time: '17:30 - 18:30', tone: 'gold', classes: ['Warriors Kids', 'Warriors Kids', 'Warriors Kids', 'Warriors Kids'] },
 				{ time: '18:30 - 19:30', tone: 'blue', classes: ['Warriors Junior', 'Warriors Junior', 'Warriors Junior', 'Warriors Junior'] },
-				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', '', 'Warriors Elite', 'Warriors Elite'] }
+				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', 'Warriors Elite', 'Warriors Elite', 'Warriors Elite'] }
 			],
 			ages: [
 				{
@@ -533,7 +533,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			rows: [
 				{ time: '17:30 - 18:30', tone: 'gold', classes: ['Warriors Kids', 'Warriors Kids', 'Warriors Kids', 'Warriors Kids'] },
 				{ time: '18:30 - 19:30', tone: 'blue', classes: ['Warriors Junior', 'Warriors Junior', 'Warriors Junior', 'Warriors Junior'] },
-				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', '', 'Warriors Elite', 'Warriors Elite'] }
+				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', 'Warriors Elite', 'Warriors Elite', 'Warriors Elite'] }
 			],
 			ages: [
 				{
@@ -787,7 +787,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			rows: [
 				{ time: '17:30 - 18:30', tone: 'gold', classes: ['Warriors Kids', 'Warriors Kids', 'Warriors Kids', 'Warriors Kids'] },
 				{ time: '18:30 - 19:30', tone: 'blue', classes: ['Warriors Junior', 'Warriors Junior', 'Warriors Junior', 'Warriors Junior'] },
-				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', '', 'Warriors Elite', 'Warriors Elite'] }
+				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', 'Warriors Elite', 'Warriors Elite', 'Warriors Elite'] }
 			],
 			ages: [
 				{

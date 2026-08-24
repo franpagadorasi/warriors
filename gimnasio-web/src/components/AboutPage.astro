@@ -73,6 +73,774 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 	blue: '/images/warriors-junior.png',
 	red: '/images/warriors-elite.png'
 };
+const repairMojibake = <T,>(value: T): T => {
+	if (typeof value === 'string') {
+		return (value.includes('Ã') || value.includes('Â') || value.includes('â'))
+			? (Buffer.from(value, 'latin1').toString('utf8') as T)
+			: value;
+	}
+
+	if (Array.isArray(value)) {
+		return value.map((item) => repairMojibake(item)) as T;
+	}
+
+	if (value && typeof value === 'object') {
+		return Object.fromEntries(
+			Object.entries(value).map(([key, item]) => [key, repairMojibake(item)])
+		) as T;
+	}
+
+	return value;
+};
+const repairMojibakeDeep = <T,>(value: T): T => {
+	if (typeof value === 'string') {
+		let current = value;
+		for (let index = 0; index < 3; index += 1) {
+			if (!/[ÃÂâƒ]/.test(current)) break;
+			current = Buffer.from(current, 'latin1').toString('utf8') as T & string;
+		}
+		return current as T;
+	}
+
+	if (Array.isArray(value)) {
+		return value.map((item) => repairMojibakeDeep(item)) as T;
+	}
+
+	if (value && typeof value === 'object') {
+		return Object.fromEntries(
+			Object.entries(value).map(([key, item]) => [key, repairMojibakeDeep(item)])
+		) as T;
+	}
+
+	return value;
+};
+const aboutEditorial = {
+	ca: {
+		storyIntro: "Warriors és molt més que un nom: és la continuació d'un camí que ha sobreviscut als canvis, a les pauses i a la incertesa sense perdre mai l'ànima.",
+		storyColumns: [
+			{
+				icon: 'calendar',
+				title: 'Una història que va començar molt abans de Warriors',
+				paragraphs: [
+					"Tot va començar l'any 2013, quan la Diana va iniciar les classes de taekwondo a Sant Vicenç dels Horts. A poc a poc es va anar creant un grup unit per la mateixa passió: el taekwondo olímpic.",
+					"Durant anys es va construir molt més que un grup d'entrenament. Es va crear una família, una manera d'entendre l'esport i un vincle molt fort amb alumnes i famílies.",
+					"Després de la pausa obligada, el projecte no es va apagar. Va quedar viu en les persones que continuaven creient-hi."
+				]
+			},
+			{
+				icon: 'refresh',
+				title: 'Tornar a començar',
+				paragraphs: [
+					"L'any 2023 vam reprendre les classes i tornar al tatami va significar molt més que entrenar: va ser recuperar una part de nosaltres que no havíem deixat de sentir nostra.",
+					"El 2024 vam reconnectar amb els orígens i l'activitat va continuar creixent. El 2025 el projecte es va consolidar amb més identitat, més continuïtat i més confiança.",
+					"Cada canvi d'espai, cada trasllat i cada nova etapa ha suposat esforç. Però també ens ha fet més forts."
+				]
+			},
+			{
+				icon: 'trophy',
+				title: 'I ha arribat el nostre moment',
+				paragraphs: [
+					"Aquest nou espai representa anys de treball, compromís i constància. No és només una seu: és el resultat de tot el camí recorregut.",
+					"Warriors ha crescut perquè hi ha hagut persones que no han deixat de creure-hi: famílies, alumnes i un equip que ha continuat endavant fins i tot quan semblava difícil.",
+					"Ara, per fi, tenim un lloc que podem anomenar casa."
+				]
+			}
+		],
+		gratitudeTitle: 'I, especialment, dels nostres alumnes.',
+		gratitudeItems: [
+			{ icon: 'hourglass', text: 'Per haver esperat.' },
+			{ icon: 'refresh', text: 'Per haver-se adaptat.' },
+			{ icon: 'kick', text: "Per haver seguit entrenant allà on podíem." },
+			{ icon: 'fist', text: 'Per no rendir-se.' },
+			{ icon: 'handshake', text: 'Per confiar en nosaltres.' },
+			{ icon: 'home', text: 'Aquesta seu també és vostra.' }
+		],
+		gratitudeClosing:
+			'Perquè Warriors no es va construir amb parets. Es va construir amb persones, amb esforç, amb il·lusió i amb perseverança. I ara, per fi, tenim un lloc al qual podem dir casa.',
+		missionTitle: 'La nostra missió',
+		missionParagraphs: [
+			"Volem acostar el taekwondo olímpic a Sant Vicenç dels Horts i formar persones a través dels valors de l'esport.",
+			"Busquem que cada alumne trobi a Warriors un espai on aprendre, créixer, superar-se i sentir-se part d'un equip.",
+			"No volem només esportistes: volem persones fortes, respectuoses, constants i capaces d'afrontar reptes dins i fora del tatami."
+		],
+		visionTitle: 'La nostra visió',
+		visionParagraphs: [
+			"Volem construir un club de referència, sòlid i humà, on cada persona pugui desenvolupar el seu potencial independentment de l'edat o del nivell.",
+			"Entenem el taekwondo com una eina per competir, aprendre i créixer com a persona.",
+			"Volem que les noves generacions visquin aquest esport amb la mateixa passió amb què nosaltres l'hem viscut tots aquests anys."
+		],
+		valuesTitle: 'Els nostres valors',
+		values: [
+			{ icon: 'dobok', title: 'Respecte', text: 'Respecte pels companys, pels entrenadors, pels rivals i per un mateix.' },
+			{ icon: 'arm', title: 'Perseverança', text: 'Continuar endavant fins i tot quan el camí es complica.' },
+			{ icon: 'heart', title: 'Passió', text: 'Viure cada entrenament amb entrega, energia i ganes de millorar.' },
+			{ icon: 'handshake', title: 'Companyonia', text: 'Créixer com a equip i celebrar cada pas com si fos de tots.' },
+			{ icon: 'sprout', title: 'Superació', text: 'Intentar ser una mica millor avui que ahir.' },
+			{ icon: 'brain', title: 'Disciplina', text: "La constància diària és la base de qualsevol objectiu gran." }
+		]
+	},
+	es: {
+		storyIntro: 'Warriors es mucho más que un nombre: es la continuidad de un camino que ha sobrevivido a los cambios, a las pausas y a la incertidumbre sin perder nunca su alma.',
+		storyColumns: [
+			{
+				icon: 'calendar',
+				title: 'Una historia que empezó mucho antes de Warriors',
+				paragraphs: [
+					'Todo empezó en 2013, cuando Diana inició las clases de taekwondo en Sant Vicenç dels Horts. Poco a poco fue creciendo un grupo unido por una misma pasión: el taekwondo olímpico.',
+					'Durante años se construyó mucho más que un grupo de entrenamiento. Se creó una familia, una forma de entender el deporte y un vínculo muy fuerte con alumnos y familias.',
+					'Después de la pausa obligada, el proyecto no se apagó. Se quedó vivo en las personas que seguían creyendo en él.'
+				]
+			},
+			{
+				icon: 'refresh',
+				title: 'Volver a empezar',
+				paragraphs: [
+					'En 2023 retomamos las clases y volver al tatami significó mucho más que entrenar: fue recuperar una parte de nosotros que nunca dejamos de sentir nuestra.',
+					'En 2024 reconectamos con nuestros orígenes y la actividad siguió creciendo. En 2025 el proyecto se consolidó con más identidad, más continuidad y más confianza.',
+					'Cada cambio de espacio, cada traslado y cada nueva etapa ha supuesto esfuerzo. Pero también nos ha hecho más fuertes.'
+				]
+			},
+			{
+				icon: 'trophy',
+				title: 'Y llegó nuestro momento',
+				paragraphs: [
+					'Este nuevo espacio representa años de trabajo, compromiso y constancia. No es solo una sede: es el resultado de todo el camino recorrido.',
+					'Warriors ha crecido porque ha habido personas que no han dejado de creer: familias, alumnos y un equipo que siguió adelante incluso cuando parecía difícil.',
+					'Ahora, por fin, tenemos un lugar al que podemos llamar casa.'
+				]
+			}
+		],
+		gratitudeTitle: 'Y, especialmente, de nuestros alumnos.',
+		gratitudeItems: [
+			{ icon: 'hourglass', text: 'Por haber esperado.' },
+			{ icon: 'refresh', text: 'Por haberse adaptado.' },
+			{ icon: 'kick', text: 'Por haber seguido entrenando allí donde podíamos.' },
+			{ icon: 'fist', text: 'Por no rendirse.' },
+			{ icon: 'handshake', text: 'Por confiar en nosotros.' },
+			{ icon: 'home', text: 'Esta sede también es vuestra.' }
+		],
+		gratitudeClosing:
+			'Porque Warriors no se construyó con paredes. Se construyó con personas, con esfuerzo, con ilusión y con perseverancia. Y ahora, por fin, tenemos un lugar al que podemos llamar casa.',
+		missionTitle: 'Nuestra misión',
+		missionParagraphs: [
+			'Queremos acercar el taekwondo olímpico a Sant Vicenç dels Horts y formar personas a través de los valores del deporte.',
+			'Buscamos que cada alumno encuentre en Warriors un espacio donde aprender, crecer, superarse y sentirse parte de un equipo.',
+			'No queremos solo deportistas: queremos personas fuertes, respetuosas, constantes y capaces de afrontar retos dentro y fuera del tatami.'
+		],
+		visionTitle: 'Nuestra visión',
+		visionParagraphs: [
+			'Queremos construir un club de referencia, sólido y humano, donde cada persona pueda desarrollar su potencial independientemente de la edad o del nivel.',
+			'Entendemos el taekwondo como una herramienta para competir, aprender y crecer como persona.',
+			'Queremos que las nuevas generaciones vivan este deporte con la misma pasión con la que nosotros lo hemos vivido todos estos años.'
+		],
+		valuesTitle: 'Nuestros valores',
+		values: [
+			{ icon: 'dobok', title: 'Respeto', text: 'Respeto por los compañeros, los entrenadores, los rivales y por uno mismo.' },
+			{ icon: 'arm', title: 'Perseverancia', text: 'Seguir adelante incluso cuando el camino se complica.' },
+			{ icon: 'heart', title: 'Pasión', text: 'Vivir cada entrenamiento con entrega, energía y ganas de mejorar.' },
+			{ icon: 'handshake', title: 'Compañerismo', text: 'Crecer como equipo y celebrar cada paso como si fuera de todos.' },
+			{ icon: 'sprout', title: 'Superación', text: 'Intentar ser un poco mejor hoy que ayer.' },
+			{ icon: 'brain', title: 'Disciplina', text: 'La constancia diaria es la base de cualquier gran objetivo.' }
+		]
+	},
+	en: {
+		storyIntro: 'Warriors is much more than a name: it is the continuation of a path that has survived change, pauses, and uncertainty without ever losing its soul.',
+		storyColumns: [
+			{
+				icon: 'calendar',
+				title: 'A story that began long before Warriors',
+				paragraphs: [
+					'It all started in 2013, when Diana began teaching taekwondo in Sant Vicenç dels Horts. Little by little, a group grew around the same passion: Olympic taekwondo.',
+					'Over the years, much more than a training group was built. A family was created, along with a way of understanding sport and a strong bond with students and families.',
+					'After the forced pause, the project did not disappear. It stayed alive in the people who kept believing in it.'
+				]
+			},
+			{
+				icon: 'refresh',
+				title: 'Starting again',
+				paragraphs: [
+					'In 2023 we returned to classes, and stepping back onto the mat meant far more than training again: it meant reclaiming a part of ourselves we had never stopped feeling.',
+					'In 2024 we reconnected with our roots and the activity kept growing. In 2025 the project became more solid, with stronger identity, continuity, and confidence.',
+					'Every move, every new space, and every new stage demanded effort. But it also made us stronger.'
+				]
+			},
+			{
+				icon: 'trophy',
+				title: 'And our moment arrived',
+				paragraphs: [
+					'This new space represents years of work, commitment, and consistency. It is not just a venue: it is the result of the entire journey.',
+					'Warriors has grown because people never stopped believing: families, students, and a team that kept moving forward even when things were difficult.',
+					'Now, at last, we have a place we can call home.'
+				]
+			}
+		],
+		gratitudeTitle: 'And especially, to our students.',
+		gratitudeItems: [
+			{ icon: 'hourglass', text: 'For waiting.' },
+			{ icon: 'refresh', text: 'For adapting.' },
+			{ icon: 'kick', text: 'For continuing to train wherever we could.' },
+			{ icon: 'fist', text: 'For not giving up.' },
+			{ icon: 'handshake', text: 'For trusting us.' },
+			{ icon: 'home', text: 'This home is yours too.' }
+		],
+		gratitudeClosing:
+			'Because Warriors was not built with walls. It was built with people, effort, excitement, and perseverance. And now, at last, we have a place we can call home.',
+		missionTitle: 'Our mission',
+		missionParagraphs: [
+			'We want to bring Olympic taekwondo closer to Sant Vicenç dels Horts and develop people through the values of sport.',
+			'We want every student to find in Warriors a place to learn, grow, improve, and feel part of a team.',
+			'We do not want only athletes: we want strong, respectful, consistent people capable of facing challenges on and off the mat.'
+		],
+		visionTitle: 'Our vision',
+		visionParagraphs: [
+			'We want to build a benchmark club: solid, human, and open to everyone, where each person can develop their potential regardless of age or level.',
+			'We understand taekwondo as a tool for competing, learning, and growing as a person.',
+			'We want new generations to live this sport with the same passion that has driven us all these years.'
+		],
+		valuesTitle: 'Our values',
+		values: [
+			{ icon: 'dobok', title: 'Respect', text: 'Respect for teammates, coaches, opponents, and for yourself.' },
+			{ icon: 'arm', title: 'Perseverance', text: 'Keep moving forward even when the path gets difficult.' },
+			{ icon: 'heart', title: 'Passion', text: 'Bring commitment, energy, and purpose to every training session.' },
+			{ icon: 'handshake', title: 'Team spirit', text: 'Grow together and celebrate each step as a shared achievement.' },
+			{ icon: 'sprout', title: 'Self-improvement', text: 'Try to be a little better today than yesterday.' },
+			{ icon: 'brain', title: 'Discipline', text: 'Daily consistency is the foundation of every big goal.' }
+		]
+	}
+} as const;
+const aboutEditorialRefined = {
+	ca: {
+		storyColumns: [
+			{
+				icon: 'calendar',
+				title: 'Una histÃ²ria que va comenÃ§ar molt abans de Warriors',
+				paragraphs: [
+					'Encara que Warriors com a marca va arribar mÃ©s tard, la nostra histÃ²ria va comenÃ§ar molt abans.',
+					"L'any 2013 la Diana va iniciar classes de Taekwondo a Sant VicenÃ§ dels Horts i a poc a poc va anar creixent un grup unit per una mateixa passiÃ³: el Taekwondo OlÃ­mpic.",
+					"Durant anys es va construir molt mÃ©s que un grup d'entrenament. Es va crear una famÃ­lia."
+				]
+			},
+			{
+				icon: 'refresh',
+				title: 'Tornar a comenÃ§ar',
+				paragraphs: [
+					'El 2023 vam reprendre les classes i tornar al tatami va significar molt mÃ©s que tornar a entrenar: va ser recuperar una part de nosaltres que mai havia marxat.',
+					"El 2024 vam reconnectar amb els nostres orÃ­gens i vam ampliar l'activitat. El 2025 vam continuar fent passes endavant amb mÃ©s solidesa i continuÃ¯tat.",
+					"Cada canvi d'espai, cada trasllat i cada nova etapa ha suposat un esforÃ§. PerÃ² tambÃ© ens ha fet mÃ©s forts."
+				]
+			},
+			{
+				icon: 'trophy',
+				title: 'I ha arribat el nostre moment',
+				paragraphs: [
+					"DesprÃ©s d'anys de canvis, incertesa, sacrificis i molta feina, ha arribat el nostre moment.",
+					"Aquesta nova seu no representa nomÃ©s un espai fÃ­sic. Representa el resultat de tots aquests anys d'esforÃ§, persistÃ¨ncia i passiÃ³ compartida.",
+					'Ara, per fi, tenim un lloc que podem anomenar casa.'
+				]
+			}
+		],
+		missionParagraphs: [
+			"Volem acostar el Taekwondo OlÃ­mpic a Sant VicenÃ§ dels Horts i formar persones a travÃ©s dels valors de l'esport.",
+			"Volem que cada alumne trobi a Warriors un espai on aprendre, crÃ©ixer, superar-se i sentir-se part d'un equip.",
+			"No busquem nomÃ©s esportistes: volem persones fortes, responsables, respectuoses i capaces d'afrontar els reptes de la vida amb determinaciÃ³."
+		],
+		visionParagraphs: [
+			"Volem construir un club de referÃ¨ncia en Taekwondo OlÃ­mpic, tant per la nostra formaciÃ³ esportiva com per la nostra manera d'entendre aquest esport.",
+			"Aspirem a crear una comunitat sÃ²lida i unida, on cada persona pugui desenvolupar el seu potencial independentment del nivell, l'edat o l'experiÃ¨ncia.",
+			"Volem que les noves generacions visquin aquest esport amb la mateixa passiÃ³ amb quÃ¨ nosaltres l'hem viscut tots aquests anys."
+		],
+		values: [
+			{ icon: 'dobok', title: 'Respecte', text: 'El respecte cap als companys, entrenadors, rivals i cap a un mateix Ã©s la base del nostre Taekwondo.' },
+			{ icon: 'arm', title: 'PerseveranÃ§a', text: 'Sabem que no sempre serÃ fàcil. Per aixÃ² continuem endavant fins i tot quan les circumstÃ ncies es compliquen.' },
+			{ icon: 'heart', title: 'PassiÃ³', text: 'Estimem el Taekwondo i volem transmetre aquesta passiÃ³ en cada entrenament i en cada petit progrÃ©s.' },
+			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningÃº creix sol. Som un equip i celebrem els assoliments de cadascÃº com si fossin de tots.' },
+			{ icon: 'sprout', title: 'SuperaciÃ³', text: "No es tracta de guanyar sempre, sinÃ³ d'intentar ser cada dia una mica millor que ahir." },
+			{ icon: 'brain', title: 'Disciplina', text: "El compromÃ­s, la constÃ ncia i l'esforÃ§ diari sÃ³n els que ens acosten als nostres objectius." }
+		]
+	},
+	es: {
+		storyColumns: [
+			{
+				icon: 'calendar',
+				title: 'Una historia que empezÃ³ mucho antes de Warriors',
+				paragraphs: [
+					'Aunque Warriors como marca llegÃ³ mÃ¡s tarde, nuestra historia comenzÃ³ mucho antes.',
+					'En 2013 Diana empezÃ³ a dar clases de Taekwondo en Sant VicenÃ§ dels Horts y poco a poco fue creciendo un grupo unido por una misma pasiÃ³n: el Taekwondo OlÃ­mpico.',
+					'Durante aÃ±os se construyÃ³ mucho mÃ¡s que un grupo de entrenamiento. Se creÃ³ una familia.'
+				]
+			},
+			{
+				icon: 'refresh',
+				title: 'Volver a empezar',
+				paragraphs: [
+					'En septiembre de 2023 retomamos las clases y volver al tatami significÃ³ mucho mÃ¡s que volver a entrenar: significÃ³ recuperar una parte de nosotros que nunca habÃ­amos querido perder.',
+					'En 2024 regresamos a nuestros orÃ­genes y ampliamos la actividad. En 2025 seguimos dando pasos adelante con mÃ¡s estabilidad y continuidad.',
+					'Cada cambio de espacio, cada traslado y cada nueva etapa ha supuesto un esfuerzo. Pero tambiÃ©n nos ha hecho mÃ¡s fuertes.'
+				]
+			},
+			{
+				icon: 'trophy',
+				title: 'Y llegÃ³ nuestro momento',
+				paragraphs: [
+					'DespuÃ©s de aÃ±os de cambios, incertidumbre, sacrificios y mucho trabajo, ha llegado nuestro momento.',
+					'Esta nueva sede no representa solamente un espacio fÃ­sico. Representa el resultado de todos estos aÃ±os de esfuerzo, persistencia y pasiÃ³n compartida.',
+					'Ahora, por fin, tenemos un lugar al que podemos llamar casa.'
+				]
+			}
+		],
+		missionParagraphs: [
+			'Queremos acercar el Taekwondo OlÃ­mpico a Sant VicenÃ§ dels Horts y formar personas a travÃ©s de los valores del deporte.',
+			'Queremos que cada alumno encuentre en Warriors un espacio donde aprender, crecer, superarse y sentirse parte de un equipo.',
+			'No buscamos solo deportistas: queremos personas fuertes, responsables, respetuosas y capaces de afrontar los retos de la vida con determinaciÃ³n.'
+		],
+		visionParagraphs: [
+			'Queremos construir un club de referencia en Taekwondo OlÃ­mpico, tanto por nuestra formaciÃ³n deportiva como por nuestra manera de entender este deporte.',
+			'Aspiramos a crear una comunidad sÃ³lida y unida, donde cada persona pueda desarrollar su potencial independientemente del nivel, la edad o la experiencia.',
+			'Queremos que las nuevas generaciones vivan este deporte con la misma pasiÃ³n con la que nosotros lo hemos vivido todos estos aÃ±os.'
+		],
+		values: [
+			{ icon: 'dobok', title: 'Respeto', text: 'El respeto hacia compaÃ±eros, entrenadores, rivales y hacia uno mismo es la base de nuestro Taekwondo.' },
+			{ icon: 'arm', title: 'Perseverancia', text: 'Sabemos que no siempre serÃ¡ fÃ¡cil. Por eso seguimos adelante incluso cuando las circunstancias se complican.' },
+			{ icon: 'heart', title: 'PasiÃ³n', text: 'Amamos el Taekwondo y queremos transmitir esa pasiÃ³n en cada entrenamiento y en cada pequeÃ±o progreso.' },
+			{ icon: 'handshake', title: 'CompaÃ±erismo', text: 'En Warriors nadie crece solo. Somos un equipo y celebramos los logros de cada uno como si fueran propios.' },
+			{ icon: 'sprout', title: 'SuperaciÃ³n', text: 'No se trata de ganar siempre, sino de intentar ser cada dÃ­a un poco mejor que ayer.' },
+			{ icon: 'brain', title: 'Disciplina', text: 'El compromiso, la constancia y el esfuerzo diario son los que nos acercan a nuestros objetivos.' }
+		]
+	},
+	en: {
+		storyColumns: [
+			{
+				icon: 'calendar',
+				title: 'A story that began long before Warriors',
+				paragraphs: [
+					'Although Warriors as a brand arrived later, our story began much earlier.',
+					'In 2013 Diana began teaching Taekwondo in Sant VicenÃ§ dels Horts and little by little a group grew around the same passion: Olympic Taekwondo.',
+					'Over the years, much more than a training group was built. A family was created.'
+				]
+			},
+			{
+				icon: 'refresh',
+				title: 'Starting again',
+				paragraphs: [
+					'In September 2023 we returned to classes, and stepping back onto the mat meant much more than training again: it meant recovering a part of ourselves we never wanted to lose.',
+					'In 2024 we reconnected with our roots and expanded the activity. In 2025 we kept moving forward with greater stability and continuity.',
+					'Every move, every new space, and every new stage required effort. But it also made us stronger.'
+				]
+			},
+			{
+				icon: 'trophy',
+				title: 'And our moment arrived',
+				paragraphs: [
+					'After years of changes, uncertainty, sacrifice, and hard work, our moment has arrived.',
+					'This new home is not only a physical space. It represents the result of years of effort, persistence, and shared passion.',
+					'Now, at last, we have a place we can call home.'
+				]
+			}
+		],
+		missionParagraphs: [
+			'We want to bring Olympic Taekwondo closer to Sant VicenÃ§ dels Horts and develop people through the values of sport.',
+			'We want every student to find in Warriors a place to learn, grow, improve, and feel part of a team.',
+			'We are not building only athletes: we want strong, responsible, respectful people capable of facing life challenges with determination.'
+		],
+		visionParagraphs: [
+			'We want to build a benchmark Olympic Taekwondo club, both for our sporting education and for the way we understand this sport.',
+			'We aspire to create a strong and united community where each person can develop their potential regardless of age, level, or experience.',
+			'We want new generations to live this sport with the same passion that has driven us all these years.'
+		],
+		values: [
+			{ icon: 'dobok', title: 'Respect', text: 'Respect for teammates, coaches, opponents, and for yourself is the foundation of our Taekwondo.' },
+			{ icon: 'arm', title: 'Perseverance', text: 'We know it will not always be easy. That is why we keep moving forward even when circumstances become difficult.' },
+			{ icon: 'heart', title: 'Passion', text: 'We love Taekwondo and want to pass that passion on in every training session and every small step forward.' },
+			{ icon: 'handshake', title: 'Team spirit', text: 'At Warriors no one grows alone. We are a team and celebrate each person achievements as if they were our own.' },
+			{ icon: 'sprout', title: 'Self-improvement', text: 'It is not about winning every day, but about trying to be a little better than yesterday.' },
+			{ icon: 'brain', title: 'Discipline', text: 'Commitment, consistency, and daily effort are what bring us closer to our goals.' }
+		]
+	}
+} as const;
+const editorialBase = repairMojibakeDeep({
+	...aboutEditorial[locale],
+	...aboutEditorialRefined[locale]
+});
+const editorial = locale === 'ca'
+	? {
+		...editorialBase,
+		values: [
+			{ icon: 'dobok', title: 'Respecte', text: 'El respecte cap als companys, entrenadors, rivals i cap a un mateix és la base del nostre Taekwondo.' },
+			{ icon: 'arm', title: 'Perseverança', text: 'Sabem que no sempre serà fàcil. Per això continuem endavant fins i tot quan les circumstàncies es compliquen.' },
+			{ icon: 'heart', title: 'Passió', text: 'Estimem el Taekwondo i volem transmetre aquesta passió en cada entrenament i en cada petit progrés.' },
+			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningú creix sol. Som un equip i celebrem els assoliments de cadascú com si fossin de tots.' },
+			{ icon: 'sprout', title: 'Superació', text: "No es tracta de guanyar sempre, sinó d'intentar ser cada dia una mica millor que ahir." },
+			{ icon: 'brain', title: 'Disciplina', text: "El compromís, la constància i l'esforç diari són els que ens acosten als nostres objectius." }
+		]
+	}
+	: editorialBase;
+const aboutShowcaseCopy = {
+	ca: {
+		heroTitle: 'Sobre nosaltres',
+		heroSubtitle: 'Mes que un club, una familia',
+		heroParagraphs: [
+			'A Warriors no nomes entrenem Taekwondo Olimpic.',
+			'Formem persones, construim somnis i creem una familia per a tota la vida.'
+		],
+		storyTitle: 'La nostra historia',
+		storyLead: '',
+		gratitudeLead: 'I, especialment, dels nostres alumnes.',
+		gratitudeClosingTop: 'Perque Warriors no es va construir amb parets.',
+		gratitudeClosingMiddle: 'Es va construir amb persones, amb esforc, amb il.lusio i amb perseveranca.',
+		gratitudeClosingBottom: 'I ara, per fi, tenim un lloc al qual podem dir casa.',
+		missionImageAlt: 'Espai principal del dojo Warriors',
+		bottomTitleLead: 'Aquesta es la nostra historia.',
+		bottomHighlight:
+			'Estem orgullosos del cami recorregut i emocionats per tot el que esta per venir.',
+		bottomClosing: 'Benvingut a la familia Warriors.',
+		bottomSignature: 'Anem junts!'
+	},
+	es: {
+		heroTitle: 'Sobre nosotros',
+		heroSubtitle: 'Mas que un club, una familia',
+		heroParagraphs: [
+			'En Warriors no solo entrenamos Taekwondo Olimpico.',
+			'Formamos personas, construimos suenos y creamos una familia para toda la vida.'
+		],
+		storyTitle: 'Nuestra historia',
+		storyLead: '',
+		gratitudeLead: 'Y, especialmente, de nuestros alumnos.',
+		gratitudeClosingTop: 'Porque Warriors no se construyo con paredes.',
+		gratitudeClosingMiddle: 'Se construyo con personas, con esfuerzo, con ilusion y con perseverancia.',
+		gratitudeClosingBottom: 'Y ahora, por fin, tenemos un lugar al que podemos llamar casa.',
+		missionImageAlt: 'Espacio principal del dojo Warriors',
+		bottomTitleLead: 'Esta es nuestra historia.',
+		bottomHighlight:
+			'Estamos orgullosos del camino recorrido y emocionados por todo lo que esta por venir.',
+		bottomClosing: 'Bienvenido a la familia Warriors.',
+		bottomSignature: 'Vamos juntos!'
+	},
+	en: {
+		heroTitle: 'About us',
+		heroSubtitle: 'More than a club, a family',
+		heroParagraphs: [
+			'At Warriors we do more than train Olympic Taekwondo.',
+			'We shape people, build dreams, and create a family for life.'
+		],
+		storyTitle: 'Our story',
+		storyLead: '',
+		gratitudeLead: 'And, above all, to our students.',
+		gratitudeClosingTop: 'Because Warriors was not built with walls.',
+		gratitudeClosingMiddle: 'It was built with people, effort, hope, and perseverance.',
+		gratitudeClosingBottom: 'And now, at last, we have a place we can call home.',
+		missionImageAlt: 'Main space inside the Warriors dojo',
+		bottomTitleLead: 'This is our story.',
+		bottomHighlight:
+			'We are proud of the road we have traveled and excited for everything still to come.',
+		bottomClosing: 'Welcome to the Warriors family.',
+		bottomSignature: "Let's go together!"
+	}
+} as const;
+const aboutShowcase = aboutShowcaseCopy[locale];
+const logoPosterCopy = {
+	ca: {
+		kicker: 'Significat del logo',
+		titleLead: 'Cada detall',
+		titleAccent: 'té un propòsit',
+		breakdownTitle: 'Desglossament del logo',
+		intro:
+			'El nostre logo representa molt més que el nom del club. Cada element explica una part de la nostra història, dels nostres valors i de la persona que hi ha a l’origen de Warriors.',
+		quoteLead: 'En conjunt, el logo representa molt més que el nom del club:',
+		quoteMain:
+			'És un reflex de la nostra història, dels nostres valors i de la persona que està a l’origen de Warriors.',
+		quote:
+			'En conjunt, el logo representa molt més que el nom del club: és un reflex de la nostra història, dels nostres valors i de la persona que està a l’origen de Warriors.',
+		details: [
+			{ number: '1', title: 'Les dues “V”', visual: 'V + V = W', text: 'Les dues “V”, en groc i vermell, s’uneixen per formar la “W” de Warriors. Aquestes dues lletres representen, a més, les inicials dels cognoms de Diana Vázquez Vallés, entrenadora i figura fonamental del club.' },
+			{ number: '2', title: 'El cinturó', visual: null, text: 'Ambdues “V” estan unides per un cinturó, un element estretament lligat al nostre esport i que simbolitza, al mateix temps, la unió, la força i els valors que compartim com a equip.' },
+			{ number: '3', title: 'La “M” de Diana', visual: 'M', text: 'De la seva composició sorgeix també una “M”, inicial que Diana porta gravada al seu propi cinturó, una lletra carregada de significat personal i que representa una presència, un vincle i una part essencial de la història que acompanya la Diana i el naixement de Warriors.' },
+			{ number: '4', title: 'L’escut de Wonder Woman', visual: null, text: 'Com a fons apareix l’escut de Wonder Woman, personatge amb el qual sempre s’ha identificat i al qual carinyosament han comparat amb la Diana per la seva força, caràcter, determinació i esperit de lluita.' },
+			{ number: '5', title: 'Les sis estrelles', visual: '★ ★ ★ ★ ★ ★', text: 'Finalment, les sis estrelles representen els sis títols de Campiona d’Espanya conquistats per Diana al llarg de la seva trajectòria, convertint-se en un símbol dels seus èxits, el seu esforç i el seu llegat.' }
+		],
+		bottomValues: [
+			{ icon: 'team', title: 'Unió', text: 'Som un equip. Creixem junts.' },
+			{ icon: 'fist', title: 'Força', text: 'Entrenem cos i ment per ser més forts.' },
+			{ icon: 'heart', title: 'Passió', text: 'Estimem el Taekwondo i el vivim amb intensitat.' },
+			{ icon: 'star', title: 'Superació', text: 'No es tracta de ser els millors, sinó de ser millors cada dia.' },
+			{ icon: 'belt', title: 'Disciplina', text: 'El camí de l’esforç i la constància ens porta més lluny.' }
+		],
+		signature: 'La nostra història. Els nostres valors. La nostra família. Warriors.'
+	},
+	es: {
+		kicker: 'Significado del logo',
+		titleLead: 'Cada detalle',
+		titleAccent: 'tiene un propósito',
+		breakdownTitle: 'Despiece del logo',
+		intro:
+			'Nuestro logo representa mucho más que el nombre del club. Cada elemento cuenta una parte de nuestra historia, de nuestros valores y de la persona que está en el origen de Warriors.',
+		quoteLead: 'En conjunto, el logo representa mucho más que el nombre del club:',
+		quoteMain:
+			'Es un reflejo de nuestra historia, de nuestros valores y de la persona que está en el origen de Warriors.',
+		quote:
+			'En conjunto, el logo representa mucho más que el nombre del club: es un reflejo de nuestra historia, de nuestros valores y de la persona que está en el origen de Warriors.',
+		details: [
+			{ number: '1', title: 'Las dos “V”', visual: 'V + V = W', text: 'Las dos “V”, en color amarillo y rojo, se unen para formar la “W” de Warriors. Estas dos letras representan, además, las iniciales de los apellidos de Diana Vázquez Vallés, entrenadora y figura fundamental del club.' },
+			{ number: '2', title: 'El cinturón', visual: null, text: 'Ambas “V” están unidas por un cinturón, un elemento estrechamente ligado a nuestro deporte y que simboliza, al mismo tiempo, la unión, la fuerza y los valores que compartimos como equipo.' },
+			{ number: '3', title: 'La “M” de Diana', visual: 'M', text: 'De su composición surge también una “M”, inicial que Diana lleva grabada en su propio cinturón, una letra cargada de significado personal y que representa una presencia, un vínculo y una parte esencial de la historia que acompaña a Diana y al nacimiento de Warriors.' },
+			{ number: '4', title: 'El escudo de Wonder Woman', visual: null, text: 'Como fondo aparece el escudo de Wonder Woman, personaje con el que siempre se ha identificado y al que cariñosamente han comparado con Diana por su fuerza, carácter, determinación y espíritu de lucha.' },
+			{ number: '5', title: 'Las seis estrellas', visual: '★ ★ ★ ★ ★ ★', text: 'Finalmente, las seis estrellas representan los seis títulos de Campeona de España conquistados por Diana a lo largo de su trayectoria, convirtiéndose en un símbolo de sus logros, su esfuerzo y su legado.' }
+		],
+		bottomValues: [
+			{ icon: 'team', title: 'Unión', text: 'Somos un equipo. Crecemos juntos.' },
+			{ icon: 'fist', title: 'Fuerza', text: 'Entrenamos cuerpo y mente para ser más fuertes.' },
+			{ icon: 'heart', title: 'Pasión', text: 'Amamos el Taekwondo y lo vivimos con intensidad.' },
+			{ icon: 'star', title: 'Superación', text: 'No se trata de ser los mejores, sino de ser mejores cada día.' },
+			{ icon: 'belt', title: 'Disciplina', text: 'El camino del esfuerzo y la constancia nos lleva más lejos.' }
+		],
+		signature: 'Nuestra historia. Nuestros valores. Nuestra familia. Warriors.'
+	},
+	en: {
+		kicker: 'Meaning behind the logo',
+		titleLead: 'Every detail',
+		titleAccent: 'has a purpose',
+		breakdownTitle: 'Logo breakdown',
+		intro:
+			'Our logo represents much more than the club name. Each element tells a part of our story, our values, and the person at the origin of Warriors.',
+		quoteLead: 'Taken as a whole, the logo represents much more than the name of the club:',
+		quoteMain:
+			'It reflects our story, our values, and the person at the origin of Warriors.',
+		quote:
+			'Taken as a whole, the logo represents much more than the club name: it reflects our story, our values, and the person at the origin of Warriors.',
+		details: [
+			{ number: '1', title: 'The two “V” shapes', visual: 'V + V = W', text: 'The two “V” shapes, in yellow and red, come together to form the Warriors “W”. They also represent the initials of Diana Vázquez Vallés, coach and central figure in the club’s identity.' },
+			{ number: '2', title: 'The belt', visual: null, text: 'Both “V” shapes are tied together by a belt, an element closely linked to our sport that also symbolizes unity, strength, and the values we share as a team.' },
+			{ number: '3', title: 'Diana’s “M”', visual: 'M', text: 'The composition also suggests an “M”, an initial engraved on Diana’s own belt. It carries personal meaning and represents a presence, a bond, and an essential part of the story behind the birth of Warriors.' },
+			{ number: '4', title: 'The Wonder Woman shield', visual: null, text: 'In the background appears the Wonder Woman shield, a character Diana has always identified with and whom many lovingly associate with her because of her strength, character, determination, and fighting spirit.' },
+			{ number: '5', title: 'The six stars', visual: '★ ★ ★ ★ ★ ★', text: 'Finally, the six stars represent the six Spanish Champion titles Diana has won throughout her career, becoming a symbol of her achievements, effort, and legacy.' }
+		],
+		bottomValues: [
+			{ icon: 'team', title: 'Unity', text: 'We are one team. We grow together.' },
+			{ icon: 'fist', title: 'Strength', text: 'We train body and mind to become stronger.' },
+			{ icon: 'heart', title: 'Passion', text: 'We love Taekwondo and live it intensely.' },
+			{ icon: 'star', title: 'Self-improvement', text: 'It is not about being the best, but about being better every day.' },
+			{ icon: 'belt', title: 'Discipline', text: 'The path of effort and consistency takes us further.' }
+		],
+		signature: 'Our story. Our values. Our family. Warriors.'
+	}
+} as const;
+const logoPoster = logoPosterCopy[locale];
+const coachShowcaseCopy = {
+	ca: {
+		heroLead: 'Els nostres',
+		heroAccent: 'coaches',
+		heroKicker: "L'equip Warriors",
+		heroStatement: 'Formem, acompanyem i creiem en cada Warrior.',
+		heroSupport: 'Dins i fora del tatami.',
+		heroText:
+			'Darrere de cada campionat, de cada cinturó i de cada progrés, hi ha persones que creuen en tu. Elles són el cor de Warriors.',
+		dianaBadge: 'Coach principal',
+		dianaSubtitle: 'Instructora i coach de Taekwondo Olímpic',
+		dianaHighlights: [
+			{ icon: 'team', title: 'Més de 30 anys de trajectòria', text: 'Una vida dedicada al Taekwondo dins i fora del tatami.' },
+			{ icon: 'belt', title: 'Entrenadora i coach', text: 'Experiència com a entrenadora de clubs i coach de la Federació Catalana.' },
+			{ icon: 'medal', title: 'Reconeguda per la seva trajectòria', text: 'Mèrit esportiu RFET i reconeixement a la Nit de l’Esport.' }
+		],
+		dianaStrip: [
+			'Vinculada a l’alt rendiment i al coaching federatiu.',
+			'Col·labora amb projectes tècnics i marques del sector.',
+			'Referent esportiu i humà dins del club.'
+		],
+		laiaTitle: 'Un exemple de constància i superació',
+		laiaLead:
+			'Laia ha crescut dins del projecte Warriors, passant d’alumna a monitora i convertint-se en una figura clau en el dia a dia del club.',
+		laiaHighlights: [
+			{ icon: 'user', title: 'D’alumna a referent', text: 'Una evolució natural que avui inspira les noves generacions.' },
+			{ icon: 'team', title: 'Mà dreta de Diana', text: 'Peces clau en l’acompanyament diari, la proximitat i el compromís.' },
+			{ icon: 'spark', title: 'Jove, enèrgica i compromesa', text: 'Aporta joventut, energia i moltes ganes de continuar creixent.' }
+		],
+		familyLead: 'Més que entrenadors,',
+		familyAccent: 'una família.',
+		familyText: 'Guiem. Motivem. Acompanyem. Inspirem. Formem campions dins i fora del tatami.'
+	},
+	es: {
+		heroLead: 'Nuestros',
+		heroAccent: 'coaches',
+		heroKicker: 'El equipo Warriors',
+		heroStatement: 'Formamos, acompaÃ±amos y creemos en cada Warrior.',
+		heroSupport: 'Dentro y fuera del tatami.',
+		heroText:
+			'Detrás de cada campeonato, de cada cinturón y de cada logro, hay personas que creen en ti. Ellas son el corazón de Warriors.',
+		dianaBadge: 'Coach principal',
+		dianaSubtitle: 'Instructora y Coach de Taekwondo Olímpico',
+		dianaHighlights: [
+			{ icon: 'team', title: 'Más de 30 años de trayectoria', text: 'Una vida dedicada al Taekwondo dentro y fuera del tatami.' },
+			{ icon: 'belt', title: 'Entrenadora y coach', text: 'Experiencia como entrenadora de clubes y coach federativa.' },
+			{ icon: 'medal', title: 'Reconocida por su trayectoria', text: 'Mérito deportivo RFET y reconocimientos a su carrera.' }
+		],
+		dianaStrip: [
+			'Vinculada al alto rendimiento y al coaching federativo.',
+			'Colabora con proyectos técnicos y marcas del sector.',
+			'Referente deportivo y humano dentro del club.'
+		],
+		laiaTitle: 'Un ejemplo de constancia y superación',
+		laiaLead:
+			'Laia ha crecido dentro del proyecto Warriors, pasando de alumna a monitora y convirtiéndose en una figura clave en el día a día del club.',
+		laiaHighlights: [
+			{ icon: 'user', title: 'De alumna a referente', text: 'Una evolución natural que hoy inspira a nuevas generaciones.' },
+			{ icon: 'team', title: 'Mano derecha de Diana', text: 'Pieza clave en el acompañamiento diario, la cercanía y el compromiso.' },
+			{ icon: 'spark', title: 'Joven, enérgica y comprometida', text: 'Aporta juventud, energía y ganas constantes de seguir creciendo.' }
+		],
+		familyLead: 'Más que entrenadores,',
+		familyAccent: 'una familia.',
+		familyText: 'Guiamos. Motivamos. Acompañamos. Inspiramos. Formamos campeones dentro y fuera del tatami.'
+	},
+	en: {
+		heroLead: 'Our',
+		heroAccent: 'coaches',
+		heroKicker: 'The Warriors team',
+		heroStatement: 'We train, support, and believe in every Warrior.',
+		heroSupport: 'On and off the mat.',
+		heroText:
+			'Behind every championship, every belt, and every achievement, there are people who believe in you. They are the heart of Warriors.',
+		dianaBadge: 'Head coach',
+		dianaSubtitle: 'Olympic Taekwondo Instructor and Coach',
+		dianaHighlights: [
+			{ icon: 'team', title: 'More than 30 years of experience', text: 'A lifetime dedicated to Taekwondo on and off the mat.' },
+			{ icon: 'belt', title: 'Coach and mentor', text: 'Club coaching experience and federation-level guidance.' },
+			{ icon: 'medal', title: 'Recognized career', text: 'RFET sporting merit awards and public recognition.' }
+		],
+		dianaStrip: [
+			'Linked to high-performance sport and federation coaching.',
+			'Collaborates with technical projects and leading brands.',
+			'A sporting and human reference inside the club.'
+		],
+		laiaTitle: 'An example of consistency and growth',
+		laiaLead:
+			'Laia has grown within the Warriors project, moving from student to instructor and becoming a key figure in the daily life of the club.',
+		laiaHighlights: [
+			{ icon: 'user', title: 'From student to role model', text: 'A natural evolution that now inspires new generations.' },
+			{ icon: 'team', title: 'Diana’s right hand', text: 'A key presence in daily support, closeness, and commitment.' },
+			{ icon: 'spark', title: 'Young, energetic, committed', text: 'She brings youth, energy, and a real drive to keep growing.' }
+		],
+		familyLead: 'More than coaches,',
+		familyAccent: 'a family.',
+		familyText: 'We guide. We motivate. We support. We inspire. We build champions on and off the mat.'
+	}
+} as const;
+const coachShowcase = coachShowcaseCopy[locale];
+const diana = aboutCopy.team.members[0];
+const laia = aboutCopy.team.members[1];
+const coachEditorialByLocale = {
+	ca: {
+		heroIntro: [
+			'Darrere de cada campionat, de cada cintur\u00f3 i de cada progr\u00e9s, hi ha persones que creuen en tu.',
+			'Elles s\u00f3n el cor de Warriors.'
+		],
+		dianaParagraphs: [
+			"Diana es va iniciar en el Taekwondo als 5 anys i, des de llavors, aquest art marcial s'ha convertit en una part fonamental de la seva vida. Al llarg de m\u00e9s de tres d\u00e8cades de traject\u00f2ria ha viscut moments d'esfor\u00e7, sacrifici i tamb\u00e9 etapes dif\u00edcils, per\u00f2, sobretot, ha acumulat un gran bagatge d'experi\u00e8ncies que avui posa al servei de les noves generacions.",
+			"La seva passi\u00f3 pel Taekwondo la va portar a formar part de l'equip nacional i a competir al m\u00e9s alt nivell, aconseguint resultats destacats tant a nivell nacional com internacional."
+		],
+		dianaHighlights: [
+			{ icon: 'team', title: 'M\u00e9s de 30 anys de traject\u00f2ria', text: 'Una vida dedicada al Taekwondo dins i fora del tatami.' },
+			{ icon: 'belt-knot', title: 'Entrenadora i coach', text: 'Experi\u00e8ncia com a entrenadora de clubs i coach de la Federaci\u00f3 Catalana i Espanyola de Taekwondo.' },
+			{ icon: 'medal-ribbon', title: 'Reconeguda per la seva traject\u00f2ria', text: 'Medalla de bronze al M\u00e8rit Esportiu 2023 i medalla de plata al M\u00e8rit Esportiu 2025.' }
+		],
+		dianaStrip: [
+			{ icon: 'dobok', text: 'Vinculada a l\'alt rendiment com a coach de la Federaci\u00f3 Catalana de Taekwondo.' },
+			{ icon: 'star-outline', text: 'Col\u00b7labora amb marques l\u00edders del sector: model de DAEDO i col\u00b7laboradora de FUJIMAE.' },
+			{ icon: 'trophy-outline', text: 'Reconeixement a la seva traject\u00f2ria i vinculaci\u00f3 amb l\'esport.' }
+		],
+		laiaSectionTitle: 'Un exemple de const\u00e0ncia i superaci\u00f3',
+		laiaSubtitle: 'Monitora de Taekwondo Ol\u00edmpic',
+		laiaParagraphs: [
+			"Laia va comen\u00e7ar el seu cam\u00ed en el Taekwondo amb tan sols 5 anys, de la m\u00e0 de Diana, com a activitat extraescolar. El que va comen\u00e7ar com una activitat m\u00e9s ben aviat es va convertir en una aut\u00e8ntica passi\u00f3 per aquest art marcial i esport ol\u00edmpic.",
+			"Des de llavors, Laia ha acompanyat la Diana en les diferents etapes i llocs on ha continuat desenvolupant el projecte, i avui \u00e9s una part essencial del dia a dia de Warriors."
+		],
+		laiaHighlights: [
+			{ icon: 'user-round', title: 'D\'alumna a referent', text: 'D\'aquella nena de 5 anys a convertir-se avui en monitora i inspiraci\u00f3 per a les noves generacions.' },
+			{ icon: 'group-round', title: 'M\u00e0 dreta de Diana', text: 'Pe\u00e7a fonamental en el dia a dia del club per la seva experi\u00e8ncia, proximitat i comprom\u00eds.' },
+			{ icon: 'spark-sharp', title: 'Jove, en\u00e8rgica i compromesa', text: 'Aporta joventut, energia i moltes ganes de retornar al Taekwondo tot el que li ha donat.' }
+		],
+		laiaCallout: 'Per a Laia, formar part de Warriors significa seguir creixent, per\u00f2 tamb\u00e9 acompanyar els m\u00e9s petits en els seus primers passos, ajudant-los a descobrir els valors que ella mateixa va aprendre des dels 5 anys: disciplina, respecte, companyonia, superaci\u00f3 i passi\u00f3 pel Taekwondo.',
+		laiaCalloutStrong: 'Avui, aquella nena que va comen\u00e7ar seguint els passos de Diana \u00e9s part essencial de l\'equip que continua construint el futur de Warriors.'
+	},
+	es: {
+		heroIntro: [
+			'Detr\u00e1s de cada campeonato, de cada cintur\u00f3n, de cada logro, hay personas que creen en ti.',
+			'Ellas son el coraz\u00f3n de Warriors.'
+		],
+		dianaParagraphs: [
+			'Diana se inici\u00f3 en el Taekwondo a los 5 a\u00f1os y, desde entonces, este arte marcial se convirti\u00f3 en una parte fundamental de su vida. A lo largo de m\u00e1s de tres d\u00e9cadas de trayectoria ha vivido momentos de esfuerzo, sacrificio y tambi\u00e9n etapas dif\u00edciles, pero, sobre todo, ha acumulado un sinf\u00edn de experiencias que hoy pone al servicio de las nuevas generaciones.',
+			'Su pasi\u00f3n por el Taekwondo la llev\u00f3 a formar parte del equipo nacional y a competir al m\u00e1s alto nivel, cosechando importantes resultados tanto a nivel nacional como internacional.'
+		],
+		dianaHighlights: [
+			{ icon: 'team', title: 'M\u00e1s de 30 a\u00f1os de trayectoria', text: 'Una vida dedicada al Taekwondo dentro y fuera del tatami.' },
+			{ icon: 'belt-knot', title: 'Entrenadora y coach', text: 'Experiencia como entrenadora de clubes y coach de la Federaci\u00f3n Catalana y Espa\u00f1ola de Taekwondo.' },
+			{ icon: 'medal-ribbon', title: 'Reconocida por su trayectoria', text: 'Medalla de Bronce al M\u00e9rito Deportivo 2023 y Medalla de Plata al M\u00e9rito Deportivo 2025.' }
+		],
+		dianaStrip: [
+			{ icon: 'dobok', text: 'Vinculada al alto rendimiento como coach de la Federaci\u00f3n Catalana de Taekwondo.' },
+			{ icon: 'star-outline', text: 'Colabora con marcas l\u00edderes del sector: modelo de DAEDO y colaboradora de FUJIMAE.' },
+			{ icon: 'trophy-outline', text: 'Reconocimiento a su trayectoria y vinculaci\u00f3n con el deporte.' }
+		],
+		laiaSectionTitle: 'Un ejemplo de constancia y superaci\u00f3n',
+		laiaSubtitle: 'Monitora de Taekwondo Ol\u00edmpico',
+		laiaParagraphs: [
+			'Laia comenz\u00f3 su camino en el Taekwondo con tan solo 5 a\u00f1os, de la mano de Diana, como actividad extraescolar. Lo que empez\u00f3 como una actividad m\u00e1s pronto se convirti\u00f3 en una verdadera pasi\u00f3n por este arte marcial y deporte ol\u00edmpico.',
+			'Desde entonces, Laia ha acompa\u00f1ado a Diana en las diferentes etapas y lugares donde ha seguido desarrollando el proyecto, y hoy es una parte esencial del d\u00eda a d\u00eda de Warriors.'
+		],
+		laiaHighlights: [
+			{ icon: 'user-round', title: 'De alumna a referente', text: 'De aquella ni\u00f1a de 5 a\u00f1os a convertirse hoy en monitora e inspiraci\u00f3n para las nuevas generaciones.' },
+			{ icon: 'group-round', title: 'Mano derecha de Diana', text: 'Pieza fundamental en el d\u00eda a d\u00eda del club por su experiencia, cercan\u00eda y compromiso.' },
+			{ icon: 'spark-sharp', title: 'Joven, en\u00e9rgica y comprometida', text: 'Aporta juventud, energ\u00eda y muchas ganas de devolver al Taekwondo todo lo que le ha dado.' }
+		],
+		laiaCallout: 'Para Laia, formar parte de Warriors significa seguir creciendo, pero tambi\u00e9n acompa\u00f1ar a los m\u00e1s peque\u00f1os en sus primeros pasos, ayud\u00e1ndoles a descubrir los valores que ella misma aprendi\u00f3 desde los 5 a\u00f1os: disciplina, respeto, compa\u00f1erismo, superaci\u00f3n y pasi\u00f3n por el Taekwondo.',
+		laiaCalloutStrong: 'Hoy, aquella ni\u00f1a que comenz\u00f3 siguiendo los pasos de Diana es parte esencial del equipo que contin\u00faa construyendo el futuro de Warriors.'
+	},
+	en: {
+		heroIntro: [
+			'Behind every championship, every belt, every achievement, there are people who believe in you.',
+			'They are the heart of Warriors.'
+		],
+		dianaParagraphs: [
+			'Diana started Taekwondo at the age of 5 and, since then, this martial art has become a fundamental part of her life. Over more than three decades she has lived through effort, sacrifice, and difficult stages, but above all she has gathered a wealth of experience that she now puts at the service of new generations.',
+			'Her passion for Taekwondo led her to join the national team and compete at the highest level, achieving major results both nationally and internationally.'
+		],
+		dianaHighlights: [
+			{ icon: 'team', title: 'More than 30 years of experience', text: 'A life dedicated to Taekwondo on and off the mat.' },
+			{ icon: 'belt-knot', title: 'Coach and mentor', text: 'Experience coaching clubs and working with the Catalan and Spanish Taekwondo federations.' },
+			{ icon: 'medal-ribbon', title: 'Recognized career', text: 'Bronze Sports Merit Medal 2023 and Silver Sports Merit Medal 2025.' }
+		],
+		dianaStrip: [
+			{ icon: 'dobok', text: 'Linked to high-performance sport as a coach for the Catalan Taekwondo Federation.' },
+			{ icon: 'star-outline', text: 'Collaborates with leading sector brands: DAEDO model and FUJIMAE collaborator.' },
+			{ icon: 'trophy-outline', text: 'Recognized for her career and long-term commitment to sport.' }
+		],
+		laiaSectionTitle: 'An example of consistency and growth',
+		laiaSubtitle: 'Olympic Taekwondo Instructor',
+		laiaParagraphs: [
+			'Laia began her path in Taekwondo at just 5 years old, hand in hand with Diana, as an extracurricular activity. What started as one more activity soon became a true passion for this martial art and Olympic sport.',
+			'Since then, Laia has accompanied Diana through the different stages and training spaces where the project kept growing, and today she is an essential part of everyday life at Warriors.'
+		],
+		laiaHighlights: [
+			{ icon: 'user-round', title: 'From student to role model', text: 'From that 5-year-old girl to becoming an instructor and inspiration for new generations.' },
+			{ icon: 'group-round', title: "Diana's right hand", text: 'A key part of the club thanks to her experience, closeness, and commitment.' },
+			{ icon: 'spark-sharp', title: 'Young, energetic, committed', text: 'She brings youth, energy, and a real desire to give back to Taekwondo.' }
+		],
+		laiaCallout: 'For Laia, being part of Warriors means continuing to grow, but also guiding the youngest students in their first steps and helping them discover the values she herself learned from the age of 5: discipline, respect, teamwork, self-improvement, and passion for Taekwondo.',
+		laiaCalloutStrong: 'Today, that girl who began by following Diana\'s footsteps is an essential part of the team building the future of Warriors.'
+	}
+} as const;
+const coachEditorial = coachEditorialByLocale[locale];
+const logoValueIconSrcByKey: Record<string, string> = {
+	team: '/images/logo-values/union.svg',
+	fist: '/images/logo-values/fuerza.svg',
+	heart: '/images/logo-values/pasion.svg',
+	star: '/images/logo-values/superacion.svg',
+	belt: '/images/logo-values/disciplina.svg'
+};
+const logoPosterWithAssets = {
+	...logoPoster,
+	bottomValues: logoPoster.bottomValues.map((item) => ({
+		...item,
+		iconSrc: logoValueIconSrcByKey[item.icon] || logoValueIconSrcByKey.heart
+	}))
+};
 ---
 
 <Layout title={aboutCopy.seoTitle} description={aboutCopy.seoDescription} lang={copy.lang}>
@@ -146,6 +914,290 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 	</header>
 
 	<main class="about-page-main">
+		<section class="about-showcase-section">
+			<div class="container">
+				<div class="about-showcase-hero">
+					<div class="about-showcase-hero-copy">
+						<h1>{aboutShowcase.heroTitle}</h1>
+						<p class="about-showcase-hero-subtitle">{aboutShowcase.heroSubtitle}</p>
+						{aboutShowcase.heroParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+					</div>
+					<div class="about-showcase-hero-media">
+						<img src="/images/sobreNosotros/arriba.jpeg" alt={aboutShowcase.heroTitle} />
+					</div>
+				</div>
+
+				<div class="about-showcase-story">
+				<div class="section-title-line about-showcase-heading">
+					<span></span>
+					<h2 class="section-title center-title unified-title">{aboutShowcase.storyTitle}</h2>
+					<span></span>
+				</div>
+					<p class="about-showcase-story-lead">{aboutShowcase.storyLead}</p>
+					<div class="about-showcase-story-grid">
+						{editorial.storyColumns.map((column) => (
+							<article class="about-showcase-story-card">
+								<div class="about-showcase-story-card-head">
+									<span class="about-showcase-story-icon" aria-hidden="true">
+										{
+											column.icon === 'calendar' && (
+												<svg viewBox="0 0 24 24">
+													<rect x="3" y="5" width="18" height="16" rx="2"></rect>
+													<path d="M8 3v4M16 3v4M3 10h18"></path>
+												</svg>
+											)
+										}
+										{
+											column.icon === 'refresh' && (
+												<svg viewBox="0 0 24 24">
+													<path d="M20 12a8 8 0 1 1-2.34-5.66"></path>
+													<path d="M20 4v6h-6"></path>
+												</svg>
+											)
+										}
+										{
+											column.icon === 'trophy' && (
+												<svg viewBox="0 0 24 24">
+													<path d="M8 4h8v3a4 4 0 0 1-8 0V4z"></path>
+													<path d="M6 5H4a2 2 0 0 0 0 4h2"></path>
+													<path d="M18 5h2a2 2 0 0 1 0 4h-2"></path>
+													<path d="M12 11v4"></path>
+													<path d="M9 21h6"></path>
+													<path d="M10 15h4l1 6H9l1-6z"></path>
+												</svg>
+											)
+										}
+									</span>
+									<h3>{column.title}</h3>
+								</div>
+								<div class="about-showcase-story-card-body">
+									{column.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+								</div>
+							</article>
+						))}
+					</div>
+				</div>
+
+				<div class="about-showcase-gratitude">
+					<div class="about-showcase-gratitude-top">
+						<div class="about-showcase-gratitude-image">
+							<img src="/images/sobreNosotros/medio.jpeg" alt={aboutShowcase.gratitudeLead} />
+						</div>
+						<div class="about-showcase-gratitude-content">
+							<h2>
+								<span class="about-showcase-gratitude-title-icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24">
+										<path d="M12 21s-6.7-4.35-9-8.11C1.23 10.11 2.2 6.7 5.3 5.55c2.07-.77 4.15.03 5.33 1.78 1.18-1.75 3.26-2.55 5.33-1.78 3.1 1.15 4.07 4.56 2.3 7.34C18.7 16.65 12 21 12 21z"></path>
+									</svg>
+								</span>
+								{aboutShowcase.gratitudeLead}
+							</h2>
+							<div class="about-showcase-gratitude-list">
+								{editorial.gratitudeItems.map((item) => (
+									<div class="about-showcase-gratitude-item">
+										<span class="about-showcase-gratitude-icon" aria-hidden="true">
+											{
+												item.icon === 'heart' && (
+													<svg viewBox="0 0 24 24">
+														<path d="M12 21s-6.7-4.35-9-8.11C1.23 10.11 2.2 6.7 5.3 5.55c2.07-.77 4.15.03 5.33 1.78 1.18-1.75 3.26-2.55 5.33-1.78 3.1 1.15 4.07 4.56 2.3 7.34C18.7 16.65 12 21 12 21z"></path>
+													</svg>
+												)
+											}
+											{
+												item.icon === 'hourglass' && (
+													<svg viewBox="0 0 24 24">
+														<path d="M6 3h12"></path>
+														<path d="M6 21h12"></path>
+														<path d="M8 3c0 4 4 4 4 8s-4 4-4 10"></path>
+														<path d="M16 3c0 4-4 4-4 8s4 4 4 10"></path>
+													</svg>
+												)
+											}
+											{
+												item.icon === 'refresh' && (
+													<svg viewBox="0 0 24 24">
+														<path d="M4 12a8 8 0 0 1 13.66-5.66"></path>
+														<path d="M18 3v5h-5"></path>
+														<path d="M20 12a8 8 0 0 1-13.66 5.66"></path>
+														<path d="M6 21v-5h5"></path>
+													</svg>
+												)
+											}
+											{
+												item.icon === 'kick' && (
+													<svg viewBox="0 0 24 24">
+														<circle cx="15" cy="5" r="2"></circle>
+														<path d="M13 8l-2 3 2 2 3-1 4 2"></path>
+														<path d="M11 13l-3 3"></path>
+														<path d="M8 16l-3 3"></path>
+														<path d="M10 10l-4 1"></path>
+													</svg>
+												)
+											}
+											{
+												item.icon === 'fist' && (
+													<svg viewBox="0 0 24 24">
+														<path d="M8 11V7a1 1 0 0 1 2 0v4"></path>
+														<path d="M11 11V6a1 1 0 0 1 2 0v5"></path>
+														<path d="M14 11V7a1 1 0 0 1 2 0v4"></path>
+														<path d="M17 11V8a1 1 0 0 1 2 0v6c0 4-2.5 7-7 7s-7-3-7-7v-3a1 1 0 0 1 2 0v2"></path>
+													</svg>
+												)
+											}
+											{
+												item.icon === 'handshake' && (
+													<svg viewBox="0 0 24 24">
+														<path d="M7 12l2.5-2.2c.9-.8 2.3-.8 3.1 0l1.5 1.3c.8.7 2 .7 2.8 0l1.2-1"></path>
+														<path d="M3.5 11.5l3-3 3.1 3.1-3 3z"></path>
+														<path d="M14.4 10.7l3.1-2.7 3 3-3.1 3.1-2.3-2.3"></path>
+														<path d="M9.2 13.1l1.8 1.8"></path>
+														<path d="M11.2 12.6l2 2"></path>
+														<path d="M13.2 12.1l1.9 1.9"></path>
+													</svg>
+												)
+											}
+											{
+												item.icon === 'home' && (
+													<svg viewBox="0 0 24 24">
+														<path d="M3 10.5L12 3l9 7.5"></path>
+														<path d="M5 9.5V21h14V9.5"></path>
+														<path d="M9 21v-6h6v6"></path>
+													</svg>
+												)
+											}
+										</span>
+										<p>{item.text}</p>
+									</div>
+								))}
+							</div>
+						</div>
+					</div>
+					<div class="about-showcase-gratitude-closing">
+						<p>{aboutShowcase.gratitudeClosingTop}</p>
+						<p>{aboutShowcase.gratitudeClosingMiddle}</p>
+						<p>{aboutShowcase.gratitudeClosingBottom}</p>
+					</div>
+				</div>
+
+				<div class="about-showcase-purpose">
+					<article class="about-showcase-purpose-block">
+						<div class="about-showcase-purpose-head">
+							<span class="about-showcase-purpose-icon" aria-hidden="true">
+								<svg viewBox="0 0 24 24">
+									<circle cx="12" cy="12" r="8"></circle>
+									<circle cx="12" cy="12" r="4"></circle>
+									<circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"></circle>
+								</svg>
+							</span>
+							<h3>{editorial.missionTitle}</h3>
+						</div>
+						{editorial.missionParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+					</article>
+					<article class="about-showcase-purpose-block">
+						<div class="about-showcase-purpose-head">
+							<span class="about-showcase-purpose-icon" aria-hidden="true">
+								<svg viewBox="0 0 24 24">
+									<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path>
+									<circle cx="12" cy="12" r="2.5"></circle>
+								</svg>
+							</span>
+							<h3>{editorial.visionTitle}</h3>
+						</div>
+						{editorial.visionParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+					</article>
+					<div class="about-showcase-purpose-visual">
+						<img src="/images/sobreNosotros/7.jpeg" alt={aboutShowcase.missionImageAlt} />
+					</div>
+				</div>
+
+				<div class="about-showcase-values">
+					<div class="section-title-line about-showcase-heading">
+						<span></span>
+						<h2 class="section-title center-title unified-title">{editorial.valuesTitle}</h2>
+						<span></span>
+					</div>
+					<div class="about-showcase-values-grid">
+						{editorial.values.map((value) => (
+							<article class="about-showcase-value-item">
+								<span class="about-showcase-value-icon" aria-hidden="true">
+									{
+										value.icon === 'dobok' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M9 4h6l2 4-2 2v10h-2v-7h-2v7H9V10L7 8l2-4z"></path>
+												<path d="M10 4l2 4 2-4"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'arm' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M7 14.5c.6-1.8 1.3-3.4 2.7-4.7l1.6-1.5 1.4 1.4c.7.7 1.8.9 2.7.5l1.8-.8 1.2 2.4-1.7.8c-.8.4-1.4 1.1-1.6 1.9l-.4 1.5c-.5 2-2.3 3.4-4.4 3.4H8.9c-2 0-3.6-1.6-3.6-3.6 0-1.2.6-2.3 1.7-2.9z"></path>
+												<path d="M11.2 8.2 9.6 5.8"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'heart' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M12 21s-6.7-4.35-9-8.11C1.23 10.11 2.2 6.7 5.3 5.55c2.07-.77 4.15.03 5.33 1.78 1.18-1.75 3.26-2.55 5.33-1.78 3.1 1.15 4.07 4.56 2.3 7.34C18.7 16.65 12 21 12 21z"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'handshake' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M7.2 12.2 10 9.6c.8-.7 2-.7 2.8 0l1.1 1c.8.7 1.9.7 2.7.1l1.2-1"></path>
+												<path d="M3.5 11.2 6.7 8l3 3.1-3.1 3.1z"></path>
+												<path d="M14.5 10.8 17.3 8l3.2 3.2-3.2 3.1-2.8-2.8"></path>
+												<path d="M9.4 13.2 11 14.8"></path>
+												<path d="M11.4 12.7 13.1 14.4"></path>
+												<path d="M13.4 12.2 15 13.8"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'sprout' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M12 21V11"></path>
+												<path d="M12 14c-4 0-7-2.5-8-7 5.5 0 8 2.5 8 7z"></path>
+												<path d="M12 11c0-4.5 2.5-7 8-7-1 4.5-4 7-8 7z"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'brain' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M8 5.5c.9-1 2.2-1.5 3.6-1.5 1.4 0 2.7.5 3.6 1.5.4-.1.9-.1 1.3 0 1.7.3 2.9 1.8 2.9 3.5 0 .5-.1 1-.3 1.4.9.7 1.4 1.7 1.4 2.9 0 2.1-1.6 3.8-3.6 4 .1 1.9-1.4 3.6-3.4 3.8-.8.1-1.6-.1-2.2-.5-.6.4-1.4.6-2.2.5-2-.2-3.5-1.9-3.4-3.8-2-.2-3.6-1.9-3.6-4 0-1.2.5-2.3 1.4-2.9-.2-.4-.3-.9-.3-1.4 0-1.7 1.2-3.2 2.9-3.5.4-.1.9-.1 1.3 0z"></path>
+												<path d="M9.2 8.9c.6-.5 1.4-.8 2.2-.8"></path>
+												<path d="M14.8 8.9c-.6-.5-1.4-.8-2.2-.8"></path>
+												<path d="M9.5 14.2c.6.7 1.5 1.1 2.5 1.1s1.9-.4 2.5-1.1"></path>
+											</svg>
+										)
+									}
+								</span>
+								<h3>{value.title}</h3>
+								<p>{value.text}</p>
+							</article>
+						))}
+					</div>
+				</div>
+
+				<div class="about-showcase-bottom-band">
+					<div class="about-showcase-bottom-logo">
+						<img src="/images/logo-warriors-horizontal.png" alt="Club Taekwondo Warriors" />
+					</div>
+					<div class="about-showcase-bottom-copy">
+						<p class="about-showcase-bottom-lead">{aboutShowcase.bottomTitleLead}</p>
+						<p class="about-showcase-bottom-highlight">{aboutShowcase.bottomHighlight}</p>
+						<p class="about-showcase-bottom-closing">
+							<span>{aboutShowcase.bottomClosing}</span>
+							<span class="about-showcase-bottom-signature">{aboutShowcase.bottomSignature}</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<section class="about-hero-page">
 			<div class="container">
 				<div class="section-title-line about-hero-title-line">
@@ -180,43 +1232,233 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 
 		<section class="about-story-section">
 			<div class="container">
-				<div class="section-title-line">
+				<div class="section-title-line about-story-title-line">
 					<span></span>
-					<h2 class="section-title center-title unified-title">{aboutCopy.story.title}</h2>
+					<h2 class="section-title center-title unified-title about-story-title">{aboutCopy.story.title}</h2>
 					<span></span>
 				</div>
-				<p class="section-intro">{aboutCopy.story.intro}</p>
+				<p class="section-intro">{editorial.storyIntro}</p>
 
-				<div class="timeline-grid">
-					{aboutCopy.story.timeline.map((item) => (
-						<article class="timeline-card">
-							<p class="timeline-year">{item.year}</p>
-							<h3>{item.title}</h3>
-							<p>{item.text}</p>
+				<div class="story-columns">
+					{editorial.storyColumns.map((column) => (
+						<article class="story-column">
+							<div class="story-column-head">
+								<span class="story-column-icon" aria-hidden="true">
+									{
+										column.icon === 'calendar' && (
+											<svg viewBox="0 0 24 24">
+												<rect x="3" y="5" width="18" height="16" rx="2"></rect>
+												<path d="M8 3v4M16 3v4M3 10h18"></path>
+											</svg>
+										)
+									}
+									{
+										column.icon === 'refresh' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M20 12a8 8 0 1 1-2.34-5.66"></path>
+												<path d="M20 4v6h-6"></path>
+											</svg>
+										)
+									}
+									{
+										column.icon === 'trophy' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M8 4h8v3a4 4 0 0 1-8 0V4z"></path>
+												<path d="M6 5H4a2 2 0 0 0 0 4h2"></path>
+												<path d="M18 5h2a2 2 0 0 1 0 4h-2"></path>
+												<path d="M12 11v4"></path>
+												<path d="M9 21h6"></path>
+												<path d="M10 15h4l1 6H9l1-6z"></path>
+											</svg>
+										)
+									}
+								</span>
+								<h3>{column.title}</h3>
+							</div>
+							<div class="story-column-body">
+								{column.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+							</div>
 						</article>
 					))}
 				</div>
 			</div>
 		</section>
 
-		<section class="logo-section">
+		<section class="gratitude-section">
+			<div class="container gratitude-shell">
+				<div class="gratitude-image">
+					<img src="/images/sobre-22.jpeg" alt="Alumnes Warriors entrenant en equip" />
+				</div>
+				<div class="gratitude-content">
+					<h2>{editorial.gratitudeTitle}</h2>
+					<div class="gratitude-list">
+						{editorial.gratitudeItems.map((item) => (
+							<div class="gratitude-item">
+								<span class="gratitude-icon" aria-hidden="true">
+									{
+										item.icon === 'heart' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M12 21s-6.7-4.35-9-8.11C1.23 10.11 2.2 6.7 5.3 5.55c2.07-.77 4.15.03 5.33 1.78 1.18-1.75 3.26-2.55 5.33-1.78 3.1 1.15 4.07 4.56 2.3 7.34C18.7 16.65 12 21 12 21z"></path>
+											</svg>
+										)
+									}
+									{
+										item.icon === 'hourglass' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M6 3h12"></path>
+												<path d="M6 21h12"></path>
+												<path d="M8 3c0 4 4 4 4 8s-4 4-4 10"></path>
+												<path d="M16 3c0 4-4 4-4 8s4 4 4 10"></path>
+											</svg>
+										)
+									}
+									{
+										item.icon === 'kick' && (
+											<svg viewBox="0 0 24 24">
+												<circle cx="15" cy="5" r="2"></circle>
+												<path d="M13 8l-2 3 2 2 3-1 4 2"></path>
+												<path d="M11 13l-3 3"></path>
+												<path d="M8 16l-3 3"></path>
+												<path d="M10 10l-4 1"></path>
+											</svg>
+										)
+									}
+									{
+										item.icon === 'fist' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M8 11V7a1 1 0 0 1 2 0v4"></path>
+												<path d="M11 11V6a1 1 0 0 1 2 0v5"></path>
+												<path d="M14 11V7a1 1 0 0 1 2 0v4"></path>
+												<path d="M17 11V8a1 1 0 0 1 2 0v6c0 4-2.5 7-7 7s-7-3-7-7v-3a1 1 0 0 1 2 0v2"></path>
+											</svg>
+										)
+									}
+									{
+										item.icon === 'team' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M7 13c1.8 0 3-1.4 3-3s-1.2-3-3-3-3 1.4-3 3 1.2 3 3 3z"></path>
+												<path d="M17 13c1.8 0 3-1.4 3-3s-1.2-3-3-3-3 1.4-3 3 1.2 3 3 3z"></path>
+												<path d="M12 12c2 0 3.5-1.6 3.5-3.5S14 5 12 5 8.5 6.6 8.5 8.5 10 12 12 12z"></path>
+												<path d="M3 20c0-2.4 1.9-4.3 4.3-4.3H8c1.2 0 2.4.4 3.2 1.2"></path>
+												<path d="M21 20c0-2.4-1.9-4.3-4.3-4.3H16c-1.2 0-2.4.4-3.2 1.2"></path>
+												<path d="M7.5 20c0-2.7 2-4.8 4.5-4.8s4.5 2.1 4.5 4.8"></path>
+											</svg>
+										)
+									}
+									{
+										item.icon === 'home' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M3 10.5L12 3l9 7.5"></path>
+												<path d="M5 9.5V21h14V9.5"></path>
+												<path d="M9 21v-6h6v6"></path>
+											</svg>
+										)
+									}
+								</span>
+								<p>{item.text}</p>
+							</div>
+						))}
+					</div>
+					<p class="gratitude-closing">{editorial.gratitudeClosing}</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="logo-poster-section">
 			<div class="container">
 				<div class="section-title-line">
 					<span></span>
-					<h2 class="section-title center-title unified-title">{aboutCopy.logo.title}</h2>
+					<h2 class="section-title center-title unified-title">{logoPoster.kicker}</h2>
 					<span></span>
 				</div>
-				<div class="logo-shell">
-					<div class="logo-visual">
-						<img src="/images/about-logo-warriors.png" alt="Símbolo Warriors" />
+			</div>
+			<div class="container logo-poster-shell">
+				<div class="logo-poster-hero">
+					<div class="logo-poster-copy">
+						<h2 class="logo-poster-title">
+							<span>{logoPoster.titleLead}</span>
+							<strong>{logoPoster.titleAccent}</strong>
+						</h2>
+						<p class="logo-poster-intro">{logoPoster.intro}</p>
 					</div>
-					<div class="logo-copy">
-						<p class="section-intro section-intro-left">{aboutCopy.logo.intro}</p>
-						<ul class="logo-points">
-							{aboutCopy.logo.points.map((point) => <li>{point}</li>)}
-						</ul>
+					<div class="logo-poster-visual">
+						<div class="logo-hero-asset">
+							<img src="/images/about-logo-warriors.png" alt="Logo Club Taekwondo Warriors" />
+						</div>
 					</div>
 				</div>
+
+				<div class="logo-breakdown-head">
+					<span></span>
+					<h3>{logoPoster.breakdownTitle}</h3>
+					<span></span>
+				</div>
+
+				<div class="logo-breakdown-grid">
+					<div class="logo-details-column">
+						{logoPoster.details.slice(0, 3).map((item) => (
+							<article class="logo-detail-card">
+								<div class="logo-detail-head">
+									<span class="logo-detail-number">{item.number}</span>
+									<h4>{item.title}</h4>
+								</div>
+								{item.visual && <p class={`logo-detail-visual ${item.visual === 'M' ? 'single-mark' : ''}`}>{item.visual}</p>}
+								<p>{item.text}</p>
+							</article>
+						))}
+					</div>
+
+					<div class="logo-breakdown-center">
+						<div class="logo-breakdown-emblem logo-circle-asset logo-circle-asset-breakdown">
+							<img src="/images/warriors-emblema-circulo.png" alt="Desglose visual del logo Warriors" />
+						</div>
+						<div class="logo-breakdown-belt">
+							<img src="/images/warriors-white-belt-generated.png" alt="Cinturón blanco Warriors" />
+						</div>
+					</div>
+
+					<div class="logo-details-column">
+						{logoPoster.details.slice(3).map((item) => (
+							<article class="logo-detail-card">
+								<div class="logo-detail-head">
+									<span class="logo-detail-number">{item.number}</span>
+									<h4>{item.title}</h4>
+								</div>
+								{item.visual && <p class={`logo-detail-visual ${item.visual.includes('★') ? 'stars-mark' : ''}`}>{item.visual}</p>}
+								<p>{item.text}</p>
+							</article>
+						))}
+					</div>
+				</div>
+
+				<div class="logo-poster-quote">
+					<div class="logo-poster-quote-badge logo-circle-asset logo-circle-asset-quote">
+						<img src="/images/warriors-emblema-circulo.png" alt="" />
+					</div>
+					<div class="logo-poster-quote-copy">
+						<span class="logo-poster-quote-mark quote-open" aria-hidden="true">“</span>
+						<p class="logo-poster-quote-lead">{logoPoster.quoteLead}</p>
+						<p class="logo-poster-quote-main">{logoPoster.quoteMain}</p>
+						<span class="logo-poster-quote-mark quote-close" aria-hidden="true">”</span>
+					</div>
+					<div class="logo-poster-quote-image">
+						<img src="/images/sobreNosotros/entrada-local-1.png" alt="Entrada del Club Taekwondo Warriors" />
+					</div>
+				</div>
+
+				<div class="logo-values-strip">
+					{logoPosterWithAssets.bottomValues.map((item) => (
+						<article class="logo-value-item">
+							<span class="logo-value-icon" aria-hidden="true">
+								<img src={item.iconSrc} alt="" />
+							</span>
+							<h4>{item.title}</h4>
+							<p>{item.text}</p>
+						</article>
+					))}
+				</div>
+
+				<p class="logo-poster-signature">{logoPoster.signature}</p>
 			</div>
 		</section>
 
@@ -224,43 +1466,250 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 			<div class="container">
 				<div class="section-title-line">
 					<span></span>
-					<h2 class="section-title center-title unified-title">{aboutCopy.team.title}</h2>
+					<h2 class="section-title center-title unified-title">
+						{coachShowcase.heroLead}<strong> {coachShowcase.heroAccent}</strong>
+					</h2>
 					<span></span>
 				</div>
-				<p class="section-intro">{aboutCopy.team.intro}</p>
 
-				<div class="team-grid">
-					{aboutCopy.team.members.map((member) => (
-						<article class="team-card">
-							<div class="team-image-wrap">
-								<img src={member.image} alt={member.name} />
-							</div>
-							<div class="team-copy">
-								<p class="team-role">{member.role}</p>
-								<h3>{member.name}</h3>
-								<p class="team-summary">{member.summary}</p>
+				<div class="coaches-hero">
+					<div class="coaches-hero-copy">
+						<div class="coaches-hero-intro">
+							{coachEditorial.heroIntro.map((line, index) => (
+								<p class={index === coachEditorial.heroIntro.length - 1 ? 'is-highlight' : ''}>{line}</p>
+							))}
+						</div>
+					</div>
+					<div class="coaches-hero-media">
+						<img src="/images/coaches.png" alt="Coaches de Warriors acompañando a una alumna en competición" />
+					</div>
+				</div>
 
-								<div class="team-detail-block">
-									<h4>{member.achievementsTitle}</h4>
-									<ul>
-										{member.achievements.map((item) => <li>{item}</li>)}
-									</ul>
+				<article class="coach-feature coach-feature-primary">
+					<div class="coach-portrait-shell">
+						<div class="coach-portrait-ring">
+							<img src={diana.image} alt={diana.name} />
+						</div>
+					</div>
+					<div class="coach-main-copy">
+						<p class="coach-badge">{coachShowcase.dianaBadge}</p>
+						<h3>{diana.name}</h3>
+						<p class="coach-subtitle">{coachShowcase.dianaSubtitle}</p>
+						<div class="coach-rich-copy">
+							{coachEditorial.dianaParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+						</div>
+						<div class="coach-highlight-grid">
+							{coachEditorial.dianaHighlights.map((item) => (
+								<div class="coach-highlight-item">
+									<span class="coach-highlight-icon" aria-hidden="true">
+										{
+											item.icon === 'team' && (
+												<svg viewBox="0 0 24 24">
+													<path d="M7 13c1.8 0 3-1.4 3-3s-1.2-3-3-3-3 1.4-3 3 1.2 3 3 3z"></path>
+													<path d="M17 13c1.8 0 3-1.4 3-3s-1.2-3-3-3-3 1.4-3 3 1.2 3 3 3z"></path>
+													<path d="M12 12c2 0 3.5-1.6 3.5-3.5S14 5 12 5 8.5 6.6 8.5 8.5 10 12 12 12z"></path>
+												</svg>
+											)
+										}
+										{
+											item.icon === 'belt-knot' && (
+												<svg viewBox="0 0 24 24">
+													<path d="M3 9.5c1.7 0 3 .4 4.2 1.2 1.1.7 2.5 1.1 3.8 1.1s2.7-.4 3.8-1.1c1.2-.8 2.5-1.2 4.2-1.2"></path>
+													<path d="M6 9.6l3.3 3.5L7.5 17"></path>
+													<path d="M18 9.6l-3.3 3.5 1.8 3.9"></path>
+													<path d="M9.3 13.1h5.4"></path>
+												</svg>
+											)
+										}
+										{
+											item.icon === 'medal-ribbon' && (
+												<svg viewBox="0 0 24 24">
+													<path d="M8.2 3h3.2l1.3 4.5-2.9 2.4L8.2 3z"></path>
+													<path d="M15.8 3h-3.2l-1.3 4.5 2.9 2.4L15.8 3z"></path>
+													<circle cx="12" cy="15.2" r="4.5"></circle>
+													<path d="M10.2 15.1l1.2 1.3 2.5-2.7"></path>
+												</svg>
+											)
+										}
+									</span>
+									<h4>{item.title}</h4>
+									<p>{item.text}</p>
 								</div>
+							))}
+						</div>
+					</div>
+					<aside class="coach-side-panel">
+						<div class="coach-side-block">
+							<h4>{diana.achievementsTitle}</h4>
+							<ul>
+								{diana.achievements.map((item) => <li>{item}</li>)}
+							</ul>
+						</div>
+						<div class="coach-side-block">
+							<h4>{diana.trainingTitle}</h4>
+							<ul>
+								{diana.training.map((item) => <li>{item}</li>)}
+							</ul>
+						</div>
+						<div class="coach-side-block philosophy-callout">
+							<h4>{diana.philosophyTitle}</h4>
+							<p>{diana.philosophy}</p>
+						</div>
+					</aside>
+				</article>
 
-								<div class="team-detail-block">
-									<h4>{member.trainingTitle}</h4>
-									<ul>
-										{member.training.map((item) => <li>{item}</li>)}
-									</ul>
-								</div>
-
-								<div class="team-detail-block">
-									<h4>{member.philosophyTitle}</h4>
-									<p>{member.philosophy}</p>
-								</div>
-							</div>
-						</article>
+				<div class="coach-strip">
+					{coachEditorial.dianaStrip.map((item) => (
+						<div class="coach-strip-item">
+							<span class="coach-strip-icon" aria-hidden="true">
+								{
+									item.icon === 'dobok' && (
+										<svg viewBox="0 0 24 24">
+											<path d="M7.5 3h9"></path>
+											<path d="M9 3l-4 4 2 3v10"></path>
+											<path d="M15 3l4 4-2 3v10"></path>
+											<path d="M10 7l2 2 2-2"></path>
+											<path d="M9 14h6"></path>
+										</svg>
+									)
+								}
+								{
+									item.icon === 'star-outline' && (
+										<svg viewBox="0 0 24 24">
+											<path d="M12 3.8l2.1 4.5 5 .6-3.6 3.4.9 4.9-4.4-2.4-4.4 2.4.9-4.9-3.6-3.4 5-.6L12 3.8z"></path>
+										</svg>
+									)
+								}
+								{
+									item.icon === 'trophy-outline' && (
+										<svg viewBox="0 0 24 24">
+											<path d="M8 4h8v3.2A4 4 0 0 1 12 11a4 4 0 0 1-4-3.8V4z"></path>
+											<path d="M9.5 12.5h5"></path>
+											<path d="M10.2 12.5v3.3"></path>
+											<path d="M13.8 12.5v3.3"></path>
+											<path d="M8.6 18h6.8"></path>
+											<path d="M8 5.5H5.5A2.5 2.5 0 0 0 8 8"></path>
+											<path d="M16 5.5h2.5A2.5 2.5 0 0 1 16 8"></path>
+										</svg>
+									)
+								}
+							</span>
+							<p>{item.text}</p>
+						</div>
 					))}
+				</div>
+
+				<article class="coach-feature coach-feature-secondary">
+					<div class="coach-portrait-shell">
+						<div class="coach-portrait-ring">
+							<img src={laia.image} alt={laia.name} />
+						</div>
+					</div>
+					<div class="coach-main-copy">
+						<h3>{laia.name}</h3>
+						<p class="coach-subtitle">{coachEditorial.laiaSubtitle}</p>
+						<div class="coach-rich-copy">
+							{coachEditorial.laiaParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+						</div>
+						<div class="coach-highlight-grid coach-highlight-grid-three">
+							{coachEditorial.laiaHighlights.map((item) => (
+								<div class="coach-highlight-item">
+									<span class="coach-highlight-icon" aria-hidden="true">
+										{
+											item.icon === 'user-round' && (
+												<svg viewBox="0 0 24 24">
+													<circle cx="12" cy="8" r="4"></circle>
+													<path d="M5 20c1.8-3.5 4.2-5 7-5s5.2 1.5 7 5"></path>
+													<path d="M12 4.5v-1"></path>
+												</svg>
+											)
+										}
+										{
+											item.icon === 'group-round' && (
+												<svg viewBox="0 0 24 24">
+													<path d="M7 13c1.8 0 3-1.4 3-3s-1.2-3-3-3-3 1.4-3 3 1.2 3 3 3z"></path>
+													<path d="M17 13c1.8 0 3-1.4 3-3s-1.2-3-3-3-3 1.4-3 3 1.2 3 3 3z"></path>
+													<path d="M12 12c2 0 3.5-1.6 3.5-3.5S14 5 12 5 8.5 6.6 8.5 8.5 10 12 12 12z"></path>
+													<path d="M3.8 20c1.1-2 2.5-3.5 4.7-3.5"></path>
+													<path d="M15.5 16.5c2.2 0 3.6 1.5 4.7 3.5"></path>
+													<path d="M8.3 19.5c1.3-2.3 3-3.7 5.7-3.7s4.4 1.4 5.7 3.7"></path>
+												</svg>
+											)
+										}
+										{
+											item.icon === 'spark-sharp' && (
+												<svg viewBox="0 0 24 24">
+													<path d="M13 2L5.5 12.2h4.6L9 22l9.5-12h-4.6L15 2z"></path>
+												</svg>
+											)
+										}
+									</span>
+									<h4>{item.title}</h4>
+									<p>{item.text}</p>
+								</div>
+							))}
+						</div>
+					</div>
+					<aside class="coach-side-panel">
+						<div class="coach-side-block">
+							<h4>{coachEditorial.laiaSectionTitle}</h4>
+							<ul>
+								{laia.achievements.map((item) => <li>{item}</li>)}
+							</ul>
+						</div>
+						<div class="coach-side-block philosophy-callout">
+							<h4>{laia.philosophyTitle}</h4>
+							<p>{laia.philosophy}</p>
+						</div>
+					</aside>
+				</article>
+
+				<div class="coach-laia-callout">
+					<span class="coach-laia-callout-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24">
+							<path d="M12 20.5S4.5 15.6 4.5 9.6C4.5 6.3 7.1 4 10.1 4c2.1 0 3.6 1 4.4 2.6C15.3 5 16.8 4 18.9 4c3 0 5.6 2.3 5.6 5.6 0 6-7.5 10.9-7.5 10.9L12 20.5z"></path>
+						</svg>
+					</span>
+					<div class="coach-laia-callout-copy">
+						<p>{coachEditorial.laiaCallout}</p>
+						<strong>{coachEditorial.laiaCalloutStrong}</strong>
+					</div>
+				</div>
+
+				<div class="coaches-family-banner">
+					<img class="coaches-family-banner-generated" src="/images/coaches-family-banner-generated.png" alt="Banner Warriors con cinturÃ³n negro, mensaje familiar y logo del club" />
+					<div class="coaches-family-image">
+						<img src="/images/cta-diana-kick-right.png" alt="Detalle del cinturón Warriors" />
+					</div>
+					<div class="coaches-family-copy">
+						<h3>
+							<span>{coachShowcase.familyLead}</span>
+							<strong>{coachShowcase.familyAccent}</strong>
+						</h3>
+						<p>{coachShowcase.familyText}</p>
+					</div>
+					<div class="coaches-family-logo">
+						<img src="/images/logo-warriors-horizontal.png" alt="Club Taekwondo Warriors" />
+					</div>
+				</div>
+				<div class="coaches-family-banner-live">
+					<div class="coaches-family-banner-live-image">
+						<img src="/images/coaches-belt-left-generated.png" alt="Detalle de cinturÃ³n negro Warriors" />
+					</div>
+					<div class="coaches-family-banner-live-copy">
+						<h3>
+							<span>{coachShowcase.familyLead}</span>
+							<strong>{coachShowcase.familyAccent}</strong>
+						</h3>
+						<p>{coachShowcase.familyText}</p>
+					</div>
+					<div class="coaches-family-banner-live-logo">
+						<img src="/images/warriors-emblema-circulo.png" alt="Emblema Club Taekwondo Warriors" />
+						<div class="coaches-family-banner-live-logo-text" aria-hidden="true">
+							<span>Club Taekwondo</span>
+							<strong>WARRIORS</strong>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -273,23 +1722,107 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 					<span></span>
 				</div>
 
-				<div class="essence-grid">
-					<article class="essence-card">
-						<h3>{aboutCopy.clubEssence.missionTitle}</h3>
-						<p>{aboutCopy.clubEssence.mission}</p>
+				<div class="essence-editorial-grid">
+					<article class="essence-copy-block">
+						<div class="essence-heading">
+							<span class="essence-heading-icon" aria-hidden="true">
+								<svg viewBox="0 0 24 24">
+									<circle cx="12" cy="12" r="8"></circle>
+									<circle cx="12" cy="12" r="4"></circle>
+									<circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"></circle>
+								</svg>
+							</span>
+							<h3>{editorial.missionTitle}</h3>
+						</div>
+						{editorial.missionParagraphs.map((paragraph) => <p>{paragraph}</p>)}
 					</article>
-					<article class="essence-card">
-						<h3>{aboutCopy.clubEssence.visionTitle}</h3>
-						<p>{aboutCopy.clubEssence.vision}</p>
+					<article class="essence-copy-block">
+						<div class="essence-heading">
+							<span class="essence-heading-icon" aria-hidden="true">
+								<svg viewBox="0 0 24 24">
+									<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"></path>
+									<circle cx="12" cy="12" r="2.5"></circle>
+								</svg>
+							</span>
+							<h3>{editorial.visionTitle}</h3>
+						</div>
+						{editorial.visionParagraphs.map((paragraph) => <p>{paragraph}</p>)}
 					</article>
+					<div class="essence-visual">
+						<img src="/images/dojo-interior.png" alt="Interior del dojo Warriors" />
+					</div>
 				</div>
 
-				<div class="values-card">
-					<h3>{aboutCopy.clubEssence.valuesTitle}</h3>
-					<div class="values-list">
-						{aboutCopy.clubEssence.values.map((value) => <span>{value}</span>)}
+				<div class="values-editorial">
+					<div class="section-title-line values-title-line align-start">
+						<span></span>
+						<h3 class="section-title center-title unified-title values-editorial-title">{editorial.valuesTitle}</h3>
+						<span></span>
 					</div>
-					<p class="values-closing">{aboutCopy.clubEssence.closing}</p>
+					<div class="values-editorial-grid">
+						{editorial.values.map((value) => (
+							<article class="value-editorial-item">
+								<span class="value-editorial-icon" aria-hidden="true">
+									{
+										value.icon === 'dobok' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M9 4h6l2 4-2 2v10h-2v-7h-2v7H9V10L7 8l2-4z"></path>
+												<path d="M10 4l2 4 2-4"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'arm' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M7 14.5c.6-1.8 1.3-3.4 2.7-4.7l1.6-1.5 1.4 1.4c.7.7 1.8.9 2.7.5l1.8-.8 1.2 2.4-1.7.8c-.8.4-1.4 1.1-1.6 1.9l-.4 1.5c-.5 2-2.3 3.4-4.4 3.4H8.9c-2 0-3.6-1.6-3.6-3.6 0-1.2.6-2.3 1.7-2.9z"></path>
+												<path d="M11.2 8.2 9.6 5.8"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'heart' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M12 21s-6.7-4.35-9-8.11C1.23 10.11 2.2 6.7 5.3 5.55c2.07-.77 4.15.03 5.33 1.78 1.18-1.75 3.26-2.55 5.33-1.78 3.1 1.15 4.07 4.56 2.3 7.34C18.7 16.65 12 21 12 21z"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'handshake' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M7.2 12.2 10 9.6c.8-.7 2-.7 2.8 0l1.1 1c.8.7 1.9.7 2.7.1l1.2-1"></path>
+												<path d="M3.5 11.2 6.7 8l3 3.1-3.1 3.1z"></path>
+												<path d="M14.5 10.8 17.3 8l3.2 3.2-3.2 3.1-2.8-2.8"></path>
+												<path d="M9.4 13.2 11 14.8"></path>
+												<path d="M11.4 12.7 13.1 14.4"></path>
+												<path d="M13.4 12.2 15 13.8"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'sprout' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M12 21V11"></path>
+												<path d="M12 14c-4 0-7-2.5-8-7 5.5 0 8 2.5 8 7z"></path>
+												<path d="M12 11c0-4.5 2.5-7 8-7-1 4.5-4 7-8 7z"></path>
+											</svg>
+										)
+									}
+									{
+										value.icon === 'brain' && (
+											<svg viewBox="0 0 24 24">
+												<path d="M8 5.5c.9-1 2.2-1.5 3.6-1.5 1.4 0 2.7.5 3.6 1.5.4-.1.9-.1 1.3 0 1.7.3 2.9 1.8 2.9 3.5 0 .5-.1 1-.3 1.4.9.7 1.4 1.7 1.4 2.9 0 2.1-1.6 3.8-3.6 4 .1 1.9-1.4 3.6-3.4 3.8-.8.1-1.6-.1-2.2-.5-.6.4-1.4.6-2.2.5-2-.2-3.5-1.9-3.4-3.8-2-.2-3.6-1.9-3.6-4 0-1.2.5-2.3 1.4-2.9-.2-.4-.3-.9-.3-1.4 0-1.7 1.2-3.2 2.9-3.5.4-.1.9-.1 1.3 0z"></path>
+												<path d="M9.2 8.9c.6-.5 1.4-.8 2.2-.8"></path>
+												<path d="M14.8 8.9c-.6-.5-1.4-.8-2.2-.8"></path>
+												<path d="M9.5 14.2c.6.7 1.5 1.1 2.5 1.1s1.9-.4 2.5-1.1"></path>
+											</svg>
+										)
+									}
+								</span>
+								<h4>{value.title}</h4>
+								<p>{value.text}</p>
+							</article>
+						))}
+					</div>
 				</div>
 			</div>
 		</section>
@@ -558,6 +2091,589 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 		color: #10131e;
 	}
 
+	.about-page-main > .about-hero-page,
+	.about-page-main > .about-story-section,
+	.about-page-main > .gratitude-section,
+	.about-page-main > .essence-section {
+		display: none;
+	}
+
+	.about-showcase-section {
+		padding: 2.4rem 0 3.2rem;
+	}
+
+	.about-showcase-section .container {
+		display: grid;
+		gap: 2rem;
+	}
+
+	.about-showcase-hero {
+		display: grid;
+		grid-template-columns: minmax(30rem, 34rem) minmax(0, 1fr);
+		background: #080a0f;
+		color: #fff;
+		overflow: hidden;
+		height: 20rem;
+	}
+
+	.about-showcase-hero-copy {
+		padding: 2rem 2.8rem 2rem 2.2rem;
+		align-self: center;
+	}
+
+	.about-showcase-hero-copy h1 {
+		margin: 0;
+		max-width: 100%;
+		overflow: hidden;
+		font-size: clamp(2rem, 3vw, 3.25rem);
+		line-height: 0.94;
+		text-transform: uppercase;
+		color: #fff;
+		white-space: nowrap;
+	}
+
+	.about-showcase-hero-subtitle {
+		margin: 0.8rem 0 1.3rem;
+		font-size: clamp(1.15rem, 2vw, 1.7rem);
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: #f0c446;
+	}
+
+	.about-showcase-hero-copy p {
+		margin: 0 0 0.8rem;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.about-showcase-hero-copy .about-showcase-hero-subtitle {
+		color: #f0c446;
+	}
+
+	.about-showcase-hero-media img,
+	.about-showcase-gratitude-image img,
+	.about-showcase-purpose-visual img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.about-showcase-hero-media {
+		height: 20rem;
+		overflow: hidden;
+	}
+
+	.about-showcase-hero-media img {
+		height: 100%;
+		object-position: center 32%;
+		transform: scale(1.04);
+	}
+
+	.about-showcase-heading {
+		display: grid;
+		grid-template-columns: minmax(5rem, 9rem) auto minmax(5rem, 9rem);
+		align-items: center;
+		gap: 1rem;
+		max-width: 48rem;
+		margin: 0 auto 1rem;
+	}
+
+	.about-showcase-heading span {
+		height: 2px;
+		background: linear-gradient(90deg, rgba(215, 173, 63, 0), rgba(215, 173, 63, 0.9), rgba(215, 173, 63, 0));
+	}
+
+	.about-showcase-heading h2 {
+		white-space: nowrap;
+	}
+
+	.about-showcase-story-lead {
+		max-width: 54rem;
+		margin: 0 auto 1.8rem;
+		text-align: center;
+		font-size: 1.1rem;
+		line-height: 1.7;
+		color: #44506a;
+	}
+
+	.about-showcase-story-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.6rem;
+	}
+
+	.about-showcase-story-card {
+		padding: 1.8rem 1.5rem 1.6rem;
+		background: #fff;
+		border-left: 1px solid rgba(215, 173, 63, 0.28);
+		border-right: 1px solid rgba(215, 173, 63, 0.12);
+	}
+
+	.about-showcase-story-card-head,
+	.about-showcase-purpose-head {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.about-showcase-story-icon,
+	.about-showcase-gratitude-icon,
+	.about-showcase-purpose-icon,
+	.about-showcase-value-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: 0 0 auto;
+	}
+
+	.about-showcase-story-icon,
+	.about-showcase-purpose-icon {
+		width: 4.9rem;
+		height: 4.9rem;
+		border-radius: 999px;
+		background: linear-gradient(180deg, #e3bf67, #c99a28);
+		color: #fff;
+		box-shadow: 0 10px 24px rgba(201, 154, 40, 0.2);
+	}
+
+	.about-showcase-story-icon svg,
+	.about-showcase-gratitude-icon svg,
+	.about-showcase-purpose-icon svg,
+	.about-showcase-value-icon svg {
+		width: 2.7rem;
+		height: 2.7rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.7;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.about-showcase-story-card h3,
+	.about-showcase-purpose-block h3,
+	.about-showcase-value-item h3 {
+		margin: 0;
+		font-size: 1.85rem;
+		line-height: 1.08;
+		text-transform: uppercase;
+		color: #10131e;
+	}
+
+	.about-showcase-story-card-body,
+	.about-showcase-purpose-block {
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	.about-showcase-story-card-body p,
+	.about-showcase-purpose-block p,
+	.about-showcase-value-item p {
+		margin: 0;
+		font-size: 1.04rem;
+		line-height: 1.78;
+		color: #293145;
+	}
+
+	.about-showcase-gratitude {
+		display: grid;
+		grid-template-columns: 1fr;
+		background: #0c0e14;
+		color: #fff;
+		overflow: hidden;
+	}
+
+	.about-showcase-gratitude-top {
+		display: grid;
+		grid-template-columns: minmax(34rem, 34rem) minmax(0, 1fr);
+		align-items: stretch;
+		min-height: 18.5rem;
+	}
+
+	.about-showcase-gratitude-image {
+		min-height: 100%;
+		overflow: hidden;
+	}
+
+	.about-showcase-gratitude-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 44%;
+	}
+
+	.about-showcase-gratitude-content {
+		padding: 1.05rem 0.85rem 1.05rem 1.45rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.about-showcase-gratitude-content h2 {
+		margin: 0 0 0.8rem;
+		font-size: clamp(1.45rem, 2.5vw, 2rem);
+		text-transform: uppercase;
+		color: #fff;
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+	}
+
+	.about-showcase-gratitude-title-icon {
+		display: inline-flex;
+		width: 2.2rem;
+		height: 2.2rem;
+		color: #d7ad3f;
+		flex: 0 0 auto;
+	}
+
+	.about-showcase-gratitude-title-icon svg {
+		width: 100%;
+		height: 100%;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.7;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.about-showcase-gratitude-list {
+		display: flex;
+		align-items: stretch;
+		justify-content: space-between;
+		gap: 0.3rem;
+		width: 100%;
+		padding-top: 0.8rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.14);
+		flex: 0 0 auto;
+	}
+
+	.about-showcase-gratitude-item {
+		display: grid;
+		justify-items: center;
+		gap: 0.5rem;
+		text-align: center;
+		flex: 1 1 0;
+		min-width: 0;
+		align-content: center;
+		padding: 0 0.25rem;
+		position: relative;
+	}
+
+	.about-showcase-gratitude-item:not(:last-child)::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		right: -0.15rem;
+		transform: translateY(-50%);
+		width: 1px;
+		height: 2.5rem;
+		background: rgba(255, 255, 255, 0.18);
+	}
+
+	.about-showcase-gratitude-icon {
+		width: 2.35rem;
+		height: 2.35rem;
+		color: #d7ad3f;
+	}
+
+	.about-showcase-gratitude-item p {
+		margin: 0;
+		font-size: 0.82rem;
+		line-height: 1.32;
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.about-showcase-gratitude-closing {
+		padding: 1.1rem 1.7rem 1.45rem;
+		text-align: center;
+		text-transform: uppercase;
+		display: grid;
+		gap: 0.25rem;
+		width: 100%;
+		flex: 0 0 auto;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.about-showcase-gratitude-closing p {
+		margin: 0;
+		font-weight: 700;
+		line-height: 1.3;
+	}
+
+	.about-showcase-gratitude-closing p:nth-child(1) {
+		color: #d7ad3f;
+		font-size: clamp(0.98rem, 1.75vw, 1.35rem);
+	}
+
+	.about-showcase-gratitude-closing p:nth-child(2) {
+		color: #d7ad3f;
+		font-size: clamp(0.98rem, 1.75vw, 1.35rem);
+	}
+
+	.about-showcase-gratitude-closing p:nth-child(3) {
+		color: #fff;
+		font-size: clamp(1.2rem, 2.3vw, 1.9rem);
+	}
+
+	.about-showcase-purpose {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.6rem;
+		align-items: stretch;
+	}
+
+	.about-showcase-purpose-block {
+		padding: 1.3rem 1.2rem 1.2rem;
+		background: #fff;
+		border-top: 1px solid rgba(215, 173, 63, 0.28);
+	}
+
+	.about-showcase-purpose-visual {
+		min-height: 100%;
+		background: #fff;
+		overflow: hidden;
+	}
+
+	.about-showcase-purpose-visual img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.about-showcase-values-grid {
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		gap: 0;
+		background: #fff;
+		border-top: 1px solid rgba(215, 173, 63, 0.24);
+	}
+
+	.about-showcase-value-item {
+		padding: 1.35rem 1rem;
+		text-align: center;
+	}
+
+	.about-showcase-value-item:not(:last-child) {
+		border-right: 1px solid rgba(215, 173, 63, 0.16);
+	}
+
+	.about-showcase-value-icon {
+		width: 4rem;
+		height: 4rem;
+		margin: 0 auto 0.9rem;
+		color: #c99a28;
+	}
+
+	.about-showcase-value-item h3 {
+		margin-bottom: 0.45rem;
+		font-size: 1.25rem;
+	}
+
+	.about-showcase-value-item p {
+		font-size: 1rem;
+		line-height: 1.6;
+	}
+
+	.about-showcase-bottom-band {
+		display: grid;
+		grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
+		align-items: center;
+		gap: 1.5rem;
+		padding: 0.7rem 1.25rem;
+		background: #090b10;
+		color: #fff;
+	}
+
+	.about-showcase-bottom-logo img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.about-showcase-bottom-copy p,
+	.about-showcase-bottom-signature {
+		margin: 0;
+	}
+
+	.about-showcase-bottom-copy {
+		display: grid;
+		gap: 0.12rem;
+	}
+
+	.about-showcase-bottom-lead,
+	.about-showcase-bottom-closing {
+		font-size: 0.98rem;
+		font-weight: 700;
+		line-height: 1.08;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: #f4f0e6;
+	}
+
+	.about-showcase-bottom-closing {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.9rem;
+	}
+
+	.about-showcase-bottom-highlight {
+		margin: 0.04rem 0;
+		font-size: 0.76rem;
+		font-weight: 700;
+		line-height: 1.08;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #c89d2c;
+	}
+
+	.about-showcase-bottom-signature {
+		font-size: 0.96rem;
+		font-weight: 500;
+		font-style: italic;
+		line-height: 1;
+		color: #d6a93b;
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+
+	@media (max-width: 1100px) {
+		.about-showcase-hero,
+		.about-showcase-purpose,
+		.about-showcase-bottom-band {
+			grid-template-columns: 1fr;
+			min-height: 0;
+			height: auto;
+		}
+
+		.about-showcase-gratitude-top {
+			grid-template-columns: 1fr;
+		}
+
+		.about-showcase-story-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.about-showcase-values-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.about-showcase-bottom-signature {
+			white-space: normal;
+		}
+
+		.about-showcase-bottom-closing {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.about-showcase-hero-copy h1 {
+			white-space: normal;
+			font-size: clamp(2.4rem, 7vw, 3.6rem);
+		}
+
+		.about-showcase-hero-media {
+			height: 18rem;
+		}
+	}
+
+	@media (max-width: 760px) {
+		.about-showcase-section {
+			padding: 1.4rem 0 2.2rem;
+		}
+
+		.about-showcase-section .container {
+			gap: 1.3rem;
+		}
+
+		.about-showcase-hero-copy,
+		.about-showcase-gratitude-content,
+		.about-showcase-purpose-block,
+		.about-showcase-bottom-band {
+			padding: 1.3rem;
+		}
+
+		.about-showcase-gratitude-closing {
+			padding: 1rem 1.3rem 1.25rem;
+		}
+
+		.about-showcase-hero {
+			height: auto;
+		}
+
+		.about-showcase-hero-copy {
+			padding: 1.4rem 1.25rem 1.2rem;
+		}
+
+		.about-showcase-hero-copy h1 {
+			font-size: clamp(2rem, 10vw, 2.85rem);
+			line-height: 0.96;
+			white-space: normal;
+		}
+
+		.about-showcase-hero-subtitle {
+			margin: 0.5rem 0 0.9rem;
+			font-size: 1rem;
+		}
+
+		.about-showcase-hero-copy p {
+			font-size: 0.95rem;
+			line-height: 1.55;
+		}
+
+		.about-showcase-hero-media {
+			height: 13.5rem;
+		}
+
+		.about-showcase-hero-media img {
+			object-position: center 28%;
+			transform: scale(1.06);
+		}
+
+		.about-showcase-heading {
+			grid-template-columns: 1fr;
+			gap: 0.6rem;
+		}
+
+		.about-showcase-heading h2 {
+			white-space: normal;
+		}
+
+		.about-showcase-gratitude-list,
+		.about-showcase-values-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.about-showcase-story-card {
+			padding: 1.25rem;
+		}
+
+		.about-showcase-story-card-head,
+		.about-showcase-purpose-head {
+			align-items: center;
+		}
+
+		.about-showcase-story-card h3,
+		.about-showcase-purpose-block h3 {
+			font-size: 1.5rem;
+		}
+
+		.about-showcase-bottom-lead,
+		.about-showcase-bottom-closing {
+			font-size: 1.15rem;
+		}
+
+		.about-showcase-bottom-highlight,
+		.about-showcase-bottom-signature {
+			font-size: 1rem;
+		}
+	}
+
 	.site-header {
 		position: sticky;
 		top: 0;
@@ -816,6 +2932,16 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 		margin: 0 0 1rem;
 	}
 
+	.about-story-title,
+	.values-editorial-title {
+		color: #162d7a;
+	}
+
+	.about-story-title-line span,
+	.values-title-line span {
+		background: linear-gradient(90deg, rgba(227, 173, 18, 0.15), #e3ad12, rgba(227, 173, 18, 0.15));
+	}
+
 	.unified-title,
 	.section-title {
 		margin: 0;
@@ -843,6 +2969,1252 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 	.section-intro-left {
 		margin-left: 0;
 		text-align: left;
+	}
+
+	.story-columns {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 2rem;
+		align-items: start;
+		margin-top: 2.2rem;
+	}
+
+	.story-column {
+		position: relative;
+		padding-right: 1.5rem;
+	}
+
+	.story-column:not(:last-child)::after {
+		content: '';
+		position: absolute;
+		top: 0.5rem;
+		right: 0;
+		width: 1px;
+		height: calc(100% - 1rem);
+		background: linear-gradient(180deg, rgba(212, 170, 34, 0.1), rgba(212, 170, 34, 0.55), rgba(212, 170, 34, 0.1));
+	}
+
+	.story-column-head {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.story-column-icon,
+	.gratitude-icon,
+	.essence-heading-icon,
+	.value-editorial-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: #d4aa22;
+		flex: 0 0 auto;
+	}
+
+	.story-column-icon {
+		width: 4.1rem;
+		height: 4.1rem;
+		border-radius: 999px;
+		background: radial-gradient(circle at 30% 30%, #f1d468, #c79518);
+		color: #fffdf7;
+		box-shadow: 0 14px 30px rgba(212, 170, 34, 0.22);
+	}
+
+	.story-column-icon svg,
+	.gratitude-icon svg,
+	.essence-heading-icon svg,
+	.value-editorial-icon svg {
+		width: 1.7rem;
+		height: 1.7rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.7;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.story-column h3,
+	.essence-copy-block h3,
+	.value-editorial-item h4 {
+		margin: 0;
+		font-size: 1.6rem;
+		color: #111827;
+		text-transform: uppercase;
+		line-height: 1.05;
+	}
+
+	.story-column-body {
+		display: grid;
+		gap: 0.95rem;
+		padding-left: 5.1rem;
+	}
+
+	.story-column-body p,
+	.essence-copy-block p,
+	.value-editorial-item p {
+		margin: 0;
+		color: #2f3f61;
+		font-size: 1rem;
+		line-height: 1.72;
+	}
+
+	.gratitude-section {
+		padding: 1rem 0 3.4rem;
+	}
+
+	.gratitude-shell {
+		display: grid;
+		grid-template-columns: minmax(15rem, 19rem) minmax(0, 1fr);
+		background: #0c0e14;
+		color: #fff;
+		overflow: hidden;
+	}
+
+	.gratitude-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.gratitude-content {
+		padding: 2rem 2.2rem 2.15rem;
+	}
+
+	.gratitude-content h2 {
+		margin: 0 0 1.6rem;
+		font-size: clamp(1.55rem, 2.6vw, 2.2rem);
+		text-transform: uppercase;
+		color: #fff;
+	}
+
+	.gratitude-list {
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		gap: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.14);
+	}
+
+	.gratitude-item {
+		display: grid;
+		justify-items: center;
+		gap: 0.8rem;
+		text-align: center;
+	}
+
+	.gratitude-icon {
+		width: 2.4rem;
+		height: 2.4rem;
+	}
+
+	.gratitude-item p {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.92);
+		font-size: 0.95rem;
+		line-height: 1.4;
+	}
+
+	.gratitude-closing {
+		margin: 1.8rem 0 0;
+		text-align: center;
+		color: #f0c446;
+		font-size: 1.35rem;
+		font-weight: 800;
+		line-height: 1.45;
+		text-transform: uppercase;
+	}
+
+	.logo-poster-section {
+		padding: 0.6rem 0 3.4rem;
+	}
+
+	.logo-poster-shell {
+		margin-top: 1rem;
+		padding: 2rem;
+		background:
+			radial-gradient(circle at 20% 20%, rgba(255, 213, 79, 0.08), transparent 28%),
+			linear-gradient(180deg, #ffffff, #f8f8f8);
+		color: #10131e;
+		border: 1px solid rgba(16, 19, 30, 0.08);
+		box-shadow: 0 20px 48px rgba(5, 8, 18, 0.08);
+	}
+
+	.logo-poster-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1.05fr) minmax(20rem, 28rem);
+		gap: 2rem;
+		align-items: center;
+	}
+
+	.logo-poster-title {
+		margin: 0;
+		display: grid;
+		gap: 1rem;
+		text-transform: uppercase;
+		line-height: 1;
+	}
+
+	.logo-poster-title span,
+	.logo-poster-title strong {
+		font-size: clamp(2.9rem, 6.4vw, 5.4rem);
+		font-weight: 900;
+		letter-spacing: 0.03em;
+		font-stretch: condensed;
+	}
+
+	.logo-poster-title strong {
+		color: #f0c446;
+	}
+
+	.logo-poster-intro {
+		max-width: 34rem;
+		margin: 1.5rem 0 0;
+		color: #20293d;
+		font-size: 1.08rem;
+		line-height: 1.7;
+		font-weight: 700;
+	}
+
+	.logo-poster-visual {
+		display: grid;
+		justify-items: center;
+		gap: 1rem;
+		overflow: hidden;
+	}
+
+	.logo-hero-asset {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: min(100%, 22rem);
+	}
+
+	.logo-hero-asset img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.logo-circle-asset {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.logo-circle-asset img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.logo-circle-asset-hero {
+		width: min(100%, 18rem);
+	}
+
+	.logo-circle-asset-breakdown {
+		width: min(100%, 21rem);
+	}
+
+	.logo-breakdown-head {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		gap: 1.2rem;
+		margin: 2.4rem 0 1.7rem;
+	}
+
+	.logo-breakdown-head span {
+		height: 2px;
+		background: linear-gradient(90deg, rgba(240, 196, 70, 0), rgba(240, 196, 70, 0.6), rgba(240, 196, 70, 0));
+	}
+
+	.logo-breakdown-head h3 {
+		margin: 0;
+		color: #10245f;
+		font-size: clamp(1.7rem, 3.1vw, 2.5rem);
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+	}
+
+	.logo-breakdown-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem) minmax(0, 1fr);
+		gap: 1.6rem;
+		align-items: center;
+	}
+
+	.logo-details-column {
+		display: grid;
+		gap: 1.35rem;
+	}
+
+	.logo-detail-card {
+		position: relative;
+		padding: 1.15rem 1.25rem 1.2rem 1.3rem;
+		background: linear-gradient(180deg, #12141b, #0d0f15);
+		border: 1px solid rgba(16, 19, 30, 0.08);
+		border-radius: 1.35rem;
+		box-shadow: 0 14px 30px rgba(10, 12, 18, 0.12);
+	}
+
+	.logo-detail-head {
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+		margin-bottom: 0.8rem;
+	}
+
+	.logo-detail-number {
+		width: 2.45rem;
+		height: 2.45rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 999px;
+		border: 2px solid currentColor;
+		color: #ff352a;
+		font-size: 1.12rem;
+		font-weight: 900;
+	}
+
+	.logo-details-column:first-child .logo-detail-card:nth-child(1) .logo-detail-number {
+		color: #ff3a2f;
+	}
+
+	.logo-details-column:first-child .logo-detail-card:nth-child(2) .logo-detail-number {
+		color: #3f2db3;
+	}
+
+	.logo-details-column:first-child .logo-detail-card:nth-child(3) .logo-detail-number {
+		color: #f0b52b;
+	}
+
+	.logo-details-column:last-child .logo-detail-card:nth-child(1) .logo-detail-number {
+		color: #3f2db3;
+	}
+
+	.logo-details-column:last-child .logo-detail-card:nth-child(2) .logo-detail-number {
+		color: #ff3a2f;
+	}
+
+	.logo-detail-head h4 {
+		margin: 0;
+		color: #f8f7f2;
+		font-size: 1.55rem;
+		text-transform: uppercase;
+		line-height: 1.02;
+		letter-spacing: 0.015em;
+	}
+
+	.logo-detail-visual {
+		margin: 0 0 0.7rem;
+		font-size: 2.8rem;
+		font-weight: 900;
+		letter-spacing: 0.04em;
+		color: #f0c446;
+		text-transform: uppercase;
+	}
+
+	.logo-detail-visual.single-mark {
+		font-size: 3.6rem;
+		line-height: 1;
+	}
+
+	.logo-detail-visual.stars-mark {
+		font-size: 1.8rem;
+		letter-spacing: 0.22em;
+		color: #ffffff;
+	}
+
+	.logo-detail-card p:last-child {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.96);
+		line-height: 1.58;
+		font-size: 0.99rem;
+	}
+
+	.logo-breakdown-center {
+		display: grid;
+		justify-items: center;
+		gap: 1rem;
+	}
+
+	.logo-breakdown-belt {
+		width: 10rem;
+		height: 10rem;
+		border-radius: 999px;
+		border: 3px solid #f0c446;
+		overflow: hidden;
+		box-shadow: 0 10px 24px rgba(240, 196, 70, 0.18);
+		background: #10131e;
+	}
+
+	.logo-breakdown-belt img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		transform: scale(1.12);
+		transform-origin: center;
+	}
+
+	.logo-poster-quote {
+		margin-top: 2rem;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) minmax(12rem, 18rem);
+		align-items: center;
+		gap: 1.2rem;
+		padding: 1rem;
+		background: linear-gradient(180deg, #12141b, #0d0f15);
+		border: 1px solid rgba(240, 196, 70, 0.28);
+	}
+
+	.logo-poster-quote-badge {
+		width: 10rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.logo-poster-quote-copy {
+		position: relative;
+		padding: 0.5rem 3.2rem 0.9rem 2.8rem;
+	}
+
+	.logo-poster-quote-mark {
+		position: absolute;
+		font-size: 4.6rem;
+		font-weight: 900;
+		line-height: 1;
+		color: #ff2f27;
+	}
+
+	.logo-poster-quote-mark.quote-open {
+		top: -0.2rem;
+		left: 0;
+	}
+
+	.logo-poster-quote-mark.quote-close {
+		right: 0.8rem;
+		bottom: -0.1rem;
+	}
+
+	.logo-poster-quote-lead,
+	.logo-poster-quote-main {
+		margin: 0;
+		color: #fff;
+		text-transform: uppercase;
+	}
+
+	.logo-poster-quote-lead {
+		font-size: 1.15rem;
+		line-height: 1.45;
+		font-weight: 700;
+	}
+
+	.logo-poster-quote-main {
+		margin-top: 0.55rem;
+		font-size: 1.9rem;
+		line-height: 1.22;
+		font-weight: 900;
+	}
+
+	.logo-poster-quote-main strong {
+		color: #f0c446;
+		font-weight: 900;
+	}
+
+	.logo-poster-quote-image img {
+		width: 100%;
+		height: 100%;
+		min-height: 8rem;
+		object-fit: cover;
+		display: block;
+	}
+
+	.logo-values-strip {
+		margin-top: 1.4rem;
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		background: #0c0e14;
+		border-top: 1px solid rgba(240, 196, 70, 0.2);
+		padding: 1.35rem 1rem 1.15rem;
+		border-radius: 1rem;
+	}
+
+	.logo-value-item {
+		padding: 0 1rem;
+		min-height: 8.9rem;
+	}
+
+	.logo-value-item:not(:last-child) {
+		border-right: 1px solid rgba(240, 196, 70, 0.22);
+	}
+
+	.logo-value-icon {
+		display: inline-flex;
+		width: 3.9rem;
+		height: 3.9rem;
+		color: #f0c446;
+		margin-bottom: 0.85rem;
+		align-items: center;
+		justify-content: flex-start;
+	}
+
+	.logo-value-icon img {
+		width: 3.4rem;
+		height: 3.4rem;
+		display: block;
+		object-fit: contain;
+		filter: drop-shadow(0 0 0.35rem rgba(240, 196, 70, 0.18));
+	}
+
+	.logo-value-item h4 {
+		margin: 0 0 0.35rem;
+		color: #ffffff;
+		font-size: 1.35rem;
+		font-weight: 900;
+		text-transform: uppercase;
+	}
+
+	.logo-value-item p {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.88);
+		font-size: 0.98rem;
+		line-height: 1.5;
+	}
+
+	.logo-poster-signature {
+		margin: 1.35rem 0 0;
+		text-align: center;
+		color: #f0c446;
+		font-size: clamp(1.4rem, 3vw, 2.1rem);
+		font-style: italic;
+		line-height: 1.25;
+	}
+
+	.coaches-hero {
+		display: grid;
+		grid-template-columns: minmax(18rem, 1fr) minmax(20rem, 36rem);
+		background: #0c0e14;
+		color: #fff;
+		overflow: hidden;
+		margin-bottom: 1.3rem;
+		align-items: stretch;
+	}
+
+	.coaches-hero-copy {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;
+		text-align: left;
+		gap: 0.9rem;
+		padding: 2rem 1.8rem;
+	}
+
+	.coaches-hero-media {
+		justify-self: end;
+		width: 100%;
+		max-width: 36rem;
+	}
+
+	.coaches-hero-title {
+		margin: 0;
+		display: grid;
+		line-height: 0.95;
+		text-transform: uppercase;
+	}
+
+	.coaches-hero-title span,
+	.coaches-hero-title strong {
+		font-size: clamp(2.8rem, 6vw, 5rem);
+		font-weight: 900;
+	}
+
+	.coaches-hero-title span {
+		color: #ffffff;
+	}
+
+	.coaches-hero-title strong {
+		color: #f0c446;
+	}
+
+	.coaches-hero-heading {
+		margin: 0;
+		display: grid;
+		line-height: 0.88;
+		text-transform: uppercase;
+	}
+
+	.coaches-hero-heading span {
+		font-size: clamp(2.25rem, 4.8vw, 4.1rem);
+		font-weight: 900;
+		color: #ffffff;
+	}
+
+	.coaches-hero-heading strong {
+		font-size: clamp(3.4rem, 7vw, 6rem);
+		font-weight: 900;
+		color: #f0c446;
+	}
+
+	.coaches-hero-divider {
+		width: 4.6rem;
+		height: 2px;
+		background: rgba(240, 196, 70, 0.9);
+	}
+
+	.coaches-hero-intro {
+		display: grid;
+		gap: 0.25rem;
+		max-width: 28rem;
+	}
+
+	.coaches-hero-intro p {
+		margin: 0;
+		font-size: 1.28rem;
+		line-height: 1.48;
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.96);
+	}
+
+	.coaches-hero-intro p.is-highlight {
+		color: #f0c446;
+	}
+
+	.coaches-hero-media img {
+		width: 100%;
+		height: 100%;
+		min-height: 18rem;
+		max-height: 18rem;
+		object-fit: cover;
+		object-position: center 28%;
+		display: block;
+	}
+
+	.coach-feature {
+		display: grid;
+		grid-template-columns: minmax(16rem, 24rem) minmax(0, 1.2fr) minmax(18rem, 23rem);
+		gap: 1.5rem;
+		padding: 1.4rem;
+		background: #fff;
+		border: 1px solid rgba(16, 19, 30, 0.08);
+		box-shadow: 0 12px 30px rgba(18, 26, 45, 0.06);
+	}
+
+	.coach-feature + .coach-feature {
+		margin-top: 1.2rem;
+	}
+
+	.coach-portrait-shell {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.coach-portrait-ring {
+		width: min(100%, 22rem);
+		aspect-ratio: 1 / 1;
+		border-radius: 999px;
+		padding: 1.4rem;
+		background: #2a2188;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.coach-portrait-ring img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 999px;
+	}
+
+	.coach-main-copy h3 {
+		margin: 0.45rem 0 0;
+		font-size: clamp(2rem, 4vw, 3rem);
+		color: #15275f;
+		line-height: 1.02;
+	}
+
+	.coach-badge {
+		display: inline-flex;
+		margin: 0;
+		padding: 0.35rem 0.75rem;
+		border-radius: 0.5rem;
+		background: #ba1015;
+		color: #fff;
+		font-size: 0.88rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.coach-subtitle {
+		margin: 0.45rem 0 1rem;
+		color: #c21a18;
+		font-size: 1.18rem;
+		font-weight: 800;
+	}
+
+	.coach-summary,
+	.coach-rich-copy p,
+	.coach-side-block p,
+	.coach-side-block li,
+	.coach-highlight-item p,
+	.coach-strip-item p,
+	.coaches-family-copy p {
+		color: #24324e;
+		line-height: 1.68;
+	}
+
+	.coach-rich-copy {
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	.coach-highlight-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+		margin-top: 1.25rem;
+	}
+
+	.coach-highlight-item {
+		padding-top: 0.7rem;
+		border-top: 1px solid rgba(16, 36, 95, 0.12);
+	}
+
+	.coach-highlight-icon {
+		display: inline-flex;
+		width: 2.8rem;
+		height: 2.8rem;
+		color: #ba1015;
+		margin-bottom: 0.55rem;
+	}
+
+	.coach-highlight-icon svg {
+		width: 100%;
+		height: 100%;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.7;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.coach-highlight-item h4,
+	.coach-side-block h4 {
+		margin: 0 0 0.45rem;
+		font-size: 1.1rem;
+		text-transform: uppercase;
+		color: #15275f;
+	}
+
+	.coach-side-panel {
+		padding-left: 1.2rem;
+		border-left: 1px solid rgba(16, 36, 95, 0.12);
+		display: grid;
+		gap: 1rem;
+		align-content: start;
+	}
+
+	.coach-side-block ul {
+		margin: 0;
+		padding-left: 1.1rem;
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.philosophy-callout {
+		padding-top: 0.95rem;
+		border-top: 1px solid rgba(16, 36, 95, 0.12);
+	}
+
+	.philosophy-callout p {
+		font-style: italic;
+	}
+
+	.coach-strip {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		background: #13163d;
+		color: #fff;
+		margin: 0.9rem 0 1.2rem;
+	}
+
+	.coach-strip-item {
+		display: grid;
+		grid-template-columns: 2.4rem 1fr;
+		gap: 0.8rem;
+		align-items: center;
+		padding: 1rem 1.1rem;
+	}
+
+	.coach-strip-item:not(:last-child) {
+		border-right: 1px solid rgba(255, 255, 255, 0.16);
+	}
+
+	.coach-strip-icon {
+		display: inline-flex;
+		width: 2rem;
+		height: 2rem;
+		color: #ffffff;
+	}
+
+	.coach-strip-icon svg {
+		width: 100%;
+		height: 100%;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.7;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.coach-strip-item p {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.94);
+	}
+
+	.coach-feature-secondary .coach-main-copy h3 {
+		font-size: clamp(1.9rem, 3.8vw, 2.7rem);
+	}
+
+	.coach-highlight-grid-three {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.coach-laia-callout {
+		margin-top: 1rem;
+		display: grid;
+		grid-template-columns: 3.4rem 1fr;
+		gap: 1rem;
+		align-items: start;
+		padding: 1.25rem 1.3rem;
+		border-radius: 1.2rem;
+		background: linear-gradient(180deg, #ffffff, #f5f6f8);
+		border: 1px solid rgba(16, 36, 95, 0.08);
+		box-shadow: 0 10px 30px rgba(12, 14, 20, 0.06);
+	}
+
+	.coach-laia-callout-icon {
+		display: inline-flex;
+		width: 3rem;
+		height: 3rem;
+		color: #c32022;
+	}
+
+	.coach-laia-callout-icon svg {
+		width: 100%;
+		height: 100%;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.8;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.coach-laia-callout-copy {
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.coach-laia-callout-copy p,
+	.coach-laia-callout-copy strong {
+		margin: 0;
+		color: #24324e;
+		line-height: 1.7;
+	}
+
+	.coach-laia-callout-copy strong {
+		font-weight: 900;
+		color: #111c44;
+	}
+
+	.coaches-family-banner {
+		display: none;
+	}
+
+	.coaches-family-banner-live {
+		margin-top: 1.25rem;
+		display: grid;
+		grid-template-columns: minmax(14rem, 22rem) minmax(0, 1fr) minmax(12rem, 17rem);
+		align-items: center;
+		background: #09090b;
+		color: #fff;
+		overflow: hidden;
+		border-radius: 0;
+	}
+
+	.coaches-family-banner-live-image {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.coaches-family-banner-live-image img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		min-height: 16rem;
+		object-fit: cover;
+		object-position: 34% center;
+		transform: scale(1.18);
+		transform-origin: left center;
+		filter: brightness(0.72) contrast(1.02) saturate(0.88);
+	}
+
+	.coaches-family-banner-live-image::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 4.25rem;
+		height: 100%;
+		background: linear-gradient(90deg, rgba(9, 9, 11, 0), #09090b 82%);
+		pointer-events: none;
+	}
+
+	.coaches-family-banner-live-copy {
+		padding: 1.5rem 1.7rem;
+		text-align: center;
+	}
+
+	.coaches-family-banner-live-copy h3 {
+		margin: 0;
+		display: grid;
+		gap: 0.25rem;
+		text-transform: uppercase;
+		line-height: 0.98;
+	}
+
+	.coaches-family-banner-live-copy h3 span {
+		font-size: clamp(1.9rem, 4vw, 3rem);
+		font-weight: 900;
+		color: #fff;
+	}
+
+	.coaches-family-banner-live-copy h3 strong {
+		font-size: clamp(2.1rem, 4.2vw, 3.3rem);
+		color: #f0c446;
+		font-weight: 900;
+	}
+
+	.coaches-family-banner-live-copy p {
+		margin: 0.95rem 0 0;
+		color: rgba(255, 255, 255, 0.92);
+		font-size: 1.08rem;
+	}
+
+	.coaches-family-banner-live-logo {
+		display: grid;
+		justify-items: center;
+		align-content: center;
+		gap: 0.65rem;
+		padding: 1rem 1.2rem;
+		text-align: center;
+	}
+
+	.coaches-family-banner-live-logo img {
+		width: min(100%, 8.5rem);
+		height: auto;
+		display: block;
+	}
+
+	.coaches-family-banner-live-logo-text {
+		display: grid;
+		gap: 0.1rem;
+		line-height: 0.95;
+		text-transform: none;
+	}
+
+	.coaches-family-banner-live-logo-text span {
+		font-size: clamp(1.15rem, 2.2vw, 1.9rem);
+		font-weight: 900;
+		color: #d92c24;
+	}
+
+	.coaches-family-banner-live-logo-text strong {
+		font-size: clamp(1.5rem, 3vw, 2.65rem);
+		font-weight: 900;
+		color: #202d8f;
+	}
+
+	.essence-editorial-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(18rem, 24rem);
+		gap: 2rem;
+		align-items: start;
+		margin-bottom: 2.4rem;
+	}
+
+	.essence-copy-block {
+		padding-right: 1.5rem;
+	}
+
+	.essence-copy-block:not(:nth-child(2)) {
+		border-right: 1px solid rgba(16, 36, 95, 0.12);
+	}
+
+	.essence-heading {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		margin-bottom: 1rem;
+	}
+
+	.essence-heading-icon {
+		width: 3.65rem;
+		height: 3.65rem;
+		border-radius: 999px;
+		background: rgba(212, 170, 34, 0.14);
+	}
+
+	.essence-copy-block {
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	.essence-visual img {
+		width: 100%;
+		height: 100%;
+		min-height: 24rem;
+		object-fit: cover;
+		display: block;
+	}
+
+	.values-title-line {
+		margin-bottom: 1.5rem;
+	}
+
+	.values-editorial-grid {
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		border-top: 1px solid rgba(16, 36, 95, 0.12);
+	}
+
+	.value-editorial-item {
+		padding: 1.6rem 1rem 0;
+		text-align: center;
+	}
+
+	.value-editorial-item:not(:last-child) {
+		border-right: 1px solid rgba(16, 36, 95, 0.12);
+	}
+
+	.value-editorial-icon {
+		width: 3rem;
+		height: 3rem;
+		margin: 0 auto 0.9rem;
+	}
+
+	.value-editorial-item h4 {
+		margin-bottom: 0.65rem;
+		font-size: 1.18rem;
+	}
+
+	@media (max-width: 1100px) {
+		.coaches-hero,
+		.coach-feature,
+		.coaches-family-banner,
+		.logo-poster-hero,
+		.logo-breakdown-grid,
+		.logo-poster-quote,
+		.logo-values-strip,
+		.story-columns,
+		.essence-editorial-grid,
+		.values-editorial-grid,
+		.gratitude-list {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.gratitude-shell {
+			grid-template-columns: 1fr;
+		}
+
+		.gratitude-image {
+			max-height: 18rem;
+		}
+
+		.coach-side-panel,
+		.coaches-family-logo {
+			grid-column: 1 / -1;
+			border-left: none;
+			padding-left: 0;
+		}
+
+		.logo-breakdown-center,
+		.logo-poster-quote-image {
+			grid-column: 1 / -1;
+		}
+
+		.essence-visual {
+			grid-column: 1 / -1;
+		}
+
+		.value-editorial-item:nth-child(2n) {
+			border-right: none;
+		}
+
+		.logo-value-item:nth-child(2n) {
+			border-right: none;
+		}
+	}
+
+	@media (max-width: 760px) {
+		.coaches-hero,
+		.coach-feature,
+		.coach-highlight-grid,
+		.coach-strip,
+		.coaches-family-banner,
+		.logo-poster-hero,
+		.logo-breakdown-grid,
+		.logo-poster-quote,
+		.logo-values-strip,
+		.story-columns,
+		.essence-editorial-grid,
+		.values-editorial-grid,
+		.gratitude-list {
+			grid-template-columns: 1fr;
+		}
+
+		.story-column {
+			padding-right: 0;
+			padding-bottom: 1.4rem;
+		}
+
+		.story-column:not(:last-child)::after {
+			top: auto;
+			bottom: 0;
+			right: auto;
+			width: 100%;
+			height: 1px;
+		}
+
+		.story-column-body {
+			padding-left: 0;
+		}
+
+		.story-column-head {
+			align-items: flex-start;
+		}
+
+		.coaches-hero-copy,
+		.coach-feature,
+		.coaches-family-copy {
+			padding: 1.2rem;
+		}
+
+		.coach-strip-item,
+		.coach-strip-item:not(:last-child) {
+			border-right: none;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+		}
+
+		.coach-portrait-ring {
+			width: min(100%, 16rem);
+			padding: 1rem;
+		}
+
+		.coach-highlight-grid-three {
+			grid-template-columns: 1fr;
+		}
+
+		.logo-poster-shell {
+			padding: 1.2rem;
+		}
+
+		.logo-poster-intro,
+		.logo-poster-title,
+		.logo-poster-kicker {
+			text-align: left;
+		}
+
+		.logo-detail-head h4 {
+			font-size: 1.22rem;
+		}
+
+		.logo-detail-visual {
+			font-size: 2rem;
+		}
+
+		.logo-poster-quote p {
+			font-size: 1rem;
+			text-align: center;
+		}
+
+		.logo-poster-quote-badge {
+			width: 7rem;
+			margin: 0 auto;
+		}
+
+		.logo-poster-quote-copy {
+			padding: 0.8rem 1.4rem 1.3rem;
+		}
+
+		.logo-poster-quote-mark {
+			font-size: 3rem;
+		}
+
+		.logo-poster-quote-lead {
+			font-size: 0.95rem;
+			text-align: center;
+		}
+
+		.logo-poster-quote-main {
+			font-size: 1.22rem;
+			text-align: center;
+		}
+
+		.logo-value-item,
+		.logo-value-item:nth-child(2n) {
+			border-right: none;
+		}
+
+		.logo-value-item:not(:last-child) {
+			border-bottom: 1px solid rgba(240, 196, 70, 0.18);
+			padding-bottom: 0.9rem;
+			margin-bottom: 0.9rem;
+		}
+
+		.logo-poster-signature {
+			font-size: 1.18rem;
+		}
+
+		.gratitude-content {
+			padding: 1.5rem 1.2rem 1.7rem;
+		}
+
+		.gratitude-content h2,
+		.gratitude-closing {
+			text-align: center;
+		}
+
+		.gratitude-closing {
+			font-size: 1.05rem;
+		}
+
+		.essence-copy-block {
+			padding-right: 0;
+			border-right: none !important;
+		}
+
+		.essence-visual img {
+			min-height: 15rem;
+		}
+
+		.value-editorial-item,
+		.value-editorial-item:nth-child(2n) {
+			border-right: none;
+		}
+
+		.value-editorial-item:not(:last-child) {
+			border-bottom: 1px solid rgba(16, 36, 95, 0.12);
+		}
 	}
 
 	.timeline-grid {
