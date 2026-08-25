@@ -2217,7 +2217,7 @@ const logoPosterWithAssets = {
 		display: flex;
 		align-items: flex-start;
 		gap: 1rem;
-		margin-bottom: 1rem;
+		margin-bottom: 0.75rem;
 	}
 
 	.about-showcase-story-icon,
@@ -2232,8 +2232,8 @@ const logoPosterWithAssets = {
 
 	.about-showcase-story-icon,
 	.about-showcase-purpose-icon {
-		width: 4.9rem;
-		height: 4.9rem;
+		width: 4.15rem;
+		height: 4.15rem;
 		border-radius: 999px;
 		background: linear-gradient(180deg, #e3bf67, #c99a28);
 		color: #fff;
@@ -2257,8 +2257,8 @@ const logoPosterWithAssets = {
 	.about-showcase-purpose-block h3,
 	.about-showcase-value-item h3 {
 		margin: 0;
-		font-size: 1.85rem;
-		line-height: 1.08;
+		font-size: 1.45rem;
+		line-height: 1.02;
 		text-transform: uppercase;
 		color: #10131e;
 	}
@@ -2266,15 +2266,15 @@ const logoPosterWithAssets = {
 	.about-showcase-story-card-body,
 	.about-showcase-purpose-block {
 		display: grid;
-		gap: 0.85rem;
+		gap: 0.55rem;
 	}
 
 	.about-showcase-story-card-body p,
 	.about-showcase-purpose-block p,
 	.about-showcase-value-item p {
 		margin: 0;
-		font-size: 1.04rem;
-		line-height: 1.78;
+		font-size: 0.95rem;
+		line-height: 1.52;
 		color: #293145;
 	}
 
@@ -2423,13 +2423,13 @@ const logoPosterWithAssets = {
 
 	.about-showcase-purpose {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1.6rem;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(15rem, 0.8fr);
+		gap: 1.2rem;
 		align-items: stretch;
 	}
 
 	.about-showcase-purpose-block {
-		padding: 1.3rem 1.2rem 1.2rem;
+		padding: 1.1rem 1.05rem 1rem;
 		background: #fff;
 		border-top: 1px solid rgba(215, 173, 63, 0.28);
 	}
@@ -2444,7 +2444,10 @@ const logoPosterWithAssets = {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center;
 		display: block;
+		transform: scale(0.93);
+		transform-origin: center;
 	}
 
 	.about-showcase-values-grid {
@@ -2586,22 +2589,22 @@ const logoPosterWithAssets = {
 
 	@media (max-width: 760px) {
 		.about-showcase-section {
-			padding: 1.4rem 0 2.2rem;
+			padding: 1.1rem 0 1.9rem;
 		}
 
 		.about-showcase-section .container {
-			gap: 1.3rem;
+			gap: 1.05rem;
 		}
 
 		.about-showcase-hero-copy,
 		.about-showcase-gratitude-content,
 		.about-showcase-purpose-block,
 		.about-showcase-bottom-band {
-			padding: 1.3rem;
+			padding: 1.1rem;
 		}
 
 		.about-showcase-gratitude-closing {
-			padding: 1rem 1.3rem 1.25rem;
+			padding: 0.95rem 1.1rem 1.1rem;
 		}
 
 		.about-showcase-hero {
@@ -2609,37 +2612,37 @@ const logoPosterWithAssets = {
 		}
 
 		.about-showcase-hero-copy {
-			padding: 1.4rem 1.25rem 1.2rem;
+			padding: 1.2rem 1.1rem 1rem;
 		}
 
 		.about-showcase-hero-copy h1 {
-			font-size: clamp(2rem, 10vw, 2.85rem);
-			line-height: 0.96;
+			font-size: clamp(1.85rem, 9vw, 2.6rem);
+			line-height: 0.98;
 			white-space: normal;
 		}
 
 		.about-showcase-hero-subtitle {
-			margin: 0.5rem 0 0.9rem;
-			font-size: 1rem;
+			margin: 0.45rem 0 0.7rem;
+			font-size: 0.94rem;
 		}
 
 		.about-showcase-hero-copy p {
-			font-size: 0.95rem;
-			line-height: 1.55;
+			font-size: 0.91rem;
+			line-height: 1.48;
 		}
 
 		.about-showcase-hero-media {
-			height: 13.5rem;
+			height: 11.75rem;
 		}
 
 		.about-showcase-hero-media img {
-			object-position: center 28%;
-			transform: scale(1.06);
+			object-position: center 24%;
+			transform: scale(1.03);
 		}
 
 		.about-showcase-heading {
 			grid-template-columns: 1fr;
-			gap: 0.6rem;
+			gap: 0.45rem;
 		}
 
 		.about-showcase-heading h2 {
@@ -2648,31 +2651,71 @@ const logoPosterWithAssets = {
 
 		.about-showcase-gratitude-list,
 		.about-showcase-values-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+			grid-template-columns: 1fr;
 		}
 
 		.about-showcase-story-card {
-			padding: 1.25rem;
+			padding: 1.05rem;
 		}
 
 		.about-showcase-story-card-head,
 		.about-showcase-purpose-head {
 			align-items: center;
+			gap: 0.8rem;
 		}
 
 		.about-showcase-story-card h3,
 		.about-showcase-purpose-block h3 {
-			font-size: 1.5rem;
+			font-size: 1.28rem;
+		}
+
+		.about-showcase-story-card-body p,
+		.about-showcase-purpose-block p,
+		.about-showcase-value-item p {
+			font-size: 0.9rem;
+			line-height: 1.45;
+		}
+
+		.about-showcase-gratitude-top {
+			min-height: 0;
+		}
+
+		.about-showcase-gratitude-image {
+			min-height: 11.5rem;
+		}
+
+		.about-showcase-gratitude-image img {
+			object-position: center 62%;
+			transform: scale(1.08);
+		}
+
+		.about-showcase-purpose-visual {
+			min-height: 12rem;
+		}
+
+		.about-showcase-purpose-visual img {
+			transform: scale(0.98);
+		}
+
+		.about-showcase-value-item {
+			padding: 1rem 1rem 0.95rem;
+		}
+
+		.about-showcase-value-item:not(:last-child) {
+			border-right: 0;
+			border-bottom: 1px solid rgba(215, 173, 63, 0.18);
 		}
 
 		.about-showcase-bottom-lead,
 		.about-showcase-bottom-closing {
-			font-size: 1.15rem;
+			font-size: 1.02rem;
+			line-height: 1.38;
 		}
 
 		.about-showcase-bottom-highlight,
 		.about-showcase-bottom-signature {
-			font-size: 1rem;
+			font-size: 0.92rem;
+			line-height: 1.4;
 		}
 	}
 
@@ -4734,7 +4777,7 @@ const logoPosterWithAssets = {
 		.logo-section,
 		.team-section,
 		.essence-section {
-			padding: 2rem 0 2.4rem;
+			padding: 1.65rem 0 2rem;
 		}
 
 		.about-hero-shell,
@@ -4747,7 +4790,7 @@ const logoPosterWithAssets = {
 		}
 
 		.about-hero-shell {
-			gap: 1.35rem;
+			gap: 1.05rem;
 		}
 
 		.about-hero-copy,
@@ -4760,8 +4803,8 @@ const logoPosterWithAssets = {
 		}
 
 		.about-hero-copy h1 {
-			font-size: clamp(2rem, 10vw, 3rem);
-			line-height: 0.98;
+			font-size: clamp(1.82rem, 9vw, 2.65rem);
+			line-height: 1;
 			text-wrap: balance;
 		}
 
@@ -4772,8 +4815,8 @@ const logoPosterWithAssets = {
 		.team-copy p,
 		.essence-card p,
 		.values-card p {
-			font-size: 0.98rem;
-			line-height: 1.6;
+			font-size: 0.92rem;
+			line-height: 1.5;
 		}
 
 		.hero-page-actions {
@@ -4790,8 +4833,8 @@ const logoPosterWithAssets = {
 
 		.section-title-line {
 			grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-			gap: 0.7rem;
-			margin-bottom: 1.1rem;
+			gap: 0.55rem;
+			margin-bottom: 0.95rem;
 			margin-top: 0;
 			padding-top: 0;
 			align-items: center;
@@ -4807,6 +4850,12 @@ const logoPosterWithAssets = {
 			width: 100%;
 			max-width: none;
 			justify-self: stretch;
+		}
+
+		.unified-title,
+		.section-title {
+			font-size: clamp(1.12rem, 5vw, 1.45rem);
+			line-height: 1.04;
 		}
 
 		.unified-title,
