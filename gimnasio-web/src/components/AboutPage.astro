@@ -981,7 +981,7 @@ const logoPosterWithAssets = {
 				<div class="about-showcase-gratitude">
 					<div class="about-showcase-gratitude-top">
 						<div class="about-showcase-gratitude-image">
-							<img src="/images/sobreNosotros/medio.jpeg" alt={aboutShowcase.gratitudeLead} />
+							<img src="/images/cabecera.png" alt={aboutShowcase.gratitudeLead} />
 						</div>
 						<div class="about-showcase-gratitude-content">
 							<h2>
@@ -2290,7 +2290,7 @@ const logoPosterWithAssets = {
 		display: grid;
 		grid-template-columns: minmax(34rem, 34rem) minmax(0, 1fr);
 		align-items: stretch;
-		min-height: 18.5rem;
+		min-height: 15.5rem;
 	}
 
 	.about-showcase-gratitude-image {
@@ -2302,7 +2302,9 @@ const logoPosterWithAssets = {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		object-position: center 44%;
+		object-position: center 74%;
+		transform: scale(1.24);
+		transform-origin: center;
 	}
 
 	.about-showcase-gratitude-content {
@@ -4071,6 +4073,7 @@ const logoPosterWithAssets = {
 		.coach-highlight-grid,
 		.coach-strip,
 		.coaches-family-banner,
+		.coaches-family-banner-live,
 		.logo-poster-hero,
 		.logo-breakdown-grid,
 		.logo-poster-quote,
@@ -4109,6 +4112,21 @@ const logoPosterWithAssets = {
 			padding: 1.2rem;
 		}
 
+		.coaches-hero-copy {
+			align-items: center;
+			text-align: center;
+			gap: 0.75rem;
+		}
+
+		.coaches-hero-intro {
+			max-width: none;
+		}
+
+		.coaches-hero-intro p {
+			font-size: 1.04rem;
+			line-height: 1.42;
+		}
+
 		.coach-strip-item,
 		.coach-strip-item:not(:last-child) {
 			border-right: none;
@@ -4122,6 +4140,70 @@ const logoPosterWithAssets = {
 
 		.coach-highlight-grid-three {
 			grid-template-columns: 1fr;
+		}
+
+		.coaches-family-banner-live {
+			gap: 0;
+		}
+
+		.coaches-family-banner-live-image {
+			min-height: 11.5rem;
+		}
+
+		.coaches-family-banner-live-image img {
+			min-height: 11.5rem;
+			object-position: center 35%;
+			transform: scale(1.08);
+		}
+
+		.coaches-family-banner-live-image::after {
+			top: auto;
+			bottom: 0;
+			right: auto;
+			left: 0;
+			width: 100%;
+			height: 3rem;
+			background: linear-gradient(180deg, rgba(9, 9, 11, 0), #09090b 88%);
+		}
+
+		.coaches-family-banner-live-copy {
+			padding: 1.25rem 1rem 1rem;
+			text-align: center;
+		}
+
+		.coaches-family-banner-live-copy h3 {
+			gap: 0.15rem;
+		}
+
+		.coaches-family-banner-live-copy h3 span {
+			font-size: clamp(1.9rem, 10vw, 2.5rem);
+		}
+
+		.coaches-family-banner-live-copy h3 strong {
+			font-size: clamp(2.2rem, 12vw, 3rem);
+		}
+
+		.coaches-family-banner-live-copy p {
+			margin-top: 0.8rem;
+			font-size: 0.98rem;
+			line-height: 1.55;
+		}
+
+		.coaches-family-banner-live-logo {
+			padding: 0.6rem 1rem 1.2rem;
+			gap: 0.5rem;
+		}
+
+		.coaches-family-banner-live-logo img {
+			width: 6.9rem;
+		}
+
+		.coaches-family-banner-live-logo-text span {
+			font-size: 1.2rem;
+		}
+
+		.coaches-family-banner-live-logo-text strong {
+			font-size: 2rem;
 		}
 
 		.logo-poster-shell {

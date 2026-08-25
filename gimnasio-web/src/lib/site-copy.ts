@@ -140,6 +140,43 @@ const shared = {
 	]
 };
 
+const galleryImageFiles = [
+	'1.png',
+	'1_.png',
+	'2.jpeg',
+	'2.png',
+	'3.jpeg',
+	'3.png',
+	'4.jpeg',
+	'4.png',
+	'5.jpeg',
+	'5.png',
+	'6.jpeg',
+	'7.jpeg',
+	'8.jpeg',
+	'9.jpeg',
+	'10.jpeg',
+	'11.jpeg',
+	'12.jpeg',
+	'13.jpeg',
+	'14.jpeg',
+	'15.jpeg',
+	'16.jpeg',
+	'17.jpeg',
+	'18.jpeg',
+	'20.jpeg',
+	'21.jpeg',
+	'22.jpeg'
+] as const;
+
+function createGalleryItems(label: string) {
+	return galleryImageFiles.map((fileName, index) => ({
+		title: `${label} ${index + 1}`,
+		imageUrl: `/images/galeria/${fileName}`,
+		featured: index === 0
+	}));
+}
+
 export const siteCopy: Record<Locale, SiteCopy> = {
 	ca: {
 		lang: 'ca',
@@ -328,31 +365,27 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
 				{
-					title: 'Jornada t\u00e8cnica i preparaci\u00f3 de grau',
-					date: '2026-10-18',
-					excerpt: 'Sessi\u00f3 especial per refor\u00e7ar poomsae, t\u00e8cnica i continguts previs als pr\u00f2xims ex\u00e0mens de cintur\u00f3.',
-					imageUrl: shared.images.poomsae
+					title: 'Tres exhibicions en dos dies',
+					date: '2026-05-29',
+					excerpt:
+						'Cap de setmana intens amb tres exhibicions on els nostres alumnes van demostrar disciplina, respecte, esfor\u00e7 i treball en equip.',
+					imageUrl: '/images/cabecera.png',
+					href: 'https://www.instagram.com/p/DY72Cf8CKwE/?igsi=MTBzMmtlejlvN3h5bw%3D%3D'
 				},
 				{
-					title: 'Exhibicions i moments del club',
-					date: '2026-11-07',
-					excerpt: "Compartim activitats, exhibicions i el dia a dia de Warriors perqu\u00e8 les fam\u00edlies segueixin l'evoluci\u00f3 dels alumnes.",
-					imageUrl: shared.images.exhibition
+					title: 'Medalla de plata al m\u00e8rit esportiu',
+					date: '2026-07-17',
+					excerpt:
+						'Un reconeixement molt especial a la traject\u00f2ria de Diana V\u00e1zquez Vall\u00e9s i a tots els anys d\'entrenament, competici\u00f3 i comprom\u00eds amb el taekwondo.',
+					imageUrl: '/images/noticia-medalla-plata.png',
+					href: 'https://www.instagram.com/p/Da42UXGDnXasTaGQBIKyEI_4Zf1tyQxs1deI-w0/?igsi=cTZ5cWJ0amYxZnRu'
 				}
 			]
 		},
 		gallery: {
 			title: 'Galeria',
 			linkLabel: 'Veure galeria completa',
-			items: [
-				{ title: 'Entrenament Warriors 1', imageUrl: '/images/sobre-10.jpeg', featured: true },
-				{ title: 'Entrenament Warriors 2', imageUrl: '/images/sobre-11.jpeg' },
-				{ title: 'Entrenament Warriors 3', imageUrl: '/images/sobre-17.jpeg' },
-				{ title: 'Entrenament Warriors 4', imageUrl: '/images/sobre-18.jpeg' },
-				{ title: 'Entrenament Warriors 5', imageUrl: '/images/sobre-22.jpeg' },
-				{ title: 'Mestra Diana', imageUrl: '/images/about-diana.jpeg' },
-				{ title: 'Mestra Laia', imageUrl: '/images/about-laia.jpeg' }
-			]
+			items: createGalleryItems('Galeria Warriors')
 		},
 		cta: {
 			title: 'Preparat per comen\u00e7ar<br />el teu cam\u00ed?',
@@ -378,7 +411,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			reviewsTitle: 'Ressenyes de Google',
 			reviewsSubtitle: "El que diuen les fam\u00edlies del club",
 			reviewsRatingLabel: '5,0 a Google',
-			reviewsCountLabel: '55 ressenyes',
+			reviewsCountLabel: '57 ressenyes',
 			reviewsButton: 'Veure ressenyes a Google',
 			mapTitle: 'Com arribar',
 			mapSubtitle: 'Troba el club i vine a con\u00e8ixer-nos',
@@ -582,31 +615,27 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
 				{
-					title: 'Jornada t\u00e9cnica y preparaci\u00f3n de grado',
-					date: '2026-10-18',
-					excerpt: 'Sesi\u00f3n especial para reforzar poomsae, t\u00e9cnica y contenidos previos a los pr\u00f3ximos ex\u00e1menes de cintur\u00f3n.',
-					imageUrl: shared.images.poomsae
+					title: 'Tres exhibiciones en dos d\u00edas',
+					date: '2026-05-29',
+					excerpt:
+						'Fin de semana intenso con tres exhibiciones en las que nuestros alumnos demostraron disciplina, respeto, esfuerzo y trabajo en equipo.',
+					imageUrl: '/images/cabecera.png',
+					href: 'https://www.instagram.com/p/DY72Cf8CKwE/?igsi=MTBzMmtlejlvN3h5bw%3D%3D'
 				},
 				{
-					title: 'Exhibiciones y vida del club',
-					date: '2026-11-07',
-					excerpt: 'Compartimos actividades, exhibiciones y el d\u00eda a d\u00eda de Warriors para que las familias sigan la evoluci\u00f3n del club.',
-					imageUrl: shared.images.exhibition
+					title: 'Medalla de plata al m\u00e9rito deportivo',
+					date: '2026-07-17',
+					excerpt:
+						'Un reconocimiento muy especial a la trayectoria de Diana V\u00e1zquez Vall\u00e9s y a todos los a\u00f1os de entrenamiento, competici\u00f3n y compromiso con el taekwondo.',
+					imageUrl: '/images/noticia-medalla-plata.png',
+					href: 'https://www.instagram.com/p/Da42UXGDnXasTaGQBIKyEI_4Zf1tyQxs1deI-w0/?igsi=cTZ5cWJ0amYxZnRu'
 				}
 			]
 		},
 		gallery: {
 			title: 'Galer\u00eda',
 			linkLabel: 'Ver galer\u00eda completa',
-			items: [
-				{ title: 'Entrenamiento Warriors 1', imageUrl: '/images/sobre-10.jpeg', featured: true },
-				{ title: 'Entrenamiento Warriors 2', imageUrl: '/images/sobre-11.jpeg' },
-				{ title: 'Entrenamiento Warriors 3', imageUrl: '/images/sobre-17.jpeg' },
-				{ title: 'Entrenamiento Warriors 4', imageUrl: '/images/sobre-18.jpeg' },
-				{ title: 'Entrenamiento Warriors 5', imageUrl: '/images/sobre-22.jpeg' },
-				{ title: 'Maestra Diana', imageUrl: '/images/about-diana.jpeg' },
-				{ title: 'Maestra Laia', imageUrl: '/images/about-laia.jpeg' }
-			]
+			items: createGalleryItems('Galería Warriors')
 		},
 		cta: {
 			title: '\u00bfListo para empezar<br />tu camino?',
@@ -632,7 +661,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			reviewsTitle: 'Rese\u00f1as de Google',
 			reviewsSubtitle: 'Lo que dicen las familias del club',
 			reviewsRatingLabel: '5,0 en Google',
-			reviewsCountLabel: '55 rese\u00f1as',
+			reviewsCountLabel: '57 rese\u00f1as',
 			reviewsButton: 'Ver rese\u00f1as en Google',
 			mapTitle: 'C\u00f3mo llegar',
 			mapSubtitle: 'Encuentra el club y ven a conocernos',
@@ -836,31 +865,27 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
 				{
-					title: 'Technical day and belt exam preparation',
-					date: '2026-10-18',
-					excerpt: 'A special session focused on poomsae, technique, and preparation for upcoming belt exams.',
-					imageUrl: shared.images.poomsae
+					title: 'Three exhibitions in two days',
+					date: '2026-05-29',
+					excerpt:
+						'An intense weekend with three exhibitions where our students showed discipline, respect, effort, and teamwork.',
+					imageUrl: '/images/cabecera.png',
+					href: 'https://www.instagram.com/p/DY72Cf8CKwE/?igsi=MTBzMmtlejlvN3h5bw%3D%3D'
 				},
 				{
-					title: 'Exhibitions and club highlights',
-					date: '2026-11-07',
-					excerpt: 'We share activities, exhibitions, and day-to-day highlights so families can follow the Warriors journey.',
-					imageUrl: shared.images.exhibition
+					title: 'Silver sports merit award',
+					date: '2026-07-17',
+					excerpt:
+						'A very special recognition of Diana V\u00e1zquez Vall\u00e9s\'s career and of all the years of training, competition, and commitment to taekwondo.',
+					imageUrl: '/images/noticia-medalla-plata.png',
+					href: 'https://www.instagram.com/p/Da42UXGDnXasTaGQBIKyEI_4Zf1tyQxs1deI-w0/?igsi=cTZ5cWJ0amYxZnRu'
 				}
 			]
 		},
 		gallery: {
 			title: 'Gallery',
 			linkLabel: 'View full gallery',
-			items: [
-				{ title: 'Warriors Training 1', imageUrl: '/images/sobre-10.jpeg', featured: true },
-				{ title: 'Warriors Training 2', imageUrl: '/images/sobre-11.jpeg' },
-				{ title: 'Warriors Training 3', imageUrl: '/images/sobre-17.jpeg' },
-				{ title: 'Warriors Training 4', imageUrl: '/images/sobre-18.jpeg' },
-				{ title: 'Warriors Training 5', imageUrl: '/images/sobre-22.jpeg' },
-				{ title: 'Coach Diana', imageUrl: '/images/about-diana.jpeg' },
-				{ title: 'Coach Laia', imageUrl: '/images/about-laia.jpeg' }
-			]
+			items: createGalleryItems('Warriors Gallery')
 		},
 		cta: {
 			title: 'Ready to start<br />your journey?',
@@ -886,7 +911,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			reviewsTitle: 'Google Reviews',
 			reviewsSubtitle: 'What club families are saying',
 			reviewsRatingLabel: '5.0 on Google',
-			reviewsCountLabel: '55 reviews',
+			reviewsCountLabel: '57 reviews',
 			reviewsButton: 'View Google reviews',
 			mapTitle: 'How to get here',
 			mapSubtitle: 'Find the club and come meet us',
