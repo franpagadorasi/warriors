@@ -23,10 +23,10 @@
 - [ ] Comprobar que los CTA sean consistentes entre idiomas.
 
 ### Consistencia visual
-- [ ] Unificar todos los botones: altura, padding, radio, tipografía y sombra.
-- [ ] Revisar tarjetas para que compartan la misma lógica visual en toda la web.
-- [ ] Ajustar títulos y subtítulos para que sigan una jerarquía más consistente.
-- [ ] Revisar separaciones verticales entre secciones para que el ritmo sea uniforme.
+- [x] Unificar todos los botones: altura, padding, radio, tipografía y sombra.
+- [x] Revisar tarjetas para que compartan la misma lógica visual en toda la web.
+- [x] Ajustar títulos y subtítulos para que sigan una jerarquía más consistente.
+- [x] Revisar separaciones verticales entre secciones para que el ritmo sea uniforme.
 
 ### Dominio y publicación final
 - [ ] Comprar y configurar el dominio definitivo.
