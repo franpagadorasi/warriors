@@ -1,5 +1,8 @@
 ---
 import HomePage from '../../components/HomePage.astro';
+import { getHomeContent } from '../../lib/content';
+
+const content = await getHomeContent();
 ---
 
-<HomePage locale="es" />
+<HomePage locale="es" content={content} />

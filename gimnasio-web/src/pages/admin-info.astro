@@ -25,6 +25,14 @@ const configured = isSanityConfigured();
 						La web ya tiene variables de Sanity disponibles. Abre <a href="/admin">/admin</a>
 						para entrar al panel.
 					</p>
+					<ul>
+						<li>Horario de la tabla semanal.</li>
+						<li>Opciones del modal de reserva.</li>
+						<li>Noticias con imagen y enlace a Instagram.</li>
+						<li>Patrocinadores y colaboradores.</li>
+						<li>Linea de estadisticas.</li>
+						<li>Nota media y numero de reseñas de Google.</li>
+					</ul>
 				</>
 			) : (
 				<>
@@ -55,6 +63,13 @@ const configured = isSanityConfigured();
 	}
 
 	ol {
+		margin: 1rem 0 0;
+		padding-left: 1.25rem;
+		color: var(--muted);
+		line-height: 1.8;
+	}
+
+	ul {
 		margin: 1rem 0 0;
 		padding-left: 1.25rem;
 		color: var(--muted);

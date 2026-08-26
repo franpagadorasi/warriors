@@ -12,15 +12,16 @@ const site = process.env.PUBLIC_SITE_URL || 'https://clubtaekwondowarriors.cat';
 const integrations = [react()];
 
 if (projectId && dataset) {
-	integrations.unshift(
-		sanity({
-			projectId,
-			dataset,
-			apiVersion: '2026-03-01',
-			useCdn: false,
-			studioBasePath: '/admin'
-		})
-	);
+		integrations.unshift(
+			sanity({
+				projectId,
+				dataset,
+				apiVersion: '2026-03-01',
+				useCdn: false,
+				studioBasePath: '/admin',
+				studioRouterHistory: 'browser'
+			})
+		);
 }
 
 export default defineConfig({

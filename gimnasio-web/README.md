@@ -51,14 +51,15 @@ Cuando reinicies `npm run dev`, Astro montara automaticamente el panel embebido 
 
 ## Que puede editar ella
 
-Con la estructura actual del panel, tu amiga podra gestionar:
+Con la estructura actual del panel, tu amiga podra gestionar desde `/admin`:
 
-- nombre del centro y textos principales
-- llamadas a la accion
-- bloques destacados
-- clases
-- horarios
-- datos de contacto
+- horario de la tabla semanal
+- grupos del modal de reserva, con formularios por idioma
+- noticias enlazadas a Instagram
+- patrocinadores y colaboradores
+- linea de estadisticas tipo `+59 alumnos`, `+5 cinturones negros`
+- nota media y numero de reseñas de Google
+- enlace al perfil de Google Reviews
 
 ## Notas importantes
 

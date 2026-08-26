@@ -3,12 +3,19 @@ import Layout from '../layouts/Layout.astro';
 import ResponsiveImage from './ResponsiveImage.astro';
 import { getSiteCopy, type Locale } from '../lib/site-copy';
 import { aboutPaths } from '../lib/about-copy';
+import {
+	formatReviewRatingLabel,
+	formatReviewsCountLabel,
+	getLocalizedFieldValue,
+	type HomeContent
+} from '../lib/content';
 
 interface Props {
 	locale?: Locale;
+	content?: HomeContent;
 }
 
-const { locale = 'ca' } = Astro.props;
+const { locale = 'ca', content = null } = Astro.props;
 const copy = getSiteCopy(locale);
 
 const formatNewsDate = (date: string) => {
@@ -24,12 +31,22 @@ const formatNewsDate = (date: string) => {
 };
 
 const galleryItems = [...copy.gallery.items].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
-const newsItems = copy.news.items;
+const newsItems =
+	content && content.news.length > 0
+		? content.news.map((item) => ({
+				title: getLocalizedFieldValue(item.title, locale, copy.news.items[0]?.title ?? 'Notícia'),
+				date: item.date,
+				excerpt: getLocalizedFieldValue(item.excerpt, locale, ''),
+				imageUrl: item.imageUrl || '/images/optimized/dojo-interior.jpg',
+				href: item.href || copy.footer.instagramUrl || '#'
+			}))
+		: copy.news.items;
 const clubAddress = copy.footer.address;
 const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(clubAddress)}&output=embed`;
 const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clubAddress)}`;
-const googleReviewsUrl =
+const defaultGoogleReviewsUrl =
 	'https://www.google.com/search?sa=X&sca_esv=72d5cd2ff8b49349&hl=es-ES&sxsrf=APpeQnteq4VAaMWerGiHchsD0iSncs0cfA:1786449416188&q=Club+Taekwondo+Warriors+Rese%C3%B1as&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDMzMjA2NjSxMLUwMTayNDEwMdjAyPiKUcE5pzRJISQxNbs8Py8lXyE8sagoM7-oWCEotTj18MbE4kWsBJUAAHwBsRVhAAAA&rldimm=16620331485843294040&tbm=lcl&ved=2ahUKEwjSg_HWwpiWAxXtSfEDHV_pK2QQ9fQKegQIVRAG&biw=1920&bih=911&dpr=1#lkt=LocalPoiReviews';
+const googleReviewsUrl = content?.reviewSettings?.googleReviewsUrl || defaultGoogleReviewsUrl;
 const trialWhatsappUrl = `${copy.footer.whatsappUrl}?text=${copy.hero.trialWhatsappMessage}`;
 const mobileImageBySrc: Record<string, string> = {
 	'/images/optimized/kids-taekwondo.jpg': '/images/optimized/kids-taekwondo-mobile.jpg',
@@ -46,9 +63,34 @@ const mobileImageBySrc: Record<string, string> = {
 
 const pricingPlans = copy.pricing.plans;
 const clubReasons = copy.pricing.reasons;
-const weeklySchedule = copy.schedule.rows;
+const weeklySchedule =
+	content && content.scheduleBoard.length > 0
+		? content.scheduleBoard.map((row) => ({
+				time: row.time,
+				tone: row.tone || 'gold',
+				classes: [row.monday || '', row.tuesday || '', row.wednesday || '', row.thursday || '']
+			}))
+		: copy.schedule.rows;
 const ageGroups = copy.schedule.ages;
 const valuePillars = copy.schedule.values;
+const statItems =
+	content && content.stats.length > 0
+		? content.stats.map((item) => ({
+				value: item.value,
+				label: getLocalizedFieldValue(item.label, locale, ''),
+				tone: item.tone || 'red'
+			}))
+		: copy.stats;
+const modalOptions =
+	content && content.modalOptions.length > 0
+		? content.modalOptions.map((option) => ({
+				tone: option.tone || 'kids',
+				title: getLocalizedFieldValue(option.title, locale, 'Warriors'),
+				subtitle: getLocalizedFieldValue(option.subtitle, locale, ''),
+				url: getLocalizedFieldValue(option.formUrl, locale, '#'),
+				imageUrl: option.imageUrl || '/images/warriors-kids.png'
+			}))
+		: copy.modal.options;
 const scheduleGroupLogoByTone: Record<string, string> = {
 	gold: '/images/warriors-kids.png',
 	blue: '/images/warriors-junior.png',
@@ -107,6 +149,45 @@ const sponsorsNoteLabel: Record<Locale, string> = {
 	es: 'Nuestra entidad desarrolla su actividad en el marco de la Federación Catalana de Taekwondo y la Real Federación Española de Taekwondo, con sede de entrenamientos en Sant Vicenç dels Horts.',
 	en: 'Our organization carries out its activity within the framework of the Catalan Taekwondo Federation and the Royal Spanish Taekwondo Federation, with its training base in Sant Vicenç dels Horts.'
 };
+const defaultSponsors = [
+	{
+		name: 'Ajuntament de Sant Vicenç dels Horts',
+		website: 'https://www.svh.cat/',
+		logoUrl: '/images/patrocinadores/Ajuntament-de-Sant-Vicenç-dels-Horts-transparent.png',
+		logoClass: 'sponsor-badge-image sponsor-badge-image-wide'
+	},
+	{
+		name: 'Federació Catalana de Taekwondo',
+		website: 'https://www.taekwondocatala.com/',
+		logoUrl: '/images/patrocinadores/Federación-Catalana-de-Taekwondo-transparent.png',
+		logoClass: 'sponsor-badge-image'
+	},
+	{
+		name: 'Federación Española de Taekwondo',
+		website: 'https://fetaekwondo.net/',
+		logoUrl: '/images/patrocinadores/Federación-Española-de-Taekwondo-transparent.png',
+		logoClass: 'sponsor-badge-image'
+	}
+];
+const footerSponsors =
+	content && content.sponsors.length > 0
+		? content.sponsors.map((item) => ({
+				name: item.name,
+				website: item.website || '#',
+				logoUrl: item.logoUrl || '/images/logo-warriors.png',
+				logoClass: 'sponsor-badge-image'
+			}))
+		: defaultSponsors;
+const reviewsRatingLabel = formatReviewRatingLabel(
+	locale,
+	content?.reviewSettings?.ratingValue,
+	copy.footer.reviewsRatingLabel
+);
+const reviewsCountLabel = formatReviewsCountLabel(
+	locale,
+	content?.reviewSettings?.reviewsCount,
+	copy.footer.reviewsCountLabel
+);
 const mapTitlePrefix: Record<Locale, string> = {
 	ca: 'Mapa de',
 	es: 'Mapa de',
@@ -602,7 +683,7 @@ const currentYear = new Date().getFullYear();
 
 		<section class="stats-band">
 			<div class="container stats-grid">
-				{copy.stats.map((item) => (
+				{statItems.map((item) => (
 					<div class={`stat-card ${item.tone ?? 'red'}`}>
 						<strong>{item.value}</strong>
 						<span>{item.label}</span>
@@ -761,7 +842,16 @@ const currentYear = new Date().getFullYear();
 					</div>
 					<div class="footer-sponsors-row">
 						<p class="footer-sponsors-title">{sponsorsTitleLabel[locale]}</p>
-						<div class="footer-sponsors" aria-label={sponsorsAriaLabel[locale]}>
+						{content && content.sponsors.length > 0 ? (
+							<div class="footer-sponsors" aria-label={sponsorsAriaLabel[locale]}>
+								{footerSponsors.map((item) => (
+									<a href={item.website} target="_blank" rel="noreferrer" class="sponsor-badge" aria-label={item.name}>
+										<img src={item.logoUrl} alt={item.name} class={item.logoClass} />
+									</a>
+								))}
+							</div>
+						) : (
+							<div class="footer-sponsors" aria-label={sponsorsAriaLabel[locale]}>
 							<a href="https://www.svh.cat/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Ajuntament de Sant Vicenç dels Horts">
 								<img src="/images/patrocinadores/Ajuntament-de-Sant-Vicenç-dels-Horts-transparent.png" alt="Ajuntament de Sant Vicenç dels Horts" class="sponsor-badge-image sponsor-badge-image-wide" />
 							</a>
@@ -771,7 +861,8 @@ const currentYear = new Date().getFullYear();
 							<a href="https://fetaekwondo.net/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Federación Española de Taekwondo">
 								<img src="/images/patrocinadores/Federación-Española-de-Taekwondo-transparent.png" alt="Federación Española de Taekwondo" class="sponsor-badge-image" />
 							</a>
-						</div>
+							</div>
+						)}
 						<p class="footer-sponsors-note">{sponsorsNoteLabel[locale]}</p>
 					</div>
 				</div>
@@ -822,11 +913,11 @@ const currentYear = new Date().getFullYear();
 						<div class="reviews-card-top">
 							<div class="reviews-google-mark" aria-hidden="true">G</div>
 							<div class="reviews-rating-copy">
-								<strong>{copy.footer.reviewsRatingLabel}</strong>
-								<span>{copy.footer.reviewsCountLabel}</span>
+								<strong>{reviewsRatingLabel}</strong>
+								<span>{reviewsCountLabel}</span>
 							</div>
 						</div>
-						<div class="reviews-stars" aria-label={copy.footer.reviewsRatingLabel}>
+						<div class="reviews-stars" aria-label={reviewsRatingLabel}>
 							<span>★</span>
 							<span>★</span>
 							<span>★</span>
@@ -873,7 +964,7 @@ const currentYear = new Date().getFullYear();
 			<h2 id="reserva-modal-title">{copy.modal.title}</h2>
 			<p class="reserva-modal-copy">{copy.modal.description}</p>
 			<div class="reserva-options">
-				{copy.modal.options.map((option) => (
+				{modalOptions.map((option) => (
 					<a class={`reserva-option ${option.tone}`} href={option.url} target="_blank" rel="noreferrer">
 						<img class="reserva-option-logo" src={option.imageUrl} alt={option.title} />
 						<div class="reserva-option-copy">

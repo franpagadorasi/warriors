@@ -6,7 +6,7 @@ export const statItemType = defineType({
 	type: 'document',
 	fields: [
 		defineField({ name: 'value', title: 'Valor', type: 'string', validation: (rule) => rule.required() }),
-		defineField({ name: 'label', title: 'Etiqueta', type: 'string', validation: (rule) => rule.required() }),
+		defineField({ name: 'label', title: 'Etiqueta', type: 'localizedString', validation: (rule) => rule.required() }),
 		defineField({
 			name: 'tone',
 			title: 'Color',
@@ -24,7 +24,15 @@ export const statItemType = defineType({
 	preview: {
 		select: {
 			title: 'value',
-			subtitle: 'label'
+			subtitleCa: 'label.ca',
+			subtitleEs: 'label.es',
+			subtitleEn: 'label.en'
+		},
+		prepare({ title, subtitleCa, subtitleEs, subtitleEn }) {
+			return {
+				title,
+				subtitle: subtitleCa || subtitleEs || subtitleEn || 'Estadística'
+			};
 		}
 	}
 });

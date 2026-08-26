@@ -5,23 +5,33 @@ export const newsItemType = defineType({
 	title: 'Noticias',
 	type: 'document',
 	fields: [
-		defineField({ name: 'title', title: 'Titulo', type: 'string', validation: (rule) => rule.required() }),
+		defineField({ name: 'title', title: 'Titulo', type: 'localizedString', validation: (rule) => rule.required() }),
 		defineField({ name: 'date', title: 'Fecha', type: 'date', validation: (rule) => rule.required() }),
-		defineField({ name: 'excerpt', title: 'Resumen', type: 'text', rows: 3 }),
+		defineField({ name: 'excerpt', title: 'Resumen', type: 'localizedText' }),
 		defineField({
 			name: 'image',
 			title: 'Imagen',
 			type: 'image',
 			options: { hotspot: true }
 		}),
-		defineField({ name: 'ctaLabel', title: 'Texto enlace', type: 'string', initialValue: 'Leer mas' }),
+		defineField({ name: 'href', title: 'Enlace a Instagram o noticia', type: 'url' }),
+		defineField({ name: 'ctaLabel', title: 'Texto enlace', type: 'localizedString' }),
 		defineField({ name: 'order', title: 'Orden', type: 'number' })
 	],
 	preview: {
 		select: {
-			title: 'title',
+			titleCa: 'title.ca',
+			titleEs: 'title.es',
+			titleEn: 'title.en',
 			subtitle: 'date',
 			media: 'image'
+		},
+		prepare({ titleCa, titleEs, titleEn, subtitle, media }) {
+			return {
+				title: titleCa || titleEs || titleEn || 'Noticia sin título',
+				subtitle,
+				media
+			};
 		}
 	}
 });
