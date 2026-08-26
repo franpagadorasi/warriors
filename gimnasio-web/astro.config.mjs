@@ -7,6 +7,7 @@ import { defineConfig } from 'astro/config';
 
 const projectId = process.env.PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.PUBLIC_SANITY_DATASET;
+const site = process.env.PUBLIC_SITE_URL || 'https://clubtaekwondowarriors.cat';
 
 const integrations = [react()];
 
@@ -23,6 +24,7 @@ if (projectId && dataset) {
 }
 
 export default defineConfig({
+	site,
 	integrations,
 	vite: {
 		optimizeDeps: {

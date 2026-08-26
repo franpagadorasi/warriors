@@ -2,12 +2,6 @@
 
 ## Prioridad alta
 
-### Formularios multidioma
-- [ ] Crear formularios separados por categoría en `ca`, `es` y `en`.
-- [ ] Preparar 3 versiones para cada grupo: Kids, Junior, Elite y Defensa personal.
-- [ ] Hacer que la web abra automáticamente el formulario según el idioma activo.
-- [ ] Revisar textos, preguntas y mensajes finales para que estén traducidos de forma consistente.
-
 ### Responsive móvil
 - [x] Revisar banners principales en móvil.
 - [x] Revisar sección de coaches en móvil.
@@ -48,25 +42,13 @@
 - [x] Comprobar consistencia visual entre fotos reales y recursos generados.
 
 ### SEO local
-- [ ] Revisar títulos SEO y metadescripciones.
-- [ ] Revisar `alt` de imágenes importantes.
-- [ ] Comprobar Open Graph para compartir en WhatsApp y redes.
-- [ ] Añadir o revisar datos estructurados de negocio local.
-
-### Noticias y mantenimiento
-- [ ] Valorar un sistema más cómodo para actualizar noticias.
-- [ ] Revisar si conviene separar noticias manuales de noticias enlazadas a Instagram.
-- [ ] Comprobar que fechas, imágenes y enlaces estén bien en todos los idiomas.
+- [x] Revisar títulos SEO y metadescripciones.
+- [x] Revisar `alt` de imágenes importantes.
+- [x] Comprobar Open Graph para compartir en WhatsApp y redes.
+- [x] Añadir o revisar datos estructurados de negocio local.
 
 ## Prioridad baja
 
 ### Galería
 - [ ] Añadir lightbox al hacer clic en las imágenes.
 - [ ] Revisar el orden de las fotos de la galería.
-- [ ] Separar mejor instalaciones, entrenos, competición y exhibiciones.
-- [ ] Valorar añadir más contexto o títulos a ciertas imágenes.
-
-### Pendientes recientes
-- [ ] Decidir si se sustituye la imagen del CTA por la versión con dobok.
-- [ ] Revisar si el bloque de misión/visión necesita un ajuste visual diferente.
-- [ ] Confirmar si se quiere igualar todavía más el estilo de todos los botones.

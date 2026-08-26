@@ -60,6 +60,34 @@ const localeSwitchPaths = {
 	es: aboutPaths.es,
 	en: aboutPaths.en
 };
+const seoAlternates = [
+	{ lang: 'ca', path: aboutPaths.ca },
+	{ lang: 'es', path: aboutPaths.es },
+	{ lang: 'en', path: aboutPaths.en }
+];
+const aboutSeoImageAlt: Record<
+	Locale,
+	{ hero: string; gratitude: string; familyBanner: string; familyDetail: string }
+> = {
+	ca: {
+		hero: 'Alumnes i famílies de Warriors durant una exhibició de taekwondo',
+		gratitude: 'Exhibició de taekwondo dels alumnes Warriors a Sant Vicenç dels Horts',
+		familyBanner: 'Banner de Warriors amb cinturó negre, missatge de família i logo del club',
+		familyDetail: 'Detall d un cinturó negre del Club Taekwondo Warriors'
+	},
+	es: {
+		hero: 'Alumnos y familias de Warriors durante una exhibición de taekwondo',
+		gratitude: 'Exhibición de taekwondo de los alumnos Warriors en Sant Vicenç dels Horts',
+		familyBanner: 'Banner de Warriors con cinturón negro, mensaje de familia y logo del club',
+		familyDetail: 'Detalle de un cinturón negro del Club Taekwondo Warriors'
+	},
+	en: {
+		hero: 'Warriors students and families during a taekwondo exhibition',
+		gratitude: 'Taekwondo exhibition by Warriors students in Sant Vicenç dels Horts',
+		familyBanner: 'Warriors banner with a black belt, family message and club logo',
+		familyDetail: 'Close-up of a Club Taekwondo Warriors black belt'
+	}
+};
 
 const clubAddress = copy.footer.address;
 const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(clubAddress)}&output=embed`;
@@ -1031,7 +1059,14 @@ const logoPosterWithAssets = {
 };
 ---
 
-<Layout title={aboutCopy.seoTitle} description={aboutCopy.seoDescription} lang={copy.lang}>
+<Layout
+	title={aboutCopy.seoTitle}
+	description={aboutCopy.seoDescription}
+	lang={copy.lang}
+	path={aboutPaths[locale]}
+	ogImage="/images/optimized/cabecera.jpg"
+	alternates={seoAlternates}
+>
 	<header class="site-header">
 		<div class="container header-row">
 			<a class="brand" href={navLinks.home}>
@@ -1111,7 +1146,7 @@ const logoPosterWithAssets = {
 						{aboutShowcase.heroParagraphs.map((paragraph) => <p>{paragraph}</p>)}
 					</div>
 					<div class="about-showcase-hero-media">
-						<img src="/images/sobreNosotros/arriba.jpeg" alt={aboutShowcase.heroTitle} />
+						<img src="/images/sobreNosotros/arriba.jpeg" alt={aboutSeoImageAlt[locale].hero} />
 					</div>
 				</div>
 
@@ -1169,7 +1204,7 @@ const logoPosterWithAssets = {
 				<div class="about-showcase-gratitude">
 					<div class="about-showcase-gratitude-top">
 						<div class="about-showcase-gratitude-image">
-							<img src="/images/optimized/cabecera.jpg" srcset="/images/optimized/cabecera-mobile.jpg 640w, /images/optimized/cabecera.jpg 1280w" sizes="(max-width: 760px) 100vw, 52vw" alt={aboutShowcase.gratitudeLead} loading="lazy" decoding="async" />
+							<img src="/images/optimized/cabecera.jpg" srcset="/images/optimized/cabecera-mobile.jpg 640w, /images/optimized/cabecera.jpg 1280w" sizes="(max-width: 760px) 100vw, 52vw" alt={aboutSeoImageAlt[locale].gratitude} loading="lazy" decoding="async" />
 						</div>
 						<div class="about-showcase-gratitude-content">
 							<h2>

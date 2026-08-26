@@ -1,15 +1,36 @@
 ---
+import { buildSportsClubSchema, DEFAULT_OG_IMAGE, OG_LOCALE_BY_LANG, SITE_NAME, toAbsoluteUrl } from '../lib/seo';
+import type { Locale } from '../lib/site-copy';
+
 interface Props {
 	title?: string;
 	description?: string;
 	lang?: string;
+	path?: string;
+	ogImage?: string;
+	alternates?: Array<{ lang: string; path: string }>;
+	structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
 	title = 'Escuela de Taekwondo',
 	description = 'Web informativa para una escuela de taekwondo con inscripcion a clase de prueba y contacto directo.',
-	lang = 'ca'
+	lang = 'ca',
+	path = '/',
+	ogImage = DEFAULT_OG_IMAGE,
+	alternates = [],
+	structuredData
 } = Astro.props;
+
+const locale = (lang in OG_LOCALE_BY_LANG ? lang : 'ca') as Locale;
+const canonicalUrl = toAbsoluteUrl(path);
+const ogImageUrl = toAbsoluteUrl(ogImage);
+const seoSchema = structuredData ?? buildSportsClubSchema({
+	locale,
+	description,
+	canonicalPath: path,
+	imagePath: ogImage
+});
 ---
 
 <!doctype html>
@@ -25,9 +46,29 @@ const {
 		/>
 		<link rel="icon" type="image/png" sizes="512x512" href="/images/logo-warriors.png" />
 		<link rel="apple-touch-icon" href="/images/logo-warriors.png" />
+		<link rel="canonical" href={canonicalUrl} />
+		{alternates.map((alternate) => (
+			<link rel="alternate" hreflang={alternate.lang} href={toAbsoluteUrl(alternate.path)} />
+		))}
+		<link rel="alternate" hreflang="x-default" href={toAbsoluteUrl('/')} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+		<meta name="robots" content="index,follow" />
+		<meta property="og:site_name" content={SITE_NAME} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content={OG_LOCALE_BY_LANG[locale]} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:alt" content={title} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+		<meta name="theme-color" content="#05070d" />
 		<title>{title}</title>
+		<script type="application/ld+json" set:html={JSON.stringify(seoSchema)}></script>
 	</head>
 	<body>
 		<slot />
