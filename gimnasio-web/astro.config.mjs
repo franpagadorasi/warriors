@@ -8,21 +8,20 @@ import { defineConfig } from 'astro/config';
 const projectId = process.env.PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.PUBLIC_SANITY_DATASET;
 const site = process.env.PUBLIC_SITE_URL || 'https://clubtaekwondowarriors.cat';
+const sanityProjectId = projectId || 'fldv0kmw';
+const sanityDataset = dataset || 'production';
 
 const integrations = [react()];
 
-if (projectId && dataset) {
-		integrations.unshift(
-			sanity({
-				projectId,
-				dataset,
-				apiVersion: '2026-03-01',
-				useCdn: false,
-				studioBasePath: '/admin',
-				studioRouterHistory: 'browser'
-			})
-		);
-}
+integrations.unshift(
+	sanity({
+		projectId: sanityProjectId,
+		dataset: sanityDataset,
+		apiVersion: '2026-03-01',
+		useCdn: false,
+		studioBasePath: '/admin'
+	})
+);
 
 export default defineConfig({
 	site,

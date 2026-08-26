@@ -67,8 +67,8 @@ export interface HomeContent {
 	reviewSettings: ReviewSettingsContent | null;
 }
 
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
-const dataset = import.meta.env.PUBLIC_SANITY_DATASET;
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'fldv0kmw';
+const dataset = import.meta.env.PUBLIC_SANITY_DATASET || 'production';
 const apiVersion = '2026-03-01';
 
 const fallbackContent: HomeContent = {
