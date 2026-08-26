@@ -78,6 +78,19 @@ export interface SiteCopy {
 		linkLabel: string;
 		items: Array<{ title: string; imageUrl: string; featured?: boolean }>;
 	};
+	conversion: {
+		headerButton: string;
+		panelTitle: string;
+		panelDescription: string;
+		reserveLabel: string;
+		reserveNote: string;
+		whatsappLabel: string;
+		whatsappNote: string;
+		footerTitle: string;
+		footerDescription: string;
+		footerReserveLabel: string;
+		footerWhatsappLabel: string;
+	};
 	cta: {
 		title: string;
 		description: string;
@@ -124,13 +137,13 @@ const shared = {
 	},
 	images: {
 		hero: '/images/hero-taekwondo.jpeg',
-		dojo: '/images/dojo-interior.png',
-		kids: '/images/kids-taekwondo.png',
-		exhibition: '/images/modalidad-exhibicion.png',
-		combat: '/images/modalidad-combate.png',
-		defense: '/images/modalidad-defensa.png',
-		poomsae: '/images/modalidad-poomsae.png',
-		ctaDiana: '/images/cta-diana-kick-right.png'
+		dojo: '/images/optimized/dojo-interior.jpg',
+		kids: '/images/optimized/kids-taekwondo.jpg',
+		exhibition: '/images/optimized/modalidad-exhibicion.jpg',
+		combat: '/images/optimized/modalidad-combate.jpg',
+		defense: '/images/optimized/modalidad-defensa.jpg',
+		poomsae: '/images/optimized/modalidad-poomsae.jpg',
+		ctaDiana: '/images/optimized/cta-diana-kick-right.jpg'
 	},
 	stats: [
 		{ value: '+89', tone: 'red' as const },
@@ -361,7 +374,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					date: '2025-11-02',
 					excerpt:
 						"Els tres Warriors que han competit han aconseguit medalla: Daniel Aliaga s'ha tornat a proclamar campi\u00f3, Nara Zald\u00edvar ha quedat tercera i Gerard Moya ha pujat al podi en la seva primera competici\u00f3.",
-					imageUrl: '/images/noticia-catalunya-infantil-1.png',
+					imageUrl: '/images/optimized/noticia-catalunya-infantil-1.jpg',
 					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
 				{
@@ -369,7 +382,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					date: '2026-05-29',
 					excerpt:
 						'Cap de setmana intens amb tres exhibicions on els nostres alumnes van demostrar disciplina, respecte, esfor\u00e7 i treball en equip.',
-					imageUrl: '/images/cabecera.png',
+					imageUrl: '/images/optimized/cabecera.jpg',
 					href: 'https://www.instagram.com/p/DY72Cf8CKwE/?igsi=MTBzMmtlejlvN3h5bw%3D%3D'
 				},
 				{
@@ -377,7 +390,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					date: '2026-07-17',
 					excerpt:
 						'Un reconeixement molt especial a la traject\u00f2ria de Diana V\u00e1zquez Vall\u00e9s i a tots els anys d\'entrenament, competici\u00f3 i comprom\u00eds amb el taekwondo.',
-					imageUrl: '/images/noticia-medalla-plata.png',
+					imageUrl: '/images/optimized/noticia-medalla-plata.jpg',
 					href: 'https://www.instagram.com/p/Da42UXGDnXasTaGQBIKyEI_4Zf1tyQxs1deI-w0/?igsi=cTZ5cWJ0amYxZnRu'
 				}
 			]
@@ -386,6 +399,19 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			title: 'Galeria',
 			linkLabel: 'Veure galeria completa',
 			items: createGalleryItems('Galeria Warriors')
+		},
+		conversion: {
+			headerButton: 'Reserva plaça',
+			panelTitle: 'Vols provar o saber quin grup és per a tu?',
+			panelDescription: "T'ajudem a triar modalitat, resolem dubtes i et reservem una primera presa de contacte sense compromís.",
+			reserveLabel: 'Reserva la teva plaça',
+			reserveNote: 'Tria modalitat i omple el formulari',
+			whatsappLabel: 'Parla per WhatsApp',
+			whatsappNote: "Resposta directa de l'equip",
+			footerTitle: 'Vols parlar amb nosaltres?',
+			footerDescription: "Pots reservar plaça o escriure'ns directament per WhatsApp.",
+			footerReserveLabel: 'Reserva plaça',
+			footerWhatsappLabel: 'WhatsApp'
 		},
 		cta: {
 			title: 'Preparat per comen\u00e7ar<br />el teu cam\u00ed?',
@@ -611,7 +637,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					date: '2025-11-02',
 					excerpt:
 						'Los tres Warriors que compitieron lograron medalla: Daniel Aliaga volvi\u00f3 a proclamarse campe\u00f3n, Nara Zald\u00edvar repiti\u00f3 tercer puesto y Gerard Moya subi\u00f3 al podio en su primera competici\u00f3n.',
-					imageUrl: '/images/noticia-catalunya-infantil-1.png',
+					imageUrl: '/images/optimized/noticia-catalunya-infantil-1.jpg',
 					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
 				{
@@ -619,7 +645,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					date: '2026-05-29',
 					excerpt:
 						'Fin de semana intenso con tres exhibiciones en las que nuestros alumnos demostraron disciplina, respeto, esfuerzo y trabajo en equipo.',
-					imageUrl: '/images/cabecera.png',
+					imageUrl: '/images/optimized/cabecera.jpg',
 					href: 'https://www.instagram.com/p/DY72Cf8CKwE/?igsi=MTBzMmtlejlvN3h5bw%3D%3D'
 				},
 				{
@@ -627,7 +653,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					date: '2026-07-17',
 					excerpt:
 						'Un reconocimiento muy especial a la trayectoria de Diana V\u00e1zquez Vall\u00e9s y a todos los a\u00f1os de entrenamiento, competici\u00f3n y compromiso con el taekwondo.',
-					imageUrl: '/images/noticia-medalla-plata.png',
+					imageUrl: '/images/optimized/noticia-medalla-plata.jpg',
 					href: 'https://www.instagram.com/p/Da42UXGDnXasTaGQBIKyEI_4Zf1tyQxs1deI-w0/?igsi=cTZ5cWJ0amYxZnRu'
 				}
 			]
@@ -636,6 +662,19 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			title: 'Galer\u00eda',
 			linkLabel: 'Ver galer\u00eda completa',
 			items: createGalleryItems('Galería Warriors')
+		},
+		conversion: {
+			headerButton: 'Reserva plaza',
+			panelTitle: '¿Quieres probar o saber qué grupo encaja contigo?',
+			panelDescription: 'Te ayudamos a elegir modalidad, resolvemos tus dudas y te reservamos una primera toma de contacto sin compromiso.',
+			reserveLabel: 'Reserva tu plaza',
+			reserveNote: 'Elige modalidad y rellena el formulario',
+			whatsappLabel: 'Habla por WhatsApp',
+			whatsappNote: 'Respuesta directa del equipo',
+			footerTitle: '¿Prefieres hablar con nosotros?',
+			footerDescription: 'Puedes reservar tu plaza o escribirnos directamente por WhatsApp.',
+			footerReserveLabel: 'Reserva plaza',
+			footerWhatsappLabel: 'WhatsApp'
 		},
 		cta: {
 			title: '\u00bfListo para empezar<br />tu camino?',
@@ -861,7 +900,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					date: '2025-11-02',
 					excerpt:
 						'All three Warriors who competed won a medal: Daniel Aliaga became champion again, Nara Zald\u00edvar took third place again, and Gerard Moya claimed third in his first competition.',
-					imageUrl: '/images/noticia-catalunya-infantil-1.png',
+					imageUrl: '/images/optimized/noticia-catalunya-infantil-1.jpg',
 					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
 				{
@@ -869,7 +908,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					date: '2026-05-29',
 					excerpt:
 						'An intense weekend with three exhibitions where our students showed discipline, respect, effort, and teamwork.',
-					imageUrl: '/images/cabecera.png',
+					imageUrl: '/images/optimized/cabecera.jpg',
 					href: 'https://www.instagram.com/p/DY72Cf8CKwE/?igsi=MTBzMmtlejlvN3h5bw%3D%3D'
 				},
 				{
@@ -877,7 +916,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					date: '2026-07-17',
 					excerpt:
 						'A very special recognition of Diana V\u00e1zquez Vall\u00e9s\'s career and of all the years of training, competition, and commitment to taekwondo.',
-					imageUrl: '/images/noticia-medalla-plata.png',
+					imageUrl: '/images/optimized/noticia-medalla-plata.jpg',
 					href: 'https://www.instagram.com/p/Da42UXGDnXasTaGQBIKyEI_4Zf1tyQxs1deI-w0/?igsi=cTZ5cWJ0amYxZnRu'
 				}
 			]
@@ -886,6 +925,19 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			title: 'Gallery',
 			linkLabel: 'View full gallery',
 			items: createGalleryItems('Warriors Gallery')
+		},
+		conversion: {
+			headerButton: 'Book now',
+			panelTitle: 'Want to try a class or find the right group for you?',
+			panelDescription: 'We help you choose the right program, answer your questions, and book your first contact session with no pressure.',
+			reserveLabel: 'Book your spot',
+			reserveNote: 'Choose your program and fill in the form',
+			whatsappLabel: 'Chat on WhatsApp',
+			whatsappNote: 'Direct reply from the team',
+			footerTitle: 'Would you rather talk to us first?',
+			footerDescription: 'You can book your spot or message us directly on WhatsApp.',
+			footerReserveLabel: 'Book now',
+			footerWhatsappLabel: 'WhatsApp'
 		},
 		cta: {
 			title: 'Ready to start<br />your journey?',

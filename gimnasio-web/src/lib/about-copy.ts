@@ -66,8 +66,8 @@ export const aboutPageCopy: Record<Locale, AboutPageCopy> = {
 			eyebrow: 'Sobre nosaltres',
 			title: 'Molt més que un club',
 			description: [
-				"Club Taekwondo Warriors neix amb la voluntat d'apropar el taekwondo olímpic a Sant Vicenç dels Horts des d'una mirada propera, exigent i humana.",
-				"Som un projecte esportiu i educatiu on cada alumne pot créixer al seu ritme, aprendre valors i sentir-se part d'una família que acompanya dins i fora del tatami."
+				"Club Taekwondo Warriors neix per apropar el taekwondo olímpic a Sant Vicenç dels Horts des d'una mirada propera, exigent i humana.",
+				"Som un projecte esportiu i educatiu on cada alumne pot créixer, aprendre valors i sentir-se part d'una família dins i fora del tatami."
 			],
 			primaryCta: 'Reserva la teva plaça',
 			secondaryCta: "Contacta amb l'equip"
@@ -192,8 +192,8 @@ export const aboutPageCopy: Record<Locale, AboutPageCopy> = {
 			eyebrow: 'Sobre nosotros',
 			title: 'Mucho más que un club',
 			description: [
-				'Club Taekwondo Warriors nace con la voluntad de acercar el taekwondo olímpico a Sant Vicenç dels Horts desde una mirada cercana, exigente y humana.',
-				'Somos un proyecto deportivo y educativo donde cada alumno puede crecer a su ritmo, aprender valores y sentirse parte de una familia que acompaña dentro y fuera del tatami.'
+				'Club Taekwondo Warriors nace para acercar el taekwondo olímpico a Sant Vicenç dels Horts desde una mirada cercana, exigente y humana.',
+				'Somos un proyecto deportivo y educativo donde cada alumno puede crecer, aprender valores y sentirse parte de una familia dentro y fuera del tatami.'
 			],
 			primaryCta: 'Reserva tu plaza',
 			secondaryCta: 'Contacta con el equipo'
@@ -317,8 +317,8 @@ export const aboutPageCopy: Record<Locale, AboutPageCopy> = {
 			eyebrow: 'About us',
 			title: 'Much more than a club',
 			description: [
-				'Club Taekwondo Warriors was created to bring Olympic taekwondo to Sant Vicenç dels Horts with a close, demanding, and human approach.',
-				'We are a sporting and educational project where every student can grow at their own pace, learn values, and feel part of a family that supports them on and off the mat.'
+				'Club Taekwondo Warriors was created to bring Olympic taekwondo to Sant Vicenç dels Horts through a close, demanding, and human approach.',
+				'We are a sporting and educational project where every student can grow, learn values, and feel part of a family on and off the mat.'
 			],
 			primaryCta: 'Book your spot',
 			secondaryCta: 'Contact the team'

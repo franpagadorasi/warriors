@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ResponsiveImage from './ResponsiveImage.astro';
 import { getSiteCopy, type Locale } from '../lib/site-copy';
 import { aboutPaths } from '../lib/about-copy';
 
@@ -30,6 +31,18 @@ const mapDirectionsUrl = `https://www.google.com/maps/search/?api=1&query=${enco
 const googleReviewsUrl =
 	'https://www.google.com/search?sa=X&sca_esv=72d5cd2ff8b49349&hl=es-ES&sxsrf=APpeQnteq4VAaMWerGiHchsD0iSncs0cfA:1786449416188&q=Club+Taekwondo+Warriors+Rese%C3%B1as&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDMzMjA2NjSxMLUwMTayNDEwMdjAyPiKUcE5pzRJISQxNbs8Py8lXyE8sagoM7-oWCEotTj18MbE4kWsBJUAAHwBsRVhAAAA&rldimm=16620331485843294040&tbm=lcl&ved=2ahUKEwjSg_HWwpiWAxXtSfEDHV_pK2QQ9fQKegQIVRAG&biw=1920&bih=911&dpr=1#lkt=LocalPoiReviews';
 const trialWhatsappUrl = `${copy.footer.whatsappUrl}?text=${copy.hero.trialWhatsappMessage}`;
+const mobileImageBySrc: Record<string, string> = {
+	'/images/optimized/kids-taekwondo.jpg': '/images/optimized/kids-taekwondo-mobile.jpg',
+	'/images/optimized/modalidad-combate.jpg': '/images/optimized/modalidad-combate-mobile.jpg',
+	'/images/optimized/modalidad-poomsae.jpg': '/images/optimized/modalidad-poomsae-mobile.jpg',
+	'/images/optimized/modalidad-defensa.jpg': '/images/optimized/modalidad-defensa-mobile.jpg',
+	'/images/optimized/modalidad-exhibicion.jpg': '/images/optimized/modalidad-exhibicion-mobile.jpg',
+	'/images/optimized/dojo-interior.jpg': '/images/optimized/dojo-interior-mobile.jpg',
+	'/images/optimized/noticia-catalunya-infantil-1.jpg': '/images/optimized/noticia-catalunya-infantil-1-mobile.jpg',
+	'/images/optimized/cabecera.jpg': '/images/optimized/cabecera-mobile.jpg',
+	'/images/optimized/noticia-medalla-plata.jpg': '/images/optimized/noticia-medalla-plata-mobile.jpg',
+	'/images/optimized/cta-diana-kick-right.jpg': '/images/optimized/cta-diana-kick-right-mobile.jpg'
+};
 
 const pricingPlans = copy.pricing.plans;
 const clubReasons = copy.pricing.reasons;
@@ -246,7 +259,13 @@ const currentYear = new Date().getFullYear();
 					{copy.classes.items.map((item) => (
 						<article class="class-card">
 							<div class="class-thumb">
-								<img src={item.imageUrl} alt={item.title} />
+								<ResponsiveImage
+									src={item.imageUrl}
+									mobileSrc={mobileImageBySrc[item.imageUrl]}
+									alt={item.title}
+									loading="lazy"
+									decoding="async"
+								/>
 							</div>
 
 							<div class="class-copy">
@@ -446,6 +465,27 @@ const currentYear = new Date().getFullYear();
 			</div>
 		</section>
 
+		<section class="conversion-panel-section" aria-labelledby="conversion-panel-title">
+			<div class="container">
+				<div class="conversion-panel">
+					<div class="conversion-panel-copy">
+						<h2 id="conversion-panel-title">{copy.conversion.panelTitle}</h2>
+						<p>{copy.conversion.panelDescription}</p>
+					</div>
+					<div class="conversion-panel-actions">
+						<button class="conversion-action conversion-action-primary" type="button" data-open-reserva-modal>
+							<strong>{copy.conversion.reserveLabel}</strong>
+							<span>{copy.conversion.reserveNote}</span>
+						</button>
+						<a class="conversion-action conversion-action-whatsapp" href={trialWhatsappUrl} target="_blank" rel="noreferrer">
+							<strong>{copy.conversion.whatsappLabel}</strong>
+							<span>{copy.conversion.whatsappNote}</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<section class="schedule-showcase" id="horarios">
 			<div class="container">
 				<div class="section-title-line">
@@ -574,7 +614,13 @@ const currentYear = new Date().getFullYear();
 						{newsItems.map((item) => (
 							<article class="news-card">
 								<div class="news-media">
-									<img src={item.imageUrl || '/images/dojo-interior.png'} alt={item.title} />
+									<ResponsiveImage
+										src={item.imageUrl || '/images/optimized/dojo-interior.jpg'}
+										mobileSrc={mobileImageBySrc[item.imageUrl || '/images/optimized/dojo-interior.jpg']}
+										alt={item.title}
+										loading="lazy"
+										decoding="async"
+									/>
 								</div>
 								<div class="news-copy">
 									<p class="news-date">{formatNewsDate(item.date)}</p>
@@ -609,7 +655,13 @@ const currentYear = new Date().getFullYear();
 									{galleryItems.map((item) => (
 										<div class="gallery-slide">
 											<div class="gallery-card">
-												<img src={item.imageUrl || '/images/dojo-interior.png'} alt={item.title} loading="lazy" />
+												<ResponsiveImage
+													src={item.imageUrl || '/images/optimized/dojo-interior.jpg'}
+													mobileSrc={mobileImageBySrc[item.imageUrl || '/images/optimized/dojo-interior.jpg']}
+													alt={item.title}
+													loading="lazy"
+													decoding="async"
+												/>
 											</div>
 										</div>
 									))}
@@ -644,7 +696,13 @@ const currentYear = new Date().getFullYear();
 		<section class="cta-banner">
 			<div class="container cta-shell">
 				<div class="cta-image">
-					<img src={copy.cta.imageUrl} alt={copy.cta.imageAlt} />
+					<ResponsiveImage
+						src={copy.cta.imageUrl}
+						mobileSrc={mobileImageBySrc[copy.cta.imageUrl]}
+						alt={copy.cta.imageAlt}
+						loading="lazy"
+						decoding="async"
+					/>
 				</div>
 
 				<div class="cta-copy">
@@ -652,9 +710,11 @@ const currentYear = new Date().getFullYear();
 					<p>{copy.cta.description}</p>
 				</div>
 
-				<button class="button button-primary cta-button" type="button" data-open-reserva-modal onclick="window.__openReservaModal && window.__openReservaModal()">
-					{copy.cta.button}
-				</button>
+				<div class="cta-actions">
+					<button class="button button-primary cta-button" type="button" data-open-reserva-modal onclick="window.__openReservaModal && window.__openReservaModal()">
+						{copy.cta.button}
+					</button>
+				</div>
 			</div>
 		</section>
 
@@ -841,7 +901,7 @@ const currentYear = new Date().getFullYear();
 					}
 				});
 
-				nav.querySelectorAll('a').forEach((link) => {
+				nav.querySelectorAll('a, button[data-open-reserva-modal]').forEach((link) => {
 					link.addEventListener('click', closeMenu);
 				});
 
@@ -1027,9 +1087,9 @@ const currentYear = new Date().getFullYear();
 
 	.header-row {
 		display: grid;
-		grid-template-columns: auto 1fr auto;
+		grid-template-columns: auto 1fr auto auto;
 		align-items: center;
-		gap: 2.2rem;
+		gap: 1.2rem;
 		min-height: 6.4rem;
 	}
 
@@ -1320,6 +1380,12 @@ const currentYear = new Date().getFullYear();
 	.button-blue {
 		background: #174eff;
 		color: #fff;
+	}
+
+	.button-whatsapp {
+		background: linear-gradient(135deg, #17a34a, #21c45d);
+		color: #fff;
+		box-shadow: 0 10px 22px rgba(18, 163, 74, 0.2);
 	}
 
 	.button-outline-dark {
@@ -1664,6 +1730,89 @@ const currentYear = new Date().getFullYear();
 		padding: 0 0 2.75rem;
 		background: #f5f5f5;
 		color: #111827;
+	}
+
+	.conversion-panel-section {
+		padding: 0 0 2.75rem;
+		background: #f5f5f5;
+		color: #111827;
+	}
+
+	.conversion-panel {
+		display: grid;
+		grid-template-columns: minmax(0, 1.2fr) minmax(24rem, 0.8fr);
+		gap: 1.25rem;
+		padding: 1.45rem;
+		border-radius: 1.35rem;
+		background:
+			radial-gradient(circle at top left, rgba(255, 206, 84, 0.18), transparent 28%),
+			linear-gradient(180deg, #121722 0%, #0d1017 100%);
+		color: #fff;
+		box-shadow: 0 18px 40px rgba(15, 18, 28, 0.16);
+	}
+
+	.conversion-panel-copy {
+		display: grid;
+		align-content: center;
+		gap: 0.75rem;
+	}
+
+	.conversion-panel-copy h2 {
+		margin: 0;
+		font-size: clamp(1.55rem, 3vw, 2.25rem);
+		line-height: 1.02;
+		text-transform: uppercase;
+	}
+
+	.conversion-panel-copy p {
+		margin: 0;
+		max-width: 42rem;
+		color: rgba(255, 255, 255, 0.82);
+		line-height: 1.6;
+	}
+
+	.conversion-panel-actions {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.9rem;
+	}
+
+	.conversion-action {
+		display: grid;
+		gap: 0.3rem;
+		padding: 1rem 1.05rem;
+		border-radius: 1rem;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		text-align: left;
+		color: #fff;
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+		transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+	}
+
+	.conversion-action strong {
+		font-size: 1rem;
+		line-height: 1.1;
+		text-transform: uppercase;
+	}
+
+	.conversion-action span {
+		font-size: 0.88rem;
+		line-height: 1.4;
+		color: rgba(255, 255, 255, 0.76);
+	}
+
+	.conversion-action-primary {
+		background: linear-gradient(135deg, #d51319, #ff3328);
+	}
+
+	.conversion-action-whatsapp {
+		background: linear-gradient(135deg, #149546, #22c15c);
+	}
+
+	.conversion-action:hover {
+		transform: translateY(-2px);
+		filter: brightness(1.04);
+		box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
 	}
 
 	.schedule-showcase {
@@ -2444,6 +2593,7 @@ const currentYear = new Date().getFullYear();
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center 32%;
 	}
 
 	.class-copy {
@@ -2607,6 +2757,7 @@ const currentYear = new Date().getFullYear();
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center 28%;
 		display: block;
 	}
 
@@ -2689,6 +2840,14 @@ const currentYear = new Date().getFullYear();
 		aspect-ratio: 16 / 7.1;
 	}
 
+	.gallery-card {
+		display: grid;
+		place-items: center;
+		background:
+			radial-gradient(circle at top, rgba(28, 87, 232, 0.06), transparent 38%),
+			#ffffff;
+	}
+
 	.gallery-controls {
 		display: flex;
 		align-items: center;
@@ -2700,15 +2859,14 @@ const currentYear = new Date().getFullYear();
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
-		width: 3.55rem;
-		height: 3.55rem;
-		border: 0;
+		width: 3rem;
+		height: 3rem;
+		border: 1px solid rgba(16, 24, 40, 0.08);
 		border-radius: 999px;
-		background: linear-gradient(180deg, #ff3d33 0%, #e31d1c 100%);
-		color: #fff;
-		box-shadow: 0 16px 34px rgba(227, 29, 28, 0.32);
-		font-size: 2rem;
-		font-weight: 900;
+		background: rgba(255, 255, 255, 0.96);
+		color: #0f172a;
+		box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+		font-size: 0;
 		line-height: 1;
 		display: inline-flex;
 		align-items: center;
@@ -2732,8 +2890,29 @@ const currentYear = new Date().getFullYear();
 
 	.gallery-nav:hover {
 		transform: translateY(-50%) scale(1.05);
-		box-shadow: 0 18px 36px rgba(227, 29, 28, 0.38);
-		background: linear-gradient(180deg, #ff4a41 0%, #ef221f 100%);
+		box-shadow: 0 18px 32px rgba(15, 23, 42, 0.18);
+		background: #ffffff;
+		border-color: rgba(227, 29, 28, 0.18);
+	}
+
+	.gallery-nav::before {
+		font-size: 2rem;
+		font-weight: 500;
+		line-height: 1;
+		color: #10245f;
+		transform: translateY(-0.05rem);
+	}
+
+	.gallery-nav-prev::before {
+		content: '‹';
+	}
+
+	.gallery-nav-next::before {
+		content: '›';
+	}
+
+	.gallery-nav-arrow {
+		display: none;
 	}
 
 	.gallery-dots {
@@ -2761,10 +2940,18 @@ const currentYear = new Date().getFullYear();
 		background: #e31d1c;
 	}
 
+	.gallery-card picture {
+		display: grid !important;
+		place-items: center;
+		width: 100%;
+		height: 100%;
+	}
+
 	.gallery-card img {
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
+		object-fit: contain;
+		object-position: center center;
 		display: block;
 	}
 
@@ -2850,8 +3037,16 @@ const currentYear = new Date().getFullYear();
 		line-height: 1.35;
 	}
 
-	.cta-button {
+	.cta-actions {
+		display: grid;
+		gap: 0.8rem;
 		margin: auto 2.2rem 1.5rem auto;
+		position: relative;
+		z-index: 1;
+		align-self: end;
+	}
+
+	.cta-button {
 		padding: 1rem 1.65rem;
 		min-width: 11.75rem;
 		border-radius: 1rem;
@@ -3310,12 +3505,14 @@ const currentYear = new Date().getFullYear();
 		.feature-band,
 		.class-grid,
 		.pricing-grid,
-		.stats-grid {
+		.stats-grid,
+		.conversion-panel-actions {
 			grid-template-columns: 1fr 1fr;
 		}
 
 		.schedule-board,
-		.schedule-notes {
+		.schedule-notes,
+		.conversion-panel {
 			grid-template-columns: 1fr;
 		}
 
@@ -3357,8 +3554,14 @@ const currentYear = new Date().getFullYear();
 			grid-row: auto;
 		}
 
-		.cta-button {
+		.cta-actions {
 			margin: 0 1.2rem 1.2rem;
+			justify-self: stretch;
+			align-self: stretch;
+		}
+
+		.cta-button {
+			margin: 0;
 		}
 
 		.gallery-slide .gallery-card {
@@ -3493,7 +3696,9 @@ const currentYear = new Date().getFullYear();
 		.feature-band,
 		.class-grid,
 		.pricing-grid,
-		.stats-grid {
+		.stats-grid,
+		.conversion-panel-actions,
+		.cta-actions {
 			grid-template-columns: 1fr;
 		}
 
@@ -3642,10 +3847,16 @@ const currentYear = new Date().getFullYear();
 		}
 
 		.cta-button {
+			width: 100%;
+			margin: 0;
+			align-self: stretch;
+			min-width: 0;
+		}
+
+		.cta-actions {
 			width: calc(100% - 2.2rem);
 			margin: 0 1.1rem 1.1rem;
 			align-self: stretch;
-			min-width: 0;
 		}
 
 		.reserva-modal {

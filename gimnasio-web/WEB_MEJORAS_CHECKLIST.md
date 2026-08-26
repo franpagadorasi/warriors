@@ -17,10 +17,10 @@
 - [ ] Hacer revisión visual final en móvil real y corregir detalles finos si aparecen.
 
 ### Conversión
-- [ ] Reforzar llamadas a la acción en puntos clave de la web.
-- [ ] Revisar visibilidad del botón de reserva o prueba gratuita.
-- [ ] Añadir más puntos de contacto directo con WhatsApp si conviene.
-- [ ] Comprobar que los CTA sean consistentes entre idiomas.
+- [x] Reforzar llamadas a la acción en puntos clave de la web.
+- [x] Revisar visibilidad del botón de reserva o prueba gratuita.
+- [x] Añadir más puntos de contacto directo con WhatsApp si conviene.
+- [x] Comprobar que los CTA sean consistentes entre idiomas.
 
 ### Consistencia visual
 - [x] Unificar todos los botones: altura, padding, radio, tipografía y sombra.
@@ -37,22 +37,15 @@
 ## Prioridad media
 
 ### Contenido y legibilidad
-- [ ] Acortar algunos bloques largos de texto en `Sobre nosaltres`.
-- [ ] Repartir mejor ciertos párrafos para que sean más fáciles de leer.
-- [ ] Revisar textos en los tres idiomas para mantener el mismo tono y estructura.
-- [ ] Comprobar que no haya textos demasiado largos en móvil.
+- [x] Repartir mejor ciertos párrafos para que sean más fáciles de leer.
+- [x] Revisar textos en los tres idiomas para mantener el mismo tono y estructura.
+- [x] Comprobar que no haya textos demasiado largos en móvil.
 
 ### Imágenes y rendimiento
-- [ ] Optimizar imágenes pesadas para mejorar la velocidad de carga.
-- [ ] Preparar versiones más ligeras para móvil cuando haga falta.
-- [ ] Revisar encuadres y recortes para que no se corten mal en responsive.
-- [ ] Comprobar consistencia visual entre fotos reales y recursos generados.
-
-### Confianza y prueba social
-- [ ] Revisar cómo se muestran reseñas y logros destacados.
-- [ ] Valorar añadir más testimonios o reseñas visibles.
-- [ ] Reforzar la presencia de federaciones, colaboraciones y reconocimientos.
-- [ ] Revisar si la sección de noticias transmite suficiente actividad real del club.
+- [x] Optimizar imágenes pesadas para mejorar la velocidad de carga.
+- [x] Preparar versiones más ligeras para móvil cuando haga falta.
+- [x] Revisar encuadres y recortes para que no se corten mal en responsive.
+- [x] Comprobar consistencia visual entre fotos reales y recursos generados.
 
 ### SEO local
 - [ ] Revisar títulos SEO y metadescripciones.
