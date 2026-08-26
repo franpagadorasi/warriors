@@ -627,6 +627,8 @@ const currentYear = new Date().getFullYear();
 							<article class="news-card">
 								<div class="news-media">
 									<ResponsiveImage
+										class="news-media-picture"
+										imgClass="news-media-image"
 										src={item.imageUrl || '/images/optimized/dojo-interior.jpg'}
 										mobileSrc={mobileImageBySrc[item.imageUrl || '/images/optimized/dojo-interior.jpg']}
 										alt={item.title}
@@ -668,6 +670,8 @@ const currentYear = new Date().getFullYear();
 										<div class="gallery-slide">
 											<div class="gallery-card">
 												<ResponsiveImage
+													class="gallery-image-picture"
+													imgClass="gallery-image"
 													src={item.imageUrl || '/images/optimized/dojo-interior.jpg'}
 													mobileSrc={mobileImageBySrc[item.imageUrl || '/images/optimized/dojo-interior.jpg']}
 													alt={item.title}
@@ -2765,7 +2769,18 @@ const currentYear = new Date().getFullYear();
 		overflow: hidden;
 	}
 
-	.news-media img {
+	.news-media {
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.news-media :global(.news-media-picture) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.news-media :global(.news-media-image) {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -2860,6 +2875,12 @@ const currentYear = new Date().getFullYear();
 			#ffffff;
 	}
 
+	.gallery-card :global(.gallery-image-picture) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
 	.gallery-controls {
 		display: flex;
 		align-items: center;
@@ -2952,14 +2973,7 @@ const currentYear = new Date().getFullYear();
 		background: #e31d1c;
 	}
 
-	.gallery-card picture {
-		display: grid !important;
-		place-items: center;
-		width: 100%;
-		height: 100%;
-	}
-
-	.gallery-card img {
+	.gallery-card :global(.gallery-image) {
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
