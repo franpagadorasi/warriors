@@ -6,6 +6,8 @@ interface Props {
 	class?: string;
 	imgClass?: string;
 	stretch?: boolean;
+	pictureStyle?: string;
+	imgStyle?: string;
 	loading?: 'eager' | 'lazy';
 	decoding?: 'sync' | 'async' | 'auto';
 	fetchpriority?: 'high' | 'low' | 'auto';
@@ -21,6 +23,8 @@ const {
 	class: className,
 	imgClass,
 	stretch = true,
+	pictureStyle,
+	imgStyle,
 	loading = 'lazy',
 	decoding = 'async',
 	fetchpriority,
@@ -30,10 +34,11 @@ const {
 } = Astro.props;
 ---
 
-<picture class={className} style={stretch ? 'display:block;width:100%;height:100%;' : undefined}>
+<picture class={className} style={pictureStyle ?? (stretch ? 'display:block;width:100%;height:100%;' : undefined)}>
 	{mobileSrc && <source media="(max-width: 760px)" srcset={mobileSrc} />}
 	<img
 		class={imgClass}
+		style={imgStyle}
 		src={src}
 		alt={alt}
 		loading={loading}
