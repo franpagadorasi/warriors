@@ -749,7 +749,10 @@ const currentYear = new Date().getFullYear();
 								<div class="gallery-track" data-gallery-track>
 									{galleryItems.map((item) => (
 										<div class="gallery-slide">
-											<div class:list={['gallery-card', item.isPortrait && 'gallery-card-portrait']}>
+											<div
+												class:list={['gallery-card', item.isPortrait && 'gallery-card-portrait']}
+												style={item.isPortrait ? 'width:min(31rem,100%);aspect-ratio:4 / 5.2;margin-inline:auto;' : undefined}
+											>
 												<ResponsiveImage
 													class="gallery-image-picture"
 													imgClass="gallery-image"
@@ -2961,12 +2964,6 @@ const currentYear = new Date().getFullYear();
 
 	.gallery-slide .gallery-card {
 		aspect-ratio: 16 / 7.1;
-	}
-
-	.gallery-slide .gallery-card.gallery-card-portrait {
-		aspect-ratio: 4 / 5.2;
-		width: min(31rem, 100%);
-		margin-inline: auto;
 	}
 
 	.gallery-card {
