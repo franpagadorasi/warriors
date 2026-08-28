@@ -76,7 +76,7 @@ export interface SiteCopy {
 	gallery: {
 		title: string;
 		linkLabel: string;
-		items: Array<{ title: string; imageUrl: string; featured?: boolean }>;
+		items: Array<{ title: string; imageUrl: string; featured?: boolean; isPortrait?: boolean }>;
 	};
 	conversion: {
 		headerButton: string;
@@ -182,11 +182,22 @@ const galleryImageFiles = [
 	'22.jpeg'
 ] as const;
 
+const portraitGalleryImages = new Set([
+	'2.jpeg',
+	'3.jpeg',
+	'3.png',
+	'4.jpeg',
+	'5.png',
+	'6.jpeg',
+	'10.jpeg'
+]);
+
 function createGalleryItems(label: string) {
 	return galleryImageFiles.map((fileName, index) => ({
 		title: `${label} ${index + 1}`,
 		imageUrl: `/images/galeria/${fileName}`,
-		featured: index === 0
+		featured: index === 0,
+		isPortrait: portraitGalleryImages.has(fileName)
 	}));
 }
 
