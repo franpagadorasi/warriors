@@ -6,21 +6,21 @@ const configured = isSanityConfigured();
 ---
 
 <Layout
-	title="Panel de administracion | Escuela de Taekwondo"
-	description="Instrucciones para activar el panel de edicion con Sanity."
+	title="Panel de administración | Escuela de Taekwondo"
+	description="Instrucciones para activar el panel de edición con Sanity."
 >
 	<main class="container admin-page">
-		<p class="eyebrow">Panel de edicion</p>
-		<h1 class="section-title">Sanity sera el panel de administracion de la web</h1>
+		<p class="eyebrow">Panel de edición</p>
+		<h1 class="section-title">Sanity será el panel de administración de la web</h1>
 		<p class="section-copy">
-			La integracion base ya esta preparada. En cuanto anadas las variables del proyecto,
-			el panel quedara disponible en <strong>/admin</strong>.
+			La integración base ya está preparada. En cuanto añadas las variables del proyecto,
+			el panel quedará disponible en <strong>/admin</strong>.
 		</p>
 
 		<div class="admin-card">
 			{configured ? (
 				<>
-					<h2>Configuracion detectada</h2>
+					<h2>Configuración detectada</h2>
 					<p>
 						La web ya tiene variables de Sanity disponibles. Abre <a href="/admin">/admin</a>
 						para entrar al panel.
@@ -30,8 +30,8 @@ const configured = isSanityConfigured();
 						<li>Opciones del modal de reserva.</li>
 						<li>Noticias con imagen y enlace a Instagram.</li>
 						<li>Patrocinadores y colaboradores.</li>
-						<li>Linea de estadisticas.</li>
-						<li>Nota media y numero de reseñas de Google.</li>
+						<li>Línea de estadísticas.</li>
+						<li>Nota media y número de reseñas de Google.</li>
 					</ul>
 				</>
 			) : (
@@ -40,7 +40,7 @@ const configured = isSanityConfigured();
 					<ol>
 						<li>Crear una cuenta y un proyecto gratis en Sanity.</li>
 						<li>Copiar `.env.example` a `.env` y rellenar el `projectId` y el dataset.</li>
-						<li>Reiniciar `npm run dev` para que Astro cargue la integracion.</li>
+						<li>Reiniciar `npm run dev` para que Astro cargue la integración.</li>
 					</ol>
 				</>
 			)}

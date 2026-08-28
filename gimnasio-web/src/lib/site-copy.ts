@@ -443,7 +443,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			mapSubtitle: 'Troba el club i vine a con\u00e8ixer-nos',
 			hours: 'Dl-V: 17:30 - 20:30',
 			mapButton: 'Com arribar',
-			address: 'Calle Moss\u00e8n Jacint Verdaguer 274',
+			address: 'Carrer Moss\u00e8n Jacint Verdaguer 274',
 			phone: '644 193 620',
 			email: 'clubtaekwondowarriors@gmail.com',
 			instagramLabel: '@club_taekwondo_warriors',
@@ -706,7 +706,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			mapSubtitle: 'Encuentra el club y ven a conocernos',
 			hours: 'L-V: 17:30 - 20:30',
 			mapButton: 'C\u00f3mo llegar',
-			address: 'Calle Moss\u00e8n Jacint Verdaguer 274',
+			address: 'Carrer Moss\u00e8n Jacint Verdaguer 274',
 			phone: '644 193 620',
 			email: 'clubtaekwondowarriors@gmail.com',
 			instagramLabel: '@club_taekwondo_warriors',
@@ -741,7 +741,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			description:
 				'We shape people on and off the mat. Discipline, respect, improvement, and passion in every training session.',
 			primaryCta: 'Free trial',
-			secondaryCta: 'Meet us',
+			secondaryCta: 'Get to know us',
 			trialWhatsappMessage:
 				"Hi! I'd like to get information about a trial class at Club Taekwondo Warriors.%0A%0AName:%0AAge:%0AProgram of interest:",
 			sideWords: ['Agile', 'Strong', 'Precise', 'Unbreakable'],
@@ -762,7 +762,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			imagesAlt: ['Training session with Diana', 'Belt ceremony', 'Technical group practice', 'Group posture practice', 'Coach briefing with students']
 		},
 		classes: {
-			title: 'Programs we work on',
+			title: 'Programs we offer',
 			moreInfo: 'More info',
 			items: [
 				{
@@ -786,7 +786,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				},
 				{
 					title: 'Self-defense',
-					description: 'Training that helps our students face risky situations with safety, confidence, and the ability to react.',
+					description: 'Training that helps our students handle risky situations safely, with confidence and the ability to react.',
 					audience: 'Real-world safety',
 					imageUrl: shared.images.defense
 				}
@@ -934,7 +934,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			reserveNote: 'Choose your program and fill in the form',
 			whatsappLabel: 'Chat on WhatsApp',
 			whatsappNote: 'Direct reply from the team',
-			footerTitle: 'Would you rather talk to us first?',
+			footerTitle: 'Would you like to talk to us first?',
 			footerDescription: 'You can book your spot or message us directly on WhatsApp.',
 			footerReserveLabel: 'Book now',
 			footerWhatsappLabel: 'WhatsApp'
@@ -969,7 +969,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			mapSubtitle: 'Find the club and come meet us',
 			hours: 'Mon-Fri: 17:30 - 20:30',
 			mapButton: 'Get directions',
-			address: 'Calle Moss\u00e8n Jacint Verdaguer 274',
+			address: 'Carrer Moss\u00e8n Jacint Verdaguer 274',
 			phone: '644 193 620',
 			email: 'clubtaekwondowarriors@gmail.com',
 			instagramLabel: '@club_taekwondo_warriors',
