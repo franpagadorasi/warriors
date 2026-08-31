@@ -572,9 +572,9 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			titleMain: 'Taekwondo',
 			titleAccent: 'Ol\u00edmpico',
 			values: 'Disciplina. Respeto. Superaci\u00f3n.',
-			chant: '\u00a1Somos Warriors!',
+			chant: 'Somos Warriors.',
 			description:
-				'Formamos personas dentro y fuera del tatami. Disciplina, respeto, superaci\u00f3n y pasi\u00f3n en cada entrenamiento.',
+				'Formamos personas dentro y fuera del tatami. Trabajamos la disciplina, el respeto y la superaci\u00f3n en cada entrenamiento.',
 			primaryCta: 'Prueba gratis',
 			secondaryCta: 'Con\u00f3cenos',
 			trialWhatsappMessage:
@@ -583,16 +583,16 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			imageAlt: 'Combate de taekwondo ol\u00edmpico'
 		},
 		features: [
-			{ title: 'Taekwondo ol\u00edmpico', description: 'Arte marcial y deporte de combate reglado.', tone: 'red' },
-			{ title: 'Formaci\u00f3n', description: 'Desde iniciaci\u00f3n hasta competici\u00f3n.', tone: 'blue' },
+			{ title: 'Taekwondo ol\u00edmpico', description: 'Arte marcial y deporte de combate que combina t\u00e9cnica, disciplina y superaci\u00f3n.', tone: 'red' },
+			{ title: 'Formaci\u00f3n', description: 'Desde la iniciaci\u00f3n hasta la competici\u00f3n.', tone: 'blue' },
 			{ title: 'Todas las edades', description: 'Ni\u00f1os, j\u00f3venes y adultos.', highlight: 'Para todos los niveles.', tone: 'blue' },
-			{ title: 'Equipo de competici\u00f3n', description: 'Entrenamiento para alto rendimiento.', tone: 'red' }
+			{ title: 'Equipo de competici\u00f3n', description: 'Preparaci\u00f3n orientada al alto rendimiento y la competici\u00f3n.', tone: 'red' }
 		],
 		about: {
 			kicker: 'Sobre nosotros',
 			title: 'Formamos guerreros dentro y fuera del tatami.',
 			description:
-				'En Club Taekwondo Warriors ayudamos a crecer a cada alumno a trav\u00e9s del taekwondo ol\u00edmpico, con una metodolog\u00eda cercana, t\u00e9cnica y exigente.',
+				'En Club Taekwondo Warriors acompa\u00f1amos a cada alumno en su crecimiento a trav\u00e9s del taekwondo ol\u00edmpico, con una metodolog\u00eda cercana, t\u00e9cnica y exigente.',
 			cta: 'Conoce nuestra historia',
 			imagesAlt: ['Entrenamiento con Diana', 'Cambio de cintur\u00f3n', 'Trabajo t\u00e9cnico del grupo', 'Trabajo postural en grupo', 'Explicaci\u00f3n con los alumnos']
 		},
@@ -602,26 +602,26 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			items: [
 				{
 					title: 'T\u00e9cnica y poomsae',
-					description: 'Secuencias de movimientos t\u00e9cnicos ejecutados de forma ordenada para perfeccionar la t\u00e9cnica, el equilibrio y la concentraci\u00f3n.',
+					description: 'Secuencias de movimientos t\u00e9cnicos que trabajamos de forma precisa y ordenada para mejorar la t\u00e9cnica, el equilibrio, la coordinaci\u00f3n y la concentraci\u00f3n.',
 					audience: 'Precisi\u00f3n y control',
 					imageUrl: shared.images.poomsae
 				},
 				{
 					title: 'Combate',
-					description: 'Una disciplina que combina superaci\u00f3n, confianza y esp\u00edritu de lucha, ayudando a nuestros alumnos a crecer, respetar y superarse en cada reto.',
+					description: 'Una disciplina que combina t\u00e9cnica, superaci\u00f3n, confianza y esp\u00edritu de lucha, ayudando a nuestros alumnos a crecer, respetar y superarse en cada reto.',
 					audience: 'Esp\u00edritu de lucha',
 					imageUrl: shared.images.combat
 				},
 				{
 					title: 'Exhibici\u00f3n',
 					description:
-						'Un momento para compartir, disfrutar y demostrar todo lo que nuestros alumnos han conseguido con esfuerzo, constancia y pasi\u00f3n.',
+						'Una oportunidad para compartir, disfrutar y demostrar todo lo aprendido con esfuerzo, constancia y pasi\u00f3n.',
 					audience: 'Expresi\u00f3n y pasi\u00f3n',
 					imageUrl: shared.images.exhibition
 				},
 				{
 					title: 'Defensa personal',
-					description: 'Una formaci\u00f3n que ayuda a nuestros alumnos a afrontar situaciones de riesgo con seguridad, confianza y capacidad de reacci\u00f3n.',
+					description: 'Aprendizaje pr\u00e1ctico para afrontar situaciones de riesgo con mayor seguridad, confianza y capacidad de reacci\u00f3n.',
 					audience: 'Seguridad real',
 					imageUrl: shared.images.defense
 				}
@@ -640,36 +640,36 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					frequency: '/mes',
 					items: [
 						{ icon: 'calendar', text: '1 d\u00eda por semana' },
-						{ icon: 'user', text: 'Ideal para empezar y descubrir el taekwondo' },
-						{ icon: 'target', text: 'Aprendizaje de t\u00e9cnicas b\u00e1sicas' },
-						{ icon: 'shield', text: 'Desarrollo de coordinaci\u00f3n, disciplina y valores' }
+						{ icon: 'user', text: 'Ideal para descubrir el taekwondo y dar los primeros pasos.' },
+						{ icon: 'target', text: 'Aprendizaje de las t\u00e9cnicas b\u00e1sicas.' },
+						{ icon: 'shield', text: 'Desarrollo de la coordinaci\u00f3n, la disciplina y los valores.' }
 					]
 				},
 				{
 					tone: 'blue',
-					name: 'Cuota azul elite',
+					name: 'Cuota azul élite',
 					subtitle: 'Progresi\u00f3n',
 					price: '45',
 					frequency: '/mes',
 					badge: 'Recomendada',
 					items: [
 						{ icon: 'calendar', text: '2 d\u00edas por semana' },
-						{ icon: 'growth', text: 'Mayor continuidad y evoluci\u00f3n t\u00e9cnica' },
+						{ icon: 'growth', text: 'Mayor continuidad y progresi\u00f3n t\u00e9cnica.' },
 						{ icon: 'cap', text: 'Preparaci\u00f3n para ex\u00e1menes de grado' },
-						{ icon: 'arm', text: 'Mejora f\u00edsica y deportiva' }
+						{ icon: 'arm', text: 'Mejora de la condici\u00f3n f\u00edsica y del rendimiento deportivo.' }
 					]
 				},
 				{
 					tone: 'red',
-					name: 'Cuota roja elite',
+					name: 'Cuota roja élite',
 					subtitle: 'Competici\u00f3n',
 					price: '55',
 					frequency: '/mes',
 					items: [
 						{ icon: 'calendar', text: '3 d\u00edas por semana' },
-						{ icon: 'trophy', text: 'Para ni\u00f1os que se inician en la competici\u00f3n' },
+						{ icon: 'trophy', text: 'Para alumnos que quieren dar el paso hacia la competici\u00f3n.' },
 						{ icon: 'kick', text: 'Perfeccionamiento t\u00e9cnico y t\u00e1ctico' },
-						{ icon: 'barbell', text: 'Mejora f\u00edsica y rendimiento' }
+						{ icon: 'barbell', text: 'Mejora de la condici\u00f3n f\u00edsica y preparaci\u00f3n para la competici\u00f3n.' }
 					]
 				}
 			],
@@ -688,27 +688,27 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			headerTime: 'Horario',
 			days: ['Lunes', 'Martes', 'Mi\u00e9rcoles', 'Jueves'],
 			rows: [
-				{ time: '17:30 - 18:30', tone: 'gold', classes: ['Warriors Kids', 'Warriors Kids', 'Warriors Kids', 'Warriors Kids'] },
-				{ time: '18:30 - 19:30', tone: 'blue', classes: ['Warriors Junior', 'Warriors Junior', 'Warriors Junior', 'Warriors Junior'] },
-				{ time: '19:30 - 20:30', tone: 'red', classes: ['Warriors Elite', 'Warriors Elite', 'Warriors Elite', 'Warriors Elite'] }
+				{ time: '17:30-18:30', tone: 'gold', classes: ['Warriors Kids', 'Warriors Kids', 'Warriors Kids', 'Warriors Kids'] },
+				{ time: '18:30-19:30', tone: 'blue', classes: ['Warriors Junior', 'Warriors Junior', 'Warriors Junior', 'Warriors Junior'] },
+				{ time: '19:30-20:30', tone: 'red', classes: ['Warriors Elite', 'Warriors Elite', 'Warriors Elite', 'Warriors Elite'] }
 			],
 			ages: [
 				{
 					tone: 'gold',
 					label: 'Warriors Kids',
-					range: 'de 3 a 9 a\u00f1os',
+					range: 'De 3 a 9 a\u00f1os',
 					description: 'Para ni\u00f1os y ni\u00f1as que se inician en el taekwondo. Diversi\u00f3n, aprendizaje y valores.'
 				},
 				{
 					tone: 'blue',
 					label: 'Warriors Junior',
-					range: 'de 10 a 15 a\u00f1os',
+					range: 'De 10 a 15 a\u00f1os',
 					description: 'Para ni\u00f1os y j\u00f3venes que quieren seguir creciendo, mejorar y superarse cada d\u00eda.'
 				},
 				{
 					tone: 'red',
 					label: 'Warriors Elite',
-					range: 'm\u00e1s de 16 a\u00f1os',
+					range: 'M\u00e1s de 16 a\u00f1os',
 					description: 'Para quienes buscan el m\u00e1ximo rendimiento y competici\u00f3n. Compromiso, esfuerzo y excelencia.'
 				}
 			],
@@ -720,10 +720,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			]
 		},
 		stats: [
-			{ ...shared.stats[0], label: 'Alumnos activos' },
-			{ ...shared.stats[1], label: 'Medallas obtenidas' },
-			{ ...shared.stats[2], label: 'A\u00f1os de experiencia' },
-			{ ...shared.stats[3], label: 'Cinturones negros' }
+			{ ...shared.stats[0], label: 'alumnos activos' },
+			{ ...shared.stats[1], label: 'medallas obtenidas' },
+			{ ...shared.stats[2], label: 'a\u00f1os de experiencia' },
+			{ ...shared.stats[3], label: 'cinturones negros' }
 		],
 		news: {
 			title: 'Noticias',
@@ -734,7 +734,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					title: 'Campeonato de Catalu\u00f1a infantil',
 					date: '2025-11-02',
 					excerpt:
-						'Los tres Warriors que compitieron lograron medalla: Daniel Aliaga volvi\u00f3 a proclamarse campe\u00f3n, Nara Zald\u00edvar repiti\u00f3 tercer puesto y Gerard Moya subi\u00f3 al podio en su primera competici\u00f3n.',
+						'Los tres Warriors que compitieron subieron al podio: Daniel Aliaga volvi\u00f3 a proclamarse campe\u00f3n, Nara Zald\u00edvar repiti\u00f3 el tercer puesto y Gerard Moya consigui\u00f3 su primera medalla en competici\u00f3n.',
 					imageUrl: '/images/optimized/noticia-catalunya-infantil-1.jpg',
 					href: 'https://www.instagram.com/club_taekwondo_warriors/p/DQjfwSsCP1m/'
 				},
@@ -742,7 +742,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					title: 'Tres exhibiciones en dos d\u00edas',
 					date: '2026-05-29',
 					excerpt:
-						'Fin de semana intenso con tres exhibiciones en las que nuestros alumnos demostraron disciplina, respeto, esfuerzo y trabajo en equipo.',
+						'Un fin de semana intenso con tres exhibiciones en las que nuestros alumnos demostraron todo lo que representan los valores Warriors: disciplina, respeto, esfuerzo y trabajo en equipo.',
 					imageUrl: '/images/optimized/cabecera.jpg',
 					href: 'https://www.instagram.com/p/DY72Cf8CKwE/?igsi=MTBzMmtlejlvN3h5bw%3D%3D'
 				},
@@ -750,7 +750,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					title: 'Medalla de plata al m\u00e9rito deportivo',
 					date: '2026-07-17',
 					excerpt:
-						'Un reconocimiento muy especial a la trayectoria de Diana V\u00e1zquez Vall\u00e9s y a todos los a\u00f1os de entrenamiento, competici\u00f3n y compromiso con el taekwondo.',
+						'Un reconocimiento muy especial a la trayectoria de Diana V\u00e1zquez Vall\u00e9s y a a\u00f1os de entrenamiento, competici\u00f3n y compromiso con el taekwondo.',
 					imageUrl: '/images/optimized/noticia-medalla-plata.jpg',
 					href: 'https://www.instagram.com/p/Da42UXGDnXasTaGQBIKyEI_4Zf1tyQxs1deI-w0/?igsi=cTZ5cWJ0amYxZnRu'
 				}
@@ -763,10 +763,10 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		},
 		conversion: {
 			headerButton: 'Reserva plaza',
-			panelTitle: '¿Quieres probar o saber qué grupo encaja contigo?',
-			panelDescription: 'Te ayudamos a elegir la modalidad, resolvemos tus dudas y te facilitamos una primera toma de contacto sin compromiso.',
+			panelTitle: '¿Quieres probar o encontrar el grupo que mejor encaja contigo?',
+			panelDescription: 'Te ayudamos a encontrar el grupo que mejor encaja contigo, resolvemos tus dudas y te acompa\u00f1amos en tu primera toma de contacto con el club.',
 			reserveLabel: 'Reserva tu plaza',
-			reserveNote: 'Elige modalidad y rellena el formulario',
+			reserveNote: 'Elige tu grupo y reserva tu plaza.',
 			whatsappLabel: 'Habla por WhatsApp',
 			whatsappNote: 'Respuesta directa del equipo',
 			footerTitle: '¿Prefieres hablar con nosotros?',
@@ -793,7 +793,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			]
 		},
 		footer: {
-			description: 'M\u00e1s que un club, una familia. Formando guerreros desde el respeto, la disciplina y la constancia.',
+			description: 'M\u00e1s que un club, una familia. Formamos guerreros desde el respeto, la disciplina y la constancia.',
 			contactTitle: 'Contacto',
 			reviewsTitle: 'Rese\u00f1as de Google',
 			reviewsSubtitle: 'Lo que dicen las familias del club',
@@ -802,7 +802,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			reviewsButton: 'Ver rese\u00f1as en Google',
 			mapTitle: 'C\u00f3mo llegar',
 			mapSubtitle: 'Encuentra el club y ven a conocernos',
-			hours: 'L-V: 17:30 - 20:30',
+			hours: 'De lunes a jueves, de 17:30 a 20:30 h',
 			mapButton: 'C\u00f3mo llegar',
 			address: 'Carrer Moss\u00e8n Jacint Verdaguer 274',
 			phone: '644 193 620',
