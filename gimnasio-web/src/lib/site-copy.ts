@@ -182,6 +182,93 @@ const galleryImageFiles = [
 	'22.jpeg'
 ] as const;
 
+const galleryDescriptions = {
+	ca: [
+		'Diana acompanyant una alumna en competició',
+		'Façana del Club Taekwondo Warriors',
+		'Preparació abans d’un combat de taekwondo',
+		'Alumna de Warriors preparada per competir',
+		'Acompanyament d’una alumna abans d’entrar al tatami',
+		'Coach donant indicacions a peu de pista',
+		'Espai interior del dojo Warriors',
+		'Diana orientant una alumna durant la competició',
+		'Entrenament tècnic amb treball de precisió',
+		'Diana ajustant el peto durant una exhibició',
+		'Sala principal del dojo amb tatami blau',
+		'Pràctica tècnica en grup durant una exhibició',
+		'Classe infantil treballant cops i coordinació',
+		'Explicació dels entrenadors abans d’una activitat',
+		'Canvi de cinturó durant una jornada del club',
+		'Entrenament dirigit amb els alumnes al tatami',
+		'Foto de grup de famílies, alumnes i equip',
+		'Equip Warriors posant després de l’activitat',
+		'Exhibició de taekwondo davant del públic',
+		'Presentació d’un grup abans d’una demostració',
+		'Famílies seguint una exhibició del club',
+		'Alumnes practicant una tècnica en línia',
+		'Entrenament de posicions amb els alumnes',
+		'Acrobàcia durant una exhibició de taekwondo',
+		'Col·locació del cinturó a una alumna',
+		'Entrenadora parlant amb un grup d’alumnes'
+	],
+	es: [
+		'Diana acompañando a una alumna en competición',
+		'Fachada del Club Taekwondo Warriors',
+		'Preparación antes de un combate de taekwondo',
+		'Alumna de Warriors preparada para competir',
+		'Acompañamiento de una alumna antes de entrar al tatami',
+		'Coach dando indicaciones a pie de pista',
+		'Espacio interior del dojo Warriors',
+		'Diana orientando a una alumna durante la competición',
+		'Entrenamiento técnico con trabajo de precisión',
+		'Diana ajustando el peto durante una exhibición',
+		'Sala principal del dojo con tatami azul',
+		'Práctica técnica en grupo durante una exhibición',
+		'Clase infantil trabajando golpes y coordinación',
+		'Explicación de los entrenadores antes de una actividad',
+		'Cambio de cinturón durante una jornada del club',
+		'Entrenamiento dirigido con los alumnos en el tatami',
+		'Foto de grupo de familias, alumnos y equipo',
+		'Equipo Warriors posando después de la actividad',
+		'Exhibición de taekwondo ante el público',
+		'Presentación de un grupo antes de una demostración',
+		'Familias siguiendo una exhibición del club',
+		'Alumnos practicando una técnica en línea',
+		'Entrenamiento de posiciones con los alumnos',
+		'Acrobacia durante una exhibición de taekwondo',
+		'Colocación del cinturón a una alumna',
+		'Entrenadora hablando con un grupo de alumnos'
+	],
+	en: [
+		'Diana supporting a student during competition',
+		'Front entrance of Club Taekwondo Warriors',
+		'Preparation before a taekwondo match',
+		'Warriors student ready to compete',
+		'Supporting a student before entering the mat',
+		'Coach giving instructions by the ring',
+		'Interior space of the Warriors dojo',
+		'Diana guiding a student during competition',
+		'Technical training focused on precision',
+		'Diana adjusting protective gear during an exhibition',
+		'Main dojo room with blue tatami',
+		'Group technical practice during an exhibition',
+		'Kids class working on kicks and coordination',
+		'Coaches explaining an activity before training',
+		'Belt ceremony during a club event',
+		'Guided training session with students on the mat',
+		'Group photo of families, students, and staff',
+		'Warriors team posing after the activity',
+		'Taekwondo exhibition in front of the audience',
+		'Group presentation before a demonstration',
+		'Families watching a club exhibition',
+		'Students practicing a technique in line',
+		'Stance training with students',
+		'Acrobatic move during a taekwondo exhibition',
+		'Helping a student tie a belt',
+		'Coach speaking to a group of students'
+	]
+} as const;
+
 const portraitGalleryImages = new Set([
 	'2.jpeg',
 	'3.jpeg',
@@ -192,9 +279,9 @@ const portraitGalleryImages = new Set([
 	'10.jpeg'
 ]);
 
-function createGalleryItems(label: string) {
+function createGalleryItems(descriptions: readonly string[]) {
 	return galleryImageFiles.map((fileName, index) => ({
-		title: `${label} ${index + 1}`,
+		title: descriptions[index] ?? `Warriors Gallery ${index + 1}`,
 		imageUrl: `/images/galeria/${fileName}`,
 		featured: index === 0,
 		isPortrait: portraitGalleryImages.has(fileName)
@@ -225,7 +312,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			chant: 'Som Warriors!',
 			description:
 				'Formem persones dins i fora del tatami. Disciplina, respecte, superaci\u00f3 i passi\u00f3 a cada entrenament.',
-			primaryCta: 'Prova gratis',
+			primaryCta: 'Prova gratuïta',
 			secondaryCta: "Coneix-nos",
 			trialWhatsappMessage:
 				"Hola! M'agradaria demanar informaci\u00f3 sobre una classe de prova a Club Taekwondo Warriors.%0A%0ANom:%0AEdat:%0AModalitat d'inter\u00e8s:",
@@ -292,12 +379,12 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 						{ icon: 'calendar', text: '1 dia per setmana' },
 						{ icon: 'user', text: 'Ideal per comen\u00e7ar i descobrir el taekwondo' },
 						{ icon: 'target', text: 'Aprenentatge de t\u00e8cniques b\u00e0siques' },
-						{ icon: 'shield', text: 'Desenvolupament de coordinaci\u00f3, disciplina i valors' }
+						{ icon: 'shield', text: 'Desenvolupament de la coordinaci\u00f3, la disciplina i els valors' }
 					]
 				},
 				{
 					tone: 'blue',
-					name: 'Quota blava elite',
+					name: 'Quota blava elit',
 					subtitle: 'Progressi\u00f3',
 					price: '45',
 					frequency: '/mes',
@@ -311,13 +398,13 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				},
 				{
 					tone: 'red',
-					name: 'Quota vermella elite',
+					name: 'Quota vermella elit',
 					subtitle: 'Competici\u00f3',
 					price: '55',
 					frequency: '/mes',
 					items: [
 						{ icon: 'calendar', text: '3 dies per setmana' },
-						{ icon: 'trophy', text: "Per a nens que s'inicien en la competici\u00f3" },
+						{ icon: 'trophy', text: "Per a nens i joves que s'inicien en la competici\u00f3" },
 						{ icon: 'kick', text: 'Perfeccionament t\u00e8cnic i t\u00e0ctic' },
 						{ icon: 'barbell', text: 'Millora f\u00edsica i rendiment' }
 					]
@@ -358,7 +445,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 				{
 					tone: 'red',
 					label: 'Warriors Elite',
-					range: 'm\u00e9s de 16 anys',
+					range: 'A partir de 16 anys',
 					description: "Per a qui busca el m\u00e0xim rendiment i la competici\u00f3. Comprom\u00eds, esfor\u00e7 i excel\u00b7l\u00e8ncia."
 				}
 			],
@@ -392,7 +479,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 					title: 'Tres exhibicions en dos dies',
 					date: '2026-05-29',
 					excerpt:
-						'Cap de setmana intens amb tres exhibicions on els nostres alumnes van demostrar disciplina, respecte, esfor\u00e7 i treball en equip.',
+						'Cap de setmana intens amb tres exhibicions en qu\u00e8 els nostres alumnes van demostrar disciplina, respecte, esfor\u00e7 i treball en equip.',
 					imageUrl: '/images/optimized/cabecera.jpg',
 					href: 'https://www.instagram.com/p/DY72Cf8CKwE/?igsi=MTBzMmtlejlvN3h5bw%3D%3D'
 				},
@@ -409,12 +496,12 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		gallery: {
 			title: 'Galeria',
 			linkLabel: 'Veure galeria completa',
-			items: createGalleryItems('Galeria Warriors')
+			items: createGalleryItems(galleryDescriptions.ca)
 		},
 		conversion: {
 			headerButton: 'Reserva plaça',
 			panelTitle: 'Vols provar o saber quin grup és per a tu?',
-			panelDescription: "T'ajudem a triar modalitat, resolem dubtes i et reservem una primera presa de contacte sense compromís.",
+			panelDescription: "T'ajudem a triar la modalitat, resolem els teus dubtes i et facilitem una primera presa de contacte sense compromís.",
 			reserveLabel: 'Reserva la teva plaça',
 			reserveNote: 'Tria modalitat i omple el formulari',
 			whatsappLabel: 'Parla per WhatsApp',
@@ -438,7 +525,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			options: [
 				{ tone: 'kids', title: 'Warriors Kids', subtitle: 'De 3 a 9 anys', url: shared.modalUrls.kids, imageUrl: '/images/warriors-kids.png' },
 				{ tone: 'junior', title: 'Warriors Junior', subtitle: 'De 10 a 15 anys', url: shared.modalUrls.junior, imageUrl: '/images/warriors-junior.png' },
-				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'M\u00e9s de 16 anys', url: shared.modalUrls.elite, imageUrl: '/images/warriors-elite.png' },
+				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'A partir de 16 anys', url: shared.modalUrls.elite, imageUrl: '/images/warriors-elite.png' },
 				{ tone: 'defense', title: 'Warriors Defensa Personal', subtitle: 'Defensa personal', url: shared.modalUrls.defense, imageUrl: '/images/defensa_personal.jpeg' }
 			]
 		},
@@ -452,7 +539,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			reviewsButton: 'Veure ressenyes a Google',
 			mapTitle: 'Com arribar',
 			mapSubtitle: 'Troba el club i vine a con\u00e8ixer-nos',
-			hours: 'Dl-V: 17:30 - 20:30',
+			hours: 'Dl. - Dv.: 17.30 - 20.30 h',
 			mapButton: 'Com arribar',
 			address: 'Carrer Moss\u00e8n Jacint Verdaguer 274',
 			phone: '644 193 620',
@@ -672,12 +759,12 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		gallery: {
 			title: 'Galer\u00eda',
 			linkLabel: 'Ver galer\u00eda completa',
-			items: createGalleryItems('Galería Warriors')
+			items: createGalleryItems(galleryDescriptions.es)
 		},
 		conversion: {
 			headerButton: 'Reserva plaza',
 			panelTitle: '¿Quieres probar o saber qué grupo encaja contigo?',
-			panelDescription: 'Te ayudamos a elegir modalidad, resolvemos tus dudas y te reservamos una primera toma de contacto sin compromiso.',
+			panelDescription: 'Te ayudamos a elegir la modalidad, resolvemos tus dudas y te facilitamos una primera toma de contacto sin compromiso.',
 			reserveLabel: 'Reserva tu plaza',
 			reserveNote: 'Elige modalidad y rellena el formulario',
 			whatsappLabel: 'Habla por WhatsApp',
@@ -701,7 +788,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 			options: [
 				{ tone: 'kids', title: 'Warriors Kids', subtitle: 'De 3 a 9 a\u00f1os', url: shared.modalUrls.kids, imageUrl: '/images/warriors-kids.png' },
 				{ tone: 'junior', title: 'Warriors Junior', subtitle: 'De 10 a 15 a\u00f1os', url: shared.modalUrls.junior, imageUrl: '/images/warriors-junior.png' },
-				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'M\u00e1s de 16 a\u00f1os', url: shared.modalUrls.elite, imageUrl: '/images/warriors-elite.png' },
+				{ tone: 'elite', title: 'Warriors Elite', subtitle: 'A partir de 16 a\u00f1os', url: shared.modalUrls.elite, imageUrl: '/images/warriors-elite.png' },
 				{ tone: 'defense', title: 'Warriors Defensa Personal', subtitle: 'Defensa personal', url: shared.modalUrls.defense, imageUrl: '/images/defensa_personal.jpeg' }
 			]
 		},
@@ -935,7 +1022,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
 		gallery: {
 			title: 'Gallery',
 			linkLabel: 'View full gallery',
-			items: createGalleryItems('Warriors Gallery')
+			items: createGalleryItems(galleryDescriptions.en)
 		},
 		conversion: {
 			headerButton: 'Book now',

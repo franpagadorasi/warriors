@@ -12,7 +12,7 @@ const copy = getSiteCopy(locale);
 const aboutCopy = getAboutPageCopy(locale);
 
 const homePaths: Record<Locale, string> = { ca: '/', es: '/es/', en: '/en/' };
-const localeLabels: Record<Locale, string> = { ca: 'Català', es: 'Español', en: 'English' };
+const localeLabels: Record<Locale, string> = { ca: 'CatalÃ ', es: 'EspaÃ±ol', en: 'English' };
 const languageAria: Record<Locale, string> = {
 	ca: 'Idiomes disponibles',
 	es: 'Idiomas disponibles',
@@ -24,19 +24,19 @@ const closeModalLabel: Record<Locale, string> = {
 	en: 'Close'
 };
 const sponsorsTitleLabel: Record<Locale, string> = {
-	ca: 'FEDERACIÓ I AJUNTAMENT',
-	es: 'FEDERACIÓN Y AYUNTAMIENTO',
+	ca: 'FEDERACIÃ“ I AJUNTAMENT',
+	es: 'FEDERACIÃ“N Y AYUNTAMIENTO',
 	en: 'FEDERATION AND TOWN COUNCIL'
 };
 const sponsorsAriaLabel: Record<Locale, string> = {
-	ca: 'Federació i ajuntament',
-	es: 'Federación y ayuntamiento',
+	ca: 'FederaciÃ³ i ajuntament',
+	es: 'FederaciÃ³n y ayuntamiento',
 	en: 'Federation and town council'
 };
 const sponsorsNoteLabel: Record<Locale, string> = {
-	ca: 'La nostra entitat desenvolupa la seva activitat en el marc de la Federació Catalana de Taekwondo i la Real Federación Española de Taekwondo, amb seu d’entrenaments a Sant Vicenç dels Horts.',
-	es: 'Nuestra entidad desarrolla su actividad en el marco de la Federación Catalana de Taekwondo y la Real Federación Española de Taekwondo, con sede de entrenamientos en Sant Vicenç dels Horts.',
-	en: 'Our organization carries out its activity within the framework of the Catalan Taekwondo Federation and the Royal Spanish Taekwondo Federation, with its training base in Sant Vicenç dels Horts.'
+	ca: 'La nostra entitat desenvolupa la seva activitat en el marc de la FederaciÃ³ Catalana de Taekwondo i la Real FederaciÃ³n EspaÃ±ola de Taekwondo, amb seu dâ€™entrenaments a Sant VicenÃ§ dels Horts.',
+	es: 'Nuestra entidad desarrolla su actividad en el marco de la FederaciÃ³n Catalana de Taekwondo y la Real FederaciÃ³n EspaÃ±ola de Taekwondo, con sede de entrenamientos en Sant VicenÃ§ dels Horts.',
+	en: 'Our organization carries out its activity within the framework of the Catalan Taekwondo Federation and the Royal Spanish Taekwondo Federation, with its training base in Sant VicenÃ§ dels Horts.'
 };
 const mapTitlePrefix: Record<Locale, string> = {
 	ca: 'Mapa de',
@@ -70,20 +70,20 @@ const aboutSeoImageAlt: Record<
 	{ hero: string; gratitude: string; familyBanner: string; familyDetail: string }
 > = {
 	ca: {
-		hero: 'Alumnes i famílies de Warriors durant una exhibició de taekwondo',
-		gratitude: 'Exhibició de taekwondo dels alumnes Warriors a Sant Vicenç dels Horts',
-		familyBanner: 'Banner de Warriors amb cinturó negre, missatge de família i logo del club',
-		familyDetail: 'Detall d un cinturó negre del Club Taekwondo Warriors'
+		hero: 'Alumnes i famÃ­lies de Warriors durant una exhibiciÃ³ de taekwondo',
+		gratitude: 'ExhibiciÃ³ de taekwondo dels alumnes Warriors a Sant VicenÃ§ dels Horts',
+		familyBanner: 'Banner de Warriors amb cinturÃ³ negre, missatge de famÃ­lia i logo del club',
+		familyDetail: "Detall d'un cinturÃ³ negre del Club Taekwondo Warriors"
 	},
 	es: {
-		hero: 'Alumnos y familias de Warriors durante una exhibición de taekwondo',
-		gratitude: 'Exhibición de taekwondo de los alumnos Warriors en Sant Vicenç dels Horts',
-		familyBanner: 'Banner de Warriors con cinturón negro, mensaje de familia y logo del club',
-		familyDetail: 'Detalle de un cinturón negro del Club Taekwondo Warriors'
+		hero: 'Alumnos y familias de Warriors durante una exhibiciÃ³n de taekwondo',
+		gratitude: 'ExhibiciÃ³n de taekwondo de los alumnos Warriors en Sant VicenÃ§ dels Horts',
+		familyBanner: 'Banner de Warriors con cinturÃ³n negro, mensaje de familia y logo del club',
+		familyDetail: 'Detalle de un cinturÃ³n negro del Club Taekwondo Warriors'
 	},
 	en: {
 		hero: 'Warriors students and families during a taekwondo exhibition',
-		gratitude: 'Taekwondo exhibition by Warriors students in Sant Vicenç dels Horts',
+		gratitude: 'Taekwondo exhibition by Warriors students in Sant VicenÃ§ dels Horts',
 		familyBanner: 'Warriors banner with a black belt, family message and club logo',
 		familyDetail: 'Close-up of a Club Taekwondo Warriors black belt'
 	}
@@ -103,7 +103,7 @@ const scheduleGroupLogoByTone: Record<string, string> = {
 };
 const repairMojibake = <T,>(value: T): T => {
 	if (typeof value === 'string') {
-		return (value.includes('Ã') || value.includes('Â') || value.includes('â'))
+		return (value.includes('Ãƒ') || value.includes('Ã‚') || value.includes('Ã¢'))
 			? (Buffer.from(value, 'latin1').toString('utf8') as T)
 			: value;
 	}
@@ -124,7 +124,7 @@ const repairMojibakeDeep = <T,>(value: T): T => {
 	if (typeof value === 'string') {
 		let current = value;
 		for (let index = 0; index < 3; index += 1) {
-			if (!/[ÃÂâƒ]/.test(current)) break;
+			if (!/[ÃƒÃ‚Ã¢Æ’]/.test(current)) break;
 			current = Buffer.from(current, 'latin1').toString('utf8') as T & string;
 		}
 		return current as T;
@@ -144,32 +144,32 @@ const repairMojibakeDeep = <T,>(value: T): T => {
 };
 const aboutEditorial = {
 	ca: {
-		storyIntro: "Warriors és molt més que un nom: és la continuació d'un camí que ha sobreviscut als canvis, a les pauses i a la incertesa sense perdre mai l'ànima.",
+		storyIntro: "Warriors Ã©s molt mÃ©s que un nom: Ã©s la continuaciÃ³ d'un camÃ­ que ha sobreviscut als canvis, a les pauses i a la incertesa sense perdre mai l'Ã nima.",
 		storyColumns: [
 			{
 				icon: 'calendar',
-				title: 'Una història que va començar molt abans de Warriors',
+				title: 'Una histÃ²ria que va comenÃ§ar molt abans de Warriors',
 				paragraphs: [
-					"Tot va començar l'any 2013, quan la Diana va iniciar les classes de taekwondo a Sant Vicenç dels Horts. A poc a poc es va anar creant un grup unit per la mateixa passió: el taekwondo olímpic.",
-					"Durant anys es va construir molt més que un grup d'entrenament. Es va crear una família, una manera d'entendre l'esport i un vincle molt fort amb alumnes i famílies.",
-					"Després de la pausa obligada, el projecte no es va apagar. Va quedar viu en les persones que continuaven creient-hi."
+					"Tot va comenÃ§ar l'any 2013, quan la Diana va iniciar les classes de taekwondo a Sant VicenÃ§ dels Horts. A poc a poc es va anar creant un grup unit per la mateixa passiÃ³: el taekwondo olÃ­mpic.",
+					"Durant anys es va construir molt mÃ©s que un grup d'entrenament. Es va crear una famÃ­lia, una manera d'entendre l'esport i un vincle molt fort amb alumnes i famÃ­lies.",
+					"DesprÃ©s de la pausa obligada, el projecte no es va apagar. Va quedar viu en les persones que continuaven creient-hi."
 				]
 			},
 			{
 				icon: 'refresh',
-				title: 'Tornar a començar',
+				title: 'Tornar a comenÃ§ar',
 				paragraphs: [
-					"L'any 2023 vam reprendre les classes i tornar al tatami va significar molt més que entrenar: va ser recuperar una part de nosaltres que no havíem deixat de sentir nostra.",
-					"El 2024 vam reconnectar amb els orígens i l'activitat va continuar creixent. El 2025 el projecte es va consolidar amb més identitat, més continuïtat i més confiança.",
-					"Cada canvi d'espai, cada trasllat i cada nova etapa ha suposat esforç. Però també ens ha fet més forts."
+					"L'any 2023 vam reprendre les classes i tornar al tatami va significar molt mÃ©s que entrenar: va ser recuperar una part de nosaltres que no havÃ­em deixat de sentir nostra.",
+					"El 2024 vam reconnectar amb els orÃ­gens i l'activitat va continuar creixent. El 2025 el projecte es va consolidar amb mÃ©s identitat, mÃ©s continuÃ¯tat i mÃ©s confianÃ§a.",
+					"Cada canvi d'espai, cada trasllat i cada nova etapa ha suposat esforÃ§. PerÃ² tambÃ© ens ha fet mÃ©s forts."
 				]
 			},
 			{
 				icon: 'trophy',
 				title: 'I ha arribat el nostre moment',
 				paragraphs: [
-					"Aquest nou espai representa anys de treball, compromís i constància. No és només una seu: és el resultat de tot el camí recorregut.",
-					"Warriors ha crescut perquè hi ha hagut persones que no han deixat de creure-hi: famílies, alumnes i un equip que ha continuat endavant fins i tot quan semblava difícil.",
+					"Aquest nou espai representa anys de treball, compromÃ­s i constÃ ncia. No Ã©s nomÃ©s una seu: Ã©s el resultat de tot el camÃ­ recorregut.",
+					"Warriors ha crescut perquÃ¨ hi ha hagut persones que no han deixat de creure-hi: famÃ­lies, alumnes i un equip que ha continuat endavant fins i tot quan semblava difÃ­cil.",
 					"Ara, per fi, tenim un lloc que podem anomenar casa."
 				]
 			}
@@ -178,62 +178,62 @@ const aboutEditorial = {
 		gratitudeItems: [
 			{ icon: 'hourglass', text: 'Per haver esperat.' },
 			{ icon: 'refresh', text: 'Per haver-se adaptat.' },
-			{ icon: 'kick', text: "Per haver seguit entrenant allà on podíem." },
+			{ icon: 'kick', text: "Per haver seguit entrenant allÃ  on podÃ­em." },
 			{ icon: 'fist', text: 'Per no rendir-se.' },
 			{ icon: 'handshake', text: 'Per confiar en nosaltres.' },
-			{ icon: 'home', text: 'Aquesta seu també és vostra.' }
+			{ icon: 'home', text: 'Aquesta seu tambÃ© Ã©s vostra.' }
 		],
 		gratitudeClosing:
-			'Perquè Warriors no es va construir amb parets. Es va construir amb persones, amb esforç, amb il·lusió i amb perseverança. I ara, per fi, tenim un lloc al qual podem dir casa.',
-		missionTitle: 'La nostra missió',
+			'PerquÃ¨ Warriors no es va construir amb parets. Es va construir amb persones, amb esforÃ§, amb ilÂ·lusiÃ³ i amb perseveranÃ§a. I ara, per fi, tenim un lloc al qual podem dir casa.',
+		missionTitle: 'La nostra missiÃ³',
 		missionParagraphs: [
-			"Volem acostar el taekwondo olímpic a Sant Vicenç dels Horts i formar persones a través dels valors de l'esport.",
-			"Busquem que cada alumne trobi a Warriors un espai on aprendre, créixer, superar-se i sentir-se part d'un equip.",
-			"No volem només esportistes: volem persones fortes, respectuoses, constants i capaces d'afrontar reptes dins i fora del tatami."
+			"Volem acostar el taekwondo olÃ­mpic a Sant VicenÃ§ dels Horts i formar persones a travÃ©s dels valors de l'esport.",
+			"Busquem que cada alumne trobi a Warriors un espai on aprendre, crÃ©ixer, superar-se i sentir-se part d'un equip.",
+			"No volem nomÃ©s esportistes: volem persones fortes, respectuoses, constants i capaces d'afrontar reptes dins i fora del tatami."
 		],
-		visionTitle: 'La nostra visió',
+		visionTitle: 'La nostra visiÃ³',
 		visionParagraphs: [
-			"Volem construir un club de referència, sòlid i humà, on cada persona pugui desenvolupar el seu potencial independentment de l'edat o del nivell.",
-			"Entenem el taekwondo com una eina per competir, aprendre i créixer com a persona.",
-			"Volem que les noves generacions visquin aquest esport amb la mateixa passió amb què nosaltres l'hem viscut tots aquests anys."
+			"Volem construir un club de referÃ¨ncia, sÃ²lid i humÃ , on cada persona pugui desenvolupar el seu potencial independentment de l'edat o del nivell.",
+			"Entenem el taekwondo com una eina per competir, aprendre i crÃ©ixer com a persona.",
+			"Volem que les noves generacions visquin aquest esport amb la mateixa passiÃ³ amb quÃ¨ nosaltres l'hem viscut tots aquests anys."
 		],
 		valuesTitle: 'Els nostres valors',
 		values: [
-			{ icon: 'dobok', title: 'Respecte', text: 'El respecte cap als companys, entrenadors, rivals i cap a un mateix és la base del nostre Taekwondo.' },
-			{ icon: 'arm', title: 'Perseverança', text: 'Sabem que no sempre serà fàcil. Per això continuem endavant fins i tot quan les circumstàncies es compliquen.' },
-			{ icon: 'heart', title: 'Passió', text: 'Estimem el Taekwondo i volem transmetre aquesta passió en cada entrenament i en cada petit progrés.' },
-			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningú creix sol. Som un equip i celebrem els assoliments de cadascú com si fossin de tots.' },
-			{ icon: 'sprout', title: 'Superació', text: "No es tracta de guanyar sempre, sinó d'intentar ser cada dia una mica millor que ahir." },
-			{ icon: 'brain', title: 'Disciplina', text: "El compromís, la constància i l'esforç diari són els que ens acosten als nostres objectius." }
+			{ icon: 'dobok', title: 'Respecte', text: 'El respecte envers els companys, els entrenadors, els rivals i un mateix Ã©s la base del nostre taekwondo.' },
+			{ icon: 'arm', title: 'PerseveranÃ§a', text: 'Sabem que no sempre serÃ  fÃ cil. Per aixÃ² continuem endavant fins i tot quan les circumstÃ ncies es compliquen.' },
+			{ icon: 'heart', title: 'PassiÃ³', text: 'Estimem el Taekwondo i volem transmetre aquesta passiÃ³ en cada entrenament i en cada petit progrÃ©s.' },
+			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningÃº creix sol. Som un equip i celebrem els assoliments de cadascÃº com si fossin de tots.' },
+			{ icon: 'sprout', title: 'SuperaciÃ³', text: "No es tracta de guanyar sempre, sinÃ³ d'intentar ser cada dia una mica millor que ahir." },
+			{ icon: 'brain', title: 'Disciplina', text: "El compromÃ­s, la constÃ ncia i l'esforÃ§ diari sÃ³n els que ens acosten als nostres objectius." }
 		]
 	},
 	es: {
-		storyIntro: 'Warriors es mucho más que un nombre: es la continuidad de un camino que ha sobrevivido a los cambios, a las pausas y a la incertidumbre sin perder nunca su alma.',
+		storyIntro: 'Warriors es mucho mÃ¡s que un nombre: es la continuidad de un camino que ha sobrevivido a los cambios, a las pausas y a la incertidumbre sin perder nunca su alma.',
 		storyColumns: [
 			{
 				icon: 'calendar',
-				title: 'Una historia que empezó mucho antes de Warriors',
+				title: 'Una historia que empezÃ³ mucho antes de Warriors',
 				paragraphs: [
-					'Todo empezó en 2013, cuando Diana inició las clases de taekwondo en Sant Vicenç dels Horts. Poco a poco fue creciendo un grupo unido por una misma pasión: el taekwondo olímpico.',
-					'Durante años se construyó mucho más que un grupo de entrenamiento. Se creó una familia, una forma de entender el deporte y un vínculo muy fuerte con alumnos y familias.',
-					'Después de la pausa obligada, el proyecto no se apagó. Se quedó vivo en las personas que seguían creyendo en él.'
+					'Todo empezÃ³ en 2013, cuando Diana iniciÃ³ las clases de taekwondo en Sant VicenÃ§ dels Horts. Poco a poco fue creciendo un grupo unido por una misma pasiÃ³n: el taekwondo olÃ­mpico.',
+					'Durante aÃ±os se construyÃ³ mucho mÃ¡s que un grupo de entrenamiento. Se creÃ³ una familia, una forma de entender el deporte y un vÃ­nculo muy fuerte con alumnos y familias.',
+					'DespuÃ©s de la pausa obligada, el proyecto no se apagÃ³. Se quedÃ³ vivo en las personas que seguÃ­an creyendo en Ã©l.'
 				]
 			},
 			{
 				icon: 'refresh',
 				title: 'Volver a empezar',
 				paragraphs: [
-					'En 2023 retomamos las clases y volver al tatami significó mucho más que entrenar: fue recuperar una parte de nosotros que nunca dejamos de sentir nuestra.',
-					'En 2024 reconectamos con nuestros orígenes y la actividad siguió creciendo. En 2025 el proyecto se consolidó con más identidad, más continuidad y más confianza.',
-					'Cada cambio de espacio, cada traslado y cada nueva etapa ha supuesto esfuerzo. Pero también nos ha hecho más fuertes.'
+					'En 2023 retomamos las clases y volver al tatami significÃ³ mucho mÃ¡s que entrenar: fue recuperar una parte de nosotros que nunca dejamos de sentir nuestra.',
+					'En 2024 reconectamos con nuestros orÃ­genes y la actividad siguiÃ³ creciendo. En 2025 el proyecto se consolidÃ³ con mÃ¡s identidad, mÃ¡s continuidad y mÃ¡s confianza.',
+					'Cada cambio de espacio, cada traslado y cada nueva etapa ha supuesto esfuerzo. Pero tambiÃ©n nos ha hecho mÃ¡s fuertes.'
 				]
 			},
 			{
 				icon: 'trophy',
-				title: 'Y llegó nuestro momento',
+				title: 'Y llegÃ³ nuestro momento',
 				paragraphs: [
-					'Este nuevo espacio representa años de trabajo, compromiso y constancia. No es solo una sede: es el resultado de todo el camino recorrido.',
-					'Warriors ha crecido porque ha habido personas que no han dejado de creer: familias, alumnos y un equipo que siguió adelante incluso cuando parecía difícil.',
+					'Este nuevo espacio representa aÃ±os de trabajo, compromiso y constancia. No es solo una sede: es el resultado de todo el camino recorrido.',
+					'Warriors ha crecido porque ha habido personas que no han dejado de creer: familias, alumnos y un equipo que siguiÃ³ adelante incluso cuando parecÃ­a difÃ­cil.',
 					'Ahora, por fin, tenemos un lugar al que podemos llamar casa.'
 				]
 			}
@@ -242,32 +242,32 @@ const aboutEditorial = {
 		gratitudeItems: [
 			{ icon: 'hourglass', text: 'Por haber esperado.' },
 			{ icon: 'refresh', text: 'Por haberse adaptado.' },
-			{ icon: 'kick', text: 'Por haber seguido entrenando allí donde podíamos.' },
+			{ icon: 'kick', text: 'Por haber seguido entrenando allÃ­ donde podÃ­amos.' },
 			{ icon: 'fist', text: 'Por no rendirse.' },
 			{ icon: 'handshake', text: 'Por confiar en nosotros.' },
-			{ icon: 'home', text: 'Esta sede también es vuestra.' }
+			{ icon: 'home', text: 'Esta sede tambiÃ©n es vuestra.' }
 		],
 		gratitudeClosing:
-			'Porque Warriors no se construyó con paredes. Se construyó con personas, con esfuerzo, con ilusión y con perseverancia. Y ahora, por fin, tenemos un lugar al que podemos llamar casa.',
-		missionTitle: 'Nuestra misión',
+			'Porque Warriors no se construyÃ³ con paredes. Se construyÃ³ con personas, con esfuerzo, con ilusiÃ³n y con perseverancia. Y ahora, por fin, tenemos un lugar al que podemos llamar casa.',
+		missionTitle: 'Nuestra misiÃ³n',
 		missionParagraphs: [
-			'Queremos acercar el taekwondo olímpico a Sant Vicenç dels Horts y formar personas a través de los valores del deporte.',
+			'Queremos acercar el taekwondo olÃ­mpico a Sant VicenÃ§ dels Horts y formar personas a travÃ©s de los valores del deporte.',
 			'Buscamos que cada alumno encuentre en Warriors un espacio donde aprender, crecer, superarse y sentirse parte de un equipo.',
 			'No queremos solo deportistas: queremos personas fuertes, respetuosas, constantes y capaces de afrontar retos dentro y fuera del tatami.'
 		],
-		visionTitle: 'Nuestra visión',
+		visionTitle: 'Nuestra visiÃ³n',
 		visionParagraphs: [
-			'Queremos construir un club de referencia, sólido y humano, donde cada persona pueda desarrollar su potencial independientemente de la edad o del nivel.',
+			'Queremos construir un club de referencia, sÃ³lido y humano, donde cada persona pueda desarrollar su potencial independientemente de la edad o del nivel.',
 			'Entendemos el taekwondo como una herramienta para competir, aprender y crecer como persona.',
-			'Queremos que las nuevas generaciones vivan este deporte con la misma pasión con la que nosotros lo hemos vivido todos estos años.'
+			'Queremos que las nuevas generaciones vivan este deporte con la misma pasiÃ³n con la que nosotros lo hemos vivido todos estos aÃ±os.'
 		],
 		valuesTitle: 'Nuestros valores',
 		values: [
-			{ icon: 'dobok', title: 'Respeto', text: 'Respeto por los compañeros, los entrenadores, los rivales y por uno mismo.' },
+			{ icon: 'dobok', title: 'Respeto', text: 'Respeto por los compaÃ±eros, los entrenadores, los rivales y por uno mismo.' },
 			{ icon: 'arm', title: 'Perseverancia', text: 'Seguir adelante incluso cuando el camino se complica.' },
-			{ icon: 'heart', title: 'Pasión', text: 'Vivir cada entrenamiento con entrega, energía y ganas de mejorar.' },
-			{ icon: 'handshake', title: 'Compañerismo', text: 'Crecer como equipo y celebrar cada paso como si fuera de todos.' },
-			{ icon: 'sprout', title: 'Superación', text: 'Intentar ser un poco mejor hoy que ayer.' },
+			{ icon: 'heart', title: 'PasiÃ³n', text: 'Vivir cada entrenamiento con entrega, energÃ­a y ganas de mejorar.' },
+			{ icon: 'handshake', title: 'CompaÃ±erismo', text: 'Crecer como equipo y celebrar cada paso como si fuera de todos.' },
+			{ icon: 'sprout', title: 'SuperaciÃ³n', text: 'Intentar ser un poco mejor hoy que ayer.' },
 			{ icon: 'brain', title: 'Disciplina', text: 'La constancia diaria es la base de cualquier gran objetivo.' }
 		]
 	},
@@ -278,7 +278,7 @@ const aboutEditorial = {
 				icon: 'calendar',
 				title: 'A story that began long before Warriors',
 				paragraphs: [
-					'It all started in 2013, when Diana began teaching taekwondo in Sant Vicenç dels Horts. Little by little, a group grew around the same passion: Olympic taekwondo.',
+					'It all started in 2013, when Diana began teaching taekwondo in Sant VicenÃ§ dels Horts. Little by little, a group grew around the same passion: Olympic taekwondo.',
 					'Over the years, much more than a training group was built. A family was created, along with a way of understanding sport and a strong bond with students and families.',
 					'After the forced pause, the project did not disappear. It stayed alive in the people who kept believing in it.'
 				]
@@ -315,7 +315,7 @@ const aboutEditorial = {
 			'Because Warriors was not built with walls. It was built with people, effort, excitement, and perseverance. And now, at last, we have a place we can call home.',
 		missionTitle: 'Our mission',
 		missionParagraphs: [
-			'We want to bring Olympic taekwondo closer to Sant Vicenç dels Horts and develop people through the values of sport.',
+			'We want to bring Olympic taekwondo closer to Sant VicenÃ§ dels Horts and develop people through the values of sport.',
 			'We want every student to find in Warriors a place to learn, grow, improve, and feel part of a team.',
 			'We do not want only athletes: we want strong, respectful, consistent people capable of facing challenges on and off the mat.'
 		],
@@ -341,97 +341,97 @@ const aboutEditorialRefined = {
 		storyColumns: [
 			{
 				icon: 'calendar',
-				title: 'Una histÃ²ria que va comenÃ§ar molt abans de Warriors',
+				title: 'Una histÃƒÂ²ria que va comenÃƒÂ§ar molt abans de Warriors',
 				paragraphs: [
-					'Encara que Warriors com a marca va arribar mÃ©s tard, la nostra histÃ²ria va comenÃ§ar molt abans.',
-					"L'any 2013 la Diana va iniciar classes de Taekwondo a Sant Vicenç dels Horts i a poc a poc va anar creixent un grup unit per una mateixa passiÃ³: el Taekwondo OlÃ­mpic.",
-					"Durant anys es va construir molt mÃ©s que un grup d'entrenament. Es va crear una família."
+					'Encara que Warriors com a marca va arribar mÃƒÂ©s tard, la nostra histÃƒÂ²ria va comenÃƒÂ§ar molt abans.',
+					"L'any 2013 la Diana va iniciar classes de Taekwondo a Sant VicenÃ§ dels Horts i a poc a poc va anar creixent un grup unit per una mateixa passiÃƒÂ³: el Taekwondo OlÃƒÂ­mpic.",
+					"Durant anys es va construir molt mÃƒÂ©s que un grup d'entrenament. Es va crear una famÃ­lia."
 				]
 			},
 			{
 				icon: 'refresh',
-				title: 'Tornar a comenÃ§ar',
+				title: 'Tornar a comenÃƒÂ§ar',
 				paragraphs: [
-					'El 2023 vam reprendre les classes i tornar al tatami va significar molt mÃ©s que tornar a entrenar: va ser recuperar una part de nosaltres que mai havia marxat.',
-					"El 2024 vam reconnectar amb els nostres orÃ­gens i vam ampliar l'activitat. El 2025 vam continuar fent passes endavant amb mÃ©s solidesa i continuÃ¯tat.",
-					"Cada canvi d'espai, cada trasllat i cada nova etapa ha suposat un esforÃ§. PerÃ² tambÃ© ens ha fet mÃ©s forts."
+					'El 2023 vam reprendre les classes i tornar al tatami va significar molt mÃƒÂ©s que tornar a entrenar: va ser recuperar una part de nosaltres que mai havia marxat.',
+					"El 2024 vam reconnectar amb els nostres orÃƒÂ­gens i vam ampliar l'activitat. El 2025 vam continuar fent passes endavant amb mÃƒÂ©s solidesa i continuÃƒÂ¯tat.",
+					"Cada canvi d'espai, cada trasllat i cada nova etapa ha suposat un esforÃƒÂ§. PerÃƒÂ² tambÃƒÂ© ens ha fet mÃƒÂ©s forts."
 				]
 			},
 			{
 				icon: 'trophy',
 				title: 'I ha arribat el nostre moment',
 				paragraphs: [
-					"DesprÃ©s d'anys de canvis, incertesa, sacrificis i molta feina, ha arribat el nostre moment.",
-					"Aquesta nova seu no representa nomÃ©s un espai fÃ­sic. Representa el resultat de tots aquests anys d'esforÃ§, persistÃ¨ncia i passiÃ³ compartida.",
+					"DesprÃƒÂ©s d'anys de canvis, incertesa, sacrificis i molta feina, ha arribat el nostre moment.",
+					"Aquesta nova seu no representa nomÃƒÂ©s un espai fÃƒÂ­sic. Representa el resultat de tots aquests anys d'esforÃƒÂ§, persistÃƒÂ¨ncia i passiÃƒÂ³ compartida.",
 					'Ara, per fi, tenim un lloc que podem anomenar casa.'
 				]
 			}
 		],
 		missionParagraphs: [
-			"Volem acostar el Taekwondo OlÃ­mpic a Sant Vicenç dels Horts i formar persones a travÃ©s dels valors de l'esport.",
-			"Volem que cada alumne trobi a Warriors un espai on aprendre, crÃ©ixer, superar-se i sentir-se part d'un equip.",
-			"No busquem nomÃ©s esportistes: volem persones fortes, responsables, respectuoses i capaces d'afrontar els reptes de la vida amb determinaciÃ³."
+			"Volem acostar el Taekwondo OlÃƒÂ­mpic a Sant VicenÃ§ dels Horts i formar persones a travÃƒÂ©s dels valors de l'esport.",
+			"Volem que cada alumne trobi a Warriors un espai on aprendre, crÃƒÂ©ixer, superar-se i sentir-se part d'un equip.",
+			"No busquem nomÃƒÂ©s esportistes: volem persones fortes, responsables, respectuoses i capaces d'afrontar els reptes de la vida amb determinaciÃƒÂ³."
 		],
 		visionParagraphs: [
-			"Volem construir un club de referÃ¨ncia en Taekwondo OlÃ­mpic, tant per la nostra formaciÃ³ esportiva com per la nostra manera d'entendre aquest esport.",
-			"Aspirem a crear una comunitat sÃ²lida i unida, on cada persona pugui desenvolupar el seu potencial independentment del nivell, l'edat o l'experiÃ¨ncia.",
-			"Volem que les noves generacions visquin aquest esport amb la mateixa passiÃ³ amb quÃ¨ nosaltres l'hem viscut tots aquests anys."
+			"Volem construir un club de referÃƒÂ¨ncia en Taekwondo OlÃƒÂ­mpic, tant per la nostra formaciÃƒÂ³ esportiva com per la nostra manera d'entendre aquest esport.",
+			"Aspirem a crear una comunitat sÃƒÂ²lida i unida, on cada persona pugui desenvolupar el seu potencial independentment del nivell, l'edat o l'experiÃƒÂ¨ncia.",
+			"Volem que les noves generacions visquin aquest esport amb la mateixa passiÃƒÂ³ amb quÃƒÂ¨ nosaltres l'hem viscut tots aquests anys."
 		],
 		values: [
-			{ icon: 'dobok', title: 'Respecte', text: 'El respecte cap als companys, entrenadors, rivals i cap a un mateix Ã©s la base del nostre Taekwondo.' },
-			{ icon: 'arm', title: 'PerseveranÃ§a', text: 'Sabem que no sempre serÃ fàcil. Per aixÃ² continuem endavant fins i tot quan les circumstÃ ncies es compliquen.' },
-			{ icon: 'heart', title: 'PassiÃ³', text: 'Estimem el Taekwondo i volem transmetre aquesta passiÃ³ en cada entrenament i en cada petit progrÃ©s.' },
-			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningÃº creix sol. Som un equip i celebrem els assoliments de cadascÃº com si fossin de tots.' },
-			{ icon: 'sprout', title: 'SuperaciÃ³', text: "No es tracta de guanyar sempre, sinÃ³ d'intentar ser cada dia una mica millor que ahir." },
-			{ icon: 'brain', title: 'Disciplina', text: "El compromÃ­s, la constÃ ncia i l'esforÃ§ diari sÃ³n els que ens acosten als nostres objectius." }
+			{ icon: 'dobok', title: 'Respecte', text: 'El respecte envers els companys, els entrenadors, els rivals i un mateix és la base del nostre taekwondo.' },
+			{ icon: 'arm', title: 'PerseveranÃƒÂ§a', text: 'Sabem que no sempre serÃƒ fÃ cil. Per aixÃƒÂ² continuem endavant fins i tot quan les circumstÃƒ ncies es compliquen.' },
+			{ icon: 'heart', title: 'PassiÃƒÂ³', text: 'Estimem el Taekwondo i volem transmetre aquesta passiÃƒÂ³ en cada entrenament i en cada petit progrÃƒÂ©s.' },
+			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningÃƒÂº creix sol. Som un equip i celebrem els assoliments de cadascÃƒÂº com si fossin de tots.' },
+			{ icon: 'sprout', title: 'SuperaciÃƒÂ³', text: "No es tracta de guanyar sempre, sinÃƒÂ³ d'intentar ser cada dia una mica millor que ahir." },
+			{ icon: 'brain', title: 'Disciplina', text: "El compromÃƒÂ­s, la constÃƒ ncia i l'esforÃƒÂ§ diari sÃƒÂ³n els que ens acosten als nostres objectius." }
 		]
 	},
 	es: {
 		storyColumns: [
 			{
 				icon: 'calendar',
-				title: 'Una historia que empezÃ³ mucho antes de Warriors',
+				title: 'Una historia que empezÃƒÂ³ mucho antes de Warriors',
 				paragraphs: [
-					'Aunque Warriors como marca llegÃ³ mÃ¡s tarde, nuestra historia comenzÃ³ mucho antes.',
-					'En 2013 Diana empezÃ³ a dar clases de Taekwondo en Sant Vicenç dels Horts y poco a poco fue creciendo un grupo unido por una misma pasiÃ³n: el Taekwondo OlÃ­mpico.',
-					'Durante aÃ±os se construyÃ³ mucho mÃ¡s que un grupo de entrenamiento. Se creÃ³ una familia.'
+					'Aunque Warriors como marca llegÃƒÂ³ mÃƒÂ¡s tarde, nuestra historia comenzÃƒÂ³ mucho antes.',
+					'En 2013 Diana empezÃƒÂ³ a dar clases de Taekwondo en Sant VicenÃ§ dels Horts y poco a poco fue creciendo un grupo unido por una misma pasiÃƒÂ³n: el Taekwondo OlÃƒÂ­mpico.',
+					'Durante aÃƒÂ±os se construyÃƒÂ³ mucho mÃƒÂ¡s que un grupo de entrenamiento. Se creÃƒÂ³ una familia.'
 				]
 			},
 			{
 				icon: 'refresh',
 				title: 'Volver a empezar',
 				paragraphs: [
-					'En septiembre de 2023 retomamos las clases y volver al tatami significÃ³ mucho mÃ¡s que volver a entrenar: significÃ³ recuperar una parte de nosotros que nunca habÃ­amos querido perder.',
-					'En 2024 regresamos a nuestros orÃ­genes y ampliamos la actividad. En 2025 seguimos dando pasos adelante con mÃ¡s estabilidad y continuidad.',
-					'Cada cambio de espacio, cada traslado y cada nueva etapa ha supuesto un esfuerzo. Pero tambiÃ©n nos ha hecho mÃ¡s fuertes.'
+					'En septiembre de 2023 retomamos las clases y volver al tatami significÃƒÂ³ mucho mÃƒÂ¡s que volver a entrenar: significÃƒÂ³ recuperar una parte de nosotros que nunca habÃƒÂ­amos querido perder.',
+					'En 2024 regresamos a nuestros orÃƒÂ­genes y ampliamos la actividad. En 2025 seguimos dando pasos adelante con mÃƒÂ¡s estabilidad y continuidad.',
+					'Cada cambio de espacio, cada traslado y cada nueva etapa ha supuesto un esfuerzo. Pero tambiÃƒÂ©n nos ha hecho mÃƒÂ¡s fuertes.'
 				]
 			},
 			{
 				icon: 'trophy',
-				title: 'Y llegÃ³ nuestro momento',
+				title: 'Y llegÃƒÂ³ nuestro momento',
 				paragraphs: [
-					'DespuÃ©s de aÃ±os de cambios, incertidumbre, sacrificios y mucho trabajo, ha llegado nuestro momento.',
-					'Esta nueva sede no representa solamente un espacio fÃ­sico. Representa el resultado de todos estos aÃ±os de esfuerzo, persistencia y pasiÃ³n compartida.',
+					'DespuÃƒÂ©s de aÃƒÂ±os de cambios, incertidumbre, sacrificios y mucho trabajo, ha llegado nuestro momento.',
+					'Esta nueva sede no representa solamente un espacio fÃƒÂ­sico. Representa el resultado de todos estos aÃƒÂ±os de esfuerzo, persistencia y pasiÃƒÂ³n compartida.',
 					'Ahora, por fin, tenemos un lugar al que podemos llamar casa.'
 				]
 			}
 		],
 		missionParagraphs: [
-			'Queremos acercar el Taekwondo OlÃ­mpico a Sant Vicenç dels Horts y formar personas a travÃ©s de los valores del deporte.',
+			'Queremos acercar el Taekwondo OlÃƒÂ­mpico a Sant VicenÃ§ dels Horts y formar personas a travÃƒÂ©s de los valores del deporte.',
 			'Queremos que cada alumno encuentre en Warriors un espacio donde aprender, crecer, superarse y sentirse parte de un equipo.',
-			'No buscamos solo deportistas: queremos personas fuertes, responsables, respetuosas y capaces de afrontar los retos de la vida con determinaciÃ³n.'
+			'No buscamos solo deportistas: queremos personas fuertes, responsables, respetuosas y capaces de afrontar los retos de la vida con determinaciÃƒÂ³n.'
 		],
 		visionParagraphs: [
-			'Queremos construir un club de referencia en Taekwondo OlÃ­mpico, tanto por nuestra formaciÃ³n deportiva como por nuestra manera de entender este deporte.',
-			'Aspiramos a crear una comunidad sÃ³lida y unida, donde cada persona pueda desarrollar su potencial independientemente del nivel, la edad o la experiencia.',
-			'Queremos que las nuevas generaciones vivan este deporte con la misma pasiÃ³n con la que nosotros lo hemos vivido todos estos aÃ±os.'
+			'Queremos construir un club de referencia en Taekwondo OlÃƒÂ­mpico, tanto por nuestra formaciÃƒÂ³n deportiva como por nuestra manera de entender este deporte.',
+			'Aspiramos a crear una comunidad sÃƒÂ³lida y unida, donde cada persona pueda desarrollar su potencial independientemente del nivel, la edad o la experiencia.',
+			'Queremos que las nuevas generaciones vivan este deporte con la misma pasiÃƒÂ³n con la que nosotros lo hemos vivido todos estos aÃƒÂ±os.'
 		],
 		values: [
-			{ icon: 'dobok', title: 'Respeto', text: 'El respeto hacia compaÃ±eros, entrenadores, rivales y hacia uno mismo es la base de nuestro Taekwondo.' },
-			{ icon: 'arm', title: 'Perseverancia', text: 'Sabemos que no siempre serÃ¡ fÃ¡cil. Por eso seguimos adelante incluso cuando las circunstancias se complican.' },
-			{ icon: 'heart', title: 'PasiÃ³n', text: 'Amamos el Taekwondo y queremos transmitir esa pasiÃ³n en cada entrenamiento y en cada pequeÃ±o progreso.' },
-			{ icon: 'handshake', title: 'CompaÃ±erismo', text: 'En Warriors nadie crece solo. Somos un equipo y celebramos los logros de cada uno como si fueran propios.' },
-			{ icon: 'sprout', title: 'SuperaciÃ³n', text: 'No se trata de ganar siempre, sino de intentar ser cada dÃ­a un poco mejor que ayer.' },
+			{ icon: 'dobok', title: 'Respeto', text: 'El respeto hacia compaÃƒÂ±eros, entrenadores, rivales y hacia uno mismo es la base de nuestro Taekwondo.' },
+			{ icon: 'arm', title: 'Perseverancia', text: 'Sabemos que no siempre serÃƒÂ¡ fÃƒÂ¡cil. Por eso seguimos adelante incluso cuando las circunstancias se complican.' },
+			{ icon: 'heart', title: 'PasiÃƒÂ³n', text: 'Amamos el Taekwondo y queremos transmitir esa pasiÃƒÂ³n en cada entrenamiento y en cada pequeÃƒÂ±o progreso.' },
+			{ icon: 'handshake', title: 'CompaÃƒÂ±erismo', text: 'En Warriors nadie crece solo. Somos un equipo y celebramos los logros de cada uno como si fueran propios.' },
+			{ icon: 'sprout', title: 'SuperaciÃƒÂ³n', text: 'No se trata de ganar siempre, sino de intentar ser cada dÃƒÂ­a un poco mejor que ayer.' },
 			{ icon: 'brain', title: 'Disciplina', text: 'El compromiso, la constancia y el esfuerzo diario son los que nos acercan a nuestros objetivos.' }
 		]
 	},
@@ -442,7 +442,7 @@ const aboutEditorialRefined = {
 				title: 'A story that began long before Warriors',
 				paragraphs: [
 					'Although Warriors as a brand arrived later, our story began much earlier.',
-					'In 2013 Diana began teaching Taekwondo in Sant Vicenç dels Horts and little by little a group grew around the same passion: Olympic Taekwondo.',
+					'In 2013 Diana began teaching Taekwondo in Sant VicenÃ§ dels Horts and little by little a group grew around the same passion: Olympic Taekwondo.',
 					'Over the years, much more than a training group was built. A family was created.'
 				]
 			},
@@ -466,7 +466,7 @@ const aboutEditorialRefined = {
 			}
 		],
 		missionParagraphs: [
-			'We want to bring Olympic Taekwondo closer to Sant Vicenç dels Horts and develop people through the values of sport.',
+			'We want to bring Olympic Taekwondo closer to Sant VicenÃ§ dels Horts and develop people through the values of sport.',
 			'We want every student to find in Warriors a place to learn, grow, improve, and feel part of a team.',
 			'We are not building only athletes: we want strong, responsible, respectful people capable of facing life challenges with determination.'
 		],
@@ -490,97 +490,97 @@ const aboutEditorialReadable = {
 		storyColumns: [
 			{
 				icon: 'calendar',
-				title: 'Una història que va començar molt abans de Warriors',
+				title: 'Una histÃ²ria que va comenÃ§ar molt abans de Warriors',
 				paragraphs: [
-					'Warriors com a marca va arribar més tard, però la nostra història va començar molt abans.',
-					"L'any 2013 la Diana va iniciar classes de Taekwondo a Sant Vicenç dels Horts i, a poc a poc, va néixer un grup unit per una mateixa passió.",
-					"Amb els anys vam construir molt més que un grup d'entrenament: vam crear una família."
+					'Warriors com a marca va arribar mÃ©s tard, perÃ² la nostra histÃ²ria va comenÃ§ar molt abans.',
+					"L'any 2013 la Diana va iniciar classes de Taekwondo a Sant VicenÃ§ dels Horts i, a poc a poc, va nÃ©ixer un grup unit per una mateixa passiÃ³.",
+					"Amb els anys vam construir molt mÃ©s que un grup d'entrenament: vam crear una famÃ­lia."
 				]
 			},
 			{
 				icon: 'refresh',
-				title: 'Tornar a començar',
+				title: 'Tornar a comenÃ§ar',
 				paragraphs: [
 					'El 2023 vam reprendre les classes i tornar al tatami va significar recuperar una part de nosaltres.',
-					"El 2024 vam reconnectar amb els nostres orígens i el 2025 vam continuar avançant amb més solidesa.",
-					"Cada canvi d'espai i cada nova etapa han demanat esforç, però també ens han fet més forts."
+					"El 2024 vam reconnectar amb els nostres orÃ­gens i el 2025 vam continuar avanÃ§ant amb mÃ©s solidesa.",
+					"Cada canvi d'espai i cada nova etapa han demanat esforÃ§, perÃ² tambÃ© ens han fet mÃ©s forts."
 				]
 			},
 			{
 				icon: 'trophy',
 				title: 'I ha arribat el nostre moment',
 				paragraphs: [
-					"Després d'anys de canvis, esforç i constància, ha arribat el nostre moment.",
-					"Aquesta nova seu no és només un espai físic: és el resultat de molts anys de persistència i passió compartida.",
+					"DesprÃ©s d'anys de canvis, esforÃ§ i constÃ ncia, ha arribat el nostre moment.",
+					"Aquesta nova seu no Ã©s nomÃ©s un espai fÃ­sic: Ã©s el resultat de molts anys de persistÃ¨ncia i passiÃ³ compartida.",
 					'Ara, per fi, tenim un lloc que podem anomenar casa.'
 				]
 			}
 		],
 		missionParagraphs: [
-			"Volem acostar el Taekwondo Olímpic a Sant Vicenç dels Horts i formar persones a través dels valors de l'esport.",
-			"Volem que cada alumne trobi a Warriors un espai on aprendre, créixer, superar-se i sentir-se part d'un equip.",
-			"No busquem només esportistes: volem persones fortes, responsables i capaces d'afrontar reptes amb determinació."
+			"Volem acostar el Taekwondo OlÃ­mpic a Sant VicenÃ§ dels Horts i formar persones a travÃ©s dels valors de l'esport.",
+			"Volem que cada alumne trobi a Warriors un espai on aprendre, crÃ©ixer, superar-se i sentir-se part d'un equip.",
+			"No busquem nomÃ©s esportistes: volem persones fortes, responsables i capaces d'afrontar reptes amb determinaciÃ³."
 		],
 		visionParagraphs: [
-			"Volem construir un club de referència en Taekwondo Olímpic, tant per la formació esportiva com per la manera d'entendre aquest esport.",
-			"Aspirem a crear una comunitat sòlida i unida, on cada persona pugui desenvolupar el seu potencial sense importar el nivell o l'experiència.",
-			"Volem que les noves generacions visquin aquest esport amb la mateixa passió amb què nosaltres l'hem viscut."
+			"Volem construir un club de referÃ¨ncia en Taekwondo OlÃ­mpic, tant per la formaciÃ³ esportiva com per la manera d'entendre aquest esport.",
+			"Aspirem a crear una comunitat sÃ²lida i unida, on cada persona pugui desenvolupar el seu potencial sense importar el nivell o l'experiÃ¨ncia.",
+			"Volem que les noves generacions visquin aquest esport amb la mateixa passiÃ³ amb quÃ¨ nosaltres l'hem viscut."
 		],
 		values: [
-			{ icon: 'dobok', title: 'Respecte', text: 'El respecte cap als companys, entrenadors, rivals i cap a un mateix és la base del nostre Taekwondo.' },
-			{ icon: 'arm', title: 'Perseverança', text: 'Continuem endavant fins i tot quan les circumstàncies es compliquen.' },
-			{ icon: 'heart', title: 'Passió', text: 'Vivim el Taekwondo amb intensitat i ho transmetem en cada entrenament.' },
-			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningú creix sol. Som un equip i ho celebrem junts.' },
-			{ icon: 'sprout', title: 'Superació', text: "No es tracta de guanyar sempre, sinó d'intentar ser cada dia una mica millor que ahir." },
-			{ icon: 'brain', title: 'Disciplina', text: "El compromís, la constància i l'esforç diari ens acosten als nostres objectius." }
+			{ icon: 'dobok', title: 'Respecte', text: 'El respecte envers els companys, els entrenadors, els rivals i un mateix és la base del nostre taekwondo.' },
+			{ icon: 'arm', title: 'PerseveranÃ§a', text: 'Continuem endavant fins i tot quan les circumstÃ ncies es compliquen.' },
+			{ icon: 'heart', title: 'PassiÃ³', text: 'Vivim el Taekwondo amb intensitat i ho transmetem en cada entrenament.' },
+			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningÃº creix sol. Som un equip i ho celebrem junts.' },
+			{ icon: 'sprout', title: 'SuperaciÃ³', text: "No es tracta de guanyar sempre, sinÃ³ d'intentar ser cada dia una mica millor que ahir." },
+			{ icon: 'brain', title: 'Disciplina', text: "El compromÃ­s, la constÃ ncia i l'esforÃ§ diari ens acosten als nostres objectius." }
 		]
 	},
 	es: {
 		storyColumns: [
 			{
 				icon: 'calendar',
-				title: 'Una historia que empezó mucho antes de Warriors',
+				title: 'Una historia que empezÃ³ mucho antes de Warriors',
 				paragraphs: [
-					'Warriors como marca llegó más tarde, pero nuestra historia empezó mucho antes.',
-					'En 2013 Diana empezó a dar clases de Taekwondo en Sant Vicenç dels Horts y poco a poco nació un grupo unido por una misma pasión.',
-					'Con los años se construyó mucho más que un grupo de entrenamiento: se creó una familia.'
+					'Warriors como marca llegÃ³ mÃ¡s tarde, pero nuestra historia empezÃ³ mucho antes.',
+					'En 2013 Diana empezÃ³ a dar clases de Taekwondo en Sant VicenÃ§ dels Horts y poco a poco naciÃ³ un grupo unido por una misma pasiÃ³n.',
+					'Con los aÃ±os se construyÃ³ mucho mÃ¡s que un grupo de entrenamiento: se creÃ³ una familia.'
 				]
 			},
 			{
 				icon: 'refresh',
 				title: 'Volver a empezar',
 				paragraphs: [
-					'En 2023 retomamos las clases y volver al tatami significó recuperar una parte de nosotros.',
-					'En 2024 volvimos a nuestros orígenes y en 2025 seguimos avanzando con más estabilidad.',
-					'Cada cambio de espacio y cada nueva etapa han supuesto un esfuerzo, pero también nos han hecho más fuertes.'
+					'En 2023 retomamos las clases y volver al tatami significÃ³ recuperar una parte de nosotros.',
+					'En 2024 volvimos a nuestros orÃ­genes y en 2025 seguimos avanzando con mÃ¡s estabilidad.',
+					'Cada cambio de espacio y cada nueva etapa han supuesto un esfuerzo, pero tambiÃ©n nos han hecho mÃ¡s fuertes.'
 				]
 			},
 			{
 				icon: 'trophy',
-				title: 'Y llegó nuestro momento',
+				title: 'Y llegÃ³ nuestro momento',
 				paragraphs: [
-					'Después de años de cambios, esfuerzo y constancia, ha llegado nuestro momento.',
-					'Esta nueva sede no es solo un espacio físico: es el resultado de muchos años de persistencia y pasión compartida.',
+					'DespuÃ©s de aÃ±os de cambios, esfuerzo y constancia, ha llegado nuestro momento.',
+					'Esta nueva sede no es solo un espacio fÃ­sico: es el resultado de muchos aÃ±os de persistencia y pasiÃ³n compartida.',
 					'Ahora, por fin, tenemos un lugar al que podemos llamar casa.'
 				]
 			}
 		],
 		missionParagraphs: [
-			'Queremos acercar el Taekwondo Olímpico a Sant Vicenç dels Horts y formar personas a través de los valores del deporte.',
+			'Queremos acercar el Taekwondo OlÃ­mpico a Sant VicenÃ§ dels Horts y formar personas a travÃ©s de los valores del deporte.',
 			'Queremos que cada alumno encuentre en Warriors un espacio donde aprender, crecer, superarse y sentirse parte de un equipo.',
-			'No buscamos solo deportistas: queremos personas fuertes, responsables y capaces de afrontar retos con determinación.'
+			'No buscamos solo deportistas: queremos personas fuertes, responsables y capaces de afrontar retos con determinaciÃ³n.'
 		],
 		visionParagraphs: [
-			'Queremos construir un club de referencia en Taekwondo Olímpico, tanto por la formación deportiva como por nuestra manera de entender este deporte.',
-			'Aspiramos a crear una comunidad sólida y unida, donde cada persona pueda desarrollar su potencial sin importar el nivel o la experiencia.',
-			'Queremos que las nuevas generaciones vivan este deporte con la misma pasión con la que nosotros lo hemos vivido.'
+			'Queremos construir un club de referencia en Taekwondo OlÃ­mpico, tanto por la formaciÃ³n deportiva como por nuestra manera de entender este deporte.',
+			'Aspiramos a crear una comunidad sÃ³lida y unida, donde cada persona pueda desarrollar su potencial sin importar el nivel o la experiencia.',
+			'Queremos que las nuevas generaciones vivan este deporte con la misma pasiÃ³n con la que nosotros lo hemos vivido.'
 		],
 		values: [
-			{ icon: 'dobok', title: 'Respeto', text: 'El respeto hacia compañeros, entrenadores, rivales y hacia uno mismo es la base de nuestro Taekwondo.' },
+			{ icon: 'dobok', title: 'Respeto', text: 'El respeto hacia compaÃ±eros, entrenadores, rivales y hacia uno mismo es la base de nuestro Taekwondo.' },
 			{ icon: 'arm', title: 'Perseverancia', text: 'Seguimos adelante incluso cuando las circunstancias se complican.' },
-			{ icon: 'heart', title: 'Pasión', text: 'Vivimos el Taekwondo con intensidad y lo transmitimos en cada entrenamiento.' },
-			{ icon: 'handshake', title: 'Compañerismo', text: 'En Warriors nadie crece solo. Somos un equipo y celebramos juntos.' },
-			{ icon: 'sprout', title: 'Superación', text: 'No se trata de ganar siempre, sino de intentar ser cada día un poco mejor que ayer.' },
+			{ icon: 'heart', title: 'PasiÃ³n', text: 'Vivimos el Taekwondo con intensidad y lo transmitimos en cada entrenamiento.' },
+			{ icon: 'handshake', title: 'CompaÃ±erismo', text: 'En Warriors nadie crece solo. Somos un equipo y celebramos juntos.' },
+			{ icon: 'sprout', title: 'SuperaciÃ³n', text: 'No se trata de ganar siempre, sino de intentar ser cada dÃ­a un poco mejor que ayer.' },
 			{ icon: 'brain', title: 'Disciplina', text: 'El compromiso, la constancia y el esfuerzo diario nos acercan a nuestros objetivos.' }
 		]
 	},
@@ -591,7 +591,7 @@ const aboutEditorialReadable = {
 				title: 'A story that began long before Warriors',
 				paragraphs: [
 					'Warriors as a brand came later, but our story began much earlier.',
-					'In 2013 Diana began teaching Taekwondo in Sant Vicenç dels Horts and, little by little, a group grew around the same passion.',
+					'In 2013 Diana began teaching Taekwondo in Sant VicenÃ§ dels Horts and, little by little, a group grew around the same passion.',
 					'Over the years, we built much more than a training group: we built a family.'
 				]
 			},
@@ -615,7 +615,7 @@ const aboutEditorialReadable = {
 			}
 		],
 		missionParagraphs: [
-			'We want to bring Olympic Taekwondo closer to Sant Vicenç dels Horts and develop people through the values of sport.',
+			'We want to bring Olympic Taekwondo closer to Sant VicenÃ§ dels Horts and develop people through the values of sport.',
 			'We want every student to find in Warriors a place to learn, grow, improve, and feel part of a team.',
 			'We are not building only athletes: we want strong, responsible people capable of facing challenges with determination.'
 		],
@@ -643,55 +643,55 @@ const editorial = locale === 'ca'
 	? {
 		...editorialBase,
 		values: [
-			{ icon: 'dobok', title: 'Respecte', text: 'El respecte cap als companys, entrenadors, rivals i cap a un mateix és la base del nostre Taekwondo.' },
-			{ icon: 'arm', title: 'Perseverança', text: 'Sabem que no sempre serà fàcil. Per això continuem endavant fins i tot quan les circumstàncies es compliquen.' },
-			{ icon: 'heart', title: 'Passió', text: 'Estimem el Taekwondo i volem transmetre aquesta passió en cada entrenament i en cada petit progrés.' },
-			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningú creix sol. Som un equip i celebrem els assoliments de cadascú com si fossin de tots.' },
-			{ icon: 'sprout', title: 'Superació', text: "No es tracta de guanyar sempre, sinó d'intentar ser cada dia una mica millor que ahir." },
-			{ icon: 'brain', title: 'Disciplina', text: "El compromís, la constància i l'esforç diari són els que ens acosten als nostres objectius." }
+			{ icon: 'dobok', title: 'Respecte', text: 'El respecte envers els companys, els entrenadors, els rivals i un mateix és la base del nostre taekwondo.' },
+			{ icon: 'arm', title: 'PerseveranÃ§a', text: 'Sabem que no sempre serÃ  fÃ cil. Per aixÃ² continuem endavant fins i tot quan les circumstÃ ncies es compliquen.' },
+			{ icon: 'heart', title: 'PassiÃ³', text: 'Estimem el Taekwondo i volem transmetre aquesta passiÃ³ en cada entrenament i en cada petit progrÃ©s.' },
+			{ icon: 'handshake', title: 'Companyonia', text: 'A Warriors ningÃº creix sol. Som un equip i celebrem els assoliments de cadascÃº com si fossin de tots.' },
+			{ icon: 'sprout', title: 'SuperaciÃ³', text: "No es tracta de guanyar sempre, sinÃ³ d'intentar ser cada dia una mica millor que ahir." },
+			{ icon: 'brain', title: 'Disciplina', text: "El compromÃ­s, la constÃ ncia i l'esforÃ§ diari sÃ³n els que ens acosten als nostres objectius." }
 		]
 	}
 	: editorialBase;
 const aboutShowcaseCopy = {
 	ca: {
 		heroTitle: 'Sobre nosaltres',
-		heroSubtitle: 'Más que un club, una familia',
+		heroSubtitle: 'MÃ©s que un club, una famÃ­lia',
 		heroParagraphs: [
-			'A Warriors no només entrenem taekwondo olímpic.',
-			'Formem persones, construïm somnis i creem una família per a tota la vida.'
+			'A Warriors no nomÃ©s entrenem taekwondo olÃ­mpic.',
+			'Formem persones, construÃ¯m somnis i creem una famÃ­lia per a tota la vida.'
 		],
-		storyTitle: 'La nostra història',
+		storyTitle: 'La nostra histÃ²ria',
 		storyLead: '',
 		gratitudeLead: 'I, especialment, dels nostres alumnes.',
-		gratitudeClosingTop: 'Perquè Warriors no es va construir amb parets.',
-		gratitudeClosingMiddle: 'Es va construir amb persones, amb esforç, amb il·lusió i amb perseverança.',
+		gratitudeClosingTop: 'PerquÃ¨ Warriors no es va construir amb parets.',
+		gratitudeClosingMiddle: 'Es va construir amb persones, amb esforÃ§, amb ilÂ·lusiÃ³ i amb perseveranÃ§a.',
 		gratitudeClosingBottom: 'I ara, per fi, tenim un lloc al qual podem dir casa.',
 		missionImageAlt: 'Espai principal del dojo Warriors',
-		bottomTitleLead: 'Aquesta és la nostra història.',
+		bottomTitleLead: 'Aquesta Ã©s la nostra histÃ²ria.',
 		bottomHighlight:
-			'Estem orgullosos del camí recorregut i emocionats per tot el que està per venir.',
-		bottomClosing: 'Benvingut a la família Warriors.',
+			'Estem orgullosos del camÃ­ recorregut i emocionats per tot el que estÃ  per venir.',
+		bottomClosing: 'Benvingut a la famÃ­lia Warriors.',
 		bottomSignature: 'Anem junts!'
 	},
 	es: {
 		heroTitle: 'Sobre nosotros',
-		heroSubtitle: 'Más que un club, una família',
+		heroSubtitle: 'MÃ¡s que un club, una familia',
 		heroParagraphs: [
-			'En Warriors no solo entrenamos taekwondo olímpico.',
-			'Formamos personas, construimos sueños y creamos una familia para toda la vida.'
+			'En Warriors no solo entrenamos taekwondo olÃ­mpico.',
+			'Formamos personas, construimos sueÃ±os y creamos una familia para toda la vida.'
 		],
 		storyTitle: 'Nuestra historia',
 		storyLead: '',
 		gratitudeLead: 'Y, especialmente, de nuestros alumnos.',
-		gratitudeClosingTop: 'Porque Warriors no se construyó con paredes.',
-		gratitudeClosingMiddle: 'Se construyó con personas, con esfuerzo, con ilusión y con perseverancia.',
+		gratitudeClosingTop: 'Porque Warriors no se construyÃ³ con paredes.',
+		gratitudeClosingMiddle: 'Se construyÃ³ con personas, con esfuerzo, con ilusiÃ³n y con perseverancia.',
 		gratitudeClosingBottom: 'Y ahora, por fin, tenemos un lugar al que podemos llamar casa.',
 		missionImageAlt: 'Espacio principal del dojo Warriors',
 		bottomTitleLead: 'Esta es nuestra historia.',
 		bottomHighlight:
-			'Estamos orgullosos del camino recorrido y emocionados por todo lo que está por venir.',
+			'Estamos orgullosos del camino recorrido y emocionados por todo lo que estÃ¡ por venir.',
 		bottomClosing: 'Bienvenido a la familia Warriors.',
-		bottomSignature: '¡Vamos juntos!'
+		bottomSignature: 'Â¡Vamos juntos!'
 	},
 	en: {
 		heroTitle: 'About us',
@@ -719,56 +719,56 @@ const logoPosterCopy = {
 	ca: {
 		kicker: 'Significat del logo',
 		titleLead: 'Cada detall',
-		titleAccent: 'té un propòsit',
+		titleAccent: 'tÃ© un propÃ²sit',
 		breakdownTitle: 'Desglossament del logo',
 		intro:
-			'El nostre logo representa molt més que el nom del club. Cada element explica una part de la nostra història, dels nostres valors i de la persona que hi ha a l’origen de Warriors.',
-		quoteLead: 'En conjunt, el logo representa molt més que el nom del club:',
+			'El nostre logo representa molt mÃ©s que el nom del club. Cada element explica una part de la nostra histÃ²ria, dels nostres valors i de la persona que hi ha a lâ€™origen de Warriors.',
+		quoteLead: 'En conjunt, el logo representa molt mÃ©s que el nom del club:',
 		quoteMain:
-			'És un reflex de la nostra història, dels nostres valors i de la persona que està a l’origen de Warriors.',
+			'Ã‰s un reflex de la nostra histÃ²ria, dels nostres valors i de la persona que estÃ  a lâ€™origen de Warriors.',
 		quote:
-			'En conjunt, el logo representa molt més que el nom del club: és un reflex de la nostra història, dels nostres valors i de la persona que està a l’origen de Warriors.',
+			'En conjunt, el logo representa molt mÃ©s que el nom del club: Ã©s un reflex de la nostra histÃ²ria, dels nostres valors i de la persona que estÃ  a lâ€™origen de Warriors.',
 		details: [
-			{ number: '1', title: 'Les dues “V”', visual: 'V + V = W', text: 'Les dues “V”, en groc i vermell, s’uneixen per formar la “W” de Warriors. Aquestes dues lletres representen, a més, les inicials dels cognoms de Diana Vázquez Vallés, entrenadora i figura fonamental del club.' },
-			{ number: '2', title: 'El cinturó', visual: null, text: 'Ambdues “V” estan unides per un cinturó, un element estretament lligat al nostre esport i que simbolitza, al mateix temps, la unió, la força i els valors que compartim com a equip.' },
-			{ number: '3', title: 'La “M” de Diana', visual: 'M', text: 'De la seva composició sorgeix també una “M”, inicial que Diana porta gravada al seu propi cinturó, una lletra carregada de significat personal i que representa una presència, un vincle i una part essencial de la història que acompanya la Diana i el naixement de Warriors.' },
-			{ number: '4', title: 'L’escut de Wonder Woman', visual: null, text: 'Com a fons apareix l’escut de Wonder Woman, personatge amb el qual sempre s’ha identificat i al qual carinyosament han comparat amb la Diana per la seva força, caràcter, determinació i esperit de lluita.' },
-			{ number: '5', title: 'Les sis estrelles', visual: '★ ★ ★ ★ ★ ★', text: 'Finalment, les sis estrelles representen els sis títols de Campiona d’Espanya conquistats per Diana al llarg de la seva trajectòria, convertint-se en un símbol dels seus èxits, el seu esforç i el seu llegat.' }
+			{ number: '1', title: 'Les dues â€œVâ€', visual: 'V + V = W', text: 'Les dues â€œVâ€, en groc i vermell, sâ€™uneixen per formar la â€œWâ€ de Warriors. Aquestes dues lletres representen, a mÃ©s, les inicials dels cognoms de Diana VÃ¡zquez VallÃ©s, entrenadora i figura fonamental del club.' },
+			{ number: '2', title: 'El cinturÃ³', visual: null, text: 'Ambdues â€œVâ€ estan unides per un cinturÃ³, un element estretament lligat al nostre esport i que simbolitza, al mateix temps, la uniÃ³, la forÃ§a i els valors que compartim com a equip.' },
+			{ number: '3', title: 'La â€œMâ€ de Diana', visual: 'M', text: 'De la seva composiciÃ³ sorgeix tambÃ© una â€œMâ€, inicial que Diana porta gravada al seu propi cinturÃ³, una lletra carregada de significat personal i que representa una presÃ¨ncia, un vincle i una part essencial de la histÃ²ria que acompanya la Diana i el naixement de Warriors.' },
+			{ number: '4', title: 'Lâ€™escut de Wonder Woman', visual: null, text: 'Com a fons apareix lâ€™escut de Wonder Woman, personatge amb el qual sempre sâ€™ha identificat i amb qui sovint han comparat afectuosament la Diana per la seva forÃ§a, carÃ cter, determinaciÃ³ i esperit de lluita.' },
+			{ number: '5', title: 'Les sis estrelles', visual: 'â˜… â˜… â˜… â˜… â˜… â˜…', text: 'Finalment, les sis estrelles representen els sis tÃ­tols de Campiona dâ€™Espanya aconseguits per Diana al llarg de la seva trajectÃ²ria, convertint-se en un sÃ­mbol dels seus Ã¨xits, el seu esforÃ§ i el seu llegat.' }
 		],
 		bottomValues: [
-			{ icon: 'team', title: 'Unió', text: 'Som un equip. Creixem junts.' },
-			{ icon: 'fist', title: 'Força', text: 'Entrenem cos i ment per ser més forts.' },
-			{ icon: 'heart', title: 'Passió', text: 'Estimem el Taekwondo i el vivim amb intensitat.' },
-			{ icon: 'star', title: 'Superació', text: 'No es tracta de ser els millors, sinó de ser millors cada dia.' },
-			{ icon: 'belt', title: 'Disciplina', text: 'El camí de l’esforç i la constància ens porta més lluny.' }
+			{ icon: 'team', title: 'UniÃ³', text: 'Som un equip. Creixem junts.' },
+			{ icon: 'fist', title: 'ForÃ§a', text: 'Entrenem cos i ment per ser mÃ©s forts.' },
+			{ icon: 'heart', title: 'PassiÃ³', text: 'Estimem el Taekwondo i el vivim amb intensitat.' },
+			{ icon: 'star', title: 'SuperaciÃ³', text: 'No es tracta de ser els millors, sinÃ³ de ser millors cada dia.' },
+			{ icon: 'belt', title: 'Disciplina', text: 'El camÃ­ de lâ€™esforÃ§ i la constÃ ncia ens porta mÃ©s lluny.' }
 		],
-		signature: 'La nostra història. Els nostres valors. La nostra família. Warriors.'
+		signature: 'La nostra histÃ²ria. Els nostres valors. La nostra famÃ­lia. Warriors.'
 	},
 	es: {
 		kicker: 'Significado del logo',
 		titleLead: 'Cada detalle',
-		titleAccent: 'tiene un propósito',
+		titleAccent: 'tiene un propÃ³sito',
 		breakdownTitle: 'Despiece del logo',
 		intro:
-			'Nuestro logo representa mucho más que el nombre del club. Cada elemento cuenta una parte de nuestra historia, de nuestros valores y de la persona que está en el origen de Warriors.',
-		quoteLead: 'En conjunto, el logo representa mucho más que el nombre del club:',
+			'Nuestro logo representa mucho mÃ¡s que el nombre del club. Cada elemento cuenta una parte de nuestra historia, de nuestros valores y de la persona que estÃ¡ en el origen de Warriors.',
+		quoteLead: 'En conjunto, el logo representa mucho mÃ¡s que el nombre del club:',
 		quoteMain:
-			'Es un reflejo de nuestra historia, de nuestros valores y de la persona que está en el origen de Warriors.',
+			'Es un reflejo de nuestra historia, de nuestros valores y de la persona que estÃ¡ en el origen de Warriors.',
 		quote:
-			'En conjunto, el logo representa mucho más que el nombre del club: es un reflejo de nuestra historia, de nuestros valores y de la persona que está en el origen de Warriors.',
+			'En conjunto, el logo representa mucho mÃ¡s que el nombre del club: es un reflejo de nuestra historia, de nuestros valores y de la persona que estÃ¡ en el origen de Warriors.',
 		details: [
-			{ number: '1', title: 'Las dos “V”', visual: 'V + V = W', text: 'Las dos “V”, en color amarillo y rojo, se unen para formar la “W” de Warriors. Estas dos letras representan, además, las iniciales de los apellidos de Diana Vázquez Vallés, entrenadora y figura fundamental del club.' },
-			{ number: '2', title: 'El cinturón', visual: null, text: 'Ambas “V” están unidas por un cinturón, un elemento estrechamente ligado a nuestro deporte y que simboliza, al mismo tiempo, la unión, la fuerza y los valores que compartimos como equipo.' },
-			{ number: '3', title: 'La “M” de Diana', visual: 'M', text: 'De su composición surge también una “M”, inicial que Diana lleva grabada en su propio cinturón, una letra cargada de significado personal y que representa una presencia, un vínculo y una parte esencial de la historia que acompaña a Diana y al nacimiento de Warriors.' },
-			{ number: '4', title: 'El escudo de Wonder Woman', visual: null, text: 'Como fondo aparece el escudo de Wonder Woman, personaje con el que siempre se ha identificado y al que cariñosamente han comparado con Diana por su fuerza, carácter, determinación y espíritu de lucha.' },
-			{ number: '5', title: 'Las seis estrellas', visual: '★ ★ ★ ★ ★ ★', text: 'Finalmente, las seis estrellas representan los seis títulos de Campeona de España conquistados por Diana a lo largo de su trayectoria, convirtiéndose en un símbolo de sus logros, su esfuerzo y su legado.' }
+			{ number: '1', title: 'Las dos â€œVâ€', visual: 'V + V = W', text: 'Las dos â€œVâ€, en color amarillo y rojo, se unen para formar la â€œWâ€ de Warriors. Estas dos letras representan, ademÃ¡s, las iniciales de los apellidos de Diana VÃ¡zquez VallÃ©s, entrenadora y figura fundamental del club.' },
+			{ number: '2', title: 'El cinturÃ³n', visual: null, text: 'Ambas â€œVâ€ estÃ¡n unidas por un cinturÃ³n, un elemento estrechamente ligado a nuestro deporte y que simboliza, al mismo tiempo, la uniÃ³n, la fuerza y los valores que compartimos como equipo.' },
+			{ number: '3', title: 'La â€œMâ€ de Diana', visual: 'M', text: 'De su composiciÃ³n surge tambiÃ©n una â€œMâ€, inicial que Diana lleva grabada en su propio cinturÃ³n, una letra cargada de significado personal y que representa una presencia, un vÃ­nculo y una parte esencial de la historia que acompaÃ±a a Diana y al nacimiento de Warriors.' },
+			{ number: '4', title: 'El escudo de Wonder Woman', visual: null, text: 'Como fondo aparece el escudo de Wonder Woman, personaje con el que siempre se ha identificado y con quien a menudo han comparado afectuosamente a Diana por su fuerza, carÃ¡cter, determinaciÃ³n y espÃ­ritu de lucha.' },
+			{ number: '5', title: 'Las seis estrellas', visual: 'â˜… â˜… â˜… â˜… â˜… â˜…', text: 'Finalmente, las seis estrellas representan los seis tÃ­tulos de Campeona de EspaÃ±a logrados por Diana a lo largo de su trayectoria, convirtiÃ©ndose en un sÃ­mbolo de sus logros, su esfuerzo y su legado.' }
 		],
 		bottomValues: [
-			{ icon: 'team', title: 'Unión', text: 'Somos un equipo. Crecemos juntos.' },
-			{ icon: 'fist', title: 'Fuerza', text: 'Entrenamos cuerpo y mente para ser más fuertes.' },
-			{ icon: 'heart', title: 'Pasión', text: 'Amamos el Taekwondo y lo vivimos con intensidad.' },
-			{ icon: 'star', title: 'Superación', text: 'No se trata de ser los mejores, sino de ser mejores cada día.' },
-			{ icon: 'belt', title: 'Disciplina', text: 'El camino del esfuerzo y la constancia nos lleva más lejos.' }
+			{ icon: 'team', title: 'UniÃ³n', text: 'Somos un equipo. Crecemos juntos.' },
+			{ icon: 'fist', title: 'Fuerza', text: 'Entrenamos cuerpo y mente para ser mÃ¡s fuertes.' },
+			{ icon: 'heart', title: 'PasiÃ³n', text: 'Amamos el Taekwondo y lo vivimos con intensidad.' },
+			{ icon: 'star', title: 'SuperaciÃ³n', text: 'No se trata de ser los mejores, sino de ser mejores cada dÃ­a.' },
+			{ icon: 'belt', title: 'Disciplina', text: 'El camino del esfuerzo y la constancia nos lleva mÃ¡s lejos.' }
 		],
 		signature: 'Nuestra historia. Nuestros valores. Nuestra familia. Warriors.'
 	},
@@ -785,11 +785,11 @@ const logoPosterCopy = {
 		quote:
 			'Taken as a whole, the logo represents much more than the club name: it reflects our story, our values, and the person at the origin of Warriors.',
 		details: [
-			{ number: '1', title: 'The two “V” shapes', visual: 'V + V = W', text: 'The two “V” shapes, in yellow and red, come together to form the Warriors “W”. They also represent the initials of Diana Vázquez Vallés, coach and central figure in the club’s identity.' },
-			{ number: '2', title: 'The belt', visual: null, text: 'Both “V” shapes are tied together by a belt, an element closely linked to our sport that also symbolizes unity, strength, and the values we share as a team.' },
-			{ number: '3', title: 'Diana’s “M”', visual: 'M', text: 'The composition also suggests an “M”, an initial engraved on Diana’s own belt. It carries personal meaning and represents a presence, a bond, and an essential part of the story behind the birth of Warriors.' },
+			{ number: '1', title: 'The two â€œVâ€ shapes', visual: 'V + V = W', text: 'The two â€œVâ€ shapes, in yellow and red, come together to form the Warriors â€œWâ€. They also represent the initials of Diana VÃ¡zquez VallÃ©s, coach and central figure in the clubâ€™s identity.' },
+			{ number: '2', title: 'The belt', visual: null, text: 'Both â€œVâ€ shapes are tied together by a belt, an element closely linked to our sport that also symbolizes unity, strength, and the values we share as a team.' },
+			{ number: '3', title: 'Dianaâ€™s â€œMâ€', visual: 'M', text: 'The composition also suggests an â€œMâ€, an initial engraved on Dianaâ€™s own belt. It carries personal meaning and represents a presence, a bond, and an essential part of the story behind the birth of Warriors.' },
 			{ number: '4', title: 'The Wonder Woman shield', visual: null, text: 'In the background appears the Wonder Woman shield, a character Diana has always identified with and whom many lovingly associate with her because of her strength, character, determination, and fighting spirit.' },
-			{ number: '5', title: 'The six stars', visual: '★ ★ ★ ★ ★ ★', text: 'Finally, the six stars represent the six Spanish Champion titles Diana has won throughout her career, becoming a symbol of her achievements, effort, and legacy.' }
+			{ number: '5', title: 'The six stars', visual: 'â˜… â˜… â˜… â˜… â˜… â˜…', text: 'Finally, the six stars represent the six Spanish Champion titles Diana has won throughout her career, becoming a symbol of her achievements, effort, and legacy.' }
 		],
 		bottomValues: [
 			{ icon: 'team', title: 'Unity', text: 'We are one team. We grow together.' },
@@ -810,62 +810,62 @@ const coachShowcaseCopy = {
 		heroStatement: 'Formem, acompanyem i creiem en cada Warrior.',
 		heroSupport: 'Dins i fora del tatami.',
 		heroText:
-			'Darrere de cada campionat, de cada cinturó i de cada progrés, hi ha persones que creuen en tu. Elles són el cor de Warriors.',
+			'Darrere de cada campionat, de cada cinturÃ³ i de cada progrÃ©s, hi ha persones que creuen en tu. Elles sÃ³n el cor de Warriors.',
 		dianaBadge: 'Coach principal',
-		dianaSubtitle: 'Instructora i coach de Taekwondo Olímpic',
+		dianaSubtitle: 'Instructora i coach de taekwondo olÃ­mpic',
 		dianaHighlights: [
-			{ icon: 'team', title: 'Més de 30 anys de trajectòria', text: 'Una vida dedicada al Taekwondo dins i fora del tatami.' },
-			{ icon: 'belt', title: 'Entrenadora i coach', text: 'Experiència com a entrenadora de clubs i coach de la Federació Catalana.' },
-			{ icon: 'medal', title: 'Reconeguda per la seva trajectòria', text: 'Mèrit esportiu RFET i reconeixement a la Nit de l’Esport.' }
+			{ icon: 'team', title: 'MÃ©s de 30 anys de trajectÃ²ria', text: 'Una vida dedicada al Taekwondo dins i fora del tatami.' },
+			{ icon: 'belt', title: 'Entrenadora i coach', text: 'ExperiÃ¨ncia com a entrenadora de clubs i coach de la FederaciÃ³ Catalana.' },
+			{ icon: 'medal', title: 'Reconeguda per la seva trajectÃ²ria', text: 'MÃ¨rit esportiu RFET i reconeixement a la Nit de lâ€™Esport.' }
 		],
 		dianaStrip: [
-			'Vinculada a l’alt rendiment i al coaching federatiu.',
-			'Col·labora amb projectes tècnics i marques del sector.',
-			'Referent esportiu i humà dins del club.'
+			'Vinculada a lâ€™alt rendiment i al coaching federatiu.',
+			'ColÂ·labora amb projectes tÃ¨cnics i marques del sector.',
+			'Referent esportiu i humÃ  dins del club.'
 		],
-		laiaTitle: 'Un exemple de constància i superació',
+		laiaTitle: 'Un exemple de constÃ ncia i superaciÃ³',
 		laiaLead:
-			'Laia ha crescut dins del projecte Warriors, passant d’alumna a monitora i convertint-se en una figura clau en el dia a dia del club.',
+			'Laia ha crescut dins del projecte Warriors, passant dâ€™alumna a monitora i convertint-se en una figura clau en el dia a dia del club.',
 		laiaHighlights: [
-			{ icon: 'user', title: 'D’alumna a referent', text: 'Una evolució natural que avui inspira les noves generacions.' },
-			{ icon: 'team', title: 'Mà dreta de Diana', text: 'Peces clau en l’acompanyament diari, la proximitat i el compromís.' },
-			{ icon: 'spark', title: 'Jove, enèrgica i compromesa', text: 'Aporta joventut, energia i moltes ganes de continuar creixent.' }
+			{ icon: 'user', title: 'Dâ€™alumna a referent', text: 'Una evoluciÃ³ natural que avui inspira les noves generacions.' },
+			{ icon: 'team', title: 'MÃ  dreta de Diana', text: 'Peces clau en lâ€™acompanyament diari, la proximitat i el compromÃ­s.' },
+			{ icon: 'spark', title: 'Jove, enÃ¨rgica i compromesa', text: 'Aporta joventut, energia i moltes ganes de continuar creixent.' }
 		],
-		familyLead: 'Més que entrenadors,',
-		familyAccent: 'una família.',
+		familyLead: 'MÃ©s que entrenadors,',
+		familyAccent: 'una famÃ­lia.',
 		familyText: 'Guiem. Motivem. Acompanyem. Inspirem. Formem campions dins i fora del tatami.'
 	},
 	es: {
 		heroLead: 'Nuestros',
 		heroAccent: 'coaches',
 		heroKicker: 'El equipo Warriors',
-		heroStatement: 'Formamos, acompañamos y creemos en cada Warrior.',
+		heroStatement: 'Formamos, acompaÃ±amos y creemos en cada Warrior.',
 		heroSupport: 'Dentro y fuera del tatami.',
 		heroText:
-			'Detrás de cada campeonato, de cada cinturón y de cada logro, hay personas que creen en ti. Ellas son el corazón de Warriors.',
+			'DetrÃ¡s de cada campeonato, de cada cinturÃ³n y de cada logro, hay personas que creen en ti. Ellas son el corazÃ³n de Warriors.',
 		dianaBadge: 'Coach principal',
-		dianaSubtitle: 'Instructora y Coach de Taekwondo Olímpico',
+		dianaSubtitle: 'Instructora y Coach de Taekwondo OlÃ­mpico',
 		dianaHighlights: [
-			{ icon: 'team', title: 'Más de 30 años de trayectoria', text: 'Una vida dedicada al Taekwondo dentro y fuera del tatami.' },
+			{ icon: 'team', title: 'MÃ¡s de 30 aÃ±os de trayectoria', text: 'Una vida dedicada al Taekwondo dentro y fuera del tatami.' },
 			{ icon: 'belt', title: 'Entrenadora y coach', text: 'Experiencia como entrenadora de clubes y coach federativa.' },
-			{ icon: 'medal', title: 'Reconocida por su trayectoria', text: 'Mérito deportivo RFET y reconocimientos a su carrera.' }
+			{ icon: 'medal', title: 'Reconocida por su trayectoria', text: 'MÃ©rito deportivo RFET y reconocimientos a su carrera.' }
 		],
 		dianaStrip: [
 			'Vinculada al alto rendimiento y al coaching federativo.',
-			'Colabora con proyectos técnicos y marcas del sector.',
+			'Colabora con proyectos tÃ©cnicos y marcas del sector.',
 			'Referente deportivo y humano dentro del club.'
 		],
-		laiaTitle: 'Un ejemplo de constancia y superación',
+		laiaTitle: 'Un ejemplo de constancia y superaciÃ³n',
 		laiaLead:
-			'Laia ha crecido dentro del proyecto Warriors, pasando de alumna a monitora y convirtiéndose en una figura clave en el día a día del club.',
+			'Laia ha crecido dentro del proyecto Warriors, pasando de alumna a monitora y convirtiÃ©ndose en una figura clave en el dÃ­a a dÃ­a del club.',
 		laiaHighlights: [
-			{ icon: 'user', title: 'De alumna a referente', text: 'Una evolución natural que hoy inspira a nuevas generaciones.' },
-			{ icon: 'team', title: 'Mano derecha de Diana', text: 'Pieza clave en el acompañamiento diario, la cercanía y el compromiso.' },
-			{ icon: 'spark', title: 'Joven, enérgica y comprometida', text: 'Aporta juventud, energía y ganas constantes de seguir creciendo.' }
+			{ icon: 'user', title: 'De alumna a referente', text: 'Una evoluciÃ³n natural que hoy inspira a nuevas generaciones.' },
+			{ icon: 'team', title: 'Mano derecha de Diana', text: 'Pieza clave en el acompaÃ±amiento diario, la cercanÃ­a y el compromiso.' },
+			{ icon: 'spark', title: 'Joven, enÃ©rgica y comprometida', text: 'Aporta juventud, energÃ­a y ganas constantes de seguir creciendo.' }
 		],
-		familyLead: 'Más que entrenadores,',
+		familyLead: 'MÃ¡s que entrenadores,',
 		familyAccent: 'una familia.',
-		familyText: 'Guiamos. Motivamos. Acompañamos. Inspiramos. Formamos campeones dentro y fuera del tatami.'
+		familyText: 'Guiamos. Motivamos. AcompaÃ±amos. Inspiramos. Formamos campeones dentro y fuera del tatami.'
 	},
 	en: {
 		heroLead: 'Our',
@@ -892,7 +892,7 @@ const coachShowcaseCopy = {
 			'Laia has grown within the Warriors project, moving from student to instructor and becoming a key figure in the daily life of the club.',
 		laiaHighlights: [
 			{ icon: 'user', title: 'From student to role model', text: 'A natural evolution that now inspires new generations.' },
-			{ icon: 'team', title: 'Diana’s right hand', text: 'A key presence in daily support, closeness, and commitment.' },
+			{ icon: 'team', title: 'Dianaâ€™s right hand', text: 'A key presence in daily support, closeness, and commitment.' },
 			{ icon: 'spark', title: 'Young, energetic, committed', text: 'She brings youth, energy, and a real drive to keep growing.' }
 		],
 		familyLead: 'More than coaches,',
@@ -903,6 +903,11 @@ const coachShowcaseCopy = {
 const coachShowcase = coachShowcaseCopy[locale];
 const diana = aboutCopy.team.members[0];
 const laia = aboutCopy.team.members[1];
+const coachesHeroAltByLocale = {
+	ca: 'Equip Warriors acompanyant una alumna en competiciÃ³',
+	es: 'Equipo Warriors acompaÃ±ando a una alumna en competiciÃ³n',
+	en: 'Warriors team supporting a student in competition'
+} as const;
 const coachEditorialByLocale = {
 	ca: {
 		heroIntro: [
@@ -920,7 +925,7 @@ const coachEditorialByLocale = {
 		],
 		dianaStrip: [
 			{ icon: 'dobok', text: 'Vinculada a l\'alt rendiment com a coach de la Federaci\u00f3 Catalana de Taekwondo.' },
-			{ icon: 'star-outline', text: 'Col\u00b7labora amb marques l\u00edders del sector: model de DAEDO i col\u00b7laboradora de FUJIMAE.' },
+			{ icon: 'star-outline', text: 'ColÂ·labora amb marques lÃ­ders del sector com DAEDO i FUJIMAE.' },
 			{ icon: 'trophy-outline', text: 'Reconeixement a la seva traject\u00f2ria i vinculaci\u00f3 amb l\'esport.' }
 		],
 		laiaSectionTitle: 'Un exemple de const\u00e0ncia i superaci\u00f3',
@@ -1008,24 +1013,24 @@ const coachEditorialReadableByLocale = {
 	ca: {
 		dianaParagraphs: [
 			"Diana es va iniciar en el Taekwondo als 5 anys i, des de llavors, aquest esport ha marcat la seva vida dins i fora del tatami.",
-			"Després de més de tres dècades de trajectòria, posa tota aquesta experiència al servei de les noves generacions."
+			"DesprÃ©s de mÃ©s de tres dÃ¨cades de trajectÃ²ria, posa tota aquesta experiÃ¨ncia al servei de les noves generacions."
 		],
 		laiaParagraphs: [
-			"Laia va començar el seu camí en el Taekwondo amb 5 anys, de la mà de Diana, i aviat ho va convertir en una passió real.",
-			"Avui acompanya el projecte Warriors en el dia a dia i és una peça clau dins de l'equip."
+			"Laia va comenÃ§ar el seu camÃ­ en el Taekwondo amb 5 anys, de la mÃ  de Diana, i aviat ho va convertir en una passiÃ³ real.",
+			"Avui acompanya el projecte Warriors en el dia a dia i Ã©s una peÃ§a clau dins de l'equip."
 		],
-		laiaCallout: 'Per a Laia, formar part de Warriors significa seguir creixent i acompanyar els més petits en els seus primers passos amb disciplina, respecte i passió pel Taekwondo.'
+		laiaCallout: 'Per a Laia, formar part de Warriors significa seguir creixent i acompanyar els mÃ©s petits en els seus primers passos amb disciplina, respecte i passiÃ³ pel Taekwondo.'
 	},
 	es: {
 		dianaParagraphs: [
-			'Diana se inició en el Taekwondo a los 5 años y, desde entonces, este deporte ha marcado su vida dentro y fuera del tatami.',
-			'Tras más de tres décadas de trayectoria, hoy pone toda esa experiencia al servicio de las nuevas generaciones.'
+			'Diana se iniciÃ³ en el Taekwondo a los 5 aÃ±os y, desde entonces, este deporte ha marcado su vida dentro y fuera del tatami.',
+			'Tras mÃ¡s de tres dÃ©cadas de trayectoria, hoy pone toda esa experiencia al servicio de las nuevas generaciones.'
 		],
 		laiaParagraphs: [
-			'Laia comenzó su camino en el Taekwondo con 5 años, de la mano de Diana, y pronto lo convirtió en una pasión real.',
-			'Hoy acompaña el proyecto Warriors en el día a día y es una pieza clave dentro del equipo.'
+			'Laia comenzÃ³ su camino en el Taekwondo con 5 aÃ±os, de la mano de Diana, y pronto lo convirtiÃ³ en una pasiÃ³n real.',
+			'Hoy acompaÃ±a el proyecto Warriors en el dÃ­a a dÃ­a y es una pieza clave dentro del equipo.'
 		],
-		laiaCallout: 'Para Laia, formar parte de Warriors significa seguir creciendo y acompañar a los más pequeños en sus primeros pasos con disciplina, respeto y pasión por el Taekwondo.'
+		laiaCallout: 'Para Laia, formar parte de Warriors significa seguir creciendo y acompaÃ±ar a los mÃ¡s pequeÃ±os en sus primeros pasos con disciplina, respeto y pasiÃ³n por el Taekwondo.'
 	},
 	en: {
 		dianaParagraphs: [
@@ -1091,8 +1096,8 @@ const logoPosterWithAssets = {
 			</nav>
 
 			<div class="header-languages" aria-label={languageAria[locale]}>
-				<a class={`language-flag ${locale === 'ca' ? 'active' : ''}`} href={localeSwitchPaths.ca} aria-label="Català" title="Català"></a>
-				<a class={`language-flag ${locale === 'es' ? 'active' : ''}`} href={localeSwitchPaths.es} aria-label="Español" title="Español"></a>
+				<a class={`language-flag ${locale === 'ca' ? 'active' : ''}`} href={localeSwitchPaths.ca} aria-label="CatalÃ " title="CatalÃ "></a>
+				<a class={`language-flag ${locale === 'es' ? 'active' : ''}`} href={localeSwitchPaths.es} aria-label="EspaÃ±ol" title="EspaÃ±ol"></a>
 				<a class={`language-flag ${locale === 'en' ? 'active' : ''}`} href={localeSwitchPaths.en} aria-label="English" title="English"></a>
 			</div>
 
@@ -1104,8 +1109,8 @@ const logoPosterWithAssets = {
 					aria-label={languageAria[locale]}
 					onchange="window.location.href=this.value"
 				>
-					<option value={localeSwitchPaths.ca} selected={locale === 'ca'}>Català</option>
-					<option value={localeSwitchPaths.es} selected={locale === 'es'}>Español</option>
+					<option value={localeSwitchPaths.ca} selected={locale === 'ca'}>CatalÃ </option>
+					<option value={localeSwitchPaths.es} selected={locale === 'es'}>EspaÃ±ol</option>
 					<option value={localeSwitchPaths.en} selected={locale === 'en'}>English</option>
 				</select>
 			</div>
@@ -1446,8 +1451,8 @@ const logoPosterWithAssets = {
 						<img src="/images/about-logo-warriors.png" alt="Logo Club Taekwondo Warriors" />
 					</div>
 					<div class="about-hero-grid">
-						<img src="/images/about-diana.jpeg" alt="Diana Vázquez Vallés" />
-						<img src="/images/about-laia.jpeg" alt="Laia Marín" />
+						<img src="/images/about-diana.jpeg" alt="Diana VÃ¡zquez VallÃ©s" />
+						<img src="/images/about-laia.jpeg" alt="Laia MarÃ­n" />
 					</div>
 				</div>
 			</div>
@@ -1636,7 +1641,7 @@ const logoPosterWithAssets = {
 							<img src="/images/warriors-emblema-circulo.png" alt="Desglose visual del logo Warriors" />
 						</div>
 						<div class="logo-breakdown-belt">
-							<img src="/images/warriors-white-belt-generated.png" alt="Cinturón blanco Warriors" />
+							<img src="/images/warriors-white-belt-generated.png" alt="CinturÃ³n blanco Warriors" />
 						</div>
 					</div>
 
@@ -1647,7 +1652,7 @@ const logoPosterWithAssets = {
 									<span class="logo-detail-number">{item.number}</span>
 									<h4>{item.title}</h4>
 								</div>
-								{item.visual && <p class={`logo-detail-visual ${item.visual.includes('★') ? 'stars-mark' : ''}`}>{item.visual}</p>}
+								{item.visual && <p class={`logo-detail-visual ${item.visual.includes('â˜…') ? 'stars-mark' : ''}`}>{item.visual}</p>}
 								<p>{item.text}</p>
 							</article>
 						))}
@@ -1659,10 +1664,10 @@ const logoPosterWithAssets = {
 						<img src="/images/warriors-emblema-circulo.png" alt="" />
 					</div>
 					<div class="logo-poster-quote-copy">
-						<span class="logo-poster-quote-mark quote-open" aria-hidden="true">“</span>
+						<span class="logo-poster-quote-mark quote-open" aria-hidden="true">â€œ</span>
 						<p class="logo-poster-quote-lead">{logoPoster.quoteLead}</p>
 						<p class="logo-poster-quote-main">{logoPoster.quoteMain}</p>
-						<span class="logo-poster-quote-mark quote-close" aria-hidden="true">”</span>
+						<span class="logo-poster-quote-mark quote-close" aria-hidden="true">â€</span>
 					</div>
 					<div class="logo-poster-quote-image">
 						<img src="/images/optimized/entrada-local-1.jpg" srcset="/images/optimized/entrada-local-1-mobile.jpg 560w, /images/optimized/entrada-local-1.jpg 984w" sizes="(max-width: 760px) 100vw, 26rem" alt="Entrada del Club Taekwondo Warriors" loading="lazy" decoding="async" />
@@ -1704,7 +1709,7 @@ const logoPosterWithAssets = {
 						</div>
 					</div>
 					<div class="coaches-hero-media">
-						<img src="/images/coaches.png" alt="Coaches de Warriors acompañando a una alumna en competición" />
+						<img src="/images/coaches.png" alt={coachesHeroAltByLocale[locale]} />
 					</div>
 				</div>
 
@@ -1900,9 +1905,9 @@ const logoPosterWithAssets = {
 				</div>
 
 				<div class="coaches-family-banner">
-					<img class="coaches-family-banner-generated" src="/images/optimized/coaches-family-banner.jpg" srcset="/images/optimized/coaches-family-banner-mobile.jpg 720w, /images/optimized/coaches-family-banner.jpg 1500w" sizes="100vw" alt="Banner Warriors con cinturón negro, mensaje familiar y logo del club" loading="lazy" decoding="async" />
+					<img class="coaches-family-banner-generated" src="/images/optimized/coaches-family-banner.jpg" srcset="/images/optimized/coaches-family-banner-mobile.jpg 720w, /images/optimized/coaches-family-banner.jpg 1500w" sizes="100vw" alt="Banner Warriors con cinturÃ³n negro, mensaje familiar y logo del club" loading="lazy" decoding="async" />
 					<div class="coaches-family-image">
-						<img src="/images/optimized/cta-diana-kick-right.jpg" srcset="/images/optimized/cta-diana-kick-right-mobile.jpg 560w, /images/optimized/cta-diana-kick-right.jpg 1100w" sizes="(max-width: 760px) 100vw, 24rem" alt="Detalle del cinturón Warriors" loading="lazy" decoding="async" />
+						<img src="/images/optimized/cta-diana-kick-right.jpg" srcset="/images/optimized/cta-diana-kick-right-mobile.jpg 560w, /images/optimized/cta-diana-kick-right.jpg 1100w" sizes="(max-width: 760px) 100vw, 24rem" alt="Detalle del cinturÃ³n Warriors" loading="lazy" decoding="async" />
 					</div>
 					<div class="coaches-family-copy">
 						<h3>
@@ -1917,7 +1922,7 @@ const logoPosterWithAssets = {
 				</div>
 				<div class="coaches-family-banner-live">
 					<div class="coaches-family-banner-live-image">
-						<img src="/images/optimized/coaches-belt-left.jpg" srcset="/images/optimized/coaches-belt-left-mobile.jpg 560w, /images/optimized/coaches-belt-left.jpg 1100w" sizes="(max-width: 760px) 100vw, 24rem" alt="Detalle de cinturón negro Warriors" loading="lazy" decoding="async" />
+						<img src="/images/optimized/coaches-belt-left.jpg" srcset="/images/optimized/coaches-belt-left-mobile.jpg 560w, /images/optimized/coaches-belt-left.jpg 1100w" sizes="(max-width: 760px) 100vw, 24rem" alt="Detalle de cinturÃ³n negro Warriors" loading="lazy" decoding="async" />
 					</div>
 					<div class="coaches-family-banner-live-copy">
 						<h3>
@@ -2099,14 +2104,14 @@ const logoPosterWithAssets = {
 					<div class="footer-sponsors-row">
 						<p class="footer-sponsors-title">{sponsorsTitleLabel[locale]}</p>
 						<div class="footer-sponsors" aria-label={sponsorsAriaLabel[locale]}>
-							<a href="https://www.svh.cat/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Ajuntament de Sant Vicenç dels Horts">
-								<img src="/images/patrocinadores/Ajuntament-de-Sant-Vicenç-dels-Horts-transparent.png" alt="Ajuntament de Sant Vicenç dels Horts" class="sponsor-badge-image sponsor-badge-image-wide" />
+							<a href="https://www.svh.cat/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Ajuntament de Sant VicenÃ§ dels Horts">
+								<img src="/images/patrocinadores/Ajuntament-de-Sant-VicenÃ§-dels-Horts-transparent.png" alt="Ajuntament de Sant VicenÃ§ dels Horts" class="sponsor-badge-image sponsor-badge-image-wide" />
 							</a>
-							<a href="https://www.taekwondocatala.com/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Federació Catalana de Taekwondo">
-								<img src="/images/patrocinadores/Federación-Catalana-de-Taekwondo-transparent.png" alt="Federació Catalana de Taekwondo" class="sponsor-badge-image" />
+							<a href="https://www.taekwondocatala.com/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="FederaciÃ³ Catalana de Taekwondo">
+								<img src="/images/patrocinadores/FederaciÃ³n-Catalana-de-Taekwondo-transparent.png" alt="FederaciÃ³ Catalana de Taekwondo" class="sponsor-badge-image" />
 							</a>
-							<a href="https://fetaekwondo.net/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="Federación Española de Taekwondo">
-								<img src="/images/patrocinadores/Federación-Española-de-Taekwondo-transparent.png" alt="Federación Española de Taekwondo" class="sponsor-badge-image" />
+							<a href="https://fetaekwondo.net/" target="_blank" rel="noreferrer" class="sponsor-badge" aria-label="FederaciÃ³n EspaÃ±ola de Taekwondo">
+								<img src="/images/patrocinadores/FederaciÃ³n-EspaÃ±ola-de-Taekwondo-transparent.png" alt="FederaciÃ³n EspaÃ±ola de Taekwondo" class="sponsor-badge-image" />
 							</a>
 						</div>
 						<p class="footer-sponsors-note">{sponsorsNoteLabel[locale]}</p>
@@ -2164,7 +2169,7 @@ const logoPosterWithAssets = {
 							</div>
 						</div>
 						<div class="reviews-stars" aria-label={copy.footer.reviewsRatingLabel}>
-							<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+							<span>â˜…</span><span>â˜…</span><span>â˜…</span><span>â˜…</span><span>â˜…</span>
 						</div>
 						<a class="reviews-button" href={googleReviewsUrl} target="_blank" rel="noreferrer">
 							{copy.footer.reviewsButton}
@@ -2192,7 +2197,7 @@ const logoPosterWithAssets = {
 			</div>
 			<div class="footer-legal-bar">
 				<div class="container footer-legal-copy">
-					<p>© {currentYear} Francisco J. Pagador. {copy.footer.legal}</p>
+					<p>Â© {currentYear} Francisco J. Pagador. {copy.footer.legal}</p>
 				</div>
 			</div>
 		</section>
@@ -6338,8 +6343,6 @@ const logoPosterWithAssets = {
 		}
 	}
 </style>
-
-
 
 
 

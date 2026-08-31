@@ -40,7 +40,7 @@ export function buildSportsClubSchema({
 		email: 'clubtaekwondowarriors@gmail.com',
 		address: {
 			'@type': 'PostalAddress',
-			streetAddress: 'Calle Mossèn Jacint Verdaguer 274',
+			streetAddress: 'Carrer Mossèn Jacint Verdaguer 274',
 			addressLocality: 'Sant Vicenç dels Horts',
 			addressRegion: 'Barcelona',
 			addressCountry: 'ES'
