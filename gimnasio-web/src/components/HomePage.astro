@@ -149,6 +149,16 @@ const sponsorsNoteLabel: Record<Locale, string> = {
 	es: 'Nuestra entidad desarrolla su actividad en el marco de la Federación Catalana de Taekwondo y la Real Federación Española de Taekwondo, con sede de entrenamientos en Sant Vicenç dels Horts.',
 	en: 'Our organization carries out its activity within the framework of the Catalan Taekwondo Federation and the Royal Spanish Taekwondo Federation, with its training base in Sant Vicenç dels Horts.'
 };
+const collaboratorsTitleLabel: Record<Locale, string> = {
+	ca: 'COL.LABORADORS',
+	es: 'COLABORADORES',
+	en: 'COLLABORATORS'
+};
+const collaboratorsAriaLabel: Record<Locale, string> = {
+	ca: 'Col·laboradors',
+	es: 'Colaboradores',
+	en: 'Collaborators'
+};
 const defaultSponsors = [
 	{
 		name: 'Ajuntament de Sant Vicenç dels Horts',
@@ -870,6 +880,24 @@ const currentYear = new Date().getFullYear();
 							</div>
 						)}
 						<p class="footer-sponsors-note">{sponsorsNoteLabel[locale]}</p>
+					</div>
+					<div class="footer-sponsors-row footer-collaborators-row">
+						<p class="footer-sponsors-title">{collaboratorsTitleLabel[locale]}</p>
+						<div class="footer-sponsors" aria-label={collaboratorsAriaLabel[locale]}>
+							<a
+								href="https://www.instagram.com/merinorevestimientos/"
+								target="_blank"
+								rel="noreferrer"
+								class="sponsor-badge sponsor-badge-rect"
+								aria-label="Merino Revestimientos"
+							>
+								<img
+									src="/images/patrocinadores/Merino-Revestimientos-transparent.png"
+									alt="Merino Revestimientos"
+									class="sponsor-badge-image sponsor-badge-image-banner"
+								/>
+							</a>
+						</div>
 					</div>
 				</div>
 
@@ -4503,6 +4531,12 @@ const currentYear = new Date().getFullYear();
 		max-width: 28rem;
 	}
 
+	.footer-collaborators-row {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.45rem;
+	}
+
 	.sponsor-badge {
 		width: 3.9rem;
 		height: 3.9rem;
@@ -4521,6 +4555,21 @@ const currentYear = new Date().getFullYear();
 		background: #ffffff;
 	}
 
+	.sponsor-badge-rect {
+		width: 12rem;
+		height: auto;
+		display: block;
+		border-radius: 0;
+		padding: 0;
+		border: 0;
+		background: transparent;
+	}
+
+	.sponsor-badge-rect:hover {
+		border: 0;
+		background: transparent;
+	}
+
 	.sponsor-badge-image {
 		width: 3rem;
 		height: 3rem;
@@ -4530,6 +4579,12 @@ const currentYear = new Date().getFullYear();
 	.sponsor-badge-image-wide {
 		width: 2.95rem;
 		height: 2.95rem;
+	}
+
+	.sponsor-badge-image-banner {
+		width: 100%;
+		height: auto;
+		display: block;
 	}
 
 	@media (max-width: 760px) {
@@ -4557,6 +4612,13 @@ const currentYear = new Date().getFullYear();
 			height: 3.35rem;
 		}
 
+		.sponsor-badge-rect {
+			width: 10rem;
+			height: auto;
+			border-radius: 0;
+			padding: 0;
+		}
+
 		.sponsor-badge-image {
 			width: 2.1rem;
 			height: 2.1rem;
@@ -4565,6 +4627,10 @@ const currentYear = new Date().getFullYear();
 		.sponsor-badge-image-wide {
 			width: 2.55rem;
 			height: 2.55rem;
+		}
+
+		.sponsor-badge-image-banner {
+			height: auto;
 		}
 	}
 </style>
