@@ -1269,7 +1269,7 @@ const currentYear = new Date().getFullYear();
 				});
 			};
 
-			const initGalleryCarousel = (carousel: Element) => {
+			const initGalleryCarousel = (carousel) => {
 				if (!(carousel instanceof HTMLElement)) return;
 
 				const track = carousel.querySelector('[data-gallery-track]');
@@ -1342,7 +1342,7 @@ const currentYear = new Date().getFullYear();
 				const panels = Array.from(document.querySelectorAll('[data-gallery-panel]'));
 				if (buttons.length === 0 || panels.length === 0) return;
 
-				const selectAlbum = (albumId: string) => {
+				const selectAlbum = (albumId) => {
 					buttons.forEach((button) => {
 						if (!(button instanceof HTMLButtonElement)) return;
 						const isActive = button.dataset.galleryAlbumTarget === albumId;
