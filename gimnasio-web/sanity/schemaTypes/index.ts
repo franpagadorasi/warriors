@@ -7,6 +7,7 @@ import { localizedTextType } from './localizedText';
 import { localizedUrlType } from './localizedUrl';
 import { modalOptionType } from './modalOption';
 import { newsItemType } from './newsItem';
+import { pricingSettingsType } from './pricingSettings';
 import { reviewSettingsType } from './reviewSettings';
 import { scheduleBoardRowType } from './scheduleBoardRow';
 import { siteSettingsType } from './siteSettings';
@@ -27,5 +28,6 @@ export const schemaTypes = [
 	galleryItemType,
 	modalOptionType,
 	sponsorItemType,
+	pricingSettingsType,
 	reviewSettingsType
 ];

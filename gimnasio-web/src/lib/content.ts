@@ -58,12 +58,19 @@ export interface ReviewSettingsContent {
 	googleReviewsUrl?: string;
 }
 
+export interface PricingSettingsContent {
+	goldPrice?: number;
+	bluePrice?: number;
+	redPrice?: number;
+}
+
 export interface HomeContent {
 	scheduleBoard: ScheduleBoardRowContent[];
 	stats: StatItemContent[];
 	news: NewsItemContent[];
 	modalOptions: ModalOptionContent[];
 	sponsors: SponsorItemContent[];
+	pricingSettings: PricingSettingsContent | null;
 	reviewSettings: ReviewSettingsContent | null;
 }
 
@@ -77,6 +84,7 @@ const fallbackContent: HomeContent = {
 	news: [],
 	modalOptions: [],
 	sponsors: [],
+	pricingSettings: null,
 	reviewSettings: null
 };
 
@@ -135,6 +143,11 @@ const homeQuery = `
     ratingValue,
     reviewsCount,
     googleReviewsUrl
+  },
+  "pricingSettings": *[_type == "pricingSettings"] | order(_updatedAt desc)[0]{
+    goldPrice,
+    bluePrice,
+    redPrice
   }
 }
 `;
@@ -191,6 +204,7 @@ export async function getHomeContent(): Promise<HomeContent> {
 				content.sponsors && content.sponsors.length > 0
 					? content.sponsors
 					: fallbackContent.sponsors,
+			pricingSettings: content.pricingSettings ?? fallbackContent.pricingSettings,
 			reviewSettings: content.reviewSettings ?? fallbackContent.reviewSettings
 		};
 	} catch (error) {

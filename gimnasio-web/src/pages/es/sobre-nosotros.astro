@@ -1,5 +1,6 @@
 ---
 import AboutPage from '../../components/AboutPage.astro';
+import { getHomeContent } from '../../lib/content';
 ---
 
-<AboutPage locale="es" />
+<AboutPage locale="es" content={await getHomeContent()} />

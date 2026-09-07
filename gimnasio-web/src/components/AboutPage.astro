@@ -2,12 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import { getSiteCopy, type Locale } from '../lib/site-copy';
 import { aboutPaths, getAboutPageCopy } from '../lib/about-copy';
+import type { HomeContent } from '../lib/content';
 
 interface Props {
 	locale?: Locale;
+	content?: HomeContent;
 }
 
-const { locale = 'ca' } = Astro.props;
+const { locale = 'ca', content = null } = Astro.props;
 const copy = getSiteCopy(locale);
 const aboutCopy = getAboutPageCopy(locale);
 
@@ -63,6 +65,18 @@ const collaboratorsAriaLabel: Record<Locale, string> = {
 	es: 'Colaboradores',
 	en: 'Collaborators'
 };
+const partnerSponsorsTitleLabel: Record<Locale, string> = {
+	ca: 'PATROCINADORS',
+	es: 'PATROCINADORES',
+	en: 'SPONSORS'
+};
+const partnerSponsorsAriaLabel: Record<Locale, string> = {
+	ca: 'Patrocinadors',
+	es: 'Patrocinadores',
+	en: 'Sponsors'
+};
+const partnerSponsors = (content?.sponsors || []).filter((item) => item.category === 'sponsor');
+const collaborators = (content?.sponsors || []).filter((item) => item.category === 'partner');
 const mapTitlePrefix: Record<Locale, string> = {
 	ca: 'Mapa de',
 	es: 'Mapa de',
@@ -2110,6 +2124,18 @@ const logoPosterWithAssets = {
 						<p class="footer-sponsors-note" hidden>{cleanSponsorsNoteLabel[locale]}</p>
 						<p class="footer-sponsors-note">{cleanSponsorsNoteLabel[locale]}</p>
 					</div>
+					{partnerSponsors.length > 0 && (
+						<div class="footer-sponsors-row">
+							<p class="footer-sponsors-title">{partnerSponsorsTitleLabel[locale]}</p>
+							<div class="footer-sponsors" aria-label={partnerSponsorsAriaLabel[locale]}>
+								{partnerSponsors.map((item) => (
+									<a href={item.website || '#'} target="_blank" rel="noreferrer" class="sponsor-badge" aria-label={item.name}>
+										<img src={item.logoUrl || '/images/logo-warriors.png'} alt={item.name} class="sponsor-badge-image" />
+									</a>
+								))}
+							</div>
+						</div>
+					)}
 					<div class="footer-sponsors-row footer-collaborators-row">
 						<p class="footer-sponsors-title">{collaboratorsTitleLabel[locale]}</p>
 						<div class="footer-sponsors" aria-label={collaboratorsAriaLabel[locale]}>
@@ -2126,6 +2152,11 @@ const logoPosterWithAssets = {
 									class="sponsor-badge-image sponsor-badge-image-banner"
 								/>
 							</a>
+							{collaborators.map((item) => (
+								<a href={item.website || '#'} target="_blank" rel="noreferrer" class="sponsor-badge" aria-label={item.name}>
+									<img src={item.logoUrl || '/images/logo-warriors.png'} alt={item.name} class="sponsor-badge-image" />
+								</a>
+							))}
 						</div>
 					</div>
 				</div>
