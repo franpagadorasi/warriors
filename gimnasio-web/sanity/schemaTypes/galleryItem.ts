@@ -7,6 +7,14 @@ export const galleryItemType = defineType({
 	fields: [
 		defineField({ name: 'title', title: 'Titulo interno', type: 'string', validation: (rule) => rule.required() }),
 		defineField({
+			name: 'album',
+			title: 'Álbum',
+			description: 'Crea primero el álbum en “Álbumes de galería” y selecciónalo aquí.',
+			type: 'reference',
+			to: [{ type: 'galleryAlbum' }],
+			validation: (rule) => rule.required()
+		}),
+		defineField({
 			name: 'image',
 			title: 'Imagen',
 			type: 'image',
@@ -14,7 +22,8 @@ export const galleryItemType = defineType({
 			validation: (rule) => rule.required()
 		}),
 		defineField({ name: 'order', title: 'Orden', type: 'number' }),
-		defineField({ name: 'featured', title: 'Destacada grande', type: 'boolean', initialValue: false })
+		defineField({ name: 'featured', title: 'Destacada grande', type: 'boolean', initialValue: false }),
+		defineField({ name: 'isPortrait', title: 'Foto vertical', type: 'boolean', initialValue: false })
 	],
 	preview: {
 		select: {

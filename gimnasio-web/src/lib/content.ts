@@ -44,6 +44,25 @@ export interface ModalOptionContent {
 	order?: number;
 }
 
+export interface GalleryAlbumContent {
+	_id: string;
+	title?: LocalizedValue;
+	parentAlbum?: {
+		_id: string;
+		title?: LocalizedValue;
+	};
+	order?: number;
+}
+
+export interface GalleryItemContent {
+	title: string;
+	imageUrl?: string;
+	album?: GalleryAlbumContent;
+	order?: number;
+	featured?: boolean;
+	isPortrait?: boolean;
+}
+
 export interface SponsorItemContent {
 	name: string;
 	category?: 'sponsor' | 'partner';
@@ -68,6 +87,7 @@ export interface HomeContent {
 	scheduleBoard: ScheduleBoardRowContent[];
 	stats: StatItemContent[];
 	news: NewsItemContent[];
+	galleryItems: GalleryItemContent[];
 	modalOptions: ModalOptionContent[];
 	sponsors: SponsorItemContent[];
 	pricingSettings: PricingSettingsContent | null;
@@ -82,6 +102,7 @@ const fallbackContent: HomeContent = {
 	scheduleBoard: [],
 	stats: [],
 	news: [],
+	galleryItems: [],
 	modalOptions: [],
 	sponsors: [],
 	pricingSettings: null,
@@ -123,6 +144,19 @@ const homeQuery = `
     ctaLabel,
     order,
     "imageUrl": image.asset->url
+  },
+  "galleryItems": *[_type == "galleryItem"] | order(order asc){
+    title,
+    order,
+    featured,
+    isPortrait,
+    "imageUrl": image.asset->url,
+    "album": album->{
+      _id,
+      title,
+      order,
+      "parentAlbum": parentAlbum->{ _id, title }
+    }
   },
   "modalOptions": *[_type == "modalOption"] | order(order asc){
     tone,
@@ -196,6 +230,10 @@ export async function getHomeContent(): Promise<HomeContent> {
 					: fallbackContent.scheduleBoard,
 			stats: content.stats && content.stats.length > 0 ? content.stats : fallbackContent.stats,
 			news: content.news && content.news.length > 0 ? content.news : fallbackContent.news,
+			galleryItems:
+				content.galleryItems && content.galleryItems.length > 0
+					? content.galleryItems
+					: fallbackContent.galleryItems,
 			modalOptions:
 				content.modalOptions && content.modalOptions.length > 0
 					? content.modalOptions

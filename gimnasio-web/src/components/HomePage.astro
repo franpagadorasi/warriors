@@ -30,7 +30,99 @@ const formatNewsDate = (date: string) => {
 	return `${String(parsed.getUTCDate()).padStart(2, '0')} ${months[parsed.getUTCMonth()]} ${parsed.getUTCFullYear()}`;
 };
 
-const galleryItems = [...copy.gallery.items].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+type GalleryDisplayItem = {
+	title: string;
+	imageUrl: string;
+	featured?: boolean;
+	isPortrait?: boolean;
+};
+
+type GalleryDisplayAlbum = {
+	id: string;
+	title: string;
+	items: GalleryDisplayItem[];
+};
+
+const sortGalleryItems = (items: GalleryDisplayItem[]) =>
+	[...items].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+
+const galleryFolderTitles: Record<Locale, Record<'competitions' | 'exhibitions' | 'training', string>> = {
+	ca: {
+		competitions: 'Competicions',
+		exhibitions: 'Exhibicions',
+		training: 'Entrenaments i club'
+	},
+	es: {
+		competitions: 'Competiciones',
+		exhibitions: 'Exhibiciones',
+		training: 'Entrenamientos y club'
+	},
+	en: {
+		competitions: 'Competitions',
+		exhibitions: 'Exhibitions',
+		training: 'Training and club'
+	}
+};
+const galleryFolderLabel: Record<Locale, string> = {
+	ca: 'Albums de galeria',
+	es: 'Albumes de galeria',
+	en: 'Gallery albums'
+};
+const uncategorizedGalleryTitle: Record<Locale, string> = {
+	ca: 'Altres fotos',
+	es: 'Otras fotos',
+	en: 'Other photos'
+};
+const staticGalleryItems = copy.gallery.items.map((item) => ({
+	title: item.title,
+	imageUrl: item.imageUrl,
+	featured: item.featured,
+	isPortrait: item.isPortrait
+}));
+const legacyGalleryAlbums: GalleryDisplayAlbum[] = [
+	{
+		id: 'competitions',
+		title: galleryFolderTitles[locale].competitions,
+		items: sortGalleryItems(staticGalleryItems.filter((_, index) => [0, 2, 3, 4, 5, 7].includes(index)))
+	},
+	{
+		id: 'exhibitions',
+		title: galleryFolderTitles[locale].exhibitions,
+		items: sortGalleryItems(staticGalleryItems.filter((_, index) => [9, 11, 18, 19, 20, 23].includes(index)))
+	},
+	{
+		id: 'training',
+		title: galleryFolderTitles[locale].training,
+		items: sortGalleryItems(
+			staticGalleryItems.filter((_, index) => ![0, 2, 3, 4, 5, 7, 9, 11, 18, 19, 20, 23].includes(index))
+		)
+	}
+];
+const dynamicGalleryAlbumMap = new Map<string, GalleryDisplayAlbum>();
+
+for (const item of content?.galleryItems || []) {
+	const albumId = item.album?._id || 'uncategorized';
+	const albumTitle = getLocalizedFieldValue(item.album?.title, locale, uncategorizedGalleryTitle[locale]);
+	const parentTitle = getLocalizedFieldValue(item.album?.parentAlbum?.title, locale, '');
+	const album = dynamicGalleryAlbumMap.get(albumId) || {
+		id: `sanity-${albumId}`,
+		title: parentTitle ? `${parentTitle} / ${albumTitle}` : albumTitle,
+		items: []
+	};
+
+	album.items.push({
+		title: item.title,
+		imageUrl: item.imageUrl || '/images/optimized/dojo-interior.jpg',
+		featured: item.featured,
+		isPortrait: item.isPortrait
+	});
+	dynamicGalleryAlbumMap.set(albumId, album);
+}
+
+const galleryAlbums = [
+	...legacyGalleryAlbums,
+	...Array.from(dynamicGalleryAlbumMap.values()).map((album) => ({ ...album, items: sortGalleryItems(album.items) }))
+];
 const newsItems =
 	content && content.news.length > 0
 		? content.news.map((item) => ({
@@ -768,7 +860,23 @@ const currentYear = new Date().getFullYear();
 						</div>
 					</div>
 
-					<div class="gallery-carousel" data-gallery-carousel>
+					<div class="gallery-album-tabs" role="tablist" aria-label={galleryFolderLabel[locale]}>
+						{galleryAlbums.map((album, index) => (
+							<button
+								class:list={['gallery-album-tab', index === 0 && 'is-active']}
+								type="button"
+								role="tab"
+								data-gallery-album-button
+								data-gallery-album-target={album.id}
+								aria-selected={index === 0 ? 'true' : 'false'}
+							>
+								{album.title}
+							</button>
+						))}
+					</div>
+
+					{galleryAlbums.map((album, albumIndex) => (
+						<div class="gallery-carousel" data-gallery-carousel data-gallery-panel={album.id} hidden={albumIndex !== 0}>
 						<div class="gallery-stage">
 							<button class="gallery-nav gallery-nav-prev" type="button" data-gallery-prev aria-label={galleryPrevLabel[locale]}>
 								<span aria-hidden="true">‹</span>
@@ -776,7 +884,7 @@ const currentYear = new Date().getFullYear();
 
 							<div class="gallery-viewport">
 								<div class="gallery-track" data-gallery-track>
-									{galleryItems.map((item) => (
+									{album.items.map((item) => (
 										<div class="gallery-slide">
 											<div
 												class:list={['gallery-card', item.isPortrait && 'gallery-card-portrait']}
@@ -788,8 +896,8 @@ const currentYear = new Date().getFullYear();
 													stretch={false}
 													pictureStyle={item.isPortrait ? 'display:flex;width:100%;height:100%;align-items:center;justify-content:center;' : undefined}
 													imgStyle={item.isPortrait ? 'display:block;width:auto;height:auto;max-width:100%;max-height:100%;margin-inline:auto;object-fit:contain;object-position:center center;' : undefined}
-													src={item.imageUrl || '/images/optimized/dojo-interior.jpg'}
-													mobileSrc={mobileImageBySrc[item.imageUrl || '/images/optimized/dojo-interior.jpg']}
+													src={item.imageUrl}
+													mobileSrc={mobileImageBySrc[item.imageUrl]}
 													alt={item.title}
 													loading="lazy"
 													decoding="async"
@@ -807,7 +915,7 @@ const currentYear = new Date().getFullYear();
 
 						<div class="gallery-controls">
 							<div class="gallery-dots" data-gallery-dots>
-								{galleryItems.map((item, index) => (
+								{album.items.map((item, index) => (
 									<button
 										class={`gallery-dot ${index === 0 ? 'is-active' : ''}`}
 										type="button"
@@ -818,8 +926,9 @@ const currentYear = new Date().getFullYear();
 									></button>
 								))}
 							</div>
+							</div>
 						</div>
-					</div>
+					))}
 
 				</div>
 			</div>
@@ -1160,8 +1269,7 @@ const currentYear = new Date().getFullYear();
 				});
 			};
 
-			const initGalleryCarousel = () => {
-				const carousel = document.querySelector('[data-gallery-carousel]');
+			const initGalleryCarousel = (carousel: Element) => {
 				if (!(carousel instanceof HTMLElement)) return;
 
 				const track = carousel.querySelector('[data-gallery-track]');
@@ -1229,20 +1337,47 @@ const currentYear = new Date().getFullYear();
 				startAutoplay();
 			};
 
+			const initGalleryAlbums = () => {
+				const buttons = Array.from(document.querySelectorAll('[data-gallery-album-button]'));
+				const panels = Array.from(document.querySelectorAll('[data-gallery-panel]'));
+				if (buttons.length === 0 || panels.length === 0) return;
+
+				const selectAlbum = (albumId: string) => {
+					buttons.forEach((button) => {
+						if (!(button instanceof HTMLButtonElement)) return;
+						const isActive = button.dataset.galleryAlbumTarget === albumId;
+						button.classList.toggle('is-active', isActive);
+						button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+					});
+
+					panels.forEach((panel) => {
+						if (!(panel instanceof HTMLElement)) return;
+						panel.hidden = panel.dataset.galleryPanel !== albumId;
+					});
+				};
+
+				buttons.forEach((button) => {
+					if (!(button instanceof HTMLButtonElement)) return;
+					button.addEventListener('click', () => selectAlbum(button.dataset.galleryAlbumTarget || ''));
+				});
+			};
+
 			if (document.readyState === 'loading') {
 				document.addEventListener(
 					'DOMContentLoaded',
 					() => {
 						initMobileMenu();
 						initReservaModal();
-						initGalleryCarousel();
+						document.querySelectorAll('[data-gallery-carousel]').forEach(initGalleryCarousel);
+						initGalleryAlbums();
 					},
 					{ once: true }
 				);
 			} else {
 				initMobileMenu();
 				initReservaModal();
-				initGalleryCarousel();
+				document.querySelectorAll('[data-gallery-carousel]').forEach(initGalleryCarousel);
+				initGalleryAlbums();
 			}
 		})();
 	</script>
@@ -2995,6 +3130,37 @@ const currentYear = new Date().getFullYear();
 		gap: 0.9rem;
 		max-width: 90rem;
 		margin: 0 auto;
+	}
+
+	.gallery-album-tabs {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.6rem;
+		max-width: 72rem;
+		margin: 0 auto 1.25rem;
+	}
+
+	.gallery-album-tab {
+		border: 1px solid rgba(16, 36, 95, 0.22);
+		border-radius: 999px;
+		background: #ffffff;
+		color: #10245f;
+		padding: 0.62rem 1rem;
+		font: inherit;
+		font-size: 0.82rem;
+		font-weight: 900;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+	}
+
+	.gallery-album-tab:hover,
+	.gallery-album-tab.is-active {
+		background: #10245f;
+		color: #ffffff;
+		transform: translateY(-1px);
 	}
 
 	.gallery-stage {

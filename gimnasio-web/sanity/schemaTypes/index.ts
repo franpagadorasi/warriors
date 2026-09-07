@@ -1,6 +1,7 @@
 import { aboutPointType } from './aboutPoint';
 import { classOfferType } from './classOffer';
 import { featureItemType } from './featureItem';
+import { galleryAlbumType } from './galleryAlbum';
 import { galleryItemType } from './galleryItem';
 import { localizedStringType } from './localizedString';
 import { localizedTextType } from './localizedText';
@@ -25,6 +26,7 @@ export const schemaTypes = [
 	aboutPointType,
 	statItemType,
 	newsItemType,
+	galleryAlbumType,
 	galleryItemType,
 	modalOptionType,
 	sponsorItemType,
